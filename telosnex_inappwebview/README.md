@@ -1,3 +1,34 @@
+# telosnex_inappwebview
+
+A fork of [flutter_inappwebview](https://github.com/pichillilorenzo/flutter_inappwebview)
+by Lorenzo Pichilli, maintained by [Telosnex](https://telosnex.com). The
+API is upstream's; upstream's documentation below applies.
+
+What differs:
+
+- **Linux**: a WPE WebKit backend, with a pinned, prebuilt, relocatable
+  WPE WebKit SDK that the build downloads and bundles
+  (`telosnex_inappwebview_linux/wpe_sdk`). See
+  [WPE_BACKEND.md](telosnex_inappwebview_linux/WPE_BACKEND.md).
+- **Windows**: builds with Visual Studio 2026 (MSVC 14.5x);
+  `WebStorageManager.removeDataModifiedSince` on WebView2.
+- **macOS**: Swift Package Manager.
+- **CI**: the example's integration suite on Linux, macOS, Windows, iOS,
+  Android and Chrome; nightly.
+- **Renamed**, native identifiers included (Android package
+  `com.telosnex.telosnex_inappwebview_*`, method channels, Swift packages,
+  plugin classes), so an app can contain this and flutter_inappwebview
+  together. The JavaScript API of pages is unchanged:
+  `window.flutter_inappwebview.callHandler(...)`.
+
+From flutter_inappwebview: depend on `telosnex_inappwebview`, and import
+`package:telosnex_inappwebview/telosnex_inappwebview.dart`.
+
+Upstream changes come in through `tool/rename_upstream.py`, which applies
+the rename to them first. Apache 2.0, like upstream ([LICENSE](LICENSE)).
+
+---
+
 <div align="center">
 
 # Flutter InAppWebView Plugin [![Share on Twitter](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Flutter%20InAppBrowser%20plugin!&url=https://github.com/pichillilorenzo/flutter_inappwebview&hashtags=flutter,flutterio,dart,dartlang,webview) [![Share on Facebook](https://img.shields.io/badge/share-facebook-blue.svg?longCache=true&style=flat&colorB=%234267b2)](https://www.facebook.com/sharer/sharer.php?u=https%3A//github.com/pichillilorenzo/flutter_inappwebview)
