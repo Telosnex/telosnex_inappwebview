@@ -2665,11 +2665,18 @@ if(window.\(JavaScriptBridgeJS.get_JAVASCRIPT_BRIDGE_NAME())[\(_callHandlerID)] 
     public func getCertificate() -> SslCertificate? {
         guard let scheme = url?.scheme,
               scheme == "https",
-              let host = url?.host,
-              let sslCertificate = InAppWebView.sslCertificatesMap[host] else {
+              let host = url?.host else {
             return nil
         }
-        return sslCertificate
+        // The page's own certificate. The map below is filled from server
+        // trust challenges, asynchronously, and a reused connection has no
+        // challenge: it could still be empty after onLoadStop.
+        if let serverTrust = serverTrust,
+           SecTrustGetCertificateCount(serverTrust) > 0,
+           let certificate = SecTrustGetCertificateAtIndex(serverTrust, 0) {
+            return SslCertificate(x509Certificate: certificate.data)
+        }
+        return InAppWebView.sslCertificatesMap[host]
     }
     
     public func isSecureContext(completionHandler: @escaping (_ isSecureContext: Bool) -> Void) {

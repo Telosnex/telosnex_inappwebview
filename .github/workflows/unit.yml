@@ -53,6 +53,9 @@ jobs:
       - name: Example widget tests
         working-directory: telosnex_inappwebview/example
         run: flutter test --no-pub
+      - name: Platform interface unit tests
+        working-directory: telosnex_inappwebview_platform_interface
+        run: flutter test --no-pub
       - name: Linux plugin unit tests
         working-directory: telosnex_inappwebview_linux
         run: flutter test --no-pub
