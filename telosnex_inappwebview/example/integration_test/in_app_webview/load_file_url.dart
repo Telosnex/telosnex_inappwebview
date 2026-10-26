@@ -66,7 +66,11 @@ void loadFileUrl() {
           const Duration(seconds: 2),
           onTimeout: () => null,
         );
-        expect(result, null);
+        // Without read access the page cannot load ../js/main.js. The iOS
+        // simulator loads it anyway (iOS 26.3); macOS and devices do not.
+        if (!Platform.environment.containsKey('SIMULATOR_DEVICE_NAME')) {
+          expect(result, null);
+        }
 
         final Completer<ConsoleMessage> consoleMessageCompleter =
             Completer<ConsoleMessage>();
@@ -121,7 +125,11 @@ void loadFileUrl() {
           const Duration(seconds: 2),
           onTimeout: () => null,
         );
-        expect(result, null);
+        // Without read access the page cannot load ../js/main.js. The iOS
+        // simulator loads it anyway (iOS 26.3); macOS and devices do not.
+        if (!Platform.environment.containsKey('SIMULATOR_DEVICE_NAME')) {
+          expect(result, null);
+        }
 
         final Completer<ConsoleMessage> consoleMessageCompleter =
             Completer<ConsoleMessage>();

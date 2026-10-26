@@ -28,7 +28,12 @@ void videoPlaybackPolicy() {
               return video.paused;
             }
             function exitFullscreen() {
-              if (document.exitFullscreen) {
+              // iPhone plays video fullscreen natively, which only the
+              // video element ends.
+              var video = document.getElementById('video');
+              if (video && video.webkitDisplayingFullscreen && video.webkitExitFullscreen) {
+                video.webkitExitFullscreen();
+              } else if (document.exitFullscreen) {
                 document.exitFullscreen();
               } else if (document.webkitExitFullscreen) {
                 document.webkitExitFullscreen();
