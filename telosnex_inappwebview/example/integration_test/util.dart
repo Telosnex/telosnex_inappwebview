@@ -47,7 +47,16 @@ void skippableTest(
   if (!skip) {
     test(
       description.toString(),
-      body,
+      () async {
+        final platform = testPlatformOverride;
+        if (platform == null) return await body();
+        debugDefaultTargetPlatformOverride = platform;
+        try {
+          await body();
+        } finally {
+          debugDefaultTargetPlatformOverride = null;
+        }
+      },
       testOn: testOn,
       timeout: timeout,
       skip: skip,

@@ -2,7 +2,10 @@ part of 'main.dart';
 
 void supported() {
   skippableGroup('supported', () {
-    skippableTestWidgets('basic', (WidgetTester tester) async {
+    // A plain test: a widget test before the browser tests left the root
+    // view's focus scope on a disposed FocusManager (flutter_test's postTest),
+    // and the focus coming back when a browser window closed used it (Windows).
+    skippableTest('basic', () async {
       expect(InAppBrowser.isClassSupported(), true);
       expect(
         InAppBrowser.isPropertySupported(PlatformInAppBrowserProperty.windowId),
