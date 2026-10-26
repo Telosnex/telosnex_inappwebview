@@ -387,7 +387,12 @@ class _PlatformComparisonScreenState extends State<PlatformComparisonScreen> {
                     children: [
                       Icon(p.icon, size: 18, color: p.color),
                       const SizedBox(width: 8),
-                      Text(p.displayName),
+                      Flexible(
+                        child: Text(
+                          p.displayName,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
                     ],
                   ),
                 );
@@ -601,11 +606,14 @@ class _PlatformComparisonScreenState extends State<PlatformComparisonScreen> {
               children: [
                 const Icon(Icons.class_, size: 18, color: Colors.blue),
                 const SizedBox(width: 8),
-                Text(
-                  className,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                Expanded(
+                  child: Text(
+                    className,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
-                const Spacer(),
+                const SizedBox(width: 8),
                 Text(
                   '${classItems.length} APIs',
                   style: TextStyle(fontSize: 12, color: Colors.grey.shade600),

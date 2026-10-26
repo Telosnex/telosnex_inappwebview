@@ -19,7 +19,7 @@ void main() {
         ),
       );
 
-      expect(find.textContaining('Method Tester'), findsOneWidget);
+      expect(find.textContaining('methods...'), findsOneWidget);
       expect(find.byType(TextField), findsOneWidget);
       expect(
         find.textContaining('WebView controller not available'),

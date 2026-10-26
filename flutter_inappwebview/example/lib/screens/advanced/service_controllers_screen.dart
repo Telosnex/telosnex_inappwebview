@@ -824,21 +824,19 @@ class _ServiceControllersScreenState extends State<ServiceControllersScreen> {
 
     return Card(
       child: ExpansionTile(
-        title: Row(
+        // Wrap: on a narrow screen the badges go below the name.
+        title: Wrap(
+          spacing: 8,
+          runSpacing: 4,
+          crossAxisAlignment: WrapCrossAlignment.center,
           children: [
             Text(
               '$ServiceWorkerController',
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: SupportBadgesRow(
-                  supportedPlatforms: supportedPlatforms,
-                  compact: true,
-                ),
-              ),
+            SupportBadgesRow(
+              supportedPlatforms: supportedPlatforms,
+              compact: true,
             ),
           ],
         ),
@@ -1035,21 +1033,19 @@ class _ServiceControllersScreenState extends State<ServiceControllersScreen> {
 
     return Card(
       child: ExpansionTile(
-        title: Row(
+        // Wrap: on a narrow screen the badges go below the name.
+        title: Wrap(
+          spacing: 8,
+          runSpacing: 4,
+          crossAxisAlignment: WrapCrossAlignment.center,
           children: [
             Text(
               '$ProxyController',
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: SupportBadgesRow(
-                  supportedPlatforms: supportedPlatforms,
-                  compact: true,
-                ),
-              ),
+            SupportBadgesRow(
+              supportedPlatforms: supportedPlatforms,
+              compact: true,
             ),
           ],
         ),
@@ -1157,21 +1153,19 @@ class _ServiceControllersScreenState extends State<ServiceControllersScreen> {
 
     return Card(
       child: ExpansionTile(
-        title: Row(
+        // Wrap: on a narrow screen the badges go below the name.
+        title: Wrap(
+          spacing: 8,
+          runSpacing: 4,
+          crossAxisAlignment: WrapCrossAlignment.center,
           children: [
             Text(
               '$TracingController',
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: SupportBadgesRow(
-                  supportedPlatforms: supportedPlatforms,
-                  compact: true,
-                ),
-              ),
+            SupportBadgesRow(
+              supportedPlatforms: supportedPlatforms,
+              compact: true,
             ),
           ],
         ),
@@ -1270,21 +1264,19 @@ class _ServiceControllersScreenState extends State<ServiceControllersScreen> {
 
     return Card(
       child: ExpansionTile(
-        title: Row(
+        // Wrap: on a narrow screen the badges go below the name.
+        title: Wrap(
+          spacing: 8,
+          runSpacing: 4,
+          crossAxisAlignment: WrapCrossAlignment.center,
           children: [
             Text(
               '$WebViewEnvironment',
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: SupportBadgesRow(
-                  supportedPlatforms: supportedPlatforms,
-                  compact: true,
-                ),
-              ),
+            SupportBadgesRow(
+              supportedPlatforms: supportedPlatforms,
+              compact: true,
             ),
           ],
         ),
@@ -1514,21 +1506,19 @@ class _ServiceControllersScreenState extends State<ServiceControllersScreen> {
 
     return Card(
       child: ExpansionTile(
-        title: Row(
+        // Wrap: on a narrow screen the badges go below the name.
+        title: Wrap(
+          spacing: 8,
+          runSpacing: 4,
+          crossAxisAlignment: WrapCrossAlignment.center,
           children: [
             Text(
               '$ProcessGlobalConfig',
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: SupportBadgesRow(
-                  supportedPlatforms: supportedPlatforms,
-                  compact: true,
-                ),
-              ),
+            SupportBadgesRow(
+              supportedPlatforms: supportedPlatforms,
+              compact: true,
             ),
           ],
         ),

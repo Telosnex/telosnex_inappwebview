@@ -48,6 +48,10 @@ void main() {
           .map((detail) => detail.exceptionAsString())
           .join('\n');
       errors.clear();
+      // Put the handler back before failing: the test binding asserts that
+      // a test restores FlutterError.onError, and a failure thrown with it
+      // still replaced hung the whole run.
+      FlutterError.onError = previousOnError;
       fail('Unexpected Flutter errors detected in $label:\n$messages');
     }
 
