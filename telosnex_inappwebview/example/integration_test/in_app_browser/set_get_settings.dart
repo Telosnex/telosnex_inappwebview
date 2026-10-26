@@ -1,7 +1,11 @@
 part of 'main.dart';
 
 void setGetSettings() {
-  final shouldSkip = !InAppBrowser.isClassSupported();
+  final shouldSkip =
+      !InAppBrowser.isClassSupported() ||
+      !InAppBrowserSettings.isPropertySupported(
+        InAppBrowserSettingsProperty.hideToolbarTop,
+      );
 
   skippableTest('set/get settings', () async {
     var inAppBrowser = new MyInAppBrowser();
