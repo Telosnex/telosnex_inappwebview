@@ -1546,7 +1546,7 @@ class LinuxInAppWebViewController extends PlatformInAppWebViewController
   }) async {
     Map<String, dynamic> args = <String, dynamic>{};
     args.putIfAbsent('zoomFactor', () => zoomFactor);
-    await channel?.invokeMethod('setZoomScale', args);
+    await channel?.invokeMethod('zoomBy', args);
   }
 
   @override

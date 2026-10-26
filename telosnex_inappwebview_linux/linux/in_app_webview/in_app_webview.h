@@ -199,9 +199,11 @@ class InAppWebView {
       const std::vector<std::string>& argumentKeys,
       const std::optional<std::string>& worldName,
       std::function<void(const std::string&)> callback);
-  void injectJavascriptFileFromUrl(const std::string& urlFile);
+  // attributesJs: statements that set attributes on `script` (or `link`).
+  void injectJavascriptFileFromUrl(const std::string& urlFile, const std::string& attributesJs = "");
   void injectCSSCode(const std::string& source);
-  void injectCSSFileFromUrl(const std::string& urlFile);
+  void injectCSSFileFromUrl(const std::string& urlFile, const std::string& attributesJs = "",
+                            bool alternate = false);
 
   // User scripts
   void addUserScript(std::shared_ptr<UserScript> userScript);

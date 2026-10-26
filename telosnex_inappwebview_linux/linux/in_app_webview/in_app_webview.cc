@@ -2343,10 +2343,12 @@ void InAppWebView::callAsyncJavaScript(
       cb_data);
 }
 
-void InAppWebView::injectJavascriptFileFromUrl(const std::string& urlFile) {
+void InAppWebView::injectJavascriptFileFromUrl(const std::string& urlFile,
+                                               const std::string& attributesJs) {
   std::string script =
       "(function() {"
-      "  var script = document.createElement('script');"
+      "  var script = document.createElement('script');" +
+      attributesJs +
       "  script.src = " +
       JsStringLiteral(urlFile) +
       ";"
@@ -2367,11 +2369,14 @@ void InAppWebView::injectCSSCode(const std::string& source) {
   evaluateJavascript(script, std::nullopt, nullptr);
 }
 
-void InAppWebView::injectCSSFileFromUrl(const std::string& urlFile) {
+void InAppWebView::injectCSSFileFromUrl(const std::string& urlFile,
+                                        const std::string& attributesJs, bool alternate) {
   std::string script =
       "(function() {"
       "  var link = document.createElement('link');"
-      "  link.rel = 'stylesheet';"
+      "  link.rel = '" + std::string(alternate ? "alternate stylesheet" : "stylesheet") + "';"
+      "  link.type = 'text/css';" +
+      attributesJs +
       "  link.href = " +
       JsStringLiteral(urlFile) +
       ";"
@@ -2881,7 +2886,14 @@ double InAppWebView::getZoomScale() const {
 void InAppWebView::setZoomScale(double zoomScale) {
   if (webview_ == nullptr)
     return;
+  double oldScale = webkit_web_view_get_zoom_level(webview_);
   webkit_web_view_set_zoom_level(webview_, zoomScale);
+  double newScale = webkit_web_view_get_zoom_level(webview_);
+  // WPE has no pinch zoom, so the app's zoom is the only change: report it,
+  // as the other platforms do.
+  if (newScale != oldScale && channel_delegate_) {
+    channel_delegate_->onZoomScaleChanged(newScale, oldScale);
+  }
 }
 
 // === Scroll ===

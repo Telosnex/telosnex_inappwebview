@@ -15,10 +15,40 @@
 #include "../types/web_resource_response.h"
 #include "../utils/flutter.h"
 #include "../utils/log.h"
+#include "../utils/origin.h"
+#include "../plugin_scripts_js/javascript_bridge_js.h"
 #include "in_app_webview.h"
 #include "in_app_webview_settings.h"
 
 namespace telosnex_inappwebview_plugin {
+
+namespace {
+
+// JavaScript that sets the given attributes of a tag attributes map
+// (ScriptHtmlTagAttributes, CSSLinkHtmlTagAttributes) on the element `var`.
+std::string TagAttributesJs(FlValue* attrs, const std::string& var,
+                            const std::vector<std::string>& stringKeys,
+                            const std::vector<std::string>& trueKeys) {
+  std::string js;
+  if (attrs == nullptr || fl_value_get_type(attrs) != FL_VALUE_TYPE_MAP) {
+    return js;
+  }
+  for (const auto& key : stringKeys) {
+    FlValue* v = fl_value_lookup_string(attrs, key.c_str());
+    if (v != nullptr && fl_value_get_type(v) == FL_VALUE_TYPE_STRING) {
+      js += var + "." + key + " = " + JsStringLiteral(fl_value_get_string(v)) + ";";
+    }
+  }
+  for (const auto& key : trueKeys) {
+    FlValue* v = fl_value_lookup_string(attrs, key.c_str());
+    if (v != nullptr && fl_value_get_type(v) == FL_VALUE_TYPE_BOOL && fl_value_get_bool(v)) {
+      js += var + "." + key + " = true;";
+    }
+  }
+  return js;
+}
+
+}  // namespace
 
 namespace {
 // Helper to compare method names
@@ -535,7 +565,24 @@ void WebViewChannelDelegate::HandleMethodCall(FlMethodCall* method_call) {
   if (string_equals(methodName, "injectJavascriptFileFromUrl")) {
     std::string urlFile = get_fl_map_value<std::string>(args, "urlFile", "");
     if (!urlFile.empty()) {
-      webView->injectJavascriptFileFromUrl(urlFile);
+      FlValue* attrs = fl_value_lookup_string(args, "scriptHtmlTagAttributes");
+      std::string js = TagAttributesJs(attrs, "script",
+                                       {"type", "id", "crossOrigin", "integrity", "nonce",
+                                        "referrerPolicy"},
+                                       {"async", "defer", "noModule"});
+      // As on iOS: with an id, the page reports when the script loaded.
+      if (attrs != nullptr && fl_value_get_type(attrs) == FL_VALUE_TYPE_MAP) {
+        FlValue* id = fl_value_lookup_string(attrs, "id");
+        if (id != nullptr && fl_value_get_type(id) == FL_VALUE_TYPE_STRING) {
+          std::string bridge = "window." + JavaScriptBridgeJS::get_JAVASCRIPT_BRIDGE_NAME();
+          std::string idJs = JsStringLiteral(fl_value_get_string(id));
+          js += "script.onload = function() { if (" + bridge + " != null) " + bridge +
+                ".callHandler('onInjectedScriptLoaded', " + idJs + "); };"
+                "script.onerror = function() { if (" + bridge + " != null) " + bridge +
+                ".callHandler('onInjectedScriptError', " + idJs + "); };";
+        }
+      }
+      webView->injectJavascriptFileFromUrl(urlFile, js);
     }
     g_autoptr(FlValue) result = fl_value_new_bool(true);
     fl_method_call_respond_success(method_call, result, nullptr);
@@ -555,7 +602,18 @@ void WebViewChannelDelegate::HandleMethodCall(FlMethodCall* method_call) {
   if (string_equals(methodName, "injectCSSFileFromUrl")) {
     std::string urlFile = get_fl_map_value<std::string>(args, "urlFile", "");
     if (!urlFile.empty()) {
-      webView->injectCSSFileFromUrl(urlFile);
+      FlValue* attrs = fl_value_lookup_string(args, "cssLinkHtmlTagAttributes");
+      std::string js = TagAttributesJs(attrs, "link",
+                                       {"id", "media", "crossOrigin", "integrity",
+                                        "referrerPolicy", "title"},
+                                       {"disabled"});
+      bool alternate = false;
+      if (attrs != nullptr && fl_value_get_type(attrs) == FL_VALUE_TYPE_MAP) {
+        FlValue* alt = fl_value_lookup_string(attrs, "alternate");
+        alternate = alt != nullptr && fl_value_get_type(alt) == FL_VALUE_TYPE_BOOL &&
+                    fl_value_get_bool(alt);
+      }
+      webView->injectCSSFileFromUrl(urlFile, js, alternate);
     }
     g_autoptr(FlValue) result = fl_value_new_bool(true);
     fl_method_call_respond_success(method_call, result, nullptr);
@@ -723,6 +781,17 @@ void WebViewChannelDelegate::HandleMethodCall(FlMethodCall* method_call) {
 
   if (string_equals(methodName, "getZoomScale")) {
     g_autoptr(FlValue) result = fl_value_new_float(webView->getZoomScale());
+    fl_method_call_respond_success(method_call, result, nullptr);
+    return;
+  }
+
+  // Relative to the current zoom, as on Android and iOS.
+  if (string_equals(methodName, "zoomBy")) {
+    double zoomFactor = get_fl_map_value<double>(args, "zoomFactor", 1.0);
+    if (zoomFactor > 0) {
+      webView->setZoomScale(webView->getZoomScale() * zoomFactor);
+    }
+    g_autoptr(FlValue) result = fl_value_new_bool(true);
     fl_method_call_respond_success(method_call, result, nullptr);
     return;
   }
