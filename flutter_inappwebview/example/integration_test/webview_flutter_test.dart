@@ -36,17 +36,33 @@ void main() {
   PlatformFindInteractionController.debugLoggingSettings.maxLogMessageLength =
       7000;
 
-  process_global_config_tests.main();
-  in_app_webview_tests.main();
-  find_interaction_controller_tests.main();
-  service_worker_controller_tests.main();
-  proxy_controller_tests.main();
-  tracing_controller_tests.main();
-  headless_in_app_webview_tests.main();
-  cookie_manager_tests.main();
-  web_storage_manager_tests.main();
-  in_app_browser_tests.main();
-  chrome_safari_browser_tests.main();
-  in_app_localhost_server_tests.main();
-  support_methods_tests.main();
+  // IAW_GROUP (a --dart-define) runs one group, so each group gets its own
+  // app launch and a crash or hang stops only that group. Unset: all.
+  const only = String.fromEnvironment('IAW_GROUP');
+  final groups = <String, void Function()>{
+    'process_global_config': process_global_config_tests.main,
+    'in_app_webview': in_app_webview_tests.main,
+    'find_interaction_controller': find_interaction_controller_tests.main,
+    'service_worker_controller': service_worker_controller_tests.main,
+    'proxy_controller': proxy_controller_tests.main,
+    'tracing_controller': tracing_controller_tests.main,
+    'headless_in_app_webview': headless_in_app_webview_tests.main,
+    'cookie_manager': cookie_manager_tests.main,
+    'web_storage_manager': web_storage_manager_tests.main,
+    'in_app_browser': in_app_browser_tests.main,
+    'chrome_safari_browser': chrome_safari_browser_tests.main,
+    'in_app_localhost_server': in_app_localhost_server_tests.main,
+    'support_methods': support_methods_tests.main,
+  };
+  if (only.isEmpty) {
+    for (final group in groups.values) {
+      group();
+    }
+  } else {
+    final group = groups[only];
+    if (group == null) {
+      throw ArgumentError('IAW_GROUP=$only; groups: ${groups.keys.join(', ')}');
+    }
+    group();
+  }
 }
