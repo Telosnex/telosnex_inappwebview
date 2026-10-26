@@ -1697,13 +1697,6 @@ In that case, after the `window.addEventListener("flutterInAppWebViewPlatformRea
         apiUrl:
             'https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/icorewebview2?view=webview2-1.0.2478.35#add_webresourcerequested',
       ),
-      LinuxPlatform(
-        apiName: 'webkit_web_context_register_uri_scheme',
-        apiUrl:
-            'https://wpewebkit.org/reference/stable/wpe-webkit-2.0/method.WebContext.register_uri_scheme.html',
-        note:
-            'Request interception is implemented via custom URI scheme handlers.',
-      ),
     ],
   )
   final FutureOr<WebResourceResponse?> Function(

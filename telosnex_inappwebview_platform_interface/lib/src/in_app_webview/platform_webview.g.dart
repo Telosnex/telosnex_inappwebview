@@ -1674,8 +1674,6 @@ enum PlatformWebViewCreationParamsProperty {
   ///**Officially Supported Platforms/Implementations**:
   ///- Android WebView ([Official API - WebViewClient.shouldInterceptRequest](https://developer.android.com/reference/android/webkit/WebViewClient#shouldInterceptRequest(android.webkit.WebView,%20android.webkit.WebResourceRequest)))
   ///- Windows WebView2 ([Official API - ICoreWebView2.add_WebResourceRequested](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/icorewebview2?view=webview2-1.0.2478.35#add_webresourcerequested))
-  ///- Linux WPE WebKit ([Official API - webkit_web_context_register_uri_scheme](https://wpewebkit.org/reference/stable/wpe-webkit-2.0/method.WebContext.register_uri_scheme.html)):
-  ///    - Request interception is implemented via custom URI scheme handlers.
   ///
   ///**Parameters - Officially Supported Platforms/Implementations**:
   ///- [request]: all platforms
@@ -2451,7 +2449,6 @@ extension _PlatformWebViewCreationParamsPropertySupported
             [
               TargetPlatform.android,
               TargetPlatform.windows,
-              TargetPlatform.linux,
             ].contains(platform ?? defaultTargetPlatform);
       case PlatformWebViewCreationParamsProperty.shouldOverrideUrlLoading:
         return ((kIsWeb && platform != null) || !kIsWeb) &&
