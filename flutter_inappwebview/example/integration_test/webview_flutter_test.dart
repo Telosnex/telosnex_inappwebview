@@ -1,6 +1,3 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:integration_test/integration_test.dart';
 
@@ -21,7 +18,6 @@ import 'support_methods/main.dart' as support_methods_tests;
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  _keepFramesWhenOccluded();
 
   PlatformInAppWebViewController.debugLoggingSettings.usePrint = true;
   PlatformInAppWebViewController.debugLoggingSettings.maxLogMessageLength =
@@ -53,25 +49,4 @@ void main() {
   chrome_safari_browser_tests.main();
   in_app_localhost_server_tests.main();
   support_methods_tests.main();
-}
-
-/// macOS reports a covered window (another app full screen, or windows on
-/// top) as hidden; Flutter then stops frames, and every `tester.pump` waits
-/// forever. The tests do not test the app lifecycle, so on macOS report
-/// covered as resumed. CI runners have nothing on top; this is for local runs.
-void _keepFramesWhenOccluded() {
-  if (kIsWeb || defaultTargetPlatform != TargetPlatform.macOS) return;
-  SystemChannels.lifecycle.setMessageHandler((message) async {
-    if (message == AppLifecycleState.hidden.toString() ||
-        message == AppLifecycleState.inactive.toString()) {
-      message = AppLifecycleState.resumed.toString();
-    }
-    WidgetsBinding.instance.handleAppLifecycleStateChanged(
-      AppLifecycleState.values.firstWhere(
-        (s) => s.toString() == message,
-        orElse: () => AppLifecycleState.resumed,
-      ),
-    );
-    return null;
-  });
 }
