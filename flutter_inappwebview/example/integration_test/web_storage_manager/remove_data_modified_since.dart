@@ -84,28 +84,31 @@ void removeDataModifiedSince() {
   });
 
   // Windows and Linux (WPE: the date becomes a span back from now).
-  skippableTestWidgets('date: keeps data older than it, removes newer', (
-    WidgetTester tester,
-  ) async {
-    expect(await _runInPage(tester, _seedJs), isTrue);
+  skippableTestWidgets(
+    'date: keeps data older than it, removes newer',
+    (WidgetTester tester) async {
+      expect(await _runInPage(tester, _seedJs), isTrue);
 
-    // Data written before the date is kept.
-    await WebStorageManager.instance().removeDataModifiedSince(
-      dataTypes: {WebsiteDataType.WKWebsiteDataTypeLocalStorage},
-      date: DateTime.now().add(const Duration(hours: 1)),
-    );
-    expect((await _runInPage(tester, _readJs))['local'], 'wsm_value');
+      // Data written before the date is kept.
+      await WebStorageManager.instance().removeDataModifiedSince(
+        dataTypes: {WebsiteDataType.WKWebsiteDataTypeLocalStorage},
+        date: DateTime.now().add(const Duration(hours: 1)),
+      );
+      expect((await _runInPage(tester, _readJs))['local'], 'wsm_value');
 
-    // Data written after the date is removed. A date sent in the wrong unit
-    // (ms read as s) lands in the far future and removes nothing.
-    await WebStorageManager.instance().removeDataModifiedSince(
-      dataTypes: {WebsiteDataType.WKWebsiteDataTypeLocalStorage},
-      date: DateTime.now().subtract(const Duration(hours: 1)),
-    );
-    final after = await _runInPage(tester, _readJs);
-    expect(after['local'], isNull);
-    // Only local storage was requested.
-    expect(after['indexedDb'], isTrue);
-  }, skip: defaultTargetPlatform != TargetPlatform.windows &&
-      defaultTargetPlatform != TargetPlatform.linux);
+      // Data written after the date is removed. A date sent in the wrong unit
+      // (ms read as s) lands in the far future and removes nothing.
+      await WebStorageManager.instance().removeDataModifiedSince(
+        dataTypes: {WebsiteDataType.WKWebsiteDataTypeLocalStorage},
+        date: DateTime.now().subtract(const Duration(hours: 1)),
+      );
+      final after = await _runInPage(tester, _readJs);
+      expect(after['local'], isNull);
+      // Only local storage was requested.
+      expect(after['indexedDb'], isTrue);
+    },
+    skip:
+        defaultTargetPlatform != TargetPlatform.windows &&
+        defaultTargetPlatform != TargetPlatform.linux,
+  );
 }

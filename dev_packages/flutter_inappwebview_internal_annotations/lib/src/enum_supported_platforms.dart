@@ -131,23 +131,21 @@ class EnumWebPlatform implements EnumPlatform, WebPlatform {
   final dynamic value;
   final bool requiresSameOrigin;
 
-  const EnumWebPlatform(
-      {this.available,
-      this.apiName,
-      this.apiUrl,
-      this.note,
-      this.value,
-      this.name = kPlatformNameWeb,
-      this.targetPlatformName = kTargetPlatformNameWeb,
-      this.requiresSameOrigin = true});
+  const EnumWebPlatform({
+    this.available,
+    this.apiName,
+    this.apiUrl,
+    this.note,
+    this.value,
+    this.name = kPlatformNameWeb,
+    this.targetPlatformName = kTargetPlatformNameWeb,
+    this.requiresSameOrigin = true,
+  });
 }
 
 class EnumSupportedPlatforms {
   final List<EnumPlatform> platforms;
   final dynamic defaultValue;
 
-  const EnumSupportedPlatforms({
-    required this.platforms,
-    this.defaultValue,
-  });
+  const EnumSupportedPlatforms({required this.platforms, this.defaultValue});
 }
