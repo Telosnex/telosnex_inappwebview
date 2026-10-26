@@ -54,7 +54,10 @@ fi
 
 cd "$root/telosnex_inappwebview/example"
 wrap=()
-if [[ "$(uname)" == Linux ]]; then wrap=(dbus-run-session -- xvfb-run -a); fi
+# Linux without a display (CI): a virtual X server and session bus.
+if [[ "$(uname)" == Linux && -z "${WAYLAND_DISPLAY:-}${DISPLAY:-}" ]]; then
+  wrap=(dbus-run-session -- xvfb-run -a)
+fi
 
 failed=()
 summary="| Unit | Result | Seconds |"$'\n'"|---|---|---|"$'\n'
