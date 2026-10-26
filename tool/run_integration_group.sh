@@ -105,7 +105,13 @@ for unit in "${units[@]}"; do
   seconds=$(( $(date +%s) - start ))
   # Only this checkout's app (its build folder): runs for other devices on
   # the same machine have their own.
-  pkill -f "$PWD/build/.*telosnex_inappwebview_example" 2>/dev/null
+  if [[ "$(uname)" == MINGW* || "$(uname)" == MSYS* ]]; then
+    # Windows: the app is example.exe. One left running locks its DLLs, and
+    # the next unit's build fails.
+    taskkill //f //im example.exe > /dev/null 2>&1
+  else
+    pkill -f "$PWD/build/.*telosnex_inappwebview_example" 2>/dev/null
+  fi
   result=$(grep -oE '\+[0-9]+( ~[0-9]+)?( -[0-9]+)?: (All tests passed|Some tests failed)' "$log" | tail -1)
   if [[ "${IAW_DRIVER:-}" == web && -z "$result" ]]; then
     # integrationDriver: "All tests passed." or "Failure in method: <test>".
