@@ -79,6 +79,14 @@ for unit in "${units[@]}"; do
   seconds=$(( $(date +%s) - start ))
   pkill -f telosnex_inappwebview_example 2>/dev/null
   result=$(grep -oE '\+[0-9]+( ~[0-9]+)?( -[0-9]+)?: (All tests passed|Some tests failed)' "$log" | tail -1)
+  if [[ "${IAW_DRIVER:-}" == web && -z "$result" ]]; then
+    # integrationDriver: "All tests passed." or "Failure in method: <test>".
+    if grep -q 'All tests passed' "$log"; then
+      result="all tests passed"
+    elif grep -q 'Failure in method:' "$log"; then
+      result="failed: $(grep -c 'Failure in method:' "$log")"
+    fi
+  fi
   if [[ $code == 142 ]]; then
     result="timed out after ${limit}s at $(grep -oE '^[0-9:]+ \+[0-9]+( ~[0-9]+)?( -[0-9]+)?' "$log" | tail -1)"
   elif [[ $code == 79 ]]; then
@@ -87,6 +95,7 @@ for unit in "${units[@]}"; do
   [[ $code != 0 ]] && failed+=("$unit")
   echo "::group::$unit: exit $code, ${seconds}s, ${result:-no summary}"
   grep -E '\[E\]$' "$log" | sed -E 's/^[0-9:]+ \+[0-9]+ ~?[0-9]* ?-[0-9]+: //' | head -40
+  grep -E '^Failure in method:' "$log" | head -40
   [[ -z "$result" ]] && tail -40 "$log"
   echo "::endgroup::"
   summary+="| $unit | ${result:-exit $code, no summary} | $seconds |"$'\n'
