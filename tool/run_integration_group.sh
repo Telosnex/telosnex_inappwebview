@@ -103,7 +103,9 @@ for unit in "${units[@]}"; do
   code=$?
   [[ $notests == 1 ]] && code=79
   seconds=$(( $(date +%s) - start ))
-  pkill -f telosnex_inappwebview_example 2>/dev/null
+  # Only this checkout's app (its build folder): runs for other devices on
+  # the same machine have their own.
+  pkill -f "$PWD/build/.*telosnex_inappwebview_example" 2>/dev/null
   result=$(grep -oE '\+[0-9]+( ~[0-9]+)?( -[0-9]+)?: (All tests passed|Some tests failed)' "$log" | tail -1)
   if [[ "${IAW_DRIVER:-}" == web && -z "$result" ]]; then
     # integrationDriver: "All tests passed." or "Failure in method: <test>".

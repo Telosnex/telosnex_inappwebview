@@ -54,7 +54,12 @@ void startAndStop() {
 
     expect(File(traceFilePath).existsSync(), true);
 
-    await Future.delayed(Duration(seconds: 2));
-    expect(await tracingController.isTracing(), false);
+    // Android stops tracing after it writes the trace, in the background.
+    var tracing = true;
+    for (var i = 0; i < 20 && tracing; i++) {
+      await Future.delayed(Duration(milliseconds: 500));
+      tracing = await tracingController.isTracing();
+    }
+    expect(tracing, false);
   }, skip: shouldSkip);
 }
