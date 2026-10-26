@@ -8,8 +8,10 @@ import 'package:source_gen/source_gen.dart';
 
 const _annotationsPackage = 'flutter_inappwebview_internal_annotations';
 
-final _coreCheckerObjectMethod =
-    TypeChecker.typeNamedLiterally('ExchangeableObjectMethod', inPackage: _annotationsPackage);
+final _coreCheckerObjectMethod = TypeChecker.typeNamedLiterally(
+  'ExchangeableObjectMethod',
+  inPackage: _annotationsPackage,
+);
 
 abstract class Util {
   static bool typeIsNullable(DartType type) {
@@ -37,7 +39,8 @@ abstract class Util {
 
   static String? getSupportedDocs(TypeChecker checker, Element element) {
     final platformSupportedList = <String>[];
-    final platforms = checker
+    final platforms =
+        checker
             .firstAnnotationOfExact(element)
             ?.getField('platforms')
             ?.toListValue() ??
@@ -46,17 +49,20 @@ abstract class Util {
     final classElement = getClassElement(element);
     List<DartObject> classElementPlatforms = [];
     if (classElement != null) {
-      classElementPlatforms = checker
+      classElementPlatforms =
+          checker
               .firstAnnotationOfExact(classElement)
               ?.getField('platforms')
               ?.toListValue() ??
           <DartObject>[];
     }
     for (var platform in platforms) {
-      final classElementPlatform = classElementPlatforms
-          .firstWhereOrNull((p) => p.type == platform.type);
-      final classElementPlatformName =
-          classElementPlatform?.getField("name")!.toStringValue()!;
+      final classElementPlatform = classElementPlatforms.firstWhereOrNull(
+        (p) => p.type == platform.type,
+      );
+      final classElementPlatformName = classElementPlatform
+          ?.getField("name")!
+          .toStringValue()!;
       var platformName = platform.getField("name")!.toStringValue()!;
       if (classElementPlatformName != null &&
           kPlatformNameValues.contains(platformName) &&
@@ -94,7 +100,8 @@ abstract class Util {
       }
 
       platformSupportedList.add(
-          "///- ${(platformName + ' ' + api).trim()}${platformNote.isNotEmpty ? ":\n///    - " + platformNote : ""}");
+        "///- ${(platformName + ' ' + api).trim()}${platformNote.isNotEmpty ? ":\n///    - " + platformNote : ""}",
+      );
     }
     if (platformSupportedList.isNotEmpty) {
       return """///
@@ -105,10 +112,13 @@ abstract class Util {
   }
 
   static String? getParameterSupportedDocs(
-      TypeChecker checker, List<FormalParameterElement> parameters,
-      [Map<String, List<DartObject>>? workaroundPlatforms]) {
-    final nonDeprecatedParameters =
-        parameters.where((p) => !p.metadata.hasDeprecated).toList();
+    TypeChecker checker,
+    List<FormalParameterElement> parameters, [
+    Map<String, List<DartObject>>? workaroundPlatforms,
+  ]) {
+    final nonDeprecatedParameters = parameters
+        .where((p) => !p.metadata.hasDeprecated)
+        .toList();
     if (nonDeprecatedParameters.isEmpty) {
       return null;
     }
@@ -116,7 +126,8 @@ abstract class Util {
     final classElement = getClassElement(nonDeprecatedParameters.first);
     List<DartObject> classElementPlatforms = [];
     if (classElement != null) {
-      classElementPlatforms = checker
+      classElementPlatforms =
+          checker
               .firstAnnotationOfExact(classElement)
               ?.getField('platforms')
               ?.toListValue() ??
@@ -126,7 +137,8 @@ abstract class Util {
     var docs =
         "///**Parameters - Officially Supported Platforms/Implementations**:";
     for (final parameter in nonDeprecatedParameters) {
-      var platforms = checker
+      var platforms =
+          checker
               .firstAnnotationOfExact(parameter)
               ?.getField('platforms')
               ?.toListValue() ??
@@ -139,10 +151,12 @@ abstract class Util {
         docs += "\n///- [${parameter.name}]: ";
 
         for (var platform in platforms) {
-          final classElementPlatform = classElementPlatforms
-              .firstWhereOrNull((p) => p.type == platform.type);
-          final classElementPlatformName =
-              classElementPlatform?.getField("name")!.toStringValue()!;
+          final classElementPlatform = classElementPlatforms.firstWhereOrNull(
+            (p) => p.type == platform.type,
+          );
+          final classElementPlatformName = classElementPlatform
+              ?.getField("name")!
+              .toStringValue()!;
           var platformName = platform.getField("name")!.toStringValue();
           if (classElementPlatformName != null &&
               kPlatformNameValues.contains(platformName) &&
