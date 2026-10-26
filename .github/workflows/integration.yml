@@ -67,7 +67,7 @@ jobs:
             curl xz-utils unzip zstd clang g++ cmake ninja-build pkg-config \
             libgtk-3-dev libepoxy-dev libsecret-1-dev libwayland-dev \
             libsoup-3.0-dev libxkbcommon-dev \
-            xvfb xauth dbus dbus-x11 libgl1-mesa-dri libegl-mesa0 fonts-dejavu-core \
+            xvfb xauth dbus dbus-x11 gnome-keyring libgl1-mesa-dri libegl-mesa0 fonts-dejavu-core \
             nodejs npm \
             "${runtime[@]}" > /dev/null
           mkdir -p "$XDG_RUNTIME_DIR"

@@ -43,18 +43,16 @@ void onPermissionRequest() {
 
     await tester.pump();
 
-    // WebKit on Linux rejects a camera request with no camera
-    // (OverconstrainedError) before it asks for permission. CI machines have
-    // none.
-    if (defaultTargetPlatform == TargetPlatform.linux) {
-      final cameras = await controller.callAsyncJavaScript(
-        functionBody:
-            "return (await navigator.mediaDevices.enumerateDevices()).filter((d) => d.kind == 'videoinput').length;",
-      );
-      if (cameras?.value == 0) {
-        markTestSkipped('no camera');
-        return;
-      }
+    // A camera request on a machine with no camera (CI runners) fails in
+    // the page (OverconstrainedError on Linux) or never asks: no permission
+    // request to test.
+    final cameras = await controller.callAsyncJavaScript(
+      functionBody:
+          "return (await navigator.mediaDevices.enumerateDevices()).filter((d) => d.kind == 'videoinput').length;",
+    );
+    if (cameras?.value == 0) {
+      markTestSkipped('no camera');
+      return;
     }
     await controller.evaluateJavascript(
       source: "document.querySelector('#camera').click();",

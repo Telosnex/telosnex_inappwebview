@@ -55,9 +55,13 @@ fi
 
 cd "$root/telosnex_inappwebview/example"
 wrap=()
-# Linux without a display (CI): a virtual X server and session bus.
+# Linux without a display (CI): a virtual X server and session bus, with an
+# unlocked keyring (HTTP auth credentials are stored as secrets) when
+# gnome-keyring is installed.
 if [[ "$(uname)" == Linux && -z "${WAYLAND_DISPLAY:-}${DISPLAY:-}" ]]; then
-  wrap=(dbus-run-session -- xvfb-run -a)
+  wrap=(dbus-run-session -- bash -c 'if command -v gnome-keyring-daemon > /dev/null; then
+      echo | gnome-keyring-daemon --unlock --components=secrets > /dev/null 2>&1; fi
+    exec xvfb-run -a "$@"' _)
 fi
 
 failed=()
