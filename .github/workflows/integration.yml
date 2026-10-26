@@ -58,7 +58,7 @@ jobs:
           apt-get install -y -qq --no-install-recommends python3 > /dev/null
           read -ra runtime <<< "$(python3 -c "
           import json, sys
-          t = json.load(open('flutter_inappwebview_linux/wpe_sdk/prebuilt.json'))['targets'][sys.argv[1]]
+          t = json.load(open('telosnex_inappwebview_linux/wpe_sdk/prebuilt.json'))['targets'][sys.argv[1]]
           print(' '.join(t['runtimePackages']))" "$TARGET")"
           # Flutter's Linux toolchain, the plugin's pkg-config modules and the
           # SDK's (wpe_sdk/prebuilt.json: the .pc files need glib, libsoup,
@@ -75,8 +75,8 @@ jobs:
       - uses: Telosnex/telosnex_ci_tools/actions/setup-flutter@7ae582de19a80ce2482b9a6648182890d7e7c96e # main
       - run: npm ci
         working-directory: test_node_server
-      - name: Linux backend tests (flutter_inappwebview_linux/example)
-        working-directory: flutter_inappwebview_linux/example
+      - name: Linux backend tests (telosnex_inappwebview_linux/example)
+        working-directory: telosnex_inappwebview_linux/example
         run: |
           flutter pub get
           status=0
@@ -89,7 +89,7 @@ jobs:
       - name: Example integration suite
         if: ${{ !cancelled() }}
         run: |
-          (cd flutter_inappwebview/example && flutter pub get)
+          (cd telosnex_inappwebview/example && flutter pub get)
           tool/run_integration_group.sh linux
       - if: ${{ !cancelled() }}
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -116,7 +116,7 @@ jobs:
       - run: npm ci
         working-directory: test_node_server
       - run: flutter pub get
-        working-directory: flutter_inappwebview/example
+        working-directory: telosnex_inappwebview/example
       - name: Example integration suite
         env:
           DEVICE: ${{ matrix.device }}
@@ -140,7 +140,7 @@ jobs:
       - run: npm ci
         working-directory: test_node_server
       - run: flutter pub get
-        working-directory: flutter_inappwebview/example
+        working-directory: telosnex_inappwebview/example
       - uses: Telosnex/telosnex_ci_tools/actions/ios-simulator-boot@7ae582de19a80ce2482b9a6648182890d7e7c96e # main
         id: simulator
       - name: Example integration suite
@@ -166,7 +166,7 @@ jobs:
       - run: npm ci
         working-directory: test_node_server
       - run: flutter pub get
-        working-directory: flutter_inappwebview/example
+        working-directory: telosnex_inappwebview/example
       - uses: Telosnex/telosnex_ci_tools/actions/android-emulator@7ae582de19a80ce2482b9a6648182890d7e7c96e # main
         id: emulator
         with:
@@ -196,7 +196,7 @@ jobs:
       - run: npm ci
         working-directory: test_node_server
       - run: flutter pub get
-        working-directory: flutter_inappwebview/example
+        working-directory: telosnex_inappwebview/example
       - uses: Telosnex/telosnex_ci_tools/actions/web-driver@7ae582de19a80ce2482b9a6648182890d7e7c96e # main
         with:
           browser: chrome

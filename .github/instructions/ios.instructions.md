@@ -1,5 +1,5 @@
 ---
-applyTo: "flutter_inappwebview_ios/**"
+applyTo: "telosnex_inappwebview_ios/**"
 ---
 
 # iOS Platform Implementation Instructions
@@ -30,7 +30,7 @@ applyTo: "flutter_inappwebview_ios/**"
 
 ```
 ios/Classes/
-├── InAppWebViewFlutterPlugin.m/h        # Plugin entry (Obj-C bridge)
+├── TelosnexInAppWebViewPlugin.m/h        # Plugin entry (Obj-C bridge)
 ├── SwiftFlutterPlugin.swift             # Swift plugin implementation
 │
 ├── MyCookieManager.swift                # WKHTTPCookieStore wrapper
@@ -306,7 +306,7 @@ JavaScript files injected into WebViews for native-web communication:
 ## Dart-Side Development
 
 For Dart-only changes:
-1. Implement platform interface from `flutter_inappwebview_platform_interface`
+1. Implement platform interface from `telosnex_inappwebview_platform_interface`
 2. Extend `Platform*CreationParams` for iOS-specific parameters
 3. Register in `IOSInAppWebViewPlatform.registerWith()`
 4. iOS-specific features: `WebAuthenticationSession`, Safari-style callbacks
@@ -315,14 +315,14 @@ For Dart-only changes:
 
 When modifying Swift/Obj-C code:
 - Located in `ios/Classes/`
-- Main plugin class: `InAppWebViewFlutterPlugin`
+- Main plugin class: `TelosnexInAppWebViewPlugin`
 - Use FlutterMethodChannel for Dart-native communication
 - Common workarounds exist for SSL certificate handling (see `WebViewChannelDelegate.swift`)
 
 ## Build Commands
 
 ```bash
-cd flutter_inappwebview_ios && flutter pub get
+cd telosnex_inappwebview_ios && flutter pub get
 cd example && flutter build ios --debug --no-codesign
 ```
 

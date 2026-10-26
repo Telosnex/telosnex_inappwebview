@@ -1,0 +1,26 @@
+# The repo's packages and examples resolve together: a member's dependency
+# on another member (for example telosnex_inappwebview_platform_interface)
+# is the local package. One pubspec.lock, here.
+name: telosnex_inappwebview_workspace
+publish_to: none
+
+environment:
+  sdk: ^3.10.4
+
+workspace:
+  - dev_packages/generators
+  - telosnex_inappwebview/example
+  - telosnex_inappwebview
+  - telosnex_inappwebview_android/example
+  - telosnex_inappwebview_android
+  - telosnex_inappwebview_ios/example
+  - telosnex_inappwebview_ios
+  - telosnex_inappwebview_linux/example
+  - telosnex_inappwebview_linux
+  - telosnex_inappwebview_macos/example
+  - telosnex_inappwebview_macos
+  - telosnex_inappwebview_platform_interface
+  - telosnex_inappwebview_web/example
+  - telosnex_inappwebview_web
+  - telosnex_inappwebview_windows/example
+  - telosnex_inappwebview_windows

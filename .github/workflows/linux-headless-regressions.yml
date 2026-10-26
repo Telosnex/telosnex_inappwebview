@@ -3,12 +3,12 @@ name: Linux headless regressions
 on:
   pull_request:
     paths:
-      - 'flutter_inappwebview_linux/**'
+      - 'telosnex_inappwebview_linux/**'
       - '.github/workflows/linux-headless-regressions.yml'
   push:
     branches: [master]
     paths:
-      - 'flutter_inappwebview_linux/**'
+      - 'telosnex_inappwebview_linux/**'
       - '.github/workflows/linux-headless-regressions.yml'
   workflow_dispatch:
 
@@ -27,7 +27,7 @@ jobs:
       XDG_RUNTIME_DIR: /tmp/wpe-runtime
       # This job tests against Debian's packaged WebKit. The pinned SDK has
       # no debian-13-x64 target.
-      FLUTTER_INAPPWEBVIEW_WPE_SDK: system
+      TELOSNEX_INAPPWEBVIEW_WPE_SDK: system
     steps:
       - name: Install Flutter and WPE build dependencies
         run: |
@@ -47,19 +47,19 @@ jobs:
           echo /opt/flutter/bin >> "$GITHUB_PATH"
           /opt/flutter/bin/flutter --version
       - name: Resolve dependencies
-        working-directory: flutter_inappwebview_linux
+        working-directory: telosnex_inappwebview_linux
         run: flutter pub get
       - name: Lifecycle unit tests
-        working-directory: flutter_inappwebview_linux
+        working-directory: telosnex_inappwebview_linux
         run: flutter test test/headless_in_app_webview_test.dart --no-pub
       - name: Analyze changed Dart code
-        working-directory: flutter_inappwebview_linux
+        working-directory: telosnex_inappwebview_linux
         run: >-
           dart analyze lib/src/in_app_webview/headless_in_app_webview.dart
           test/headless_in_app_webview_test.dart
           example/integration_test/headless_regression_test.dart
       - name: Native WPE regressions
-        working-directory: flutter_inappwebview_linux/example
+        working-directory: telosnex_inappwebview_linux/example
         run: >-
           dbus-run-session -- xvfb-run -a flutter test
           integration_test/headless_regression_test.dart -d linux --no-pub

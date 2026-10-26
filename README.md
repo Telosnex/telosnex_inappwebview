@@ -8,7 +8,7 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-100-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-[![flutter_inappwebview version](https://img.shields.io/pub/v/flutter_inappwebview?include_prereleases)](https://pub.dartlang.org/packages/flutter_inappwebview)
+[![telosnex_inappwebview version](https://img.shields.io/pub/v/flutter_inappwebview?include_prereleases)](https://pub.dartlang.org/packages/flutter_inappwebview)
 [![Pub Points](https://img.shields.io/pub/points/flutter_inappwebview)](https://pub.dev/packages/flutter_inappwebview/score)
 [![Pub Popularity](https://img.shields.io/pub/popularity/flutter_inappwebview)](https://pub.dev/packages/flutter_inappwebview/score)
 [![Pub Likes](https://img.shields.io/pub/likes/flutter_inappwebview)](https://pub.dev/packages/flutter_inappwebview/score)
@@ -21,13 +21,13 @@
 
 ###### Supported Platforms
 
-[![flutter_inappwebview_platform_interface version](https://img.shields.io/pub/v/flutter_inappwebview_platform_interface?include_prereleases&label=Platform%20Interface)](https://pub.dartlang.org/packages/flutter_inappwebview_platform_interface)
-[![flutter_inappwebview_android version](https://img.shields.io/pub/v/flutter_inappwebview_android?include_prereleases&label=Android)](https://pub.dartlang.org/packages/flutter_inappwebview_android)
-[![flutter_inappwebview_ios version](https://img.shields.io/pub/v/flutter_inappwebview_ios?include_prereleases&label=iOS)](https://pub.dartlang.org/packages/flutter_inappwebview_ios)
-[![flutter_inappwebview_macos version](https://img.shields.io/pub/v/flutter_inappwebview_macos?include_prereleases&label=macOS)](https://pub.dartlang.org/packages/flutter_inappwebview_macos)
-[![flutter_inappwebview_windows version](https://img.shields.io/pub/v/flutter_inappwebview_windows?include_prereleases&label=Windows)](https://pub.dartlang.org/packages/flutter_inappwebview_windows)
-[![flutter_inappwebview_linux version](https://img.shields.io/pub/v/flutter_inappwebview_linux?include_prereleases&label=linux)](https://pub.dartlang.org/packages/flutter_inappwebview_linux)
-[![flutter_inappwebview_web version](https://img.shields.io/pub/v/flutter_inappwebview_web?include_prereleases&label=Web)](https://pub.dartlang.org/packages/flutter_inappwebview_web)
+[![telosnex_inappwebview_platform_interface version](https://img.shields.io/pub/v/flutter_inappwebview_platform_interface?include_prereleases&label=Platform%20Interface)](https://pub.dartlang.org/packages/flutter_inappwebview_platform_interface)
+[![telosnex_inappwebview_android version](https://img.shields.io/pub/v/flutter_inappwebview_android?include_prereleases&label=Android)](https://pub.dartlang.org/packages/flutter_inappwebview_android)
+[![telosnex_inappwebview_ios version](https://img.shields.io/pub/v/flutter_inappwebview_ios?include_prereleases&label=iOS)](https://pub.dartlang.org/packages/flutter_inappwebview_ios)
+[![telosnex_inappwebview_macos version](https://img.shields.io/pub/v/flutter_inappwebview_macos?include_prereleases&label=macOS)](https://pub.dartlang.org/packages/flutter_inappwebview_macos)
+[![telosnex_inappwebview_windows version](https://img.shields.io/pub/v/flutter_inappwebview_windows?include_prereleases&label=Windows)](https://pub.dartlang.org/packages/flutter_inappwebview_windows)
+[![telosnex_inappwebview_linux version](https://img.shields.io/pub/v/flutter_inappwebview_linux?include_prereleases&label=linux)](https://pub.dartlang.org/packages/flutter_inappwebview_linux)
+[![telosnex_inappwebview_web version](https://img.shields.io/pub/v/flutter_inappwebview_web?include_prereleases&label=Web)](https://pub.dartlang.org/packages/flutter_inappwebview_web)
 
 A Flutter plugin that allows you to add an inline webview, to use an headless webview, and to open an in-app browser window.
 
@@ -39,9 +39,9 @@ A Flutter plugin that allows you to add an inline webview, to use an headless we
 - Read the online [API Reference](https://pub.dartlang.org/documentation/flutter_inappwebview/latest/) to get the **full API documentation**.
 - [Official blog: inappwebview.dev/blog](https://inappwebview.dev/blog/)
 - Find open source projects on the [Official Showcase page: inappwebview.dev/showcase](https://inappwebview.dev/showcase/)
-- Check the [flutter_inappwebview_examples](https://github.com/pichillilorenzo/flutter_inappwebview_examples) repository for project examples
-- Check the [flutter_inappwebview/example/integration_test/webview_flutter_test.dart](https://github.com/pichillilorenzo/flutter_inappwebview/blob/master/flutter_inappwebview/example/integration_test/webview_flutter_test.dart) file for other code examples
-- [Flutter Browser App](https://github.com/pichillilorenzo/flutter_browser_app): A Full-Featured Mobile Browser App (such as the Google Chrome mobile browser) created using Flutter and the features offered by the flutter_inappwebview plugin
+- Check the [telosnex_inappwebview_examples](https://github.com/pichillilorenzo/flutter_inappwebview_examples) repository for project examples
+- Check the [telosnex_inappwebview/example/integration_test/webview_flutter_test.dart](https://github.com/pichillilorenzo/flutter_inappwebview/blob/master/flutter_inappwebview/example/integration_test/webview_flutter_test.dart) file for other code examples
+- [Flutter Browser App](https://github.com/pichillilorenzo/flutter_browser_app): A Full-Featured Mobile Browser App (such as the Google Chrome mobile browser) created using Flutter and the features offered by the telosnex_inappwebview plugin
 
 ## Showcase - Who use it
 
@@ -63,7 +63,7 @@ Send a submission request to the [Submit App](https://inappwebview.dev/submit-ap
 
 ## Installation
 
-Add `flutter_inappwebview` as a [dependency in your pubspec.yaml file](https://flutter.io/using-packages/).
+Add `telosnex_inappwebview` as a [dependency in your pubspec.yaml file](https://flutter.io/using-packages/).
 
 ### Platform Installation Setup:
 - [Android](https://inappwebview.dev/docs/intro/#setup-android)

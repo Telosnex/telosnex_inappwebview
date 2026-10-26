@@ -19,8 +19,8 @@ jobs:
       - name: Check upstream
         id: check
         run: |
-          python3 flutter_inappwebview_linux/wpe_sdk/watch/test_check.py
-          out=$(python3 flutter_inappwebview_linux/wpe_sdk/watch/check.py flutter_inappwebview_linux/wpe_sdk/sources.env)
+          python3 telosnex_inappwebview_linux/wpe_sdk/watch/test_check.py
+          out=$(python3 telosnex_inappwebview_linux/wpe_sdk/watch/check.py telosnex_inappwebview_linux/wpe_sdk/sources.env)
           echo "$out"
           echo "json=$out" >> "$GITHUB_OUTPUT"
       - name: Fail when behind

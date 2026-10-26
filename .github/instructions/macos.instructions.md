@@ -1,5 +1,5 @@
 ---
-applyTo: "flutter_inappwebview_macos/**"
+applyTo: "telosnex_inappwebview_macos/**"
 ---
 
 # macOS Platform Implementation Instructions
@@ -26,7 +26,7 @@ applyTo: "flutter_inappwebview_macos/**"
 
 ```
 macos/Classes/
-├── InAppWebViewFlutterPlugin.swift      # Plugin entry/registration
+├── TelosnexInAppWebViewPlugin.swift      # Plugin entry/registration
 │
 ├── MyCookieManager.swift                # WKHTTPCookieStore wrapper
 ├── MyWebStorageManager.swift            # WKWebsiteDataStore wrapper
@@ -300,7 +300,7 @@ JavaScript files injected into WebViews for native-web communication:
 ## Dart-Side Development
 
 For Dart-only changes:
-1. Implement platform interface from `flutter_inappwebview_platform_interface`
+1. Implement platform interface from `telosnex_inappwebview_platform_interface`
 2. Extend `Platform*CreationParams` for macOS-specific parameters
 3. Register in `MacOSInAppWebViewPlatform.registerWith()`
 4. Note: macOS lacks `ChromeSafariBrowser` and `WebAuthenticationSession`
@@ -309,14 +309,14 @@ For Dart-only changes:
 
 When modifying Swift code:
 - Located in `macos/Classes/`
-- Main plugin class: `InAppWebViewFlutterPlugin`
+- Main plugin class: `TelosnexInAppWebViewPlugin`
 - Use FlutterMethodChannel for Dart-native communication
 - macOS uses AppKit (NSWindow, NSView) vs iOS UIKit (UIWindow, UIView)
 
 ## Build Commands
 
 ```bash
-cd flutter_inappwebview_macos && flutter pub get
+cd telosnex_inappwebview_macos && flutter pub get
 cd example && flutter build macos --debug
 ```
 

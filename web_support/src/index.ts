@@ -9,8 +9,8 @@ import {
 
 declare global {
   interface Window {
-    flutter_inappwebview_plugin: InAppWebViewPlugin;
-    flutter_inappwebview?: JavaScriptBridgeHandler | null;
+    telosnex_inappwebview_plugin: InAppWebViewPlugin;
+    telosnex_inappwebview?: JavaScriptBridgeHandler | null;
     console: Console;
 
     eval(x: string): any;

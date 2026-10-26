@@ -1,4 +1,4 @@
-# Builds the relocatable WPE WebKit SDK (flutter_inappwebview_linux/wpe_sdk)
+# Builds the relocatable WPE WebKit SDK (telosnex_inappwebview_linux/wpe_sdk)
 # and publishes it as an immutable GitHub release, wpe-sdk-<key>. Start it
 # with
 #   git push -f origin HEAD:wpe-sdk-release       (release)
@@ -62,13 +62,13 @@ jobs:
           persist-credentials: false
           fetch-depth: 1
       - name: Install build dependencies
-        run: flutter_inappwebview_linux/wpe_sdk/install_build_deps.sh
+        run: telosnex_inappwebview_linux/wpe_sdk/install_build_deps.sh
       - name: Build
         env:
           WPE_SDK_WORK: ${{ runner.temp }}/work
         run: |
-          flutter_inappwebview_linux/wpe_sdk/key.sh > "$RUNNER_TEMP/key.txt"
-          flutter_inappwebview_linux/wpe_sdk/build.sh "$RUNNER_TEMP/out"
+          telosnex_inappwebview_linux/wpe_sdk/key.sh > "$RUNNER_TEMP/key.txt"
+          telosnex_inappwebview_linux/wpe_sdk/build.sh "$RUNNER_TEMP/out"
           test -f "$RUNNER_TEMP/out/wpe-sdk-${{ matrix.target }}.tar.zst"
           cp "$RUNNER_TEMP/key.txt" "$RUNNER_TEMP/out/wpe-sdk-${{ matrix.target }}.key"
       - name: Test the SDK from another directory
@@ -78,7 +78,7 @@ jobs:
         # on the target systems.
         env:
           WEBKIT_DISABLE_SANDBOX_THIS_IS_DANGEROUS: "1"
-        run: flutter_inappwebview_linux/wpe_sdk/test/run_relocation_test.sh "$RUNNER_TEMP/out/wpe-sdk-${{ matrix.target }}.tar.zst"
+        run: telosnex_inappwebview_linux/wpe_sdk/test/run_relocation_test.sh "$RUNNER_TEMP/out/wpe-sdk-${{ matrix.target }}.tar.zst"
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: wpe-sdk-${{ matrix.target }}
@@ -105,7 +105,7 @@ jobs:
           merge-multiple: true
       - name: Check keys and targets
         run: |
-          key="$(flutter_inappwebview_linux/wpe_sdk/key.sh)"
+          key="$(telosnex_inappwebview_linux/wpe_sdk/key.sh)"
           echo "KEY=$key" >> "$GITHUB_ENV"
           echo "TAG=wpe-sdk-${key:0:16}" >> "$GITHUB_ENV"
           for target in ubuntu-26.04-x64 ubuntu-26.04-arm64 debian-13-arm64; do
@@ -120,8 +120,8 @@ jobs:
             {schema: 1, key: $key, tag: $tag,
              targets: ($targets[0] | map({key: .target, value: (. + {
                url: "https://github.com/\($repo)/releases/download/\($tag)/\(.archive)"
-             })}) | from_entries)}' > flutter_inappwebview_linux/wpe_sdk/prebuilt.json
-          cat flutter_inappwebview_linux/wpe_sdk/prebuilt.json
+             })}) | from_entries)}' > telosnex_inappwebview_linux/wpe_sdk/prebuilt.json
+          cat telosnex_inappwebview_linux/wpe_sdk/prebuilt.json
       - name: Publish the release
         if: env.DRY_RUN != 'true'
         env:
@@ -143,7 +143,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -c "$branch"
-          git add flutter_inappwebview_linux/wpe_sdk/prebuilt.json
+          git add telosnex_inappwebview_linux/wpe_sdk/prebuilt.json
           git commit -m "wpe_sdk: manifest of release $TAG"
           git push origin "$branch"
           {
@@ -154,4 +154,4 @@ jobs:
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: wpe-sdk-manifest
-          path: flutter_inappwebview_linux/wpe_sdk/prebuilt.json
+          path: telosnex_inappwebview_linux/wpe_sdk/prebuilt.json

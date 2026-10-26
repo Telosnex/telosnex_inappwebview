@@ -1,5 +1,5 @@
 ---
-applyTo: "flutter_inappwebview_android/**"
+applyTo: "telosnex_inappwebview_android/**"
 ---
 
 # Android Platform Implementation Instructions
@@ -32,8 +32,8 @@ applyTo: "flutter_inappwebview_android/**"
 ## Native Code Structure
 
 ```
-android/src/main/java/com/.../flutter_inappwebview_android/
-├── InAppWebViewFlutterPlugin.java       # Plugin entry/registration
+android/src/main/java/com/.../telosnex_inappwebview_android/
+├── TelosnexInAppWebViewPlugin.java       # Plugin entry/registration
 ├── InAppWebViewFileProvider.java        # FileProvider for downloads
 │
 ├── MyCookieManager.java                 # CookieManager wrapper
@@ -358,7 +358,7 @@ JavaScript files injected into WebViews for native-web communication:
 ## Dart-Side Development
 
 For Dart-only changes:
-1. Implement platform interface from `flutter_inappwebview_platform_interface`
+1. Implement platform interface from `telosnex_inappwebview_platform_interface`
 2. Extend `Platform*CreationParams` for Android-specific parameters
 3. Register in `AndroidInAppWebViewPlatform.registerWith()`
 4. Android-specific features: Chrome Custom Tabs, Service Workers, Tracing
@@ -367,14 +367,14 @@ For Dart-only changes:
 
 When modifying Java code:
 - Located in `android/src/main/java/`
-- Main plugin class: `InAppWebViewFlutterPlugin`
+- Main plugin class: `TelosnexInAppWebViewPlugin`
 - Use FlutterMethodChannel for Dart-native communication
 - Always check AndroidX WebViewFeature support before using modern APIs
 
 ## Build Commands
 
 ```bash
-cd flutter_inappwebview_android && flutter pub get
+cd telosnex_inappwebview_android && flutter pub get
 cd example && flutter build apk --debug
 ```
 

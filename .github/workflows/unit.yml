@@ -51,11 +51,11 @@ jobs:
           done
           exit $status
       - name: Example widget tests
-        working-directory: flutter_inappwebview/example
+        working-directory: telosnex_inappwebview/example
         run: flutter test --no-pub
       - name: Linux plugin unit tests
-        working-directory: flutter_inappwebview_linux
+        working-directory: telosnex_inappwebview_linux
         run: flutter test --no-pub
       - name: WPE security watch tests
-        working-directory: flutter_inappwebview_linux/wpe_sdk/watch
+        working-directory: telosnex_inappwebview_linux/wpe_sdk/watch
         run: python3 test_check.py

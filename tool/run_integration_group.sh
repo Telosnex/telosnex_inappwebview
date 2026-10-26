@@ -52,7 +52,7 @@ if ! kill -0 $node 2>/dev/null; then
   echo "The Node test server did not start:"; tail -20 "$logs/node.log"; exit 1
 fi
 
-cd "$root/flutter_inappwebview/example"
+cd "$root/telosnex_inappwebview/example"
 wrap=()
 if [[ "$(uname)" == Linux ]]; then wrap=(dbus-run-session -- xvfb-run -a); fi
 
@@ -77,7 +77,7 @@ for unit in "${units[@]}"; do
   perl -e 'alarm shift; exec @ARGV' "$limit" ${wrap[@]+"${wrap[@]}"} "${run[@]}" > "$log" 2>&1 < /dev/null
   code=$?
   seconds=$(( $(date +%s) - start ))
-  pkill -f flutter_inappwebview_example 2>/dev/null
+  pkill -f telosnex_inappwebview_example 2>/dev/null
   result=$(grep -oE '\+[0-9]+( ~[0-9]+)?( -[0-9]+)?: (All tests passed|Some tests failed)' "$log" | tail -1)
   if [[ $code == 142 ]]; then
     result="timed out after ${limit}s at $(grep -oE '^[0-9:]+ \+[0-9]+( ~[0-9]+)?( -[0-9]+)?' "$log" | tail -1)"

@@ -5,161 +5,161 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "flutter_inappwebview",
-      "cwd": "flutter_inappwebview",
+      "name": "telosnex_inappwebview",
+      "cwd": "telosnex_inappwebview",
       "request": "launch",
       "type": "dart"
     },
     {
-      "name": "flutter_inappwebview (profile mode)",
-      "cwd": "flutter_inappwebview",
+      "name": "telosnex_inappwebview (profile mode)",
+      "cwd": "telosnex_inappwebview",
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile"
     },
     {
-      "name": "flutter_inappwebview (release mode)",
-      "cwd": "flutter_inappwebview",
+      "name": "telosnex_inappwebview (release mode)",
+      "cwd": "telosnex_inappwebview",
       "request": "launch",
       "type": "dart",
       "flutterMode": "release"
     },
     {
-      "name": "flutter_inappwebview_android",
-      "cwd": "flutter_inappwebview_android",
+      "name": "telosnex_inappwebview_android",
+      "cwd": "telosnex_inappwebview_android",
       "request": "launch",
       "type": "dart"
     },
     {
-      "name": "flutter_inappwebview_android (profile mode)",
-      "cwd": "flutter_inappwebview_android",
+      "name": "telosnex_inappwebview_android (profile mode)",
+      "cwd": "telosnex_inappwebview_android",
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile"
     },
     {
-      "name": "flutter_inappwebview_android (release mode)",
-      "cwd": "flutter_inappwebview_android",
+      "name": "telosnex_inappwebview_android (release mode)",
+      "cwd": "telosnex_inappwebview_android",
       "request": "launch",
       "type": "dart",
       "flutterMode": "release"
     },
     {
-      "name": "flutter_inappwebview_ios",
-      "cwd": "flutter_inappwebview_ios",
+      "name": "telosnex_inappwebview_ios",
+      "cwd": "telosnex_inappwebview_ios",
       "request": "launch",
       "type": "dart"
     },
     {
-      "name": "flutter_inappwebview_ios (profile mode)",
-      "cwd": "flutter_inappwebview_ios",
+      "name": "telosnex_inappwebview_ios (profile mode)",
+      "cwd": "telosnex_inappwebview_ios",
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile"
     },
     {
-      "name": "flutter_inappwebview_ios (release mode)",
-      "cwd": "flutter_inappwebview_ios",
+      "name": "telosnex_inappwebview_ios (release mode)",
+      "cwd": "telosnex_inappwebview_ios",
       "request": "launch",
       "type": "dart",
       "flutterMode": "release"
     },
     {
-      "name": "flutter_inappwebview_linux",
-      "cwd": "flutter_inappwebview_linux",
+      "name": "telosnex_inappwebview_linux",
+      "cwd": "telosnex_inappwebview_linux",
       "request": "launch",
       "type": "dart"
     },
     {
-      "name": "flutter_inappwebview_linux (profile mode)",
-      "cwd": "flutter_inappwebview_linux",
+      "name": "telosnex_inappwebview_linux (profile mode)",
+      "cwd": "telosnex_inappwebview_linux",
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile"
     },
     {
-      "name": "flutter_inappwebview_linux (release mode)",
-      "cwd": "flutter_inappwebview_linux",
+      "name": "telosnex_inappwebview_linux (release mode)",
+      "cwd": "telosnex_inappwebview_linux",
       "request": "launch",
       "type": "dart",
       "flutterMode": "release"
     },
     {
-      "name": "flutter_inappwebview_macos",
-      "cwd": "flutter_inappwebview_macos",
+      "name": "telosnex_inappwebview_macos",
+      "cwd": "telosnex_inappwebview_macos",
       "request": "launch",
       "type": "dart"
     },
     {
-      "name": "flutter_inappwebview_macos (profile mode)",
-      "cwd": "flutter_inappwebview_macos",
+      "name": "telosnex_inappwebview_macos (profile mode)",
+      "cwd": "telosnex_inappwebview_macos",
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile"
     },
     {
-      "name": "flutter_inappwebview_macos (release mode)",
-      "cwd": "flutter_inappwebview_macos",
+      "name": "telosnex_inappwebview_macos (release mode)",
+      "cwd": "telosnex_inappwebview_macos",
       "request": "launch",
       "type": "dart",
       "flutterMode": "release"
     },
     {
-      "name": "flutter_inappwebview_platform_interface",
-      "cwd": "flutter_inappwebview_platform_interface",
+      "name": "telosnex_inappwebview_platform_interface",
+      "cwd": "telosnex_inappwebview_platform_interface",
       "request": "launch",
       "type": "dart"
     },
     {
-      "name": "flutter_inappwebview_platform_interface (profile mode)",
-      "cwd": "flutter_inappwebview_platform_interface",
+      "name": "telosnex_inappwebview_platform_interface (profile mode)",
+      "cwd": "telosnex_inappwebview_platform_interface",
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile"
     },
     {
-      "name": "flutter_inappwebview_platform_interface (release mode)",
-      "cwd": "flutter_inappwebview_platform_interface",
+      "name": "telosnex_inappwebview_platform_interface (release mode)",
+      "cwd": "telosnex_inappwebview_platform_interface",
       "request": "launch",
       "type": "dart",
       "flutterMode": "release"
     },
     {
-      "name": "flutter_inappwebview_web",
-      "cwd": "flutter_inappwebview_web",
+      "name": "telosnex_inappwebview_web",
+      "cwd": "telosnex_inappwebview_web",
       "request": "launch",
       "type": "dart"
     },
     {
-      "name": "flutter_inappwebview_web (profile mode)",
-      "cwd": "flutter_inappwebview_web",
+      "name": "telosnex_inappwebview_web (profile mode)",
+      "cwd": "telosnex_inappwebview_web",
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile"
     },
     {
-      "name": "flutter_inappwebview_web (release mode)",
-      "cwd": "flutter_inappwebview_web",
+      "name": "telosnex_inappwebview_web (release mode)",
+      "cwd": "telosnex_inappwebview_web",
       "request": "launch",
       "type": "dart",
       "flutterMode": "release"
     },
     {
-      "name": "flutter_inappwebview_windows",
-      "cwd": "flutter_inappwebview_windows",
+      "name": "telosnex_inappwebview_windows",
+      "cwd": "telosnex_inappwebview_windows",
       "request": "launch",
       "type": "dart"
     },
     {
-      "name": "flutter_inappwebview_windows (profile mode)",
-      "cwd": "flutter_inappwebview_windows",
+      "name": "telosnex_inappwebview_windows (profile mode)",
+      "cwd": "telosnex_inappwebview_windows",
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile"
     },
     {
-      "name": "flutter_inappwebview_windows (release mode)",
-      "cwd": "flutter_inappwebview_windows",
+      "name": "telosnex_inappwebview_windows (release mode)",
+      "cwd": "telosnex_inappwebview_windows",
       "request": "launch",
       "type": "dart",
       "flutterMode": "release"
@@ -192,140 +192,140 @@
     },
     {
       "name": "example",
-      "cwd": "flutter_inappwebview/example",
+      "cwd": "telosnex_inappwebview/example",
       "request": "launch",
       "type": "dart"
     },
     {
       "name": "example (profile mode)",
-      "cwd": "flutter_inappwebview/example",
+      "cwd": "telosnex_inappwebview/example",
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile"
     },
     {
       "name": "example (release mode)",
-      "cwd": "flutter_inappwebview/example",
+      "cwd": "telosnex_inappwebview/example",
       "request": "launch",
       "type": "dart",
       "flutterMode": "release"
     },
     {
       "name": "android example",
-      "cwd": "flutter_inappwebview_android/example",
+      "cwd": "telosnex_inappwebview_android/example",
       "request": "launch",
       "type": "dart"
     },
     {
       "name": "android example (profile mode)",
-      "cwd": "flutter_inappwebview_android/example",
+      "cwd": "telosnex_inappwebview_android/example",
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile"
     },
     {
       "name": "android example (release mode)",
-      "cwd": "flutter_inappwebview_android/example",
+      "cwd": "telosnex_inappwebview_android/example",
       "request": "launch",
       "type": "dart",
       "flutterMode": "release"
     },
     {
       "name": "ios example",
-      "cwd": "flutter_inappwebview_ios/example",
+      "cwd": "telosnex_inappwebview_ios/example",
       "request": "launch",
       "type": "dart"
     },
     {
       "name": "ios example (profile mode)",
-      "cwd": "flutter_inappwebview_ios/example",
+      "cwd": "telosnex_inappwebview_ios/example",
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile"
     },
     {
       "name": "ios example (release mode)",
-      "cwd": "flutter_inappwebview_ios/example",
+      "cwd": "telosnex_inappwebview_ios/example",
       "request": "launch",
       "type": "dart",
       "flutterMode": "release"
     },
     {
       "name": "linux example",
-      "cwd": "flutter_inappwebview_linux/example",
+      "cwd": "telosnex_inappwebview_linux/example",
       "request": "launch",
       "type": "dart"
     },
     {
       "name": "linux example (profile mode)",
-      "cwd": "flutter_inappwebview_linux/example",
+      "cwd": "telosnex_inappwebview_linux/example",
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile"
     },
     {
       "name": "linux example (release mode)",
-      "cwd": "flutter_inappwebview_linux/example",
+      "cwd": "telosnex_inappwebview_linux/example",
       "request": "launch",
       "type": "dart",
       "flutterMode": "release"
     },
     {
       "name": "macos example",
-      "cwd": "flutter_inappwebview_macos/example",
+      "cwd": "telosnex_inappwebview_macos/example",
       "request": "launch",
       "type": "dart"
     },
     {
       "name": "macos example (profile mode)",
-      "cwd": "flutter_inappwebview_macos/example",
+      "cwd": "telosnex_inappwebview_macos/example",
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile"
     },
     {
       "name": "macos example (release mode)",
-      "cwd": "flutter_inappwebview_macos/example",
+      "cwd": "telosnex_inappwebview_macos/example",
       "request": "launch",
       "type": "dart",
       "flutterMode": "release"
     },
     {
       "name": "web example",
-      "cwd": "flutter_inappwebview_web/example",
+      "cwd": "telosnex_inappwebview_web/example",
       "request": "launch",
       "type": "dart"
     },
     {
       "name": "web example (profile mode)",
-      "cwd": "flutter_inappwebview_web/example",
+      "cwd": "telosnex_inappwebview_web/example",
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile"
     },
     {
       "name": "web example (release mode)",
-      "cwd": "flutter_inappwebview_web/example",
+      "cwd": "telosnex_inappwebview_web/example",
       "request": "launch",
       "type": "dart",
       "flutterMode": "release"
     },
     {
       "name": "windows example",
-      "cwd": "flutter_inappwebview_windows/example",
+      "cwd": "telosnex_inappwebview_windows/example",
       "request": "launch",
       "type": "dart"
     },
     {
       "name": "windows example (profile mode)",
-      "cwd": "flutter_inappwebview_windows/example",
+      "cwd": "telosnex_inappwebview_windows/example",
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile"
     },
     {
       "name": "windows example (release mode)",
-      "cwd": "flutter_inappwebview_windows/example",
+      "cwd": "telosnex_inappwebview_windows/example",
       "request": "launch",
       "type": "dart",
       "flutterMode": "release"
