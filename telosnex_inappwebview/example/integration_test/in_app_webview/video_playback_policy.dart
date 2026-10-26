@@ -227,6 +227,7 @@ void videoPlaybackPolicy() {
       Completer<InAppWebViewController> controllerCompleter =
           Completer<InAppWebViewController>();
       Completer<void> pageLoaded = Completer<void>();
+      Completer<void> onEnterFullscreenCompleter = Completer<void>();
       Completer<void> onExitFullscreenCompleter = Completer<void>();
 
       await tester.pumpWidget(
@@ -250,8 +251,15 @@ void videoPlaybackPolicy() {
             onLoadStop: (controller, url) {
               pageLoaded.complete();
             },
+            onEnterFullscreen: (controller) {
+              if (!onEnterFullscreenCompleter.isCompleted) {
+                onEnterFullscreenCompleter.complete();
+              }
+            },
             onExitFullscreen: (controller) {
-              onExitFullscreenCompleter.complete();
+              if (!onExitFullscreenCompleter.isCompleted) {
+                onExitFullscreenCompleter.complete();
+              }
             },
           ),
         ),
@@ -260,7 +268,9 @@ void videoPlaybackPolicy() {
       InAppWebViewController controller = await controllerCompleter.future;
       await pageLoaded.future;
 
-      await Future.delayed(Duration(seconds: 2));
+      // The video goes fullscreen some time after it starts (iOS 26: it
+      // starts inline). Exit once it is.
+      await onEnterFullscreenCompleter.future;
       await tester.pump();
       await controller.evaluateJavascript(source: "exitFullscreen();");
 
