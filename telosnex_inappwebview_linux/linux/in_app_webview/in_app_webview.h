@@ -506,6 +506,8 @@ class InAppWebView {
       std::make_shared<std::atomic<bool>>(false);
   // A TLS error waits for onReceivedServerTrustAuthRequest's answer.
   bool tls_challenge_pending_ = false;
+  // The load failed with a policy change (the app cancelled it): no load stop.
+  bool load_interrupted_by_policy_ = false;
   uint32_t current_buffer_width_ = 0;     // Width of current buffer
   uint32_t current_buffer_height_ = 0;    // Height of current buffer
   gulong buffer_rendered_handler_ = 0;    // Signal handler ID for buffer-rendered

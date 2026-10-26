@@ -957,6 +957,16 @@ void WebViewChannelDelegate::HandleMethodCall(FlMethodCall* method_call) {
       
       if (data_value != nullptr && fl_value_get_type(data_value) == FL_VALUE_TYPE_STRING) {
         data = fl_value_get_string(data_value);
+      } else if (data_value != nullptr &&
+                 fl_value_get_type(data_value) == FL_VALUE_TYPE_UINT8_LIST) {
+        // ArrayBuffer: the bytes as postWebMessage takes them (comma-separated),
+        // as WebMessageChannel's postMessage does.
+        const uint8_t* bytes = fl_value_get_uint8_list(data_value);
+        size_t length = fl_value_get_length(data_value);
+        for (size_t i = 0; i < length; i++) {
+          if (i > 0) data += ",";
+          data += std::to_string(bytes[i]);
+        }
       }
       if (type_value != nullptr && fl_value_get_type(type_value) == FL_VALUE_TYPE_INT) {
         type = fl_value_get_int(type_value);
@@ -1493,9 +1503,11 @@ void WebViewChannelDelegate::onContentSizeChanged(int64_t oldWidth, int64_t oldH
   // As iOS and macOS send it (MapSize maps).
   g_autoptr(FlValue) args = to_fl_map(
       {{"oldContentSize",
-        to_fl_map({{"width", make_fl_value(oldWidth)}, {"height", make_fl_value(oldHeight)}})},
+        to_fl_map({{"width", make_fl_value(static_cast<double>(oldWidth))},
+                   {"height", make_fl_value(static_cast<double>(oldHeight))}})},
        {"newContentSize",
-        to_fl_map({{"width", make_fl_value(newWidth)}, {"height", make_fl_value(newHeight)}})}});
+        to_fl_map({{"width", make_fl_value(static_cast<double>(newWidth))},
+                   {"height", make_fl_value(static_cast<double>(newHeight))}})}});
 
   invokeMethod("onContentSizeChanged", args);
 }

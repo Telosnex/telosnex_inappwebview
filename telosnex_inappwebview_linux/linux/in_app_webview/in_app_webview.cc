@@ -4161,6 +4161,7 @@ void InAppWebView::OnLoadChanged(WebKitWebView* web_view, WebKitLoadEvent load_e
 
   switch (load_event) {
     case WEBKIT_LOAD_STARTED: {
+      self->load_interrupted_by_policy_ = false;
       // Hide all popups when a new page starts loading
       self->HideAllPopups();
       
@@ -4183,6 +4184,10 @@ void InAppWebView::OnLoadChanged(WebKitWebView* web_view, WebKitLoadEvent load_e
         break;
       }
       if (self->tls_challenge_pending_) {
+        break;
+      }
+      if (self->load_interrupted_by_policy_) {
+        self->load_interrupted_by_policy_ = false;
         break;
       }
       self->dispatchPlatformReady();
@@ -4457,6 +4462,14 @@ gboolean InAppWebView::OnLoadFailed(WebKitWebView* web_view, WebKitLoadEvent loa
   // stopLoading() and a new navigation cancel the load. That is not an error (W6c).
   if (error != nullptr && g_error_matches(error, WEBKIT_NETWORK_ERROR, WEBKIT_NETWORK_ERROR_CANCELLED)) {
     return FALSE;
+  }
+
+  // A navigation the app cancelled (onNavigationResponse, a download): an
+  // error with no load stop after it, as on iOS and macOS.
+  if (error != nullptr &&
+      g_error_matches(error, WEBKIT_POLICY_ERROR,
+                      WEBKIT_POLICY_ERROR_FRAME_LOAD_INTERRUPTED_BY_POLICY_CHANGE)) {
+    self->load_interrupted_by_policy_ = true;
   }
 
   // Create WebResourceRequest for the failing URL
