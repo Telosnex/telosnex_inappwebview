@@ -228,6 +228,8 @@ class InAppWebView {
   void getHtml(std::function<void(const std::optional<std::string>&)> callback);
 
   // Screenshot - captures the current visible content as PNG data
+  void takeWebKitSnapshot(
+      std::function<void(const std::optional<std::vector<uint8_t>>&)> callback);
   void takeScreenshot(std::function<void(const std::optional<std::vector<uint8_t>>&)> callback);
 
   // Session state - save and restore navigation state

@@ -2679,7 +2679,9 @@ void InAppWebView::takeScreenshot(std::function<void(const std::optional<std::ve
   size_t buffer_size = GetPixelBufferSize(&width, &height);
 
   if (buffer_size == 0 || width == 0 || height == 0) {
-    callback(std::nullopt);
+    // No CPU copy of the frame: frames go to the texture zero-copy (DMA-BUF),
+    // or a headless view has none. WebKit renders a snapshot itself.
+    takeWebKitSnapshot(std::move(callback));
     return;
   }
 
@@ -2749,6 +2751,60 @@ void InAppWebView::takeScreenshot(std::function<void(const std::optional<std::ve
   }
 
   callback(png_data);
+}
+
+// A PNG of the visible area from webkit_web_view_get_snapshot. WebKitImage
+// pixels are Cairo's ARGB32 (premultiplied, native byte order).
+void InAppWebView::takeWebKitSnapshot(
+    std::function<void(const std::optional<std::vector<uint8_t>>&)> callback) {
+  auto* data = new std::function<void(const std::optional<std::vector<uint8_t>>&)>(
+      std::move(callback));
+  webkit_web_view_get_snapshot(
+      webview_, WEBKIT_SNAPSHOT_REGION_VISIBLE, WEBKIT_SNAPSHOT_OPTIONS_NONE, nullptr,
+      [](GObject* source, GAsyncResult* result, gpointer user_data) {
+        std::unique_ptr<std::function<void(const std::optional<std::vector<uint8_t>>&)>> cb(
+            static_cast<std::function<void(const std::optional<std::vector<uint8_t>>&)>*>(
+                user_data));
+        GError* error = nullptr;
+        WebKitImage* image =
+            webkit_web_view_get_snapshot_finish(WEBKIT_WEB_VIEW(source), result, &error);
+        if (image == nullptr) {
+          if (error != nullptr) {
+            debugLog(std::string("takeScreenshot: snapshot failed: ") + error->message);
+            g_error_free(error);
+          }
+          (*cb)(std::nullopt);
+          return;
+        }
+        GBytes* bytes = webkit_image_as_bytes(image);
+        gsize size = 0;
+        const unsigned char* pixels =
+            bytes != nullptr ? static_cast<const unsigned char*>(g_bytes_get_data(bytes, &size))
+                             : nullptr;
+        int width = static_cast<int>(webkit_image_get_width(image));
+        int height = static_cast<int>(webkit_image_get_height(image));
+        int stride = static_cast<int>(webkit_image_get_stride(image));
+        std::vector<uint8_t> png;
+        if (pixels != nullptr && width > 0 && height > 0 &&
+            size >= static_cast<gsize>(stride) * static_cast<gsize>(height)) {
+          cairo_surface_t* surface = cairo_image_surface_create_for_data(
+              const_cast<unsigned char*>(pixels), CAIRO_FORMAT_ARGB32, width, height, stride);
+          if (cairo_surface_status(surface) == CAIRO_STATUS_SUCCESS) {
+            cairo_surface_write_to_png_stream(
+                surface,
+                [](void* closure, const unsigned char* d, unsigned int length) -> cairo_status_t {
+                  auto* out = static_cast<std::vector<uint8_t>*>(closure);
+                  out->insert(out->end(), d, d + length);
+                  return CAIRO_STATUS_SUCCESS;
+                },
+                &png);
+          }
+          cairo_surface_destroy(surface);
+        }
+        g_object_unref(image);
+        (*cb)(png.empty() ? std::nullopt : std::optional<std::vector<uint8_t>>(std::move(png)));
+      },
+      data);
 }
 
 // === Session State ===
@@ -4099,6 +4155,7 @@ void InAppWebView::OnLoadChanged(WebKitWebView* web_view, WebKitLoadEvent load_e
       if (webkit_web_view_is_loading(web_view)) {
         break;
       }
+      self->dispatchPlatformReady();
       self->channel_delegate_->onLoadStop(self->getUrl().value_or(""));
       break;
     default:
@@ -8230,9 +8287,11 @@ bool InAppWebView::handleScriptMessageWithReply(const std::string& body, WebKitS
   return false;
 }
 
+// flutterInAppWebViewPlatformReady, once per page (the script checks), when
+// the page has loaded: as iOS, macOS and Android do. Pages wait for it before
+// they call handlers.
 void InAppWebView::dispatchPlatformReady() {
-  std::string script = "window.dispatchEvent(new Event('flutterInAppWebViewPlatformReady'));";
-  evaluateJavascript(script, std::nullopt, nullptr);
+  evaluateJavascript(JavaScriptBridgeJS::PLATFORM_READY_JS_SOURCE(), std::nullopt, nullptr);
 }
 
 void InAppWebView::initializeWindowIdJS() {

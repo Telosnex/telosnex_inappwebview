@@ -183,6 +183,9 @@ void InAppBrowserManager::createInAppBrowser(FlValue* arguments) {
   params.urlRequest = urlRequest;
   params.assetFilePath = assetFilePath;
   params.data = data;
+  params.mimeType = get_optional_fl_map_value<std::string>(arguments, "mimeType");
+  params.encoding = get_optional_fl_map_value<std::string>(arguments, "encoding");
+  params.baseUrl = get_optional_fl_map_value<std::string>(arguments, "baseUrl");
   params.initialSettings = initialSettings;
   params.initialWebViewSettings = initialWebViewSettings;
   params.initialUserScripts = initialUserScripts;

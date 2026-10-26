@@ -497,7 +497,8 @@ void InAppBrowser::loadInitialContent(const InAppBrowserCreationParams& params) 
   } else if (params.assetFilePath.has_value()) {
     webView_->loadFile(params.assetFilePath.value());
   } else if (params.data.has_value()) {
-    webView_->loadData(params.data.value(), "text/html", "UTF-8", "");
+    webView_->loadData(params.data.value(), params.mimeType.value_or("text/html"),
+                       params.encoding.value_or("UTF-8"), params.baseUrl.value_or("about:blank"));
   }
 }
 

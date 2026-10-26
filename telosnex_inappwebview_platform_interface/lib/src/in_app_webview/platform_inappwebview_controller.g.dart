@@ -78,6 +78,7 @@ enum PlatformInAppWebViewControllerProperty {
   ///- macOS WKWebView
   ///- Web \<iframe\> but requires same origin
   ///- Windows WebView2
+  ///- Linux WPE WebKit
   ///
   ///Use the [PlatformInAppWebViewController.isPropertySupported] method to check if this property is supported at runtime.
   ///{@endtemplate}
@@ -122,6 +123,7 @@ extension _PlatformInAppWebViewControllerPropertySupported
                     TargetPlatform.iOS,
                     TargetPlatform.macOS,
                     TargetPlatform.windows,
+                    TargetPlatform.linux,
                   ].contains(platform ?? defaultTargetPlatform);
     }
   }

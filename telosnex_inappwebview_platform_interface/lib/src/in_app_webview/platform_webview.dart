@@ -54,6 +54,7 @@ class PlatformWebViewCreationParams<T> {
       MacOSPlatform(),
       WebPlatform(),
       WindowsPlatform(),
+      LinuxPlatform(),
     ],
   )
   final int? windowId;

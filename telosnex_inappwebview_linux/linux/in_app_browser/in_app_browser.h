@@ -37,6 +37,9 @@ struct InAppBrowserCreationParams {
   std::optional<std::shared_ptr<URLRequest>> urlRequest;
   std::optional<std::string> assetFilePath;
   std::optional<std::string> data;
+  std::optional<std::string> mimeType;
+  std::optional<std::string> encoding;
+  std::optional<std::string> baseUrl;
   std::shared_ptr<InAppBrowserSettings> initialSettings;
   std::shared_ptr<InAppWebViewSettings> initialWebViewSettings;
   std::optional<std::vector<std::shared_ptr<UserScript>>> initialUserScripts;

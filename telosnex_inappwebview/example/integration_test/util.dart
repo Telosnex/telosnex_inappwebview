@@ -62,6 +62,11 @@ void skippableTest(
   }
 }
 
+/// Set by widget tests that run these tests for another platform
+/// (test/supported_flags_test.dart): each test runs with it as
+/// [defaultTargetPlatform], reset before the test ends.
+TargetPlatform? testPlatformOverride;
+
 void skippableTestWidgets(
   String description,
   WidgetTesterCallback callback, {
@@ -74,7 +79,16 @@ void skippableTestWidgets(
   if (!skip) {
     testWidgets(
       description,
-      callback,
+      (tester) async {
+        final platform = testPlatformOverride;
+        if (platform == null) return callback(tester);
+        debugDefaultTargetPlatformOverride = platform;
+        try {
+          await callback(tester);
+        } finally {
+          debugDefaultTargetPlatformOverride = null;
+        }
+      },
       skip: skip,
       timeout: timeout,
       semanticsEnabled: semanticsEnabled,

@@ -166,6 +166,7 @@ abstract class PlatformInAppWebViewController extends PlatformInterface
       MacOSPlatform(),
       WebPlatform(),
       WindowsPlatform(),
+      LinuxPlatform(),
     ],
   )
   PlatformWebStorage get webStorage => throw UnimplementedError(

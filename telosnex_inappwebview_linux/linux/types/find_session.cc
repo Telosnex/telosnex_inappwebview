@@ -15,6 +15,9 @@ FlValue* FindSession::toFlValue() const {
   return to_fl_map({
       {"resultCount", make_fl_value(resultCount)},
       {"highlightedResultIndex", make_fl_value(highlightedResultIndex)},
+      // Required by FindSession.fromMap. CURRENT_AND_TOTAL (0): WebKit has
+      // no find bar of its own; the app shows what it likes.
+      {"searchResultDisplayStyle", make_fl_value(static_cast<int32_t>(0))},
   });
 }
 
