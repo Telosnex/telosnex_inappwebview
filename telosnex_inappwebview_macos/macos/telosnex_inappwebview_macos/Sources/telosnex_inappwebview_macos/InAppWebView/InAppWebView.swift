@@ -1339,6 +1339,19 @@ public class InAppWebView: WKWebView, WKUIDelegate,
     
     public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         InAppWebView.credentialsProposed = []
+
+        // A back/forward cache restore: WebKit shows the cached page, cancels
+        // its network load (NSURLErrorCancelled) and calls no didFinish.
+        // Chromium's iOS WebView handles the same case (crbug.com/1249735).
+        // Not an error: report the load as finished, as Android does. A load
+        // stopped by hand differs: the page shown is not the one that failed.
+        if let urlError = error as? URLError, urlError.code == .cancelled,
+           !webView.isLoading,
+           let failed = urlError.failingURL, failed == webView.url,
+           webView.backForwardList.currentItem?.url == failed {
+            self.webView(webView, didFinish: navigation)
+            return
+        }
         
         var urlError: URL = url ?? URL(string: "about:blank")!
         var errorCode = -1
