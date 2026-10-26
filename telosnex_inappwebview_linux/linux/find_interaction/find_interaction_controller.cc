@@ -106,8 +106,12 @@ void FindInteractionController::OnFoundText(
     gpointer user_data) {
   if (!user_data) return;
   auto* controller = static_cast<FindInteractionController*>(user_data);
+  // WebKit reports the count with each search here (counted-matches only
+  // follows count_matches, which nothing calls), and highlights the first
+  // match: the session and the result are complete.
+  controller->activeFindSession_ = FindSession(static_cast<int>(match_count), 0);
   if (controller->channelDelegate_) {
-    controller->channelDelegate_->onFindResultReceived(-1, static_cast<int32_t>(match_count), false);
+    controller->channelDelegate_->onFindResultReceived(0, static_cast<int32_t>(match_count), true);
   }
 }
 

@@ -15,6 +15,7 @@
 #                   the Mac's network address on macOS (the WebView's
 #                   requests to 127.0.0.1 failed there), else 127.0.0.1.
 #                   The Android emulator needs 10.0.2.2.
+#   IAW_TEST_TIMEOUT  Per test (flutter test --timeout, e.g. 45s).
 #   IAW_DRIVER      web: run with flutter drive on the web-server device
 #                   (start chromedriver or another WebDriver first).
 #
@@ -74,7 +75,7 @@ for unit in "${units[@]}"; do
       --browser-name="${IAW_BROWSER:-chrome}" "${defines[@]}")
   else
     run=(flutter test integration_test/webview_flutter_test.dart -d "$device"
-      -r expanded "${defines[@]}")
+      -r expanded ${IAW_TEST_TIMEOUT:+--timeout "$IAW_TEST_TIMEOUT"} "${defines[@]}")
   fi
   start=$(date +%s)
   perl -e 'alarm shift; exec @ARGV' "$limit" ${wrap[@]+"${wrap[@]}"} "${run[@]}" > "$log" 2>&1 < /dev/null

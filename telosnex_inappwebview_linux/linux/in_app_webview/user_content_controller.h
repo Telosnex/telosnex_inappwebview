@@ -55,6 +55,11 @@ class UserContentController {
   void setScriptMessageWithReplyHandler(const std::string& name, ScriptMessageWithReplyHandler handler);
   void registerScriptMessageHandlerWithReply(const std::string& name);
 
+  // Keeps the named world [name] alive. WebKit removes a world from the
+  // page when nothing uses it, so a variable set by evaluateJavascript in a
+  // world was gone at the next call. An empty user script holds it.
+  void retainWorld(const std::string& name);
+
   // Get all user scripts
   const std::vector<std::shared_ptr<UserScript>>& getUserScripts(
       UserScriptInjectionTime injectionTime) const;
@@ -67,6 +72,8 @@ class UserContentController {
   std::vector<std::shared_ptr<UserScript>> document_end_scripts_;
   std::vector<std::unique_ptr<PluginScript>> plugin_scripts_;
   std::vector<std::string> registered_message_handlers_;
+  std::vector<std::string> retained_worlds_;
+  void addWorldScripts();
   std::vector<std::string> registered_message_handlers_with_reply_;
 
   ScriptMessageHandler script_message_handler_;

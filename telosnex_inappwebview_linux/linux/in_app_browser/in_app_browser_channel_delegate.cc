@@ -68,6 +68,13 @@ void InAppBrowserChannelDelegate::HandleMethodCall(FlMethodCall* method_call) {
     return;
   }
 
+  // The browser and its WebView share one channel (as in Dart): the
+  // WebView's methods (getUrl, evaluateJavascript...) are its delegate's.
+  if (browser_->webView() != nullptr && browser_->webView()->channel_delegate() != nullptr) {
+    browser_->webView()->channel_delegate()->HandleMethodCall(method_call);
+    return;
+  }
+
   fl_method_call_respond_not_implemented(method_call, nullptr);
 }
 

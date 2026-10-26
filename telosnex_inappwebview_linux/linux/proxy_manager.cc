@@ -115,11 +115,17 @@ void ProxyManager::setProxyOverride(const ProxySettings& settings) {
   }
   ignoreHostsCStrings.push_back(nullptr);  // NULL-terminate the array
 
+  // A rule may be host:port, as on Android: an HTTP proxy. WebKit needs a
+  // URI, and ignored the rule without a scheme.
+  auto proxyUri = [](const std::string& url) {
+    return url.find("://") == std::string::npos ? "http://" + url : url;
+  };
+
   // Get the default proxy URI (first proxy rule with no schemeFilter, or schemeFilter == "*")
   std::string defaultProxyUri;
   for (const auto& rule : settings.proxyRules) {
     if (!rule.schemeFilter.has_value() || rule.schemeFilter.value().empty()) {
-      defaultProxyUri = rule.url;
+      defaultProxyUri = proxyUri(rule.url);
       break;
     }
 
@@ -128,7 +134,7 @@ void ProxyManager::setProxyOverride(const ProxySettings& settings) {
       c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
     }
     if (scheme == "*") {
-      defaultProxyUri = rule.url;
+      defaultProxyUri = proxyUri(rule.url);
       break;
     }
   }
@@ -158,7 +164,7 @@ void ProxyManager::setProxyOverride(const ProxySettings& settings) {
       continue;
     }
 
-    schemeSpecificProxyRules.emplace_back(std::move(scheme), rule.url);
+    schemeSpecificProxyRules.emplace_back(std::move(scheme), proxyUri(rule.url));
   }
 
   // Create the proxy settings

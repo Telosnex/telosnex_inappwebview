@@ -2129,7 +2129,10 @@ void InAppWebView::evaluateJavascript(
 
   auto* cb_data = new CallbackData{std::move(callback)};
 
-  const char* world = worldName.has_value() ? worldName->c_str() : nullptr;
+  const char* world = ContentWorld::webkitName(worldName);
+  if (world != nullptr && user_content_controller_) {
+    user_content_controller_->retainWorld(*worldName);
+  }
 
   webkit_web_view_evaluate_javascript(
       webview_, source.c_str(), source.length(),
@@ -2219,7 +2222,10 @@ void InAppWebView::callAsyncJavaScript(
   g_variant_builder_add(&builder, "{sv}", "__args__", g_variant_new_string(argumentsJson.c_str()));
   GVariant* gvariant_args = g_variant_builder_end(&builder);
 
-  const char* world = worldName.has_value() ? worldName->c_str() : nullptr;
+  const char* world = ContentWorld::webkitName(worldName);
+  if (world != nullptr && user_content_controller_) {
+    user_content_controller_->retainWorld(*worldName);
+  }
 
   struct CallbackData {
     std::function<void(const std::string&)> callback;

@@ -450,6 +450,11 @@ void InAppBrowser::setupWebView(const InAppBrowserCreationParams& params) {
 
   // Attach channel with browser-specific ID
   webView_->AttachChannel(messenger_, METHOD_CHANNEL_NAME_PREFIX + id_, true);
+  // The WebView's delegate took over the channel name; the browser's
+  // delegate handles it again and passes the WebView's methods on.
+  channelDelegate_.reset();
+  channelDelegate_ = std::make_unique<InAppBrowserChannelDelegate>(
+      this, messenger_, std::string(METHOD_CHANNEL_NAME_PREFIX) + id_);
 
   // Set initial size (will be updated on realize)
   webView_->setSize(800, 600);

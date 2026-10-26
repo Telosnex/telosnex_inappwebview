@@ -1926,6 +1926,28 @@ class LinuxInAppWebViewController extends PlatformInAppWebViewController
   }
 
   @override
+  Future<void> goTo({required WebHistoryItem historyItem}) async {
+    final steps = historyItem.offset;
+    if (steps != null) {
+      await goBackOrForward(steps: steps);
+    }
+  }
+
+  @override
+  Future<dynamic> injectJavascriptFileFromAsset({
+    required String assetFilePath,
+  }) async {
+    final source = await rootBundle.loadString(assetFilePath);
+    return await evaluateJavascript(source: source);
+  }
+
+  @override
+  Future<void> injectCSSFileFromAsset({required String assetFilePath}) async {
+    final source = await rootBundle.loadString(assetFilePath);
+    await injectCSSCode(source: source);
+  }
+
+  @override
   Future<bool> canGoBackOrForward({required int steps}) async {
     Map<String, dynamic> args = <String, dynamic>{};
     args.putIfAbsent('steps', () => steps);

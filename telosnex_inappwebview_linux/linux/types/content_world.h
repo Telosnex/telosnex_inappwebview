@@ -30,6 +30,16 @@ class ContentWorld {
   static std::shared_ptr<ContentWorld> defaultClient();
   static std::shared_ptr<ContentWorld> world(const std::string& name);
 
+  // The world name for WebKit: nullptr for the page world ("page", or
+  // none), which is WebKit's default world; else a named isolated world
+  // ("defaultClient" too, isolated from the page as on iOS and macOS).
+  static const char* webkitName(const std::optional<std::string>& name) {
+    if (!name.has_value() || name->empty() || *name == "page") {
+      return nullptr;
+    }
+    return name->c_str();
+  }
+
  private:
   static std::shared_ptr<ContentWorld> pageWorld_;
   static std::shared_ptr<ContentWorld> defaultClientWorld_;

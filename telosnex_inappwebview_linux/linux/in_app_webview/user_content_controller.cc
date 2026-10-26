@@ -109,6 +109,7 @@ void UserContentController::removeAllUserScripts() {
     for (const auto& pluginScript : plugin_scripts_) {
       addWebKitScript(*pluginScript);
     }
+    addWorldScripts();
   }
 }
 
@@ -290,6 +291,17 @@ WebKitUserScript* UserContentController::createWebKitUserScript(const UserScript
                            ? "if (" + originCheck.value() + ") {\n" + userScript.source + "\n}"
                            : userScript.source;
 
+  std::optional<std::string> worldName;
+  if (userScript.contentWorld) {
+    worldName = userScript.contentWorld->name;
+  }
+  const char* world = ContentWorld::webkitName(worldName);
+  if (world != nullptr) {
+    return webkit_user_script_new_for_world(source.c_str(), frames, webkitTime, world,
+                                            nullptr,  // allow_list
+                                            nullptr   // block_list
+    );
+  }
   return webkit_user_script_new(source.c_str(), frames, webkitTime,
                                 nullptr,  // allow_list
                                 nullptr   // block_list
@@ -321,6 +333,40 @@ void UserContentController::rebuildScripts() {
   }
   for (const auto& script : document_end_scripts_) {
     addWebKitScript(*script);
+  }
+  addWorldScripts();
+}
+
+void UserContentController::retainWorld(const std::string& name) {
+  if (ContentWorld::webkitName(name) == nullptr) {
+    return;
+  }
+  for (const auto& retained : retained_worlds_) {
+    if (retained == name) {
+      return;
+    }
+  }
+  retained_worlds_.push_back(name);
+  if (content_manager_ == nullptr) {
+    return;
+  }
+  WebKitUserScript* script = webkit_user_script_new_for_world(
+      "", WEBKIT_USER_CONTENT_INJECT_TOP_FRAME, WEBKIT_USER_SCRIPT_INJECT_AT_DOCUMENT_END,
+      name.c_str(), nullptr, nullptr);
+  webkit_user_content_manager_add_script(content_manager_, script);
+  webkit_user_script_unref(script);
+}
+
+void UserContentController::addWorldScripts() {
+  if (content_manager_ == nullptr) {
+    return;
+  }
+  for (const auto& name : retained_worlds_) {
+    WebKitUserScript* script = webkit_user_script_new_for_world(
+        "", WEBKIT_USER_CONTENT_INJECT_TOP_FRAME, WEBKIT_USER_SCRIPT_INJECT_AT_DOCUMENT_END,
+        name.c_str(), nullptr, nullptr);
+    webkit_user_content_manager_add_script(content_manager_, script);
+    webkit_user_script_unref(script);
   }
 }
 
