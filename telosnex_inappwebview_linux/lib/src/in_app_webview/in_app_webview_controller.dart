@@ -448,6 +448,30 @@ class LinuxInAppWebViewController extends PlatformInAppWebViewController
             _inAppBrowserEventHandler!.onScrollChanged(x, y);
         }
         break;
+      case "onContentSizeChanged":
+        if ((webviewParams != null &&
+                webviewParams!.onContentSizeChanged != null) ||
+            _inAppBrowserEventHandler != null) {
+          final oldContentSize = MapSize.fromMap(
+            call.arguments["oldContentSize"]?.cast<String, dynamic>(),
+          )!;
+          final newContentSize = MapSize.fromMap(
+            call.arguments["newContentSize"]?.cast<String, dynamic>(),
+          )!;
+          if (webviewParams != null &&
+              webviewParams!.onContentSizeChanged != null)
+            webviewParams!.onContentSizeChanged!(
+              _controllerFromPlatform,
+              oldContentSize,
+              newContentSize,
+            );
+          else
+            _inAppBrowserEventHandler!.onContentSizeChanged(
+              oldContentSize,
+              newContentSize,
+            );
+        }
+        break;
       case "onCloseWindow":
         if (webviewParams != null && webviewParams!.onCloseWindow != null)
           webviewParams!.onCloseWindow!(_controllerFromPlatform);
@@ -2315,11 +2339,18 @@ class LinuxInAppWebViewController extends PlatformInAppWebViewController
       'getMetaThemeColor',
       args,
     );
-    if (hexColor == null || hexColor.isEmpty) {
-      return null;
+    if (hexColor != null && hexColor.isNotEmpty) {
+      // Parse hex color string like #RRGGBB or #RRGGBBAA
+      return UtilColor.fromHex(hexColor);
     }
-    // Parse hex color string like #RRGGBB or #RRGGBBAA
-    return UtilColor.fromHex(hexColor);
+    // WebKit has no theme color (yet) for the page: read the meta tag, as
+    // Android does.
+    for (final metaTag in await getMetaTags()) {
+      if (metaTag.name == "theme-color" && metaTag.content != null) {
+        return UtilColor.fromStringRepresentation(metaTag.content!);
+      }
+    }
+    return null;
   }
 
   @override

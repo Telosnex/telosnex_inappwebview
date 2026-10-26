@@ -237,7 +237,8 @@ class WebViewChannelDelegate : public ChannelDelegate {
 
   void onWebViewCreated() const;
 
-  void onContentSizeChanged(int64_t width, int64_t height) const;
+  void onContentSizeChanged(int64_t oldWidth, int64_t oldHeight, int64_t newWidth,
+                            int64_t newHeight) const;
 
   void onCreateWindow(std::unique_ptr<CreateWindowAction> createWindowAction,
                       std::unique_ptr<CreateWindowCallback> callback) const;

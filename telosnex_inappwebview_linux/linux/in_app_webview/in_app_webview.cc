@@ -51,6 +51,7 @@
 #include "../plugin_scripts_js/intercept_ajax_request_js.h"
 #include "../plugin_scripts_js/intercept_fetch_request_js.h"
 #include "../plugin_scripts_js/javascript_bridge_js.h"
+#include "../plugin_scripts_js/scroll_content_size_js.h"
 #include "../plugin_scripts_js/on_load_resource_js.h"
 #include "../plugin_scripts_js/print_interception_js.h"
 #include "../plugin_scripts_js/web_message_channel_js.h"
@@ -1157,6 +1158,9 @@ void InAppWebView::AddPluginScripts() {
   // (see https://github.com/pichillilorenzo/flutter_inappwebview/issues/1738)
   auto consoleLogScript = ConsoleLogJS::CONSOLE_LOG_JS_PLUGIN_SCRIPT(pluginScriptsOriginAllowList);
   AddInternalPluginScript(std::move(consoleLogScript));
+
+  // === onScrollChanged and onContentSizeChanged (no WPE signals) ===
+  AddInternalPluginScript(ScrollContentSizeJS::PLUGIN_SCRIPT(pluginScriptsOriginAllowList));
 
   // === Add Color Input Interception Script ===
   // WPE WebKit doesn't have the run-color-chooser signal, so we handle <input type="color">
@@ -4195,7 +4199,23 @@ gboolean InAppWebView::OnDecidePolicy(WebKitWebView* web_view, WebKitPolicyDecis
     const gchar* mimeType = webkit_uri_response_get_mime_type(response);
     gint64 contentLength = webkit_uri_response_get_content_length(response);
     guint statusCode = webkit_uri_response_get_status_code(response);
-    
+
+    // onReceivedHttpError: an HTTP error status of a frame's document. (WPE
+    // has no per-subresource response hook; Android reports those too.)
+    if (statusCode >= 400 && self->channel_delegate_) {
+      WebKitURIRequest* request =
+          webkit_response_policy_decision_get_request(response_decision);
+      const gchar* method = request != nullptr ? webkit_uri_request_get_http_method(request) : nullptr;
+      auto errorRequest = std::make_shared<WebResourceRequest>(
+          uri != nullptr ? std::optional<std::string>(uri) : std::nullopt,
+          std::optional<std::string>(method != nullptr ? method : "GET"), std::nullopt,
+          std::optional<bool>(is_main_frame == TRUE));
+      auto errorResponse = std::make_shared<WebResourceResponse>(
+          mimeType != nullptr ? std::optional<std::string>(mimeType) : std::nullopt,
+          std::nullopt, std::optional<int64_t>(statusCode));
+      self->channel_delegate_->onReceivedHttpError(errorRequest, errorResponse);
+    }
+
     // If channel_delegate exists and settings permit, send onNavigationResponse event
     if (self->channel_delegate_ && self->settings_ && self->settings_->useOnNavigationResponse) {
       // Keep decision alive for async callback
@@ -7844,7 +7864,7 @@ bool InAppWebView::handleScriptMessageWithReply(const std::string& body, WebKitS
       "onWebMessageListenerPostMessageReceived", "onPrintRequest", "onFindResultReceived",
       "_cursorChanged", "_onColorInputClicked", "_onDateInputClicked", "_onPrintRequest",
       "shouldInterceptAjaxRequest", "onAjaxReadyStateChange", "onAjaxProgress",
-      "shouldInterceptFetchRequest"};
+      "shouldInterceptFetchRequest", "onScrollChanged", "onContentSizeChanged"};
   if (kInternalHandlers.count(handlerName) > 0) {
     const bool internal = bodyJson.contains("_internalSecret") &&
                           bodyJson["_internalSecret"].is_string() &&
@@ -7877,6 +7897,30 @@ bool InAppWebView::handleScriptMessageWithReply(const std::string& body, WebKitS
   }
 
   // === Handle Internal Handlers ===
+  if (handlerName == "onScrollChanged" || handlerName == "onContentSizeChanged") {
+    try {
+      json argsJson = json::parse(argsJsonStr.empty() ? "[]" : argsJsonStr);
+      if (argsJson.is_array() && !argsJson.empty() && argsJson[0].is_object() &&
+          targetWebView->channel_delegate_) {
+        const json& a = argsJson[0];
+        auto num = [](const json& o, const char* key) -> int64_t {
+          return o.contains(key) && o[key].is_number() ? o[key].get<int64_t>() : 0;
+        };
+        if (handlerName == "onScrollChanged") {
+          targetWebView->channel_delegate_->onScrollChanged(num(a, "x"), num(a, "y"));
+        } else if (a.contains("oldContentSize") && a.contains("newContentSize")) {
+          const json& o = a["oldContentSize"];
+          const json& n = a["newContentSize"];
+          targetWebView->channel_delegate_->onContentSizeChanged(
+              num(o, "width"), num(o, "height"), num(n, "width"), num(n, "height"));
+        }
+      }
+    } catch (const json::exception&) {
+    }
+    ResolveInternalHandlerWithReply(reply, "null");
+    return true;
+  }
+
   
   if (handlerName == "onConsoleMessage") {
     // Handle console message interception

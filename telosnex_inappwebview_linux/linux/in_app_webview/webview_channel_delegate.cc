@@ -1467,13 +1467,18 @@ void WebViewChannelDelegate::onWebViewCreated() const {
   invokeMethod("onWebViewCreated", args);
 }
 
-void WebViewChannelDelegate::onContentSizeChanged(int64_t width, int64_t height) const {
+void WebViewChannelDelegate::onContentSizeChanged(int64_t oldWidth, int64_t oldHeight,
+                                                  int64_t newWidth, int64_t newHeight) const {
   if (!channel_) {
     return;
   }
 
-  g_autoptr(FlValue) args =
-      to_fl_map({{"width", make_fl_value(width)}, {"height", make_fl_value(height)}});
+  // As iOS and macOS send it (MapSize maps).
+  g_autoptr(FlValue) args = to_fl_map(
+      {{"oldContentSize",
+        to_fl_map({{"width", make_fl_value(oldWidth)}, {"height", make_fl_value(oldHeight)}})},
+       {"newContentSize",
+        to_fl_map({{"width", make_fl_value(newWidth)}, {"height", make_fl_value(newHeight)}})}});
 
   invokeMethod("onContentSizeChanged", args);
 }
