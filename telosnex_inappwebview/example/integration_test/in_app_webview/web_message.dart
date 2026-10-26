@@ -66,6 +66,19 @@ void webMessage() {
                 message: WebMessage(data: "capturePort", ports: [port2]),
                 targetOrigin: WebUri("*"),
               );
+              // window.postMessage delivers the port asynchronously: click
+              // once the page has it.
+              for (
+                var i = 0;
+                i < 50 &&
+                    await controller.evaluateJavascript(
+                          source: "typeof port === 'undefined'",
+                        ) ==
+                        true;
+                i++
+              ) {
+                await Future.delayed(const Duration(milliseconds: 100));
+              }
               await controller.evaluateJavascript(
                 source: "document.getElementById('button').click();",
               );
@@ -161,6 +174,19 @@ void webMessage() {
                 ),
                 targetOrigin: WebUri("*"),
               );
+              // window.postMessage delivers the port asynchronously: click
+              // once the page has it.
+              for (
+                var i = 0;
+                i < 50 &&
+                    await controller.evaluateJavascript(
+                          source: "typeof port === 'undefined'",
+                        ) ==
+                        true;
+                i++
+              ) {
+                await Future.delayed(const Duration(milliseconds: 100));
+              }
               await controller.evaluateJavascript(
                 source: "document.getElementById('button').click();",
               );
