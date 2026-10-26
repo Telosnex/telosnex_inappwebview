@@ -439,7 +439,9 @@ enable_testing()
 include(FetchContent)
 FetchContent_Declare(
   googletest
-  URL https://github.com/google/googletest/archive/release-1.11.0.zip
+  # 1.17: CMake 4 (Ubuntu 26.04) rejects 1.11's cmake_minimum_required.
+  URL https://github.com/google/googletest/archive/refs/tags/v1.17.0.zip
+  URL_HASH SHA256=40d4ec942217dcc84a9ebe2a68584ada7d4a33a8ee958755763278ea1c5e18ff
   DOWNLOAD_EXTRACT_TIMESTAMP TRUE
 )
 # Prevent overriding the parent project's compiler/linker settings
