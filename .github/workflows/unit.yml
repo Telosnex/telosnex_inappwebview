@@ -35,6 +35,8 @@ jobs:
           for pubspec in $(git ls-files '*pubspec.yaml'); do
             (cd "$(dirname "$pubspec")" && flutter pub get > /dev/null) || { echo "pub get failed: $pubspec"; exit 1; }
           done
+      # integration_test/env.dart is generated (the test server address).
+      - run: dart tool/env.dart
       - name: Format
         run: git ls-files '*.dart' | xargs dart format --output=none --set-exit-if-changed
       # Errors and warnings. Upstream's style infos (about 4,000) do not fail.
