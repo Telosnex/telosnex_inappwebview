@@ -68,7 +68,7 @@ void loadFileUrl() {
         );
         // Without read access the page cannot load ../js/main.js. The iOS
         // simulator loads it anyway (iOS 26.3); macOS and devices do not.
-        if (!Platform.environment.containsKey('SIMULATOR_DEVICE_NAME')) {
+        if (!appSupportDir.path.contains('/CoreSimulator/')) {
           expect(result, null);
         }
 
@@ -127,7 +127,7 @@ void loadFileUrl() {
         );
         // Without read access the page cannot load ../js/main.js. The iOS
         // simulator loads it anyway (iOS 26.3); macOS and devices do not.
-        if (!Platform.environment.containsKey('SIMULATOR_DEVICE_NAME')) {
+        if (!appSupportDir.path.contains('/CoreSimulator/')) {
           expect(result, null);
         }
 
