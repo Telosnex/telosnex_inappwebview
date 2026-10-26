@@ -163,7 +163,10 @@ namespace telosnex_inappwebview_plugin
     void showSaveAsUI(const std::function<void(const std::optional<int64_t>)> completionHandler) const;
     void loadUrl(const std::shared_ptr<URLRequest> urlRequest) const;
     void loadFile(const std::string& assetFilePath) const;
-    void loadData(const std::string& data) const;
+    // With an http(s) baseUrl: the page loads from baseUrl, its document
+    // answered with data (NavigateToString has no base URL).
+    void loadData(const std::string& data, const std::string& mimeType = "text/html",
+      const std::string& encoding = "utf8", const std::string& baseUrl = "about:blank") const;
     void reload() const;
     void goBack();
     bool canGoBack() const;
@@ -196,7 +199,7 @@ namespace telosnex_inappwebview_plugin
     void clearSslPreferences(const std::function<void()> completionHandler) const;
     bool isInterfaceSupported(const std::string& interfaceName) const;
     double getZoomScale() const;
-    void setZoomScale(const double& zoomScale) const;
+    void setZoomScale(const double& zoomScale);
     int64_t getProgress() const;
     void scrollTo(const int64_t& x, const int64_t& y, const bool& animated) const;
     void scrollBy(const int64_t& x, const int64_t& y, const bool& animated) const;
@@ -270,6 +273,13 @@ namespace telosnex_inappwebview_plugin
     std::map<std::string, std::pair<wil::com_ptr<ICoreWebView2DevToolsProtocolEventReceiver>, EventRegistrationToken>> devToolsProtocolEventListener_ = {};
     int64_t previousAuthRequestFailureCount = 0;
     double zoomScaleFactor_ = 1.0;
+    struct PendingData {
+      std::string url;
+      std::string data;
+      std::string contentType;
+    };
+    // loadData with a base URL: the document request for url gets data.
+    mutable std::optional<PendingData> pendingData_;
     int64_t progress_ = 0;
     std::map<std::string, std::unique_ptr<WebMessageChannel>> webMessageChannels_;
     std::map<std::string, std::unique_ptr<WebMessageListener>> webMessageListeners_;

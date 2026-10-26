@@ -124,7 +124,11 @@ namespace telosnex_inappwebview_plugin
             headlessInAppWebView->webView->loadFile(initialFile.value());
           }
           else if (initialDataMap.has_value()) {
-            headlessInAppWebView->webView->loadData(get_fl_map_value<std::string>(initialDataMap.value(), "data"));
+            auto& initialData = initialDataMap.value();
+            headlessInAppWebView->webView->loadData(get_fl_map_value<std::string>(initialData, "data"),
+              get_fl_map_value<std::string>(initialData, "mimeType", "text/html"),
+              get_fl_map_value<std::string>(initialData, "encoding", "utf8"),
+              get_fl_map_value<std::string>(initialData, "baseUrl", "about:blank"));
           }
 
           webViews.insert({ id, std::move(headlessInAppWebView) });

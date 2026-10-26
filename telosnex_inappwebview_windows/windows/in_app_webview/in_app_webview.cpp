@@ -371,7 +371,8 @@ namespace telosnex_inappwebview_plugin
         [this](ICoreWebView2Controller* sender, IUnknown* args)
         {
           double newScale;
-          if (succeededOrLog(sender->get_ZoomFactor(&newScale))) {
+          // setZoomScale reported its own change already.
+          if (succeededOrLog(sender->get_ZoomFactor(&newScale)) && newScale != zoomScaleFactor_) {
             if (channelDelegate) {
               channelDelegate->onZoomScaleChanged(zoomScaleFactor_, newScale);
             }
@@ -951,6 +952,35 @@ namespace telosnex_inappwebview_plugin
         {
           wil::com_ptr<ICoreWebView2Deferral> deferral;
           wil::com_ptr<ICoreWebView2WebResourceRequest> webResourceRequest;
+
+          // loadData with a base URL: answer its document request with the data.
+          COREWEBVIEW2_WEB_RESOURCE_CONTEXT resourceContext;
+          if (pendingData_.has_value() && SUCCEEDED(args->get_ResourceContext(&resourceContext)) &&
+            resourceContext == COREWEBVIEW2_WEB_RESOURCE_CONTEXT_DOCUMENT &&
+            SUCCEEDED(args->get_Request(&webResourceRequest))) {
+            wil::unique_cotaskmem_string uri;
+            if (SUCCEEDED(webResourceRequest->get_Uri(&uri))) {
+              auto trimSlash = [](std::string s) {
+                while (!s.empty() && s.back() == '/') s.pop_back();
+                return s;
+              };
+              if (trimSlash(wide_to_utf8(uri.get())) == trimSlash(pendingData_->url)) {
+                auto pending = std::move(pendingData_.value());
+                pendingData_.reset();
+                wil::com_ptr<IStream> stream = SHCreateMemStream(
+                  reinterpret_cast<const BYTE*>(pending.data.data()), static_cast<UINT>(pending.data.size()));
+                wil::com_ptr<ICoreWebView2WebResourceResponse> response;
+                std::wstring headers = L"Content-Type: " + utf8_to_wide(pending.contentType);
+                if (webViewEnv && succeededOrLog(webViewEnv->CreateWebResourceResponse(
+                  stream.get(), 200, L"OK", headers.c_str(), &response))) {
+                  args->put_Response(response.get());
+                }
+                return S_OK;
+              }
+            }
+            webResourceRequest = nullptr;
+          }
+
           if (channelDelegate && succeededOrLog(args->get_Request(&webResourceRequest)) && succeededOrLog(args->GetDeferral(&deferral))) {
             auto request = std::make_shared<WebResourceRequest>(webResourceRequest);
 
@@ -2131,12 +2161,20 @@ namespace telosnex_inappwebview_plugin
     failedLog(webView->Navigate(absAssetFilePath.c_str()));
   }
 
-  void InAppWebView::loadData(const std::string& data) const
+  void InAppWebView::loadData(const std::string& data, const std::string& mimeType,
+    const std::string& encoding, const std::string& baseUrl) const
   {
     if (!webView) {
       return;
     }
 
+    if (starts_with(baseUrl, std::string{ "http://" }) || starts_with(baseUrl, std::string{ "https://" })) {
+      std::string contentType = (mimeType.empty() ? std::string{ "text/html" } : mimeType) +
+        "; charset=" + (encoding.empty() || encoding == "utf8" ? std::string{ "utf-8" } : encoding);
+      pendingData_ = PendingData{ baseUrl, data, contentType };
+      failedLog(webView->Navigate(utf8_to_wide(baseUrl).c_str()));
+      return;
+    }
     failedLog(webView->NavigateToString(utf8_to_wide(data).c_str()));
   }
 
@@ -3433,13 +3471,22 @@ namespace telosnex_inappwebview_plugin
     return zoomScaleFactor_;
   }
 
-  // ZoomFactorChanged reports the change (onZoomScaleChanged).
-  void InAppWebView::setZoomScale(const double& zoomScale) const
+  // Reports the change (onZoomScaleChanged) itself: ZoomFactorChanged did not
+  // come for a programmatic change (Windows 11 ARM64, WebView2 in a widget).
+  void InAppWebView::setZoomScale(const double& zoomScale)
   {
-    if (!webViewController) {
+    if (!webViewController || !succeededOrLog(webViewController->put_ZoomFactor(zoomScale))) {
       return;
     }
-    failedLog(webViewController->put_ZoomFactor(zoomScale));
+    double newScale = zoomScale;
+    webViewController->get_ZoomFactor(&newScale);
+    if (newScale != zoomScaleFactor_) {
+      auto oldScale = zoomScaleFactor_;
+      zoomScaleFactor_ = newScale;
+      if (channelDelegate) {
+        channelDelegate->onZoomScaleChanged(oldScale, newScale);
+      }
+    }
   }
 
   int64_t InAppWebView::getProgress() const

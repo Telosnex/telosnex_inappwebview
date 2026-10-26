@@ -177,7 +177,9 @@ namespace telosnex_inappwebview_plugin
     }
     else if (string_equals(methodName, "loadData")) {
       auto data = get_fl_map_value<std::string>(arguments, "data");
-      webView->loadData(data);
+      webView->loadData(data, get_fl_map_value<std::string>(arguments, "mimeType", "text/html"),
+        get_fl_map_value<std::string>(arguments, "encoding", "utf8"),
+        get_fl_map_value<std::string>(arguments, "baseUrl", "about:blank"));
       result->Success(true);
     }
     else if (string_equals(methodName, "reload")) {
@@ -572,6 +574,9 @@ namespace telosnex_inappwebview_plugin
     else if (webView->inAppBrowser && string_equals(methodName, "hide")) {
       webView->inAppBrowser->hide();
       result->Success(true);
+    }
+    else if (webView->inAppBrowser && string_equals(methodName, "isHidden")) {
+      result->Success(webView->inAppBrowser->isHidden());
     }
     else if (webView->inAppBrowser && string_equals(methodName, "close")) {
       webView->inAppBrowser->close();

@@ -20,6 +20,9 @@ namespace telosnex_inappwebview_plugin
     const std::optional<std::shared_ptr<URLRequest>> urlRequest;
     const std::optional<std::string> assetFilePath;
     const std::optional<std::string> data;
+    const std::string mimeType;
+    const std::string encoding;
+    const std::string baseUrl;
     const std::shared_ptr<InAppBrowserSettings> initialSettings;
     const std::shared_ptr<InAppWebViewSettings> initialWebViewSettings;
     const std::optional<std::vector<std::shared_ptr<UserScript>>> initialUserScripts;

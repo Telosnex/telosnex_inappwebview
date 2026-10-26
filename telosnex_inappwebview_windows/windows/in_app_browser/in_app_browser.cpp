@@ -92,7 +92,7 @@ namespace telosnex_inappwebview_plugin
             webView->loadFile(params.assetFilePath.value());
           }
           else if (params.data.has_value()) {
-            webView->loadData(params.data.value());
+            webView->loadData(params.data.value(), params.mimeType, params.encoding, params.baseUrl);
           }
         }
         else {
