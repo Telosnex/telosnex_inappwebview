@@ -1700,6 +1700,7 @@ void InAppWebView::loadUrl(const std::string& url) {
 }
 
 void InAppWebView::loadUrl(const std::shared_ptr<URLRequest>& urlRequest) {
+  form_post_page_ = false;
   if (webview_ == nullptr || !urlRequest)
     return;
 
@@ -1753,6 +1754,7 @@ bool InAppWebView::SpinMainLoopAndCheckAlive() {
 
 void InAppWebView::loadData(const std::string& data, const std::string& mime_type,
                             const std::string& encoding, const std::string& base_url) {
+  form_post_page_ = false;
   if (webview_ == nullptr)
     return;
 
@@ -1855,6 +1857,9 @@ bool InAppWebView::FormPostLoad(const std::string& url, const std::string& metho
   webkit_web_view_stop_loading(webview_);
   if (!SpinMainLoopAndCheckAlive())
     return true;
+  // The page that submits the form is not the app's page: no load events
+  // for it (OnLoadChanged), only for the POST's response.
+  form_post_page_ = true;
   webkit_web_view_load_html(webview_, html.c_str(), "about:blank");
   return true;
 }
@@ -4154,6 +4159,14 @@ void InAppWebView::OnLoadChanged(WebKitWebView* web_view, WebKitLoadEvent load_e
   if (!WEBKIT_IS_WEB_VIEW(web_view)) {
     return;
   }
+
+  if (self->form_post_page_) {
+    const gchar* uri = webkit_web_view_get_uri(web_view);
+    if (uri == nullptr || g_str_equal(uri, "about:blank")) {
+      return;
+    }
+    self->form_post_page_ = false;
+  }
   
   if (self->channel_delegate_ == nullptr) {
     return;
@@ -4480,10 +4493,20 @@ gboolean InAppWebView::OnLoadFailed(WebKitWebView* web_view, WebKitLoadEvent loa
       std::optional<bool>(true)           // isForMainFrame - load failures are typically main frame
   );
 
-  // Create WebResourceError from GError
-  auto webError =
-      std::make_shared<WebResourceError>(error ? std::string(error->message) : "Unknown error",
-                                         error ? static_cast<int64_t>(error->code) : -1);
+  // Error type values as in WebResourceErrorType (EnumLinuxPlatform): WebKit's
+  // own codes; 1000 for a name that could not be resolved; else
+  // WEBKIT_NETWORK_ERROR_FAILED. Codes of other domains overlap them.
+  int64_t errorType = WEBKIT_NETWORK_ERROR_FAILED;
+  if (error != nullptr) {
+    if (error->domain == WEBKIT_NETWORK_ERROR || error->domain == WEBKIT_POLICY_ERROR ||
+        error->domain == WEBKIT_DOWNLOAD_ERROR) {
+      errorType = error->code;
+    } else if (error->domain == G_RESOLVER_ERROR) {
+      errorType = 1000;
+    }
+  }
+  auto webError = std::make_shared<WebResourceError>(
+      error ? std::string(error->message) : "Unknown error", errorType);
 
   self->channel_delegate_->onReceivedError(request, webError);
 

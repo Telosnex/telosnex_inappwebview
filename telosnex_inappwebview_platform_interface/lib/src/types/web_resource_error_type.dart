@@ -182,6 +182,12 @@ class WebResourceErrorType_ {
             'https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2210.55#corewebview2_web_error_status',
         value: 13,
       ),
+      EnumLinuxPlatform(
+        apiName: 'G_RESOLVER_ERROR',
+        apiUrl: 'https://docs.gtk.org/gio/error.ResolverError.html',
+        note: 'The name could not be resolved (any GResolverError).',
+        value: 1000,
+      ),
     ],
   )
   static const HOST_LOOKUP = WebResourceErrorType_._internal("HOST_LOOKUP");

@@ -763,6 +763,8 @@ class WebResourceErrorType {
   ///- iOS WKWebView ([Official API - URLError.cannotFindHost](https://developer.apple.com/documentation/foundation/urlerror/code/2883157-cannotfindhost))
   ///- macOS WKWebView ([Official API - URLError.cannotFindHost](https://developer.apple.com/documentation/foundation/urlerror/code/2883157-cannotfindhost))
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_WEB_ERROR_STATUS_HOST_NAME_NOT_RESOLVED](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2210.55#corewebview2_web_error_status))
+  ///- Linux WPE WebKit ([Official API - G_RESOLVER_ERROR](https://docs.gtk.org/gio/error.ResolverError.html)):
+  ///    - The name could not be resolved (any GResolverError).
   static final HOST_LOOKUP = WebResourceErrorType._internalMultiPlatform(
     'HOST_LOOKUP',
     () {
@@ -775,6 +777,8 @@ class WebResourceErrorType {
           return -1003;
         case TargetPlatform.windows:
           return 13;
+        case TargetPlatform.linux:
+          return 1000;
         default:
           break;
       }
