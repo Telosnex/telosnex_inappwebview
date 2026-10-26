@@ -11,7 +11,8 @@ class WebResourceError {
   ///The string describing the error.
   String description;
 
-  ///The type of the error.
+  ///The type of the error. [WebResourceErrorType.UNKNOWN] when the platform
+  ///reports a code that has no type here.
   WebResourceErrorType type;
   WebResourceError({required this.description, required this.type});
 
@@ -25,13 +26,7 @@ class WebResourceError {
     }
     final instance = WebResourceError(
       description: map['description'],
-      type: switch (enumMethod ?? EnumMethod.nativeValue) {
-        EnumMethod.nativeValue => WebResourceErrorType.fromNativeValue(
-          map['type'],
-        ),
-        EnumMethod.value => WebResourceErrorType.fromValue(map['type']),
-        EnumMethod.name => WebResourceErrorType.byName(map['type']),
-      }!,
+      type: _deserializeType(map['type'], enumMethod: enumMethod),
     );
     return instance;
   }

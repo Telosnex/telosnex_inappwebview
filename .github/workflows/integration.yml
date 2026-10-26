@@ -121,6 +121,13 @@ jobs:
         env:
           DEVICE: ${{ matrix.device }}
         run: tool/run_integration_group.sh "$DEVICE"
+      # An app that exits mid-run (no Dart error) leaves a crash report.
+      - name: Collect macOS crash reports
+        if: ${{ !cancelled() && matrix.device == 'macos' }}
+        run: |
+          mkdir -p "$IAW_LOGS/crash"
+          find ~/Library/Logs/DiagnosticReports /Library/Logs/DiagnosticReports \
+            -name 'telosnex_inappwebview_example*' -exec cp {} "$IAW_LOGS/crash/" \; 2>/dev/null || true
       - if: ${{ !cancelled() }}
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
