@@ -218,7 +218,8 @@ class InAppWebView {
 
   // Web Message Channel
   void createWebMessageChannel(std::function<void(const std::optional<std::string>&)> callback);
-  void postWebMessage(const std::string& messageData, const std::string& targetOrigin, int64_t messageType);
+  void postWebMessage(const std::string& messageData, const std::string& targetOrigin, int64_t messageType,
+                      const std::vector<std::pair<std::string, int>>& ports = {});
   void setWebMessageCallback(const std::string& channelId, int portIndex);
   void postWebMessageOnPort(const std::string& channelId, int portIndex,
                             const std::string& messageData, int64_t messageType);

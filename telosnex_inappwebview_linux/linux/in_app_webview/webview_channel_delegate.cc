@@ -962,7 +962,24 @@ void WebViewChannelDelegate::HandleMethodCall(FlMethodCall* method_call) {
         type = fl_value_get_int(type_value);
       }
       
-      webView->postWebMessage(data, targetOrigin, type);
+      // Transferred ports: the page's MessagePort objects of channels made by
+      // createWebMessageChannel ({webMessageChannelId, index}).
+      std::vector<std::pair<std::string, int>> ports;
+      FlValue* ports_value = fl_value_lookup_string(message_value, "ports");
+      if (ports_value != nullptr && fl_value_get_type(ports_value) == FL_VALUE_TYPE_LIST) {
+        for (size_t i = 0; i < fl_value_get_length(ports_value); i++) {
+          FlValue* port = fl_value_get_list_value(ports_value, i);
+          if (port == nullptr || fl_value_get_type(port) != FL_VALUE_TYPE_MAP) continue;
+          FlValue* id = fl_value_lookup_string(port, "webMessageChannelId");
+          FlValue* index = fl_value_lookup_string(port, "index");
+          if (id != nullptr && fl_value_get_type(id) == FL_VALUE_TYPE_STRING && index != nullptr &&
+              fl_value_get_type(index) == FL_VALUE_TYPE_INT) {
+            ports.emplace_back(fl_value_get_string(id), static_cast<int>(fl_value_get_int(index)));
+          }
+        }
+      }
+
+      webView->postWebMessage(data, targetOrigin, type, ports);
     }
     g_autoptr(FlValue) result = fl_value_new_bool(true);
     fl_method_call_respond_success(method_call, result, nullptr);

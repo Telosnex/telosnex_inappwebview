@@ -2578,7 +2578,8 @@ WebMessageChannel* InAppWebView::getWebMessageChannel(const std::string& channel
 
 void InAppWebView::postWebMessage(const std::string& messageData,
                                   const std::string& targetOrigin,
-                                  int64_t messageType) {
+                                  int64_t messageType,
+                                  const std::vector<std::pair<std::string, int>>& ports) {
   if (webview_ == nullptr) return;
 
   // Convert message data to JavaScript expression
@@ -2603,8 +2604,18 @@ void InAppWebView::postWebMessage(const std::string& messageData,
     messageDataJs = "\"" + escaped + "\"";
   }
 
-  // Post message to window (no ports for now - ports are handled via channel)
-  std::string js = WebMessageChannelJS::postWebMessageJs(messageDataJs, targetOrigin, "");
+  std::string portsJs;
+  if (!ports.empty()) {
+    portsJs = "[";
+    for (size_t i = 0; i < ports.size(); i++) {
+      if (i > 0) portsJs += ", ";
+      portsJs += WebMessageChannelJS::WEB_MESSAGE_CHANNELS_VARIABLE_NAME() + "[" +
+                 JsStringLiteral(ports[i].first) + "]." +
+                 (ports[i].second == 0 ? "port1" : "port2");
+    }
+    portsJs += "]";
+  }
+  std::string js = WebMessageChannelJS::postWebMessageJs(messageDataJs, targetOrigin, portsJs);
   evaluateJavascript(js, std::nullopt, nullptr);
 }
 

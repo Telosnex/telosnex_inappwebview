@@ -4,6 +4,7 @@
 #include <string>
 
 #include "javascript_bridge_js.h"
+#include "../utils/origin.h"
 
 namespace telosnex_inappwebview_plugin {
 
@@ -140,7 +141,7 @@ class WebMessageChannelJS {
     std::string portsArg = portsJs.empty() ? "undefined" : portsJs;
     return
         "(function() {\n"
-        "    window.postMessage(" + messageDataJs + ", '" + targetOrigin + "', " + portsArg + ");\n"
+        "    window.postMessage(" + messageDataJs + ", " + JsStringLiteral(targetOrigin) + ", " + portsArg + ");\n"
         "})();";
   }
 };
