@@ -1,0 +1,212 @@
+name: Integration
+
+# The example's integration suite on every platform, one app launch per
+# group (tool/run_integration_group.sh), against the Node test server.
+on:
+  push:
+    branches: [master, 'ci/**']
+  schedule:
+    - cron: '41 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: integration-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  IAW_LIMIT: '900'
+  IAW_LOGS: ${{ github.workspace }}/iaw-logs
+
+jobs:
+  # The pinned WPE SDK (wpe_sdk/prebuilt.json) on its own base system.
+  linux:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 150
+    container:
+      image: ubuntu@sha256:c098726dd9b9733f3e885f8de0ef375206a311b0a317eadc40d347b1115fb944 # 26.04
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { name: Linux x64, runner: ubuntu-24.04, target: ubuntu-26.04-x64 }
+          - { name: Linux ARM64, runner: ubuntu-24.04-arm, target: ubuntu-26.04-arm64 }
+    env:
+      # A CI container cannot create the bubblewrap sandbox's namespaces.
+      WEBKIT_DISABLE_SANDBOX_THIS_IS_DANGEROUS: '1'
+      XDG_RUNTIME_DIR: /tmp/xdg-runtime
+      DEBIAN_FRONTEND: noninteractive
+    steps:
+      - name: Install git
+        run: |
+          apt-get update -qq
+          apt-get install -y -qq --no-install-recommends ca-certificates git > /dev/null
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install the build tools and the SDK's run-time packages
+        env:
+          TARGET: ${{ matrix.target }}
+        run: |
+          apt-get install -y -qq --no-install-recommends python3 > /dev/null
+          read -ra runtime <<< "$(python3 -c "
+          import json, sys
+          t = json.load(open('flutter_inappwebview_linux/wpe_sdk/prebuilt.json'))['targets'][sys.argv[1]]
+          print(' '.join(t['runtimePackages']))" "$TARGET")"
+          # Flutter's Linux toolchain, the plugin's pkg-config modules and the
+          # SDK's (wpe_sdk/prebuilt.json: the .pc files need glib, libsoup,
+          # xkbcommon), the display, and Node for the test server.
+          apt-get install -y -qq --no-install-recommends \
+            curl xz-utils unzip zstd clang g++ cmake ninja-build pkg-config \
+            libgtk-3-dev libepoxy-dev libsecret-1-dev libwayland-dev \
+            libsoup-3.0-dev libxkbcommon-dev \
+            xvfb xauth dbus dbus-x11 libgl1-mesa-dri libegl-mesa0 fonts-dejavu-core \
+            nodejs npm \
+            "${runtime[@]}" > /dev/null
+          mkdir -p "$XDG_RUNTIME_DIR"
+          chmod 700 "$XDG_RUNTIME_DIR"
+      - uses: Telosnex/telosnex_ci_tools/actions/setup-flutter@7ae582de19a80ce2482b9a6648182890d7e7c96e # main
+      - run: npm ci
+        working-directory: test_node_server
+      - name: Linux backend tests (flutter_inappwebview_linux/example)
+        working-directory: flutter_inappwebview_linux/example
+        run: |
+          flutter pub get
+          status=0
+          for f in integration_test/*_test.dart; do
+            echo "::group::$f"
+            timeout "$IAW_LIMIT" dbus-run-session -- xvfb-run -a flutter test "$f" -d linux -r expanded || status=1
+            echo "::endgroup::"
+          done
+          exit $status
+      - name: Example integration suite
+        if: ${{ !cancelled() }}
+        run: |
+          (cd flutter_inappwebview/example && flutter pub get)
+          tool/run_integration_group.sh linux
+      - if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: logs-${{ matrix.target }}
+          path: ${{ env.IAW_LOGS }}
+          if-no-files-found: ignore
+
+  desktop:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 150
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { name: macOS ARM64, runner: macos-26, device: macos }
+          - { name: Windows x64, runner: windows-2025, device: windows }
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: Telosnex/telosnex_ci_tools/actions/setup-flutter@7ae582de19a80ce2482b9a6648182890d7e7c96e # main
+      - run: npm ci
+        working-directory: test_node_server
+      - run: flutter pub get
+        working-directory: flutter_inappwebview/example
+      - name: Example integration suite
+        env:
+          DEVICE: ${{ matrix.device }}
+        run: tool/run_integration_group.sh "$DEVICE"
+      - if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: logs-${{ matrix.device }}
+          path: ${{ env.IAW_LOGS }}
+          if-no-files-found: ignore
+
+  ios:
+    name: iOS ARM64 simulator
+    runs-on: macos-26
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: Telosnex/telosnex_ci_tools/actions/setup-flutter@7ae582de19a80ce2482b9a6648182890d7e7c96e # main
+      - run: npm ci
+        working-directory: test_node_server
+      - run: flutter pub get
+        working-directory: flutter_inappwebview/example
+      - uses: Telosnex/telosnex_ci_tools/actions/ios-simulator-boot@7ae582de19a80ce2482b9a6648182890d7e7c96e # main
+        id: simulator
+      - name: Example integration suite
+        env:
+          UDID: ${{ steps.simulator.outputs.udid }}
+        run: tool/run_integration_group.sh "$UDID"
+      - if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: logs-ios
+          path: ${{ env.IAW_LOGS }}
+          if-no-files-found: ignore
+
+  android:
+    name: Android x64 emulator
+    runs-on: ubuntu-24.04
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: Telosnex/telosnex_ci_tools/actions/setup-flutter@7ae582de19a80ce2482b9a6648182890d7e7c96e # main
+      - run: npm ci
+        working-directory: test_node_server
+      - run: flutter pub get
+        working-directory: flutter_inappwebview/example
+      - uses: Telosnex/telosnex_ci_tools/actions/android-emulator@7ae582de19a80ce2482b9a6648182890d7e7c96e # main
+        id: emulator
+        with:
+          api-level: '36'
+      - name: Example integration suite
+        env:
+          SERIAL: ${{ steps.emulator.outputs.serial }}
+          # The emulator reaches the host at 10.0.2.2.
+          NODE_SERVER_IP: 10.0.2.2
+        run: tool/run_integration_group.sh "$SERIAL"
+      - if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: logs-android
+          path: ${{ env.IAW_LOGS }}
+          if-no-files-found: ignore
+
+  web:
+    name: Web Linux x64 Chrome
+    runs-on: ubuntu-24.04
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: Telosnex/telosnex_ci_tools/actions/setup-flutter@7ae582de19a80ce2482b9a6648182890d7e7c96e # main
+      - run: npm ci
+        working-directory: test_node_server
+      - run: flutter pub get
+        working-directory: flutter_inappwebview/example
+      - uses: Telosnex/telosnex_ci_tools/actions/web-driver@7ae582de19a80ce2482b9a6648182890d7e7c96e # main
+        with:
+          browser: chrome
+      - name: Example integration suite (flutter drive)
+        env:
+          IAW_DRIVER: web
+        run: tool/run_integration_group.sh web-server
+      - if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: logs-web
+          path: ${{ env.IAW_LOGS }}
+          if-no-files-found: ignore

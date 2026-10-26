@@ -1,0 +1,59 @@
+name: Unit
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    # ci/** branches run it too: a new workflow cannot be started by hand
+    # before it is on the default branch.
+    branches: [master, 'ci/**']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: unit-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  unit:
+    name: Unit
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: Telosnex/telosnex_ci_tools/actions/setup-flutter@7ae582de19a80ce2482b9a6648182890d7e7c96e # main
+      - name: Resolve every package and example
+        run: |
+          for pubspec in $(git ls-files '*pubspec.yaml'); do
+            (cd "$(dirname "$pubspec")" && flutter pub get > /dev/null) || { echo "pub get failed: $pubspec"; exit 1; }
+          done
+      - name: Format
+        run: git ls-files '*.dart' | xargs dart format --output=none --set-exit-if-changed
+      # Errors and warnings. Upstream's style infos (about 4,000) do not fail.
+      - name: Analyze
+        run: |
+          status=0
+          for pubspec in $(git ls-files '*pubspec.yaml'); do
+            dir=$(dirname "$pubspec")
+            echo "::group::$dir"
+            (cd "$dir" && flutter analyze --no-pub --no-fatal-infos) || status=1
+            echo "::endgroup::"
+          done
+          exit $status
+      - name: Example widget tests
+        working-directory: flutter_inappwebview/example
+        run: flutter test --no-pub
+      - name: Linux plugin unit tests
+        working-directory: flutter_inappwebview_linux
+        run: flutter test --no-pub
+      - name: WPE security watch tests
+        working-directory: flutter_inappwebview_linux/wpe_sdk/watch
+        run: python3 test_check.py
