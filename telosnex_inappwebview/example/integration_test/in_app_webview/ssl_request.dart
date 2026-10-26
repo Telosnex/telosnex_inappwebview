@@ -1,9 +1,13 @@
 part of 'main.dart';
 
 void sslRequest() {
-  final shouldSkip = !InAppWebView.isPropertySupported(
-    PlatformWebViewCreationParamsProperty.onReceivedServerTrustAuthRequest,
-  );
+  // Windows answers a client certificate request with a certificate of the
+  // system store (selectedCertificate), not a certificate file.
+  final shouldSkip =
+      !InAppWebView.isPropertySupported(
+        PlatformWebViewCreationParamsProperty.onReceivedServerTrustAuthRequest,
+      ) ||
+      (!kIsWeb && defaultTargetPlatform == TargetPlatform.windows);
 
   skippableTestWidgets('SSL request', (WidgetTester tester) async {
     final Completer<InAppWebViewController> controllerCompleter =

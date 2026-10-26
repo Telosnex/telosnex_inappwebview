@@ -196,6 +196,7 @@ namespace telosnex_inappwebview_plugin
     void clearSslPreferences(const std::function<void()> completionHandler) const;
     bool isInterfaceSupported(const std::string& interfaceName) const;
     double getZoomScale() const;
+    void setZoomScale(const double& zoomScale) const;
     int64_t getProgress() const;
     void scrollTo(const int64_t& x, const int64_t& y, const bool& animated) const;
     void scrollBy(const int64_t& x, const int64_t& y, const bool& animated) const;
@@ -205,7 +206,11 @@ namespace telosnex_inappwebview_plugin
     void getContentWidth(const std::function<void(const std::optional<int64_t>)> completionHandler) const;
     void isSecureContext(const std::function<void(const bool)> completionHandler) const;
     void injectCSSCode(const std::string& source) const;
-    void injectCSSFileFromUrl(const std::string& urlFile) const;
+    // attributes: a ScriptHtmlTagAttributes / CSSLinkHtmlTagAttributes map.
+    void injectCSSFileFromUrl(const std::string& urlFile,
+      const std::optional<flutter::EncodableMap>& attributes = std::nullopt) const;
+    void injectJavascriptFileFromUrl(const std::string& urlFile,
+      const std::optional<flutter::EncodableMap>& attributes = std::nullopt) const;
 
     void addWebMessageListener(const std::string& jsObjectName,
       const std::vector<std::string>& allowedOriginRules,
@@ -213,9 +218,12 @@ namespace telosnex_inappwebview_plugin
     void createWebMessageChannel(
       const std::function<void(const std::optional<std::string>&)> callback);
     WebMessageChannel* getWebMessageChannel(const std::string& channelId) const;
+    // ports: transferred ports, {webMessageChannelId, index} of channels made
+    // by createWebMessageChannel.
     void postWebMessage(const std::string& messageData,
       const std::string& targetOrigin,
-      int64_t messageType);
+      int64_t messageType,
+      const std::vector<std::pair<std::string, int>>& ports = {});
     void setWebMessageCallback(const std::string& channelId, int portIndex);
     void postWebMessageOnPort(const std::string& channelId, int portIndex,
       const std::string& messageData, int64_t messageType);

@@ -40,6 +40,17 @@ namespace telosnex_inappwebview_plugin
       }
       result->Success();
     }
+    else if (string_equals(methodName, "setSize")) {
+      auto& arguments = std::get<flutter::EncodableMap>(*method_call.arguments());
+      if (fl_map_contains_not_null(arguments, "size")) {
+        webView->setSize(std::make_shared<Size2D>(
+          get_fl_map_value<flutter::EncodableMap>(arguments, "size")));
+      }
+      result->Success();
+    }
+    else if (string_equals(methodName, "getSize")) {
+      result->Success(webView->getSize()->toEncodableMap());
+    }
     else {
       result->NotImplemented();
     }

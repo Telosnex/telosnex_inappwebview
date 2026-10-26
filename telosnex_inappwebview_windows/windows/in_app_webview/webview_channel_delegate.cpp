@@ -318,7 +318,20 @@ namespace telosnex_inappwebview_plugin
         }
       }
 
-      webView->postWebMessage(messageData, targetOrigin, messageType);
+      std::vector<std::pair<std::string, int>> ports;
+      auto portsValue = get_optional_fl_map_value<flutter::EncodableList>(messageValue, "ports");
+      if (portsValue.has_value()) {
+        for (const auto& portValue : portsValue.value()) {
+          if (!std::holds_alternative<flutter::EncodableMap>(portValue)) continue;
+          const auto& port = std::get<flutter::EncodableMap>(portValue);
+          auto channelId = get_optional_fl_map_value<std::string>(port, "webMessageChannelId");
+          auto index = get_optional_fl_map_value<int64_t>(port, "index");
+          if (channelId.has_value() && index.has_value()) {
+            ports.emplace_back(channelId.value(), (int)index.value());
+          }
+        }
+      }
+      webView->postWebMessage(messageData, targetOrigin, messageType, ports);
       result->Success(true);
     }
     else if (string_equals(methodName, "takeScreenshot")) {
@@ -408,6 +421,14 @@ namespace telosnex_inappwebview_plugin
     }
     else if (string_equals(methodName, "getZoomScale")) {
       result->Success(webView->getZoomScale());
+    }
+    else if (string_equals(methodName, "zoomBy")) {
+      // Relative to the current zoom, as on Android and iOS.
+      auto zoomFactor = get_fl_map_value<double>(arguments, "zoomFactor");
+      if (zoomFactor > 0) {
+        webView->setZoomScale(webView->getZoomScale() * zoomFactor);
+      }
+      result->Success();
     }
     else if (string_equals(methodName, "getProgress")) {
       result->Success(webView->getProgress());
@@ -500,7 +521,14 @@ namespace telosnex_inappwebview_plugin
     }
     else if (string_equals(methodName, "injectCSSFileFromUrl")) {
       auto urlFile = get_fl_map_value<std::string>(arguments, "urlFile");
-      webView->injectCSSFileFromUrl(urlFile);
+      webView->injectCSSFileFromUrl(urlFile,
+        get_optional_fl_map_value<flutter::EncodableMap>(arguments, "cssLinkHtmlTagAttributes"));
+      result->Success(true);
+    }
+    else if (string_equals(methodName, "injectJavascriptFileFromUrl")) {
+      auto urlFile = get_fl_map_value<std::string>(arguments, "urlFile");
+      webView->injectJavascriptFileFromUrl(urlFile,
+        get_optional_fl_map_value<flutter::EncodableMap>(arguments, "scriptHtmlTagAttributes"));
       result->Success(true);
     }
     else if (string_equals(methodName, "printCurrentPage")) {

@@ -8,6 +8,7 @@ void loadAssetFile(InAppLocalhostServer localhostServer) {
 
     final Completer<InAppWebViewController> controllerCompleter =
         Completer<InAppWebViewController>();
+    final Completer<void> pageLoaded = Completer<void>();
 
     await tester.pumpWidget(
       Directionality(
@@ -20,10 +21,15 @@ void loadAssetFile(InAppLocalhostServer localhostServer) {
           onWebViewCreated: (controller) {
             controllerCompleter.complete(controller);
           },
+          onLoadStop: (controller, url) {
+            if (!pageLoaded.isCompleted) pageLoaded.complete();
+          },
         ),
       ),
     );
     final InAppWebViewController controller = await controllerCompleter.future;
+    // Until the load commits, WebView2 reports about:blank.
+    await pageLoaded.future;
     final String? currentUrl = (await controller.getUrl())?.toString();
     expect(currentUrl, 'http://localhost:8080/test_assets/index.html');
   }, skip: shouldSkip);

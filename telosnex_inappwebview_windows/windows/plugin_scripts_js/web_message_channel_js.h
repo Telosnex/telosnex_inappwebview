@@ -133,13 +133,14 @@ class WebMessageChannelJS {
    * @param portsJs Optional JavaScript expression for ports array (empty string if no ports)
    * @return JavaScript code that posts the message
    */
+  // targetOriginJs: a JavaScript string literal.
   static std::string postWebMessageJs(const std::string& messageDataJs,
-                                      const std::string& targetOrigin,
+                                      const std::string& targetOriginJs,
                                       const std::string& portsJs) {
     std::string portsArg = portsJs.empty() ? "undefined" : portsJs;
     return
         "(function() {\n"
-        "    window.postMessage(" + messageDataJs + ", '" + targetOrigin + "', " + portsArg + ");\n"
+        "    window.postMessage(" + messageDataJs + ", " + targetOriginJs + ", " + portsArg + ");\n"
         "})();";
   }
 };

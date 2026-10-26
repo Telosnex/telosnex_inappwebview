@@ -688,6 +688,9 @@ namespace telosnex_inappwebview_plugin
                   std::optional<std::map<std::string, std::string>>{},
                   std::optional<std::vector<uint8_t>>{});
                 channelDelegate->onReceivedHttpError(std::move(webResourceRequest), std::move(webResourceResponse));
+                // The error page loaded: WebView2 reports it as a failed
+                // navigation, the other platforms as a load stop.
+                channelDelegate->onLoadStop(url);
               }
               else if (httpStatusCode < 400) {
                 auto webResourceError = std::make_unique<WebResourceError>(WebErrorStatusDescription[webErrorType], webErrorType);
@@ -795,7 +798,13 @@ namespace telosnex_inappwebview_plugin
               }
 
               auto consoleArgs = consoleMessageJson.at("args").get<std::vector<nlohmann::json>>();
-              auto message = join(functional_map(consoleArgs, [](const nlohmann::json& json) { return json.contains("value") ? json.at("value").dump() : (json.contains("description") ? json.at("description").dump() : json.dump()); }), std::string{ " " });
+              // Strings as they are (console.log('a') is a, not "a"), as on the other
+              // platforms; other values as JSON, objects by their description.
+              auto message = join(functional_map(consoleArgs, [](const nlohmann::json& json) {
+                const nlohmann::json& v = json.contains("value") ? json.at("value")
+                  : (json.contains("description") ? json.at("description") : json);
+                return v.is_string() ? v.get<std::string>() : v.dump();
+              }), std::string{ " " });
               channelDelegate->onConsoleMessage(message, messageLevel);
             }
 
@@ -2564,7 +2573,8 @@ namespace telosnex_inappwebview_plugin
 
   void InAppWebView::postWebMessage(const std::string& messageData,
     const std::string& targetOrigin,
-    int64_t messageType)
+    int64_t messageType,
+    const std::vector<std::pair<std::string, int>>& ports)
   {
     if (!webView) return;
 
@@ -2588,7 +2598,18 @@ namespace telosnex_inappwebview_plugin
       messageDataJs = "\"" + escaped + "\"";
     }
 
-    std::string js = WebMessageChannelJS::postWebMessageJs(messageDataJs, targetOrigin, "");
+    std::string portsJs;
+    if (!ports.empty()) {
+      portsJs = "[";
+      for (size_t i = 0; i < ports.size(); i++) {
+        if (i > 0) portsJs += ", ";
+        portsJs += WebMessageChannelJS::WEB_MESSAGE_CHANNELS_VARIABLE_NAME() + "[" +
+          nlohmann::json(ports[i].first).dump() + "]." + (ports[i].second == 0 ? "port1" : "port2");
+      }
+      portsJs += "]";
+    }
+    std::string js = WebMessageChannelJS::postWebMessageJs(messageDataJs,
+      nlohmann::json(targetOrigin).dump(), portsJs);
     evaluateJavascript(js, ContentWorld::page(), nullptr);
   }
 
@@ -3412,6 +3433,15 @@ namespace telosnex_inappwebview_plugin
     return zoomScaleFactor_;
   }
 
+  // ZoomFactorChanged reports the change (onZoomScaleChanged).
+  void InAppWebView::setZoomScale(const double& zoomScale) const
+  {
+    if (!webViewController) {
+      return;
+    }
+    failedLog(webViewController->put_ZoomFactor(zoomScale));
+  }
+
   int64_t InAppWebView::getProgress() const
   {
     // Return the progress value tracked natively through navigation events:
@@ -3569,18 +3599,81 @@ namespace telosnex_inappwebview_plugin
     evaluateJavascript(script, ContentWorld::page(), nullptr);
   }
 
-  void InAppWebView::injectCSSFileFromUrl(const std::string& urlFile) const
+  namespace {
+    // JavaScript that sets the attributes of a tag attributes map on `var`.
+    std::string tagAttributesJs(const std::optional<flutter::EncodableMap>& attributes,
+      const std::string& var, const std::vector<std::string>& stringKeys,
+      const std::vector<std::string>& trueKeys)
+    {
+      std::string js;
+      if (!attributes.has_value()) {
+        return js;
+      }
+      for (const auto& key : stringKeys) {
+        auto value = get_optional_fl_map_value<std::string>(attributes.value(), key.c_str());
+        if (value.has_value()) {
+          js += var + "." + key + " = " + nlohmann::json(value.value()).dump() + ";";
+        }
+      }
+      for (const auto& key : trueKeys) {
+        auto value = get_optional_fl_map_value<bool>(attributes.value(), key.c_str());
+        if (value.value_or(false)) {
+          js += var + "." + key + " = true;";
+        }
+      }
+      return js;
+    }
+  }
+
+  void InAppWebView::injectCSSFileFromUrl(const std::string& urlFile,
+    const std::optional<flutter::EncodableMap>& attributes) const
   {
     if (!webView) {
       return;
     }
 
+    bool alternate = attributes.has_value() &&
+      get_optional_fl_map_value<bool>(attributes.value(), "alternate").value_or(false);
     std::string script =
       "(function() {"
       "  var link = document.createElement('link');"
-      "  link.rel = 'stylesheet';"
-      "  link.href = '" + urlFile + "';"
+      "  link.rel = '" + std::string(alternate ? "alternate stylesheet" : "stylesheet") + "';"
+      "  link.type = 'text/css';" +
+      tagAttributesJs(attributes, "link",
+        { "id", "media", "crossOrigin", "integrity", "referrerPolicy", "title" }, { "disabled" }) +
+      "  link.href = " + nlohmann::json(urlFile).dump() + ";"
       "  document.head.appendChild(link);"
+      "})();";
+    evaluateJavascript(script, ContentWorld::page(), nullptr);
+  }
+
+  void InAppWebView::injectJavascriptFileFromUrl(const std::string& urlFile,
+    const std::optional<flutter::EncodableMap>& attributes) const
+  {
+    if (!webView) {
+      return;
+    }
+
+    std::string js = tagAttributesJs(attributes, "script",
+      { "type", "id", "crossOrigin", "integrity", "nonce", "referrerPolicy" },
+      { "async", "defer", "noModule" });
+    // As on iOS: with an id, the page reports when the script loaded.
+    auto id = attributes.has_value()
+      ? get_optional_fl_map_value<std::string>(attributes.value(), "id") : std::nullopt;
+    if (id.has_value()) {
+      std::string bridge = "window." + JavaScriptBridgeJS::get_JAVASCRIPT_BRIDGE_NAME();
+      std::string idJs = nlohmann::json(id.value()).dump();
+      js += "script.onload = function() { if (" + bridge + " != null) " + bridge +
+        ".callHandler('onInjectedScriptLoaded', " + idJs + "); };"
+        "script.onerror = function() { if (" + bridge + " != null) " + bridge +
+        ".callHandler('onInjectedScriptError', " + idJs + "); };";
+    }
+    std::string script =
+      "(function() {"
+      "  var script = document.createElement('script');" + js +
+      "  script.src = " + nlohmann::json(urlFile).dump() + ";"
+      "  if (document.body != null) { document.body.appendChild(script); }"
+      "  else { document.head.appendChild(script); }"
       "})();";
     evaluateJavascript(script, ContentWorld::page(), nullptr);
   }
