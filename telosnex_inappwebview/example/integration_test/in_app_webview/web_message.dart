@@ -146,7 +146,6 @@ void webMessage() {
               var port2 = webMessageChannel.port2;
 
               await port1.setWebMessageCallback((message) async {
-                print('PROBE port1 got type=${message?.type} ${message?.data.runtimeType} ${message?.data}');
                 await port1.postMessage(
                   WebMessage(
                     data: utf8.encode(utf8.decode(message!.data) + " and back"),
@@ -162,12 +161,9 @@ void webMessage() {
                 ),
                 targetOrigin: WebUri("*"),
               );
-              print('PROBE port before click: ' + (await controller.evaluateJavascript(source: "String(typeof port) + ' ' + String(port)")).toString());
               await controller.evaluateJavascript(
-                source: "try { document.getElementById('button').click(); } catch (e) { window.__probeErr = String(e); }",
+                source: "document.getElementById('button').click();",
               );
-              await Future.delayed(Duration(seconds: 1));
-              print('PROBE after click: ' + (await controller.evaluateJavascript(source: "String(window.__probeErr)")).toString());
             },
           ),
         ),
