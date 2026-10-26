@@ -711,6 +711,9 @@ class InAppWebView {
   void DisconnectEventHandlers();
   void PrepareAndAddUserScripts();  // Add plugin scripts based on settings
   void AddPluginScripts();
+  bool FormPostLoad(const std::string& url, const std::string& method,
+                    const std::vector<uint8_t>& body,
+                    const std::map<std::string, std::string>& headers);
   void XhrLoad(const std::string& url, const std::string& method,
                const std::vector<uint8_t>& postData,
                const std::map<std::string, std::string>& headers);

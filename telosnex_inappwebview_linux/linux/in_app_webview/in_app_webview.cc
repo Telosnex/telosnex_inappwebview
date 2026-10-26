@@ -1705,6 +1705,13 @@ void InAppWebView::loadUrl(const std::shared_ptr<URLRequest>& urlRequest) {
 
   std::string method = urlRequest->method.value_or("GET");
 
+  // A form-encoded POST is a form submission: a real navigation.
+  if (FormPostLoad(urlRequest->url.value(), method,
+                   urlRequest->body.value_or(std::vector<uint8_t>{}),
+                   urlRequest->headers.value_or(std::map<std::string, std::string>{}))) {
+    return;
+  }
+
   // A method other than GET, or a body, needs XHR (W5a).
   if (method != "GET" || urlRequest->body.has_value()) {
     XhrLoad(urlRequest->url.value(), method, urlRequest->body.value_or(std::vector<uint8_t>{}),
@@ -1799,8 +1806,53 @@ void InAppWebView::loadFile(const std::string& asset_file_path) {
 }
 
 void InAppWebView::postUrl(const std::string& url, const std::vector<uint8_t>& postData) {
+  if (FormPostLoad(url, "POST", postData, {})) {
+    return;
+  }
   XhrLoad(url, "POST", postData,
           std::map<std::string, std::string>{{"Content-Type", "application/x-www-form-urlencoded"}});
+}
+
+// A POST of form data (application/x-www-form-urlencoded, UTF-8, no other
+// headers) as a form submission from a blank page: a real navigation, with
+// the response's URL, load events and history, as on the other platforms.
+// The XHR load below writes the response into the blank page instead, and
+// reports the load as finished before the response arrives.
+bool InAppWebView::FormPostLoad(const std::string& url, const std::string& method,
+                                const std::vector<uint8_t>& body,
+                                const std::map<std::string, std::string>& headers) {
+  if (webview_ == nullptr || g_ascii_strcasecmp(method.c_str(), "POST") != 0) {
+    return false;
+  }
+  for (const auto& header : headers) {
+    if (g_ascii_strcasecmp(header.first.c_str(), "Content-Type") != 0 ||
+        g_ascii_strncasecmp(header.second.c_str(), "application/x-www-form-urlencoded",
+                            strlen("application/x-www-form-urlencoded")) != 0) {
+      return false;
+    }
+  }
+  std::string text(body.begin(), body.end());
+  if (!g_utf8_validate(text.data(), static_cast<gssize>(text.size()), nullptr) ||
+      text.find('\0') != std::string::npos) {
+    return false;
+  }
+  std::string html =
+      "<!DOCTYPE html><html><body><script>\n"
+      "var f = document.createElement('form');\n"
+      "f.method = 'POST';\n"
+      "f.action = " + JsStringLiteral(url) + ";\n"
+      "new URLSearchParams(" + JsStringLiteral(text) + ").forEach(function(v, k) {\n"
+      "  var i = document.createElement('input');\n"
+      "  i.type = 'hidden'; i.name = k; i.value = v; f.appendChild(i);\n"
+      "});\n"
+      "document.body.appendChild(f);\n"
+      "f.submit();\n"
+      "</script></body></html>";
+  webkit_web_view_stop_loading(webview_);
+  if (!SpinMainLoopAndCheckAlive())
+    return true;
+  webkit_web_view_load_html(webview_, html.c_str(), "about:blank");
+  return true;
 }
 
 // WPE WebKit's webkit_web_view_load_request() doesn't send a body. Requests

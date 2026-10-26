@@ -5,6 +5,7 @@
 #include "../utils/flutter.h"
 #include "../utils/log.h"
 #include "in_app_browser.h"
+#include "../in_app_webview/webview_channel_delegate.h"
 
 namespace telosnex_inappwebview_plugin {
 
