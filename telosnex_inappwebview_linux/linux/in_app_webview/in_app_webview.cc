@@ -4171,6 +4171,9 @@ void InAppWebView::OnLoadChanged(WebKitWebView* web_view, WebKitLoadEvent load_e
       if (webkit_web_view_is_loading(web_view)) {
         break;
       }
+      if (self->tls_challenge_pending_) {
+        break;
+      }
       self->dispatchPlatformReady();
       self->channel_delegate_->onLoadStop(self->getUrl().value_or(""));
       break;
@@ -4485,9 +4488,27 @@ gboolean InAppWebView::OnLoadFailedWithTlsErrors(WebKitWebView* web_view, gchar*
   g_object_ref(certificate);
   g_object_ref(web_view);
 
+  // The failed load finishes now, before the app answers: that is not the
+  // page's load stop. The answer decides: a retry (its own load events) or
+  // the end of this load.
+  self->tls_challenge_pending_ = true;
+  auto closed = self->view_closed_;
+  auto settle = [self, closed, failingUri](bool retrying) {
+    if (closed->load()) {
+      return;
+    }
+    self->tls_challenge_pending_ = false;
+    if (!retrying && self->channel_delegate_) {
+      self->channel_delegate_->onLoadStop(failingUri);
+    }
+  };
+
   auto callback = std::make_unique<WebViewChannelDelegate::ServerTrustAuthRequestCallback>();
-  callback->nonNullSuccess = [web_view, failingUri, certificate](
+  callback->nonNullSuccess = [web_view, failingUri, certificate, settle](
       const ServerTrustAuthResponse& response) -> bool {
+    const bool retrying = response.action == ServerTrustAuthResponseAction::PROCEED &&
+                          !get_host_from_url(failingUri).empty();
+    settle(retrying);
     if (response.action == ServerTrustAuthResponseAction::PROCEED) {
       // Allow the certificate for this host
       std::string host = get_host_from_url(failingUri);
@@ -4505,14 +4526,16 @@ gboolean InAppWebView::OnLoadFailedWithTlsErrors(WebKitWebView* web_view, gchar*
     return false;
   };
 
-  callback->defaultBehaviour = [certificate, web_view](const std::optional<ServerTrustAuthResponse>& response) {
+  callback->defaultBehaviour = [certificate, web_view, settle](const std::optional<ServerTrustAuthResponse>& response) {
     // Default: cancel the request (do nothing, WebKit will handle the error)
+    settle(false);
     g_object_unref(certificate);
     g_object_unref(web_view);
   };
 
-  callback->error = [certificate, web_view](const std::string& code, const std::string& message) {
+  callback->error = [certificate, web_view, settle](const std::string& code, const std::string& message) {
     debugLog("Error in onReceivedServerTrustAuthRequest: " + code + " - " + message);
+    settle(false);
     g_object_unref(certificate);
     g_object_unref(web_view);
   };
