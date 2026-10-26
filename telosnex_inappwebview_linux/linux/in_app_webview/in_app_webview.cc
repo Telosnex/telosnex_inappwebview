@@ -5919,7 +5919,7 @@ static void OnColorDialogResponse(GtkDialog* dialog, gint response_id, gpointer 
     
     std::string hexColor = RgbaToHexColor(&selectedRgba, self->active_color_alpha_enabled_);
     // Resolve the Promise with the selected color via webkit reply
-    self->ResolveInternalHandlerWithReply(reply, "\"" + hexColor + "\"");
+    self->ResolveInternalHandlerWithReply(reply, json(hexColor).dump());
   } else {
     // User cancelled or closed the dialog - resolve with null
     self->ResolveInternalHandlerWithReply(reply, "null");
@@ -6071,24 +6071,11 @@ void InAppWebView::ResolveInternalHandlerWithReply(WebKitScriptMessageReply* rep
     return;
   }
   
-  // Parse the JSON result and create a JSCValue
-  JSCValue* replyValue = nullptr;
-  
-  if (jsonResult == "null" || jsonResult.empty()) {
-    replyValue = jsc_value_new_null(context);
-  } else if (jsonResult[0] == '"') {
-    // It's a quoted string - evaluate it to get the actual string value
-    replyValue = jsc_context_evaluate(context, jsonResult.c_str(), -1);
-  } else {
-    // Parse as JSON
-    std::string parseScript = "(" + jsonResult + ")";
-    replyValue = jsc_context_evaluate(context, parseScript.c_str(), -1);
-  }
-  
-  if (replyValue == nullptr) {
-    // Fallback: return the raw string
-    replyValue = jsc_value_new_string(context, jsonResult.c_str());
-  }
+  // The JSON text, which the bridge parses in the page (JavaScriptBridgeJS).
+  // An object made in this separate context reached the page as {}: its
+  // properties were lost (shouldInterceptAjaxRequest's answer).
+  JSCValue* replyValue =
+      jsc_value_new_string(context, jsonResult.empty() ? "null" : jsonResult.c_str());
   
   // Send the reply back to JavaScript
   webkit_script_message_reply_return_value(reply, replyValue);
@@ -6284,7 +6271,7 @@ static void OnDateDialogResponse(GtkDialog* dialog, gint response_id, gpointer u
     
     if (!result.empty()) {
       // Resolve the Promise with the selected value via webkit reply
-      self->ResolveInternalHandlerWithReply(reply, "\"" + result + "\"");
+      self->ResolveInternalHandlerWithReply(reply, json(result).dump());
     } else {
       // No valid result - resolve with null
       self->ResolveInternalHandlerWithReply(reply, "null");

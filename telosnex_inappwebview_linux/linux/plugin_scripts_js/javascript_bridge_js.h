@@ -60,6 +60,11 @@ window.)JS" +
   var bridgeSecret = ')JS" +
            VAR_JAVASCRIPT_BRIDGE_BRIDGE_SECRET + R"JS(';
   var _JSON_stringify;
+  var _JSON_parse = window.JSON.parse;
+  function _parseReply(reply) {
+    if (typeof reply !== 'string') return reply;
+    try { return _JSON_parse(reply); } catch (_) { return reply; }
+  }
   var _Array_slice;
   var _UserMessageHandler;
   var _postMessage;
@@ -77,14 +82,15 @@ window.)JS" +
            get_JAVASCRIPT_BRIDGE_NAME() + R"JS(.callHandler = function() {
     var _windowId = )JS" +
            WINDOW_ID_VARIABLE_JS_SOURCE() + R"JS(;
-    // Use with_reply API - postMessage returns a Promise directly
+    // Use with_reply API - postMessage returns a Promise directly. The reply
+    // is JSON text (ResolveInternalHandlerWithReply).
     return _postMessage.call(_UserMessageHandler, {
       'handlerName': arguments[0],
       '_bridgeSecret': bridgeSecret,
       'args': _JSON_stringify(_Array_slice.call(arguments, 1)),
       '_windowId': _windowId,
       '_isMainFrame': (window.top === window)
-    });
+    }).then(_parseReply);
   };
 })(window);
 )JS";
@@ -107,12 +113,14 @@ window.)JS" +
     return "const " + functionName + " = " + guard + R"JS((function(window) {
   try {
     var stringify = window.JSON.stringify;
+    var parse = window.JSON.parse;
     var slice = window.Array.prototype.slice;
     var apply = window.Reflect.apply;
     var handler = window.webkit.messageHandlers['callHandler'];
     var post = handler.postMessage;
     return function() {
       var _windowId = )JS" + WINDOW_ID_VARIABLE_JS_SOURCE() + R"JS(;
+      // The reply is JSON text (ResolveInternalHandlerWithReply).
       return apply(post, handler, [{
         'handlerName': arguments[0],
         '_bridgeSecret': ')JS" + bridgeSecret + R"JS(',
@@ -120,7 +128,10 @@ window.)JS" +
         'args': stringify(apply(slice, arguments, [1])),
         '_windowId': _windowId,
         '_isMainFrame': (window.top === window)
-      }]);
+      }]).then(function(reply) {
+        if (typeof reply !== 'string') return reply;
+        try { return parse(reply); } catch (_) { return reply; }
+      });
     };
   } catch (_) {
     return function() { return Promise.resolve(null); };
