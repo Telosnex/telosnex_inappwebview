@@ -45,12 +45,18 @@ fi
 echo "Test server address for the device: $NODE_SERVER_IP"
 NODE_SERVER_IP=$NODE_SERVER_IP dart "$root/tool/env.dart"
 
-(cd "$root/test_node_server" && exec node index.js) > "$logs/node.log" 2>&1 < /dev/null &
-node=$!
-trap 'kill $node 2>/dev/null' EXIT
-sleep 2
-if ! kill -0 $node 2>/dev/null; then
-  echo "The Node test server did not start:"; tail -20 "$logs/node.log"; exit 1
+# A test server already running (shared by runs for several devices at
+# once) is used as is.
+if curl -s -o /dev/null -m 2 http://127.0.0.1:8082/; then
+  echo "Using the test server already running."
+else
+  (cd "$root/test_node_server" && exec node index.js) > "$logs/node.log" 2>&1 < /dev/null &
+  node=$!
+  trap 'kill $node 2>/dev/null' EXIT
+  sleep 2
+  if ! kill -0 $node 2>/dev/null; then
+    echo "The Node test server did not start:"; tail -20 "$logs/node.log"; exit 1
+  fi
 fi
 
 cd "$root/telosnex_inappwebview/example"
@@ -82,8 +88,20 @@ for unit in "${units[@]}"; do
       -r expanded ${IAW_TEST_TIMEOUT:+--timeout "$IAW_TEST_TIMEOUT"} "${defines[@]}")
   fi
   start=$(date +%s)
-  perl -e 'alarm shift; exec @ARGV' "$limit" ${wrap[@]+"${wrap[@]}"} "${run[@]}" > "$log" 2>&1 < /dev/null
+  perl -e 'alarm shift; exec @ARGV' "$limit" ${wrap[@]+"${wrap[@]}"} "${run[@]}" > "$log" 2>&1 < /dev/null &
+  pid=$!
+  # No tests for this platform: flutter test exits 79, but with a desktop
+  # session the app's window stays open and the launch waited for the limit.
+  notests=0
+  while kill -0 $pid 2>/dev/null; do
+    if grep -q 'No tests ran' "$log"; then
+      notests=1; sleep 2; kill $pid 2>/dev/null; break
+    fi
+    sleep 1
+  done
+  wait $pid
   code=$?
+  [[ $notests == 1 ]] && code=79
   seconds=$(( $(date +%s) - start ))
   pkill -f telosnex_inappwebview_example 2>/dev/null
   result=$(grep -oE '\+[0-9]+( ~[0-9]+)?( -[0-9]+)?: (All tests passed|Some tests failed)' "$log" | tail -1)
