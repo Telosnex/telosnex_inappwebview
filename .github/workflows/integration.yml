@@ -8,6 +8,13 @@ on:
   schedule:
     - cron: '41 6 * * *'
   workflow_dispatch:
+    inputs:
+      platforms:
+        description: >-
+          all, or some of: linux, macos, windows, ios, android, web
+          (for example "android" or "android,ios")
+        required: false
+        default: all
 
 permissions:
   contents: read
@@ -29,6 +36,7 @@ jobs:
   # Linux package's backend tests and the example's suite are separate jobs,
   # so they run at the same time.
   linux:
+    if: ${{ github.event_name != 'workflow_dispatch' || inputs.platforms == 'all' || contains(inputs.platforms, 'linux') }}
     name: ${{ matrix.name }}${{ matrix.suite == 'backend' && ' backend' || '' }}
     runs-on: ${{ matrix.runner }}
     timeout-minutes: 150
@@ -108,15 +116,19 @@ jobs:
           if-no-files-found: ignore
 
   desktop:
-    name: ${{ matrix.name }}
-    runs-on: ${{ matrix.runner }}
+    if: ${{ github.event_name != 'workflow_dispatch' || inputs.platforms == 'all' || contains(inputs.platforms, 'macos') || contains(inputs.platforms, 'windows') }}
+    name: ${{ matrix.device == 'macos' && 'macOS ARM64' || 'Windows x64' }}
+    runs-on: ${{ matrix.device == 'macos' && 'macos-26' || 'windows-2025' }}
     timeout-minutes: 150
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - { name: macOS ARM64, runner: macos-26, device: macos }
-          - { name: Windows x64, runner: windows-2025, device: windows }
+        device: [macos, windows]
+        # A platform not asked for (workflow_dispatch): excluded. 'none'
+        # excludes nothing.
+        exclude:
+          - device: ${{ (github.event_name != 'workflow_dispatch' || inputs.platforms == 'all' || contains(inputs.platforms, 'macos')) && 'none' || 'macos' }}
+          - device: ${{ (github.event_name != 'workflow_dispatch' || inputs.platforms == 'all' || contains(inputs.platforms, 'windows')) && 'none' || 'windows' }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -168,6 +180,7 @@ jobs:
           if-no-files-found: ignore
 
   ios:
+    if: ${{ github.event_name != 'workflow_dispatch' || inputs.platforms == 'all' || contains(inputs.platforms, 'ios') }}
     name: iOS ARM64 simulator
     runs-on: macos-26
     timeout-minutes: 150
@@ -194,6 +207,7 @@ jobs:
           if-no-files-found: ignore
 
   android:
+    if: ${{ github.event_name != 'workflow_dispatch' || inputs.platforms == 'all' || contains(inputs.platforms, 'android') }}
     name: Android x64 emulator
     runs-on: ubuntu-24.04
     timeout-minutes: 150
@@ -210,9 +224,6 @@ jobs:
         id: emulator
         with:
           api-level: '36'
-          # The host's H.264 decoder (no GPU on the runner): the emulator went
-          # offline in the video tests. Android's software decoder instead.
-          emulator-args: -feature -HardwareDecoder
       # A fresh Chrome opens with its first-run screens, which keep a Custom
       # Tab (ChromeSafariBrowser) from loading its page. Chrome reads these
       # flags when it is the debug app.
@@ -222,12 +233,35 @@ jobs:
         run: |
           adb -s "$SERIAL" shell 'echo "_ --disable-fre --no-default-browser-check --no-first-run" > /data/local/tmp/chrome-command-line'
           adb -s "$SERIAL" shell am set-debug-app --persistent com.android.chrome
+      # The emulator vanished mid-run with nothing in its own log: the
+      # runner's memory every 10 seconds, and its kernel log afterwards,
+      # show whether the kernel killed it.
+      - name: Watch the runner's memory
+        run: |
+          mkdir -p "$IAW_LOGS"
+          while sleep 10; do
+            {
+              date -u +%T
+              free -m | sed -n 2,3p
+              ps -eo rss=,comm= --sort=-rss | head -5 | awk '{printf "  %d MB %s\n", $1/1024, $2}'
+            } >> "$IAW_LOGS/runner-memory.log"
+          done > /dev/null 2>&1 &
       - name: Example integration suite
         env:
           SERIAL: ${{ steps.emulator.outputs.serial }}
           # The emulator reaches the host at 10.0.2.2.
           NODE_SERVER_IP: 10.0.2.2
         run: tool/run_integration_group.sh "$SERIAL"
+      - name: Runner kernel log
+        if: ${{ !cancelled() }}
+        run: |
+          mkdir -p "$IAW_LOGS"
+          sudo dmesg -T 2>&1 | tee "$IAW_LOGS/runner-dmesg.txt" > /dev/null || true
+          {
+            echo "== emulator process"; pgrep -a qemu || echo "not running"
+            echo "== adb devices"; adb devices
+            echo "== kills"; grep -iE "out of memory|oom|killed process" "$IAW_LOGS/runner-dmesg.txt" || echo none
+          } | tee "$IAW_LOGS/runner-summary.txt"
       - if: ${{ !cancelled() }}
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
@@ -240,6 +274,7 @@ jobs:
           if-no-files-found: ignore
 
   web:
+    if: ${{ github.event_name != 'workflow_dispatch' || inputs.platforms == 'all' || contains(inputs.platforms, 'web') }}
     name: Web Linux x64 Chrome
     runs-on: ubuntu-24.04
     timeout-minutes: 150
