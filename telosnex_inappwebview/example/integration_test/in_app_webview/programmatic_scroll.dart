@@ -72,9 +72,17 @@ void programmaticScroll() {
       const int X_SCROLL = 123;
       const int Y_SCROLL = 321;
 
-      await controller.scrollTo(x: X_SCROLL, y: Y_SCROLL);
-      int? scrollPosX = await controller.getScrollX();
-      int? scrollPosY = await controller.getScrollY();
+      // Right after the load, the page may not be laid out yet (CI): the
+      // scroll is clamped to 0. Retry for a moment.
+      int? scrollPosX;
+      int? scrollPosY;
+      for (var i = 0; i < 25; i++) {
+        await controller.scrollTo(x: X_SCROLL, y: Y_SCROLL);
+        scrollPosX = await controller.getScrollX();
+        scrollPosY = await controller.getScrollY();
+        if (scrollPosX == X_SCROLL && scrollPosY == Y_SCROLL) break;
+        await Future.delayed(const Duration(milliseconds: 200));
+      }
       expect(scrollPosX, X_SCROLL);
       expect(scrollPosY, Y_SCROLL);
 

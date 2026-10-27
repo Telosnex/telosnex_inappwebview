@@ -84,9 +84,12 @@ void videoPlaybackPolicy() {
       InAppWebViewController controller = await controllerCompleter.future;
       await pageLoaded.future;
 
-      bool isPaused = await controller.evaluateJavascript(
-        source: 'isPaused();',
-      );
+      // Autoplay starts a moment after the load (slower on CI).
+      bool isPaused = true;
+      for (var i = 0; i < 25 && isPaused; i++) {
+        isPaused = await controller.evaluateJavascript(source: 'isPaused();');
+        if (isPaused) await Future.delayed(const Duration(milliseconds: 200));
+      }
       expect(isPaused, false);
 
       controllerCompleter = Completer<InAppWebViewController>();
