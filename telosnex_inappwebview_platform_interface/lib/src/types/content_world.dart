@@ -13,6 +13,8 @@ final _contentWorldNameRegExp = RegExp(r'[\s]');
 ///- for any [ContentWorld], except [ContentWorld.PAGE] (that is the webpage itself), if you need to access to the `window` or `document` global Object,
 ///you need to use `window.top` and `window.top.document` because the code runs inside an `<iframe>`;
 ///- also, the execution of the inline `<script>` could be blocked by the `Content-Security-Policy` header.
+///
+///**NOTE for Web**: not supported. Every script and `evaluateJavascript` runs in the page ([ContentWorld.PAGE]).
 class ContentWorld {
   ///The name of a custom content world.
   ///It cannot contain space characters.

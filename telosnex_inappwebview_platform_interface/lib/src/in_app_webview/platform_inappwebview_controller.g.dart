@@ -2516,6 +2516,8 @@ enum PlatformInAppWebViewControllerMethod {
   ///**Officially Supported Platforms/Implementations**:
   ///- Android WebView 21+ ([Official API - WebView.zoomBy](https://developer.android.com/reference/android/webkit/WebView#zoomBy(float)))
   ///- iOS WKWebView ([Official API - UIScrollView.setZoomScale](https://developer.apple.com/documentation/uikit/uiscrollview/1619412-setzoomscale))
+  ///- Windows WebView2 ([Official API - ICoreWebView2Controller.put_ZoomFactor](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/icorewebview2controller#put_zoomfactor)):
+  ///    - Relative to the current zoom factor.
   ///- Linux WPE WebKit ([Official API - webkit_web_view_set_zoom_level](https://wpewebkit.org/reference/stable/wpe-webkit-2.0/method.WebView.set_zoom_level.html))
   ///
   ///**Parameters - Officially Supported Platforms/Implementations**:
@@ -3712,6 +3714,7 @@ extension _PlatformInAppWebViewControllerMethodSupported
             [
               TargetPlatform.android,
               TargetPlatform.iOS,
+              TargetPlatform.windows,
               TargetPlatform.linux,
             ].contains(platform ?? defaultTargetPlatform);
       case PlatformInAppWebViewControllerMethod.zoomIn:

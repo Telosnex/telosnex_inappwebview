@@ -1764,6 +1764,12 @@ abstract class PlatformInAppWebViewController extends PlatformInterface
         apiUrl:
             'https://developer.apple.com/documentation/uikit/uiscrollview/1619412-setzoomscale',
       ),
+      WindowsPlatform(
+        apiName: 'ICoreWebView2Controller.put_ZoomFactor',
+        apiUrl:
+            'https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/icorewebview2controller#put_zoomfactor',
+        note: 'Relative to the current zoom factor.',
+      ),
       LinuxPlatform(
         apiName: 'webkit_web_view_set_zoom_level',
         apiUrl:
