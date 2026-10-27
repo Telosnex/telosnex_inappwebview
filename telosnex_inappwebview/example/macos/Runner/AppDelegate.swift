@@ -10,13 +10,6 @@ class AppDelegate: FlutterAppDelegate {
     return false
   }
 
-  // An exception AppKit catches (in a layout pass, on CI) is logged with its
-  // reason, instead of a crash whose report does not say which one.
-  override func applicationWillFinishLaunching(_ notification: Notification) {
-    UserDefaults.standard.register(defaults: ["NSApplicationCrashOnExceptions": false])
-    super.applicationWillFinishLaunching(notification)
-  }
-
   override func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {
     return true
   }
