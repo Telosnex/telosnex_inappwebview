@@ -30,8 +30,11 @@ void main() {
   // sized by frames: on the web the iframe is added on the frame after it
   // is created (a test waiting for onLoadStop without pumping waited
   // forever); on Android (hybrid composition) the view is sized when a frame
-  // shows it (it stayed 0x0 in a long launch).
-  binding.framePolicy = LiveTestWidgetsFlutterBindingFramePolicy.fullyLive;
+  // shows it (it stayed 0x0 in a long launch). Only there: on Windows the
+  // app ended mid-launch with it, and macOS ran half again as long.
+  if (kIsWeb || defaultTargetPlatform == TargetPlatform.android) {
+    binding.framePolicy = LiveTestWidgetsFlutterBindingFramePolicy.fullyLive;
+  }
 
   PlatformInAppWebViewController.debugLoggingSettings.usePrint = true;
   PlatformInAppWebViewController.debugLoggingSettings.maxLogMessageLength =
