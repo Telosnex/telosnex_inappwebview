@@ -486,6 +486,12 @@ namespace telosnex_inappwebview_plugin
                 BOOL isRedirect = redirectedRequestId.has_value() && !redirectedRequestId.value().empty();
 
                 std::optional<NavigationActionType> navigationType = isRedirect ? NavigationActionType::other : std::optional<NavigationActionType>{};
+                // NavigationStarting, which comes first, knows the kind (a
+                // link, a reload, ...): the request here does not.
+                if (!isRedirect && lastNavigationAction_ && lastNavigationAction_->request &&
+                  lastNavigationAction_->request->url == url) {
+                  navigationType = lastNavigationAction_->navigationType;
+                }
 
                 auto urlRequest = std::make_shared<URLRequest>(url, method, headers, body);
                 auto navigationAction = std::make_shared<NavigationAction>(
