@@ -2179,6 +2179,14 @@ final public class InAppWebView extends InputAwareWebView implements InAppWebVie
       channelDelegate.dispose();
       channelDelegate = null;
     }
+    // A window this page asked for may not have its webview yet: tearing the
+    // page down now cancels it (it never loads). The rest of the dispose runs
+    // once the last such window is taken (InAppWebViewManager).
+    if (plugin != null && plugin.inAppWebViewManager != null &&
+            plugin.inAppWebViewManager.windowOpeners.containsValue(this)) {
+      disposedWithPendingWindows = true;
+      return;
+    }
     super.dispose();
     WebSettings settings = getSettings();
     settings.setJavaScriptEnabled(false);
@@ -2204,6 +2212,7 @@ final public class InAppWebView extends InputAwareWebView implements InAppWebVie
     }
     if (windowId != null && plugin != null && plugin.inAppWebViewManager != null) {
       plugin.inAppWebViewManager.windowWebViewMessages.remove(windowId);
+      plugin.inAppWebViewManager.windowOpeners.remove(windowId);
     }
     mainLooperHandler.removeCallbacksAndMessages(null);
     mHandler.removeCallbacksAndMessages(null);
@@ -2240,6 +2249,9 @@ final public class InAppWebView extends InputAwareWebView implements InAppWebVie
     plugin = null;
     loadUrl("about:blank");
   }
+
+  // Disposed while a window its page asked for was pending (dispose()).
+  public boolean disposedWithPendingWindows = false;
 
   @Override
   public void destroy() {

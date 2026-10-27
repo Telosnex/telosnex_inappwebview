@@ -661,6 +661,9 @@ public class InAppWebViewChromeClient extends WebChromeClient implements PluginR
 
     if (plugin != null && plugin.inAppWebViewManager != null) {
       plugin.inAppWebViewManager.windowWebViewMessages.put(windowId, resultMsg);
+      if (inAppWebView != null) {
+        plugin.inAppWebViewManager.windowOpeners.put(windowId, inAppWebView);
+      }
     }
 
     if (inAppWebView != null && inAppWebView.channelDelegate != null) {
@@ -675,6 +678,7 @@ public class InAppWebViewChromeClient extends WebChromeClient implements PluginR
         public void defaultBehaviour(@Nullable Boolean handledByClient) {
           if (plugin != null && plugin.inAppWebViewManager != null) {
             plugin.inAppWebViewManager.windowWebViewMessages.remove(finalWindowId);
+            plugin.inAppWebViewManager.windowOpeners.remove(finalWindowId);
           }
         }
 

@@ -3,7 +3,6 @@ package com.telosnex.telosnex_inappwebview_android.webview.in_app_webview;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.hardware.display.DisplayManager;
-import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -100,10 +99,7 @@ public class FlutterWebView implements PlatformWebView {
 
     if (windowId != null) {
       if (webView.plugin != null && webView.plugin.inAppWebViewManager != null) {
-        Message resultMsg = webView.plugin.inAppWebViewManager.windowWebViewMessages.get(windowId);
-        if (resultMsg != null) {
-          ((WebView.WebViewTransport) resultMsg.obj).setWebView(webView);
-          resultMsg.sendToTarget();
+        if (webView.plugin.inAppWebViewManager.attachWindowWebView(windowId, webView)) {
           if (WebViewFeature.isFeatureSupported(WebViewFeature.DOCUMENT_START_SCRIPT)) {
             // for some reason, if a WebView is created using a window id,
             // the initial plugin and user scripts injected

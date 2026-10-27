@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -181,10 +180,7 @@ public class InAppBrowserActivity extends AppCompatActivity implements InAppBrow
 
     if (windowId != -1) {
       if (webView.plugin != null && webView.plugin.inAppWebViewManager != null) {
-        Message resultMsg = webView.plugin.inAppWebViewManager.windowWebViewMessages.get(windowId);
-        if (resultMsg != null) {
-          ((WebView.WebViewTransport) resultMsg.obj).setWebView(webView);
-          resultMsg.sendToTarget();
+        if (webView.plugin.inAppWebViewManager.attachWindowWebView(windowId, webView)) {
         }
       }
     } else {

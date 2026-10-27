@@ -12,6 +12,8 @@ import android.webkit.WebView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.telosnex.telosnex_inappwebview_android.webview.in_app_webview.InAppWebView;
 import androidx.webkit.WebViewCompat;
 import androidx.webkit.WebViewFeature;
 
@@ -40,6 +42,8 @@ public class InAppWebViewManager extends ChannelDelegateImpl {
   public final Map<String, FlutterWebView> keepAliveWebViews = new HashMap<>();
 
   public final Map<Integer, Message> windowWebViewMessages = new HashMap<>();
+  // The webview whose page asked for each pending window.
+  public final Map<Integer, InAppWebView> windowOpeners = new HashMap<>();
   public int windowAutoincrementId = 0;
 
   public InAppWebViewManager(final TelosnexInAppWebViewPlugin plugin) {
@@ -234,6 +238,34 @@ public class InAppWebViewManager extends ChannelDelegateImpl {
     }
     keepAliveWebViews.clear();
     windowWebViewMessages.clear();
+    windowOpeners.clear();
     plugin = null;
+  }
+
+  /**
+   * Gives the pending window with this id to the webview created for it.
+   * Its opener, if disposed meanwhile, finishes its dispose once it has no
+   * more pending windows (InAppWebView.dispose()).
+   *
+   * @return false if there is no such pending window.
+   */
+  public boolean attachWindowWebView(int windowId, WebView webView) {
+    Message resultMsg = windowWebViewMessages.remove(windowId);
+    final InAppWebView opener = windowOpeners.remove(windowId);
+    if (resultMsg != null) {
+      ((WebView.WebViewTransport) resultMsg.obj).setWebView(webView);
+      resultMsg.sendToTarget();
+    }
+    if (opener != null && opener.disposedWithPendingWindows && !windowOpeners.containsValue(opener)) {
+      // Queued after resultMsg, on the same looper.
+      opener.disposedWithPendingWindows = false;
+      opener.post(new Runnable() {
+        @Override
+        public void run() {
+          opener.dispose();
+        }
+      });
+    }
+    return resultMsg != null;
   }
 }
