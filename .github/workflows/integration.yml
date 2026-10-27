@@ -236,6 +236,12 @@ jobs:
       # The emulator vanished mid-run with nothing in its own log: the
       # runner's memory every 10 seconds, and its kernel log afterwards,
       # show whether the kernel killed it.
+      # Gradle and Kotlin daemons stayed after the app build, holding 5 GB of
+      # the runner's 16 next to the emulator. Each build exits instead.
+      - name: No Gradle or Kotlin daemons
+        run: |
+          mkdir -p ~/.gradle
+          printf 'org.gradle.daemon=false\nkotlin.compiler.execution.strategy=in-process\n' >> ~/.gradle/gradle.properties
       - name: Watch the runner's memory
         run: |
           mkdir -p "$IAW_LOGS"
