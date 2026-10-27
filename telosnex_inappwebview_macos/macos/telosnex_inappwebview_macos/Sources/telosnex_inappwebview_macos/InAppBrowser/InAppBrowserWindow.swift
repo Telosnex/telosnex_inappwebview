@@ -363,6 +363,13 @@ public class InAppBrowserWindow: NSWindow, NSWindowDelegate, NSToolbarDelegate, 
         if let webViewController = contentViewController as? InAppBrowserWebViewController {
             webViewController.dispose()
         }
+        // The toolbar leaves the window before its items lose their views: a
+        // layout pass of the closing window used them (an AppKit exception,
+        // on CI).
+        if #available(macOS 10.13, *) {
+            toolbar?.delegate = nil
+        }
+        toolbar = nil
         if #available(macOS 11.0, *) {
             (searchItem as? NSSearchToolbarItem)?.searchField.delegate = nil
         } else {
