@@ -183,9 +183,15 @@ namespace telosnex_inappwebview_plugin
 
           if (windowId.has_value() && map_contains(windowWebViews, windowId.value())) {
             auto windowWebViewArgs = windowWebViews.at(windowId.value()).get();
-            windowWebViewArgs->args->put_NewWindow(inAppWebView->webView.get());
-            windowWebViewArgs->args->put_Handled(TRUE);
-            windowWebViewArgs->deferral->Complete();
+            if (windowWebViewArgs->opener) {
+              failedLog(windowWebViewArgs->args->put_NewWindow(inAppWebView->webView.get()));
+              failedLog(windowWebViewArgs->args->put_Handled(TRUE));
+              failedLog(windowWebViewArgs->deferral->Complete());
+            }
+            else if (windowWebViewArgs->url.has_value()) {
+              // The opener is gone (InAppWebView's destructor settled it).
+              inAppWebView->loadUrl(std::make_shared<URLRequest>(windowWebViewArgs->url, "GET", std::nullopt, std::nullopt));
+            }
             windowWebViews.erase(windowId.value());
           }
 

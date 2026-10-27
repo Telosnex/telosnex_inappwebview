@@ -840,10 +840,12 @@ namespace telosnex_inappwebview_plugin
             plugin->inAppWebViewManager->windowAutoincrementId++;
             int64_t windowId = plugin->inAppWebViewManager->windowAutoincrementId;
             auto newWindowRequestedArgs = std::make_unique<NewWindowRequestedArgs>(args, deferral);
-            plugin->inAppWebViewManager->windowWebViews.insert({ windowId, std::move(newWindowRequestedArgs) });
 
             wil::unique_cotaskmem_string uri = nullptr;
             std::optional<std::string> url = SUCCEEDED(args->get_Uri(&uri)) ? wide_to_utf8(uri.get()) : std::optional<std::string>{};
+            newWindowRequestedArgs->opener = this;
+            newWindowRequestedArgs->url = url;
+            plugin->inAppWebViewManager->windowWebViews.insert({ windowId, std::move(newWindowRequestedArgs) });
 
             BOOL hasGesture;
             if (FAILED(args->get_IsUserInitiated(&hasGesture))) {
@@ -4279,6 +4281,17 @@ namespace telosnex_inappwebview_plugin
   InAppWebView::~InAppWebView()
   {
     debugLog("dealloc InAppWebView");
+    // Its pending window requests: settled now, while it can be. A webview
+    // created later for one loads the URL itself (InAppWebViewManager).
+    if (plugin && plugin->inAppWebViewManager) {
+      for (auto& [id, request] : plugin->inAppWebViewManager->windowWebViews) {
+        if (request && request->opener == this) {
+          failedLog(request->args->put_Handled(TRUE));
+          failedLog(request->deferral->Complete());
+          request->opener = nullptr;
+        }
+      }
+    }
     userContentController = nullptr;
     if (webView) {
       failedLog(webView->Stop());
