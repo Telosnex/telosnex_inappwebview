@@ -37,6 +37,10 @@ public class FlutterWebView implements PlatformWebView {
   public PullToRefreshLayout pullToRefreshLayout;
   @Nullable
   public String keepAliveId;
+  private final Context context;
+  // Returned by getView() once disposed (getView()).
+  @Nullable
+  private View disposedPlaceholder;
 
   public FlutterWebView(final TelosnexInAppWebViewPlugin plugin, final Context context, Object id,
                         HashMap<String, Object> params) {
@@ -44,6 +48,7 @@ public class FlutterWebView implements PlatformWebView {
     DisplayManager displayManager = (DisplayManager) context.getSystemService(Context.DISPLAY_SERVICE);
     displayListenerProxy.onPreWebViewInitialization(displayManager);
 
+    this.context = context;
     keepAliveId = (String) params.get("keepAliveId");
     
     Map<String, Object> initialSettings = (Map<String, Object>) params.get("initialSettings");
@@ -83,7 +88,18 @@ public class FlutterWebView implements PlatformWebView {
 
   @Override
   public View getView() {
-    return pullToRefreshLayout != null ? pullToRefreshLayout : webView;
+    if (pullToRefreshLayout != null) {
+      return pullToRefreshLayout;
+    }
+    if (webView != null) {
+      return webView;
+    }
+    // Disposed while Flutter still shows the platform view (disposeKeepAlive
+    // with its widget on screen): Flutter aborts the app if this is null.
+    if (disposedPlaceholder == null) {
+      disposedPlaceholder = new View(context);
+    }
+    return disposedPlaceholder;
   }
 
   @SuppressLint("RestrictedApi")
