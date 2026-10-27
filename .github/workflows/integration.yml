@@ -225,6 +225,10 @@ jobs:
       - name: Example integration suite (flutter drive)
         env:
           IAW_DRIVER: web
+          # A launch per unit: in one flutter drive launch the suite hung (the
+          # driver reports only at the end, so it is not known where), and
+          # the time limit plus every unit again is slower than this.
+          IAW_ONE_LAUNCH: "0"
         run: tool/run_integration_group.sh web-server
       - if: ${{ !cancelled() }}
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
