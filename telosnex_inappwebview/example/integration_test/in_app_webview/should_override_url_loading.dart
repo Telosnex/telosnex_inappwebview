@@ -54,7 +54,11 @@ void shouldOverrideUrlLoading() {
       pageLoads.close();
     });
 
-    final shouldSkipTest2 = !NavigationType.LINK_ACTIVATED.isSupported();
+    // Windows: LINK_ACTIVATED is a user-initiated navigation, and the test's
+    // click() from script is not one.
+    final shouldSkipTest2 =
+        !NavigationType.LINK_ACTIVATED.isSupported() ||
+        (!kIsWeb && defaultTargetPlatform == TargetPlatform.windows);
     testWidgets(
       'allow requests on iOS only if navigationType == NavigationType.LINK_ACTIVATED',
       (WidgetTester tester) async {

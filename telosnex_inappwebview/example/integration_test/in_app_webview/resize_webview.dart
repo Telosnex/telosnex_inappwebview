@@ -29,6 +29,7 @@ void resizeWebView() {
     );
     final Completer<void> resizeCompleter = Completer<void>();
     final Completer<void> pageStarted = Completer<void>();
+    var listenForResize = false;
     final Completer<void> pageLoaded = Completer<void>();
     final Completer<InAppWebViewController> controllerCompleter =
         Completer<InAppWebViewController>();
@@ -45,7 +46,11 @@ void resizeWebView() {
         controller.addJavaScriptHandler(
           handlerName: 'resize',
           callback: (args) {
-            resizeCompleter.complete(true);
+            // Windows sizes the view once after it is created, while the
+            // page loads: only the test's own resize counts.
+            if (listenForResize && !resizeCompleter.isCompleted) {
+              resizeCompleter.complete(true);
+            }
           },
         );
       },
@@ -70,6 +75,8 @@ void resizeWebView() {
     await controllerCompleter.future;
     await pageStarted.future;
     await pageLoaded.future;
+    await tester.pump(const Duration(milliseconds: 500));
+    listenForResize = true;
 
     expect(resizeCompleter.isCompleted, false);
 
