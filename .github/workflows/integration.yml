@@ -267,6 +267,9 @@ jobs:
       - name: Example integration suite
         env:
           SERIAL: ${{ steps.emulator.outputs.serial }}
+          # The emulator crashed decoding the video tests' H.264 (no GPU on
+          # the runner): see video_playback_policy.dart.
+          IAW_NO_VIDEO: '1'
           # The emulator reaches the host at 10.0.2.2.
           NODE_SERVER_IP: 10.0.2.2
         run: tool/run_integration_group.sh "$SERIAL"

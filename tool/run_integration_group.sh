@@ -20,6 +20,8 @@
 #   IAW_TEST_TIMEOUT  Per test (flutter test --timeout, e.g. 45s).
 #   IAW_ONE_LAUNCH  0: no one-launch run first.
 #   IAW_ONE_LAUNCH_LIMIT  Seconds for the one launch (default 1200).
+#   IAW_NO_VIDEO    1: skip the tests that play a video (passed to the app as
+#                   --dart-define=IAW_NO_VIDEO=1).
 #   IAW_DRIVER      web: run with flutter drive on the web-server device
 #                   (start chromedriver or another WebDriver first).
 #
@@ -104,7 +106,8 @@ launch() {
       --browser-name="${IAW_BROWSER:-chrome}" "$@")
   else
     run=(flutter test integration_test/webview_flutter_test.dart -d "$device"
-      -r expanded ${IAW_TEST_TIMEOUT:+--timeout "$IAW_TEST_TIMEOUT"} "$@")
+      -r expanded ${IAW_TEST_TIMEOUT:+--timeout "$IAW_TEST_TIMEOUT"}
+      ${IAW_NO_VIDEO:+--dart-define=IAW_NO_VIDEO=$IAW_NO_VIDEO} "$@")
   fi
   local start pid notests=0 timedout=0
   start=$(date +%s)

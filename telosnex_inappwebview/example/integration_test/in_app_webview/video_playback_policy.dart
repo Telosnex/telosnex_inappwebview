@@ -1,9 +1,15 @@
 part of 'main.dart';
 
 void videoPlaybackPolicy() {
-  final shouldSkip = !InAppWebViewSettings.isPropertySupported(
-    InAppWebViewSettingsProperty.mediaPlaybackRequiresUserGesture,
-  );
+  // IAW_NO_VIDEO: CI's Android emulator (no GPU) crashed decoding this
+  // H.264 video: the emulator process exited in this group in 3 runs, even
+  // with its hardware decoder off, and every later group failed with it.
+  // These tests still run locally and on devices.
+  final shouldSkip =
+      const bool.fromEnvironment('IAW_NO_VIDEO') ||
+      !InAppWebViewSettings.isPropertySupported(
+        InAppWebViewSettingsProperty.mediaPlaybackRequiresUserGesture,
+      );
 
   skippableGroup('Video playback policy', () {
     String videoTestBase64 = "";
