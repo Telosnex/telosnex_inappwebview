@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:web/web.dart';
 
 import 'package:flutter/services.dart';
@@ -70,10 +72,19 @@ class HeadlessInAppWebViewManager extends ChannelController {
       params["initialUrlRequest"]?.cast<String, dynamic>(),
     );
     webView.initialFile = params["initialFile"];
+    webView.windowId = params["windowId"];
     webView.initialData = InAppWebViewInitialData.fromMap(
       params["initialData"]?.cast<String, dynamic>(),
     );
-    webView.initialUserScripts = params["initialUserScripts"];
+    // A list of maps over the channel (UserScript.toMap).
+    final List<UserScript> initialUserScripts = [];
+    for (final map in (params["initialUserScripts"] as List?) ?? const []) {
+      final script = UserScript.fromMap((map as Map).cast<String, dynamic>());
+      if (script != null) {
+        initialUserScripts.add(script);
+      }
+    }
+    webView.initialUserScripts = UnmodifiableListView(initialUserScripts);
     document.body?.append(webView.iframeContainer);
     webView.prepare();
   }
