@@ -19,6 +19,19 @@ const auth = require('basic-auth');
 const app = express();
 const appHttps = express();
 const appAuthBasic = express();
+
+// Each request, and whether its response was sent in full or the connection
+// closed first: a test that waits for a response tells which side stopped.
+for (const [port, server] of [[4433, appHttps], [8081, appAuthBasic], [8082, app]]) {
+  server.use((req, res, next) => {
+    const start = Date.now();
+    const at = () => new Date().toISOString().slice(11, 23);
+    console.log(`${at()} :${port} ${req.method} ${req.url}`);
+    res.on('finish', () => console.log(`${at()} :${port} ${req.method} ${req.url} -> ${res.statusCode}, sent in ${Date.now() - start} ms`));
+    res.on('close', () => { if (!res.writableFinished) console.log(`${at()} :${port} ${req.method} ${req.url} -> connection closed before the response was sent`); });
+    next();
+  });
+}
 const fs = require('fs')
 const path = require('path')
 const bodyParser = require('body-parser');

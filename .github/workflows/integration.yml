@@ -199,6 +199,18 @@ jobs:
         env:
           UDID: ${{ steps.simulator.outputs.udid }}
         run: tool/run_integration_group.sh "$UDID"
+      # WebKit's own log from the simulator: a load that never ended (no
+      # response, no error) shows there whether WebKit got the response and
+      # what it decided.
+      - name: Simulator WebKit log
+        if: ${{ !cancelled() }}
+        env:
+          UDID: ${{ steps.simulator.outputs.udid }}
+        run: |
+          mkdir -p "$IAW_LOGS"
+          xcrun simctl spawn "$UDID" log show --last 2h --style compact \
+            --predicate 'subsystem BEGINSWITH "com.apple.WebKit" OR process == "Runner"' \
+            2>&1 | gzip > "$IAW_LOGS/simulator-webkit.log.gz" || true
       - if: ${{ !cancelled() }}
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
