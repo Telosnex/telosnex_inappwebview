@@ -439,38 +439,43 @@ f.appendChild(i); document.body.appendChild(f); f.submit(); true;''');
 
   // W6b. An unnamed iframe's navigation is reported as main frame (the
   // code guesses from the target frame name).
-  testWidgets('W6b iframe navigation is not reported as main frame', (
-    tester,
-  ) async {
-    await tester.pumpWidget(const MaterialApp(home: SizedBox()));
-    final server = await LocalServer.start();
-    final mainFrame = <bool?>[];
-    final t = await TestView.start(
-      tester,
-      url: server.url('/top'),
-      settings: InAppWebViewSettings(useShouldOverrideUrlLoading: true),
-      shouldOverrideUrlLoading: (_, a) async {
-        if (a.request.url.toString().contains('/inner')) {
-          mainFrame.add(a.isForMainFrame);
-        }
-        return NavigationActionPolicy.ALLOW;
-      },
-    );
-    try {
-      await t.js(
-        "const f = document.createElement('iframe'); f.src = '/inner'; document.body.appendChild(f); true;",
-      );
-      await waitFor(
+  testWidgets(
+    'W6b iframe navigation is not reported as main frame',
+    (tester) async {
+      await tester.pumpWidget(const MaterialApp(home: SizedBox()));
+      final server = await LocalServer.start();
+      final mainFrame = <bool?>[];
+      final t = await TestView.start(
         tester,
-        () => mainFrame.isNotEmpty,
-        reason: 'iframe navigation',
+        url: server.url('/top'),
+        settings: InAppWebViewSettings(useShouldOverrideUrlLoading: true),
+        shouldOverrideUrlLoading: (_, a) async {
+          if (a.request.url.toString().contains('/inner')) {
+            mainFrame.add(a.isForMainFrame);
+          }
+          return NavigationActionPolicy.ALLOW;
+        },
       );
-      expect(mainFrame.single, isFalse);
-    } finally {
-      await t.dispose();
-      await server.close();
-    }
-  });
+      try {
+        await t.js(
+          "const f = document.createElement('iframe'); f.src = '/inner'; document.body.appendChild(f); true;",
+        );
+        await waitFor(
+          tester,
+          () => mainFrame.isNotEmpty,
+          reason: 'iframe navigation',
+        );
+        expect(mainFrame.single, isFalse);
+      } finally {
+        await t.dispose();
+        await server.close();
+      }
+    },
+    // Skipped: WebKit's navigation API has no frame information
+    // (get_frame_name is the link target), so there is no way to tell an
+    // unnamed iframe from the main frame. REVIEW_in_app_webview.md, W6b.
+    skip: true,
+  );
 
   // W6c. stopLoading / a new navigation reports the cancelled load as an
   // error.
