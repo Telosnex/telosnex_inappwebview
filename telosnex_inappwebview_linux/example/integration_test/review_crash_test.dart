@@ -761,8 +761,12 @@ void main() {
       },
     );
     try {
+      // localhost, not 127.0.0.1: C4f's PROCEED made the session trust the
+      // certificate for 127.0.0.1, and then there is no TLS error to answer.
       await t.controller.loadUrl(
-        urlRequest: URLRequest(url: WebUri(server.url('/tls-target'))),
+        urlRequest: URLRequest(
+          url: WebUri('https://localhost:${server.port}/tls-target'),
+        ),
       );
       await settle(tester, const Duration(seconds: 3));
       expect(
