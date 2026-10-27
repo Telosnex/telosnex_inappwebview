@@ -343,7 +343,12 @@ namespace telosnex_inappwebview_plugin
 
     std::string source = userScript->source;
     if (userScript->injectionTime == UserScriptInjectionTime::atDocumentEnd) {
-      source = "if (document.readyState === 'complete') { " + source + "} else { window.addEventListener('load', function() { " + source + " }); }";
+      // Run at global scope, as a script would ("var bar" is a global of the
+      // world), not as the body of the listener. A page whose CSP blocks eval:
+      // in a function, as before.
+      source = "(function() { var run = function() { try { (0, eval)(" + nlohmann::json(source).dump() +
+        "); } catch (e) { if (e instanceof EvalError) { (function() { " + source +
+        "\n})(); } else { throw e; } } }; if (document.readyState === 'complete') { run(); } else { window.addEventListener('load', run); } })();";
     }
     source = UserContentController::wrapSourceCodeAddChecks(source, userScript);
 
