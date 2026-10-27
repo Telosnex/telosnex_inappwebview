@@ -2,6 +2,8 @@ part of 'main.dart';
 
 void supported() {
   skippableGroup('supported', () {
+    // On the web, defaultTargetPlatform is the browser's OS: none of the
+    // platform-specific APIs below are supported there.
     skippableTestWidgets('basic', (WidgetTester tester) async {
       expect(InAppWebViewController.isClassSupported(), true);
       expect(
@@ -14,32 +16,34 @@ void supported() {
         InAppWebViewController.isMethodSupported(
           PlatformInAppWebViewControllerMethod.startSafeBrowsing,
         ),
-        defaultTargetPlatform == TargetPlatform.android,
+        !kIsWeb && defaultTargetPlatform == TargetPlatform.android,
       );
       expect(
         InAppWebViewController.isMethodSupported(
           PlatformInAppWebViewControllerMethod.createPdf,
         ),
-        [
-          TargetPlatform.iOS,
-          TargetPlatform.macOS,
-          TargetPlatform.windows,
-        ].contains(defaultTargetPlatform),
+        !kIsWeb &&
+            [
+              TargetPlatform.iOS,
+              TargetPlatform.macOS,
+              TargetPlatform.windows,
+            ].contains(defaultTargetPlatform),
       );
       expect(
         InAppWebViewController.isMethodSupported(
           PlatformInAppWebViewControllerMethod.clearSslPreferences,
         ),
-        [
-          TargetPlatform.android,
-          TargetPlatform.windows,
-        ].contains(defaultTargetPlatform),
+        !kIsWeb &&
+            [
+              TargetPlatform.android,
+              TargetPlatform.windows,
+            ].contains(defaultTargetPlatform),
       );
       expect(
         InAppWebViewController.isMethodSupported(
           PlatformInAppWebViewControllerMethod.openDevTools,
         ),
-        defaultTargetPlatform == TargetPlatform.windows,
+        !kIsWeb && defaultTargetPlatform == TargetPlatform.windows,
       );
 
       expect(InAppWebView.isClassSupported(), true);
@@ -59,46 +63,48 @@ void supported() {
         InAppWebView.isPropertySupported(
           PlatformInAppWebViewWidgetCreationParamsProperty.preventGestureDelay,
         ),
-        defaultTargetPlatform == TargetPlatform.iOS,
+        !kIsWeb && defaultTargetPlatform == TargetPlatform.iOS,
       );
       expect(
         InAppWebView.isPropertySupported(
           PlatformWebViewCreationParamsProperty.onWebContentProcessDidTerminate,
         ),
-        [
-          TargetPlatform.iOS,
-          TargetPlatform.macOS,
-          TargetPlatform.windows,
-        ].contains(defaultTargetPlatform),
+        !kIsWeb &&
+            [
+              TargetPlatform.iOS,
+              TargetPlatform.macOS,
+              TargetPlatform.windows,
+            ].contains(defaultTargetPlatform),
       );
       expect(
         InAppWebView.isPropertySupported(
           PlatformWebViewCreationParamsProperty.onAcceleratorKeyPressed,
         ),
-        defaultTargetPlatform == TargetPlatform.windows,
+        !kIsWeb && defaultTargetPlatform == TargetPlatform.windows,
       );
 
       expect(
         InAppWebViewSettings.isPropertySupported(
           InAppWebViewSettingsProperty.algorithmicDarkeningAllowed,
         ),
-        defaultTargetPlatform == TargetPlatform.android,
+        !kIsWeb && defaultTargetPlatform == TargetPlatform.android,
       );
       expect(
         InAppWebViewSettings.isPropertySupported(
           InAppWebViewSettingsProperty.allowsBackForwardNavigationGestures,
         ),
-        [
-          TargetPlatform.iOS,
-          TargetPlatform.macOS,
-          TargetPlatform.windows,
-        ].contains(defaultTargetPlatform),
+        !kIsWeb &&
+            [
+              TargetPlatform.iOS,
+              TargetPlatform.macOS,
+              TargetPlatform.windows,
+            ].contains(defaultTargetPlatform),
       );
       expect(
         InAppWebViewSettings.isPropertySupported(
           InAppWebViewSettingsProperty.handleAcceleratorKeyPressed,
         ),
-        defaultTargetPlatform == TargetPlatform.windows,
+        !kIsWeb && defaultTargetPlatform == TargetPlatform.windows,
       );
     }, skip: false);
   }, skip: false);

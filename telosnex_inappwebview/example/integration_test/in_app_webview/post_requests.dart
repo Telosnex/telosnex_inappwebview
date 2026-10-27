@@ -41,7 +41,11 @@ void postRequests() {
       final String? currentUrl = (await controller.getUrl())?.toString();
       expect(
         currentUrl,
-        'http://${environment["NODE_SERVER_IP"]}:8082/test-post',
+        // Web: the response of the request (XMLHttpRequest) is shown from a
+        // blob: URL.
+        kIsWeb
+            ? startsWith('blob:')
+            : 'http://${environment["NODE_SERVER_IP"]}:8082/test-post',
       );
 
       final String? pContent = await controller.evaluateJavascript(
@@ -91,7 +95,11 @@ void postRequests() {
       final String? currentUrl = (await controller.getUrl())?.toString();
       expect(
         currentUrl,
-        'http://${environment["NODE_SERVER_IP"]}:8082/test-post',
+        // Web: the response of the request (XMLHttpRequest) is shown from a
+        // blob: URL.
+        kIsWeb
+            ? startsWith('blob:')
+            : 'http://${environment["NODE_SERVER_IP"]}:8082/test-post',
       );
 
       final String? pContent = await controller.evaluateJavascript(
@@ -137,7 +145,11 @@ void postRequests() {
       final String? currentUrl = (await controller.getUrl())?.toString();
       expect(
         currentUrl,
-        'http://${environment["NODE_SERVER_IP"]}:8082/test-post',
+        // Web: the response of the request (XMLHttpRequest) is shown from a
+        // blob: URL.
+        kIsWeb
+            ? startsWith('blob:')
+            : 'http://${environment["NODE_SERVER_IP"]}:8082/test-post',
       );
 
       final String? pContent = await controller.evaluateJavascript(

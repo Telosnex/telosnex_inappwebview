@@ -32,8 +32,15 @@ void isLoading() {
     );
 
     final InAppWebViewController controller = await controllerCompleter.future;
+    if (kIsWeb) {
+      // Web: onLoadStart comes with the iframe's load event, right before
+      // onLoadStop, so the load is checked from its start instead.
+      expect(await controller.isLoading(), true);
+    }
     await pageStarted.future;
-    expect(await controller.isLoading(), true);
+    if (!kIsWeb) {
+      expect(await controller.isLoading(), true);
+    }
 
     await pageLoaded.future;
     expect(await controller.isLoading(), false);

@@ -16,7 +16,11 @@ void userScripts() {
           textDirection: TextDirection.ltr,
           child: InAppWebView(
             key: GlobalKey(),
-            initialUrlRequest: URLRequest(url: TEST_CROSS_PLATFORM_URL_1),
+            // Web: scripts run in the page with JavaScript, so it must be
+            // same-origin.
+            initialUrlRequest: URLRequest(
+              url: kIsWeb ? TEST_WEB_PLATFORM_URL_1 : TEST_CROSS_PLATFORM_URL_1,
+            ),
             initialUserScripts: UnmodifiableListView<UserScript>([
               UserScript(
                 source: "var foo = 49;",
@@ -64,8 +68,16 @@ void userScripts() {
         ),
         19,
       );
-      expect(await controller.evaluateJavascript(source: "bar;"), isNull);
-      expect(await controller.evaluateJavascript(source: "bar2;"), isNull);
+      // Web has no content worlds (ContentWorld): every script runs in the
+      // page.
+      expect(
+        await controller.evaluateJavascript(source: "bar;"),
+        kIsWeb ? 2 : isNull,
+      );
+      expect(
+        await controller.evaluateJavascript(source: "bar2;"),
+        kIsWeb ? 12 : isNull,
+      );
       expect(
         await controller.evaluateJavascript(
           source: "bar;",
@@ -95,7 +107,11 @@ void userScripts() {
           textDirection: TextDirection.ltr,
           child: InAppWebView(
             key: GlobalKey(),
-            initialUrlRequest: URLRequest(url: TEST_CROSS_PLATFORM_URL_1),
+            // Web: scripts run in the page with JavaScript, so it must be
+            // same-origin.
+            initialUrlRequest: URLRequest(
+              url: kIsWeb ? TEST_WEB_PLATFORM_URL_1 : TEST_CROSS_PLATFORM_URL_1,
+            ),
             onWebViewCreated: (controller) {
               controllerCompleter.complete(controller);
             },

@@ -14,7 +14,11 @@ void setGetDelete() {
         textDirection: TextDirection.ltr,
         child: InAppWebView(
           key: GlobalKey(),
-          initialUrlRequest: URLRequest(url: TEST_CROSS_PLATFORM_URL_1),
+          // Web: cookies are read and written with JavaScript in the page,
+          // so it must be same-origin.
+          initialUrlRequest: URLRequest(
+            url: kIsWeb ? TEST_WEB_PLATFORM_URL_1 : TEST_CROSS_PLATFORM_URL_1,
+          ),
           onWebViewCreated: (controller) {
             controllerCompleter.complete(controller);
           },
@@ -62,18 +66,23 @@ void setGetDelete() {
     expect(cookie, isNull);
 
     expect(
-      await cookieManager.deleteCookies(
-        url: url,
-        domain: ".${TEST_CROSS_PLATFORM_URL_1.host}",
-      ),
+      await cookieManager.deleteCookies(url: url, domain: ".${url.host}"),
       isTrue,
     );
     cookies = await cookieManager.getCookies(url: url);
     expect(cookies, isEmpty);
 
-    await cookieManager.setCookie(url: url, name: "myCookie", value: "myValue");
-    expect(await cookieManager.deleteAllCookies(), isTrue);
-    cookies = await cookieManager.getCookies(url: url);
-    expect(cookies, isEmpty);
+    if (CookieManager.isMethodSupported(
+      PlatformCookieManagerMethod.deleteAllCookies,
+    )) {
+      await cookieManager.setCookie(
+        url: url,
+        name: "myCookie",
+        value: "myValue",
+      );
+      expect(await cookieManager.deleteAllCookies(), isTrue);
+      cookies = await cookieManager.getCookies(url: url);
+      expect(cookies, isEmpty);
+    }
   }, skip: shouldSkip);
 }
