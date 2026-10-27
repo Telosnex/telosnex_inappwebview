@@ -53,6 +53,16 @@
 
 namespace telosnex_inappwebview_plugin
 {
+  namespace {
+    // A thrown value as text: a string as it is ("error message", not
+    // "\"error message\""), as on the other platforms; other values as JSON.
+    std::string jsonToText(const nlohmann::json& value)
+    {
+      return value.is_string() ? value.get<std::string>() : value.dump();
+    }
+
+  }
+
   using namespace Microsoft::WRL;
 
   InAppWebView::InAppWebView(const TelosnexInappwebviewWindowsPlugin* plugin, const InAppWebViewCreationParams& params, const HWND parentWindow, wil::com_ptr<ICoreWebView2Environment> webViewEnv,
@@ -2355,8 +2365,8 @@ namespace telosnex_inappwebview_plugin
               if (json.contains("exceptionDetails")) {
                 nlohmann::json exceptionDetails = json["exceptionDetails"];
                 auto errorMessage = exceptionDetails.contains("exception") && exceptionDetails["exception"].contains("value")
-                  ? exceptionDetails["exception"]["value"].dump() :
-                  (result["value"].is_null() ? exceptionDetails["text"].get<std::string>() : result["value"].dump());
+                  ? jsonToText(exceptionDetails["exception"]["value"]) :
+                  (result["value"].is_null() ? exceptionDetails["text"].get<std::string>() : jsonToText(result["value"]));
                 result = nlohmann::json{};
                 debugLog(exceptionDetails.dump());
                 if (channelDelegate) {
@@ -2425,8 +2435,8 @@ namespace telosnex_inappwebview_plugin
               if (json.contains("exceptionDetails")) {
                 nlohmann::json exceptionDetails = json["exceptionDetails"];
                 auto errorMessage = exceptionDetails.contains("exception") && exceptionDetails["exception"].contains("value")
-                  ? exceptionDetails["exception"]["value"].dump() :
-                  (result["value"].is_null() ? exceptionDetails["text"].get<std::string>() : result["value"].dump());
+                  ? jsonToText(exceptionDetails["exception"]["value"]) :
+                  (result["value"].is_null() ? exceptionDetails["text"].get<std::string>() : jsonToText(result["value"]));
                 result["value"] = nlohmann::json{};
                 result["error"] = errorMessage;
                 debugLog(exceptionDetails.dump());

@@ -319,6 +319,8 @@ class _CustomPlatformViewState extends State<CustomPlatformView>
 
     _controller.initialize(
       onPlatformViewCreated: (id) {
+        // The view is created asynchronously: the widget may be gone.
+        if (!mounted) return;
         widget.onPlatformViewCreated?.call(id);
         setState(() {});
       },
@@ -344,6 +346,7 @@ class _CustomPlatformViewState extends State<CustomPlatformView>
     });
 
     _cursorSubscription = _controller._cursor.listen((cursor) {
+      if (!mounted) return;
       setState(() {
         _cursor = cursor;
       });
@@ -504,6 +507,8 @@ class _CustomPlatformViewState extends State<CustomPlatformView>
     final box = _key.currentContext?.findRenderObject() as RenderBox?;
     if (box != null) {
       await _controller.ready;
+      // The widget may have gone while the view was created.
+      if (!mounted || !box.attached || !box.hasSize) return;
       unawaited(
         _controller._setSize(
           box.size,
@@ -517,6 +522,7 @@ class _CustomPlatformViewState extends State<CustomPlatformView>
     final box = _key.currentContext?.findRenderObject() as RenderBox?;
     if (box != null) {
       await _controller.ready;
+      if (!mounted || !box.attached) return;
       final position = box.localToGlobal(Offset.zero);
       unawaited(
         _controller._setPosition(
