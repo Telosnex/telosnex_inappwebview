@@ -227,7 +227,7 @@ void videoPlaybackPolicy() {
         // Leave fullscreen: the next test's video can only go fullscreen
         // once this one's player is gone (iOS).
         final controller = await controllerCompleter.future;
-        await controller.evaluateJavascript(source: "exitFullscreen();");
+        await exitVideoFullscreen(controller);
         await onExitFullscreenCompleter.future.timeout(
           const Duration(seconds: 10),
           onTimeout: () {},
@@ -289,9 +289,19 @@ void videoPlaybackPolicy() {
       // starts inline). Exit once it is.
       await onEnterFullscreenCompleter.future;
       await tester.pump();
-      await controller.evaluateJavascript(source: "exitFullscreen();");
+      await exitVideoFullscreen(controller);
 
       await expectLater(onExitFullscreenCompleter.future, completes);
     }, skip: shouldSkipTest4);
   }, skip: shouldSkip);
+}
+
+/// Ends the video's fullscreen. On iOS, the page cannot: native fullscreen
+/// video ignores webkitExitFullscreen() from script (iOS 26).
+Future<void> exitVideoFullscreen(InAppWebViewController controller) async {
+  if (!kIsWeb && defaultTargetPlatform == TargetPlatform.iOS) {
+    await controller.closeAllMediaPresentations();
+  } else {
+    await controller.evaluateJavascript(source: "exitFullscreen();");
+  }
 }
