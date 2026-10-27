@@ -38,20 +38,20 @@ void pauseResumeTimers() {
       """,
     );
 
-    // Measured while paused: ticks before the pause and right after the
-    // resume vary with the device's speed.
-    await controller.pauseTimers();
-    await Future.delayed(const Duration(milliseconds: 200));
+    // Relative to the count just before the pause: the ticks before it vary
+    // with the device's speed. Read only while running: macOS does not run
+    // JavaScript while timers are paused.
     final before = await controller.evaluateJavascript(source: "count;");
+    await controller.pauseTimers();
     await Future.delayed(const Duration(seconds: 2));
-    final paused = await controller.evaluateJavascript(source: "count;");
-    // At most one tick already queued when the pause arrived.
-    expect(paused - before, lessThanOrEqualTo(10));
     await controller.resumeTimers();
+    final after = await controller.evaluateJavascript(source: "count;");
+    // 2 seconds running would add 1000.
+    expect(after - before, lessThan(500));
     await Future.delayed(const Duration(seconds: 2));
     expect(
       await controller.evaluateJavascript(source: "count;"),
-      greaterThan(paused + 50),
+      greaterThan(after + 50),
     );
   }, skip: shouldSkip);
 }
