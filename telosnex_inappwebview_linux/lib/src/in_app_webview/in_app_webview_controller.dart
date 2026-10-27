@@ -1409,6 +1409,11 @@ class LinuxInAppWebViewController extends PlatformInAppWebViewController
     required WebUri urlFile,
     ScriptHtmlTagAttributes? scriptHtmlTagAttributes,
   }) async {
+    // onInjectedScriptLoaded / onInjectedScriptError call its onLoad / onError.
+    final id = scriptHtmlTagAttributes?.id;
+    if (scriptHtmlTagAttributes != null && id != null) {
+      _injectedScriptsFromURL[id] = scriptHtmlTagAttributes;
+    }
     Map<String, dynamic> args = <String, dynamic>{};
     args.putIfAbsent('urlFile', () => urlFile.toString());
     args.putIfAbsent(
