@@ -64,7 +64,9 @@ void programmaticZoomScale() {
                 }
               },
               onZoomScaleChanged: (controller, oldScale, newScale) {
-                if (listenForScaleChange) {
+                // zoomBy can change the scale more than once (animated).
+                if (listenForScaleChange &&
+                    !onZoomScaleChangedCompleter.isCompleted) {
                   onZoomScaleChangedCompleter.complete();
                 }
               },
