@@ -170,6 +170,16 @@ namespace telosnex_inappwebview_plugin
       webView->loadUrl(std::move(urlRequest));
       result->Success(true);
     }
+    else if (string_equals(methodName, "postUrl")) {
+      // A form POST, as on the other platforms.
+      auto url = get_fl_map_value<std::string>(arguments, "url");
+      auto postData = get_fl_map_value<std::vector<uint8_t>>(arguments, "postData");
+      auto urlRequest = std::make_shared<URLRequest>(url, "POST",
+        std::map<std::string, std::string>{ { "Content-Type", "application/x-www-form-urlencoded" } },
+        postData);
+      webView->loadUrl(urlRequest);
+      result->Success(true);
+    }
     else if (string_equals(methodName, "loadFile")) {
       auto assetFilePath = get_fl_map_value<std::string>(arguments, "assetFilePath");
       webView->loadFile(assetFilePath);

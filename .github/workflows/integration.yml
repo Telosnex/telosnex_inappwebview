@@ -178,6 +178,15 @@ jobs:
         id: emulator
         with:
           api-level: '36'
+      # A fresh Chrome opens with its first-run screens, which keep a Custom
+      # Tab (ChromeSafariBrowser) from loading its page. Chrome reads these
+      # flags when it is the debug app.
+      - name: Skip Chrome's first run
+        env:
+          SERIAL: ${{ steps.emulator.outputs.serial }}
+        run: |
+          adb -s "$SERIAL" shell 'echo "_ --disable-fre --no-default-browser-check --no-first-run" > /data/local/tmp/chrome-command-line'
+          adb -s "$SERIAL" shell am set-debug-app --persistent com.android.chrome
       - name: Example integration suite
         env:
           SERIAL: ${{ steps.emulator.outputs.serial }}

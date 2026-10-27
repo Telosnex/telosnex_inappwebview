@@ -36,7 +36,15 @@ void isSecureContext() {
 
     if (!kIsWeb) {
       await controller.loadUrl(
-        urlRequest: URLRequest(url: WebUri('http://example.com/')),
+        // WebView2 (Windows) upgrades http to https where the site has it:
+        // there, a site with no https.
+        urlRequest: URLRequest(
+          url: WebUri(
+            defaultTargetPlatform == TargetPlatform.windows
+                ? 'http://neverssl.com/'
+                : 'http://example.com/',
+          ),
+        ),
       );
       await pageLoads.stream.first;
       expect(await controller.isSecureContext(), false);
