@@ -183,45 +183,59 @@ void customTabs() {
       expect(chromeSafariBrowser.isOpened(), false);
     });
 
-    skippableTest('request and send post messages', () async {
-      var chromeSafariBrowser = MyChromeSafariBrowser();
-      expect(chromeSafariBrowser.isOpened(), false);
+    skippableTest(
+      'request and send post messages',
+      () async {
+        var chromeSafariBrowser = MyChromeSafariBrowser();
+        expect(chromeSafariBrowser.isOpened(), false);
 
-      await chromeSafariBrowser.open(
-        url: TEST_CUSTOM_TABS_POST_MESSAGE_URL,
-        settings: ChromeSafariBrowserSettings(isSingleInstance: true),
-      );
-      await expectLater(chromeSafariBrowser.opened.future, completes);
-      expect(chromeSafariBrowser.isOpened(), true);
+        await chromeSafariBrowser.open(
+          url: TEST_CUSTOM_TABS_POST_MESSAGE_URL,
+          settings: ChromeSafariBrowserSettings(isSingleInstance: true),
+        );
+        await expectLater(chromeSafariBrowser.opened.future, completes);
+        expect(chromeSafariBrowser.isOpened(), true);
 
-      await expectLater(
-        chromeSafariBrowser.navigationFinished.future,
-        completes,
-      );
-      expect(
-        await chromeSafariBrowser.requestPostMessageChannel(
-          sourceOrigin: WebUri(TEST_CUSTOM_TABS_POST_MESSAGE_URL.origin),
-        ),
-        true,
-      );
-      await expectLater(
-        chromeSafariBrowser.messageChannelReady.future,
-        completes,
-      );
-      expect(
-        await chromeSafariBrowser.postMessage("Message from Flutter"),
-        CustomTabsPostMessageResultType.SUCCESS,
-      );
-      await expectLater(
-        chromeSafariBrowser.postMessageReceived.future,
-        completion("Message from JavaScript"),
-      );
+        await expectLater(
+          chromeSafariBrowser.navigationFinished.future,
+          completes,
+        );
+        expect(
+          await chromeSafariBrowser.requestPostMessageChannel(
+            sourceOrigin: WebUri(TEST_CUSTOM_TABS_POST_MESSAGE_URL.origin),
+          ),
+          true,
+        );
+        await expectLater(
+          chromeSafariBrowser.messageChannelReady.future,
+          completes,
+        );
+        expect(
+          await chromeSafariBrowser.postMessage("Message from Flutter"),
+          CustomTabsPostMessageResultType.SUCCESS,
+        );
+        await expectLater(
+          chromeSafariBrowser.postMessageReceived.future,
+          completion("Message from JavaScript"),
+        );
 
-      await expectLater(chromeSafariBrowser.firstPageLoaded.future, completes);
-      await chromeSafariBrowser.close();
-      await expectLater(chromeSafariBrowser.closed.future, completes);
-      expect(chromeSafariBrowser.isOpened(), false);
-    });
+        await expectLater(
+          chromeSafariBrowser.firstPageLoaded.future,
+          completes,
+        );
+        await chromeSafariBrowser.close();
+        await expectLater(chromeSafariBrowser.closed.future, completes);
+        expect(chromeSafariBrowser.isOpened(), false);
+      },
+      // Skipped: needs Digital Asset Links trust between this app and the
+      // test page's site. inappwebview.dev/.well-known/assetlinks.json lists
+      // the upstream example (com.pichillilorenzo.flutter_inappwebviewexample,
+      // upstream's signing key), not com.telosnex.telosnex_inappwebviewexample,
+      // so Chrome reports the relationship as not validated. To re-enable:
+      // host the test page and an assetlinks.json for this app on a domain we
+      // control.
+      skip: true,
+    );
 
     skippableTest('Engagement Signals Api', () async {
       var chromeSafariBrowser = MyChromeSafariBrowser();
