@@ -20,6 +20,9 @@ void clearAndSetProxyOverride() {
       ProxyController proxyController = ProxyController.instance();
 
       await proxyController.clearProxyOverride();
+      // The override is the app's: later tests in the same launch must not
+      // go through the test proxy.
+      addTearDown(proxyController.clearProxyOverride);
       await proxyController.setProxyOverride(
         settings: ProxySettings(
           proxyRules: [ProxyRule(url: "${environment["NODE_SERVER_IP"]}:8083")],

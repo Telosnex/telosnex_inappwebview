@@ -1,4 +1,5 @@
 import 'package:telosnex_inappwebview/telosnex_inappwebview.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
 import 'process_global_config/main.dart' as process_global_config_tests;
@@ -37,7 +38,9 @@ void main() {
       7000;
 
   // IAW_GROUP (a --dart-define) runs one group, so each group gets its own
-  // app launch and a crash or hang stops only that group. Unset: all.
+  // app launch and a crash or hang stops only that group. Unset: all, each
+  // unit of tool/run_integration_group.sh in a group named [unit] (in its
+  // order), so a failure in the one launch says which unit to run again.
   const only = String.fromEnvironment('IAW_GROUP');
   final groups = <String, void Function()>{
     'process_global_config': process_global_config_tests.main,
@@ -55,8 +58,18 @@ void main() {
     'support_methods': support_methods_tests.main,
   };
   if (only.isEmpty) {
-    for (final group in groups.values) {
-      group();
+    for (final MapEntry(key: name, value: tests) in groups.entries) {
+      if (name == 'in_app_webview') {
+        // After support_methods, as the runner's units.
+        continue;
+      }
+      group('[$name]', tests);
+    }
+    for (var i = 0; i < 6; i++) {
+      group(
+        '[in_app_webview:$i/6]',
+        () => in_app_webview_tests.main(shardOverride: '$i/6'),
+      );
     }
   } else {
     final group = groups[only];

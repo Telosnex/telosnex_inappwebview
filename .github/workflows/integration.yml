@@ -25,9 +25,11 @@ env:
   IAW_LOGS: ${{ github.workspace }}/iaw-logs
 
 jobs:
-  # The pinned WPE SDK (wpe_sdk/prebuilt.json) on its own base system.
+  # The pinned WPE SDK (wpe_sdk/prebuilt.json) on its own base system. The
+  # Linux package's backend tests and the example's suite are separate jobs,
+  # so they run at the same time.
   linux:
-    name: ${{ matrix.name }}
+    name: ${{ matrix.name }}${{ matrix.suite == 'backend' && ' backend' || '' }}
     runs-on: ${{ matrix.runner }}
     timeout-minutes: 150
     container:
@@ -35,9 +37,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        arch: [x64, arm64]
+        suite: [example, backend]
         include:
-          - { name: Linux x64, runner: ubuntu-24.04, target: ubuntu-26.04-x64 }
-          - { name: Linux ARM64, runner: ubuntu-24.04-arm, target: ubuntu-26.04-arm64 }
+          - { arch: x64, name: Linux x64, runner: ubuntu-24.04, target: ubuntu-26.04-x64 }
+          - { arch: arm64, name: Linux ARM64, runner: ubuntu-24.04-arm, target: ubuntu-26.04-arm64 }
     env:
       # A CI container cannot create the bubblewrap sandbox's namespaces.
       WEBKIT_DISABLE_SANDBOX_THIS_IS_DANGEROUS: '1'
@@ -74,8 +78,10 @@ jobs:
           chmod 700 "$XDG_RUNTIME_DIR"
       - uses: Telosnex/telosnex_ci_tools/actions/setup-flutter@7ae582de19a80ce2482b9a6648182890d7e7c96e # main
       - run: npm ci
+        if: ${{ matrix.suite == 'example' }}
         working-directory: test_node_server
       - name: Linux backend tests (telosnex_inappwebview_linux/example)
+        if: ${{ matrix.suite == 'backend' }}
         working-directory: telosnex_inappwebview_linux/example
         run: |
           flutter pub get
@@ -87,11 +93,11 @@ jobs:
           done
           exit $status
       - name: Example integration suite
-        if: ${{ !cancelled() }}
+        if: ${{ matrix.suite == 'example' }}
         run: |
           (cd telosnex_inappwebview/example && flutter pub get)
           tool/run_integration_group.sh linux
-      - if: ${{ !cancelled() }}
+      - if: ${{ !cancelled() && matrix.suite == 'example' }}
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: logs-${{ matrix.target }}

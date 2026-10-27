@@ -102,7 +102,8 @@ part 'webview_asset_loader.dart';
 part 'webview_windows.dart';
 part 'keep_alive.dart';
 
-void main() {
+/// [shardOverride]: i/n, as IAW_SHARD.
+void main({String? shardOverride}) {
   final shouldSkip = !InAppWebViewController.isClassSupported();
 
   skippableGroup('InAppWebView', () {
@@ -204,7 +205,7 @@ void main() {
       onContentSizeChanged,
       keepAlive,
     ];
-    const shard = String.fromEnvironment('IAW_SHARD');
+    final shard = shardOverride ?? const String.fromEnvironment('IAW_SHARD');
     final (index, count) = shard.isEmpty
         ? (0, 1)
         : (int.parse(shard.split('/')[0]), int.parse(shard.split('/')[1]));
