@@ -37,9 +37,13 @@ if [[ ${#units[@]} -eq 0 ]]; then
   all=1
   units=(process_global_config find_interaction_controller
     service_worker_controller proxy_controller tracing_controller
-    headless_in_app_webview cookie_manager web_storage_manager in_app_browser
-    chrome_safari_browser in_app_localhost_server support_methods)
+    headless_in_app_webview cookie_manager web_storage_manager
+    in_app_localhost_server support_methods)
   for i in 0 1 2 3 4 5; do units+=("in_app_webview:$i/6"); done
+  # Last: they cover the app with another activity. On CI's Android emulator
+  # Flutter could not draw again after that (EGL_BAD_ACCESS on every frame),
+  # so later webviews stayed 0x0.
+  units+=(in_app_browser chrome_safari_browser)
 fi
 
 if [[ -z "${NODE_SERVER_IP:-}" ]]; then

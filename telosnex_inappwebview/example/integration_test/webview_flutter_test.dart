@@ -74,9 +74,12 @@ void main() {
     'support_methods': support_methods_tests.main,
   };
   if (only.isEmpty) {
+    // The runner's units, in its order: the browser groups last (they cover
+    // the app with another activity; on CI's Android emulator Flutter could
+    // not draw again after that, so later webviews stayed 0x0).
+    const last = ['in_app_browser', 'chrome_safari_browser'];
     for (final MapEntry(key: name, value: tests) in groups.entries) {
-      if (name == 'in_app_webview') {
-        // After support_methods, as the runner's units.
+      if (name == 'in_app_webview' || last.contains(name)) {
         continue;
       }
       group('[$name]', tests);
@@ -86,6 +89,9 @@ void main() {
         '[in_app_webview:$i/6]',
         () => in_app_webview_tests.main(shardOverride: '$i/6'),
       );
+    }
+    for (final name in last) {
+      group('[$name]', groups[name]!);
     }
   } else if (only.contains(',') || only.contains(':')) {
     // Several units in one launch, in this order (to find which leaves
