@@ -210,6 +210,9 @@ jobs:
         id: emulator
         with:
           api-level: '36'
+          # The host's H.264 decoder (no GPU on the runner): the emulator went
+          # offline in the video tests. Android's software decoder instead.
+          emulator-args: -feature -HardwareDecoder
       # A fresh Chrome opens with its first-run screens, which keep a Custom
       # Tab (ChromeSafariBrowser) from loading its page. Chrome reads these
       # flags when it is the debug app.
