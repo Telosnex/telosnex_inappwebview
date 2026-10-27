@@ -72,10 +72,13 @@ void resizeWebView() {
       ),
     );
 
-    await controllerCompleter.future;
+    final controller = await controllerCompleter.future;
     await pageStarted.future;
     await pageLoaded.future;
     await tester.pump(const Duration(milliseconds: 500));
+    final widthBefore = await controller.evaluateJavascript(
+      source: 'window.innerWidth',
+    );
     listenForResize = true;
 
     expect(resizeCompleter.isCompleted, false);
@@ -89,6 +92,20 @@ void resizeWebView() {
       ),
     );
 
-    await resizeCompleter.future;
+    // Frames are drawn only when a test pumps; the platform view's resize
+    // can need one to finish (Android's texture-backed views).
+    final deadline = DateTime.now().add(const Duration(seconds: 20));
+    while (!resizeCompleter.isCompleted && DateTime.now().isBefore(deadline)) {
+      await tester.pump(const Duration(milliseconds: 100));
+      await Future.delayed(const Duration(milliseconds: 100));
+    }
+    final widthAfter = await controller.evaluateJavascript(
+      source: 'window.innerWidth',
+    );
+    expect(
+      resizeCompleter.isCompleted,
+      true,
+      reason: 'no resize event; innerWidth $widthBefore -> $widthAfter',
+    );
   }, skip: shouldSkip);
 }
