@@ -47,69 +47,75 @@ public class ServiceWorkerManager implements Disposable {
     }
   }
   
+  // The manager whose Dart side gets shouldInterceptRequest; null: none.
+  @Nullable
+  private static volatile ServiceWorkerManager interceptor;
+  private static boolean clientSet = false;
+
+  /**
+   * One client is set, once: it asks Dart only while a manager wants it.
+   * WebView's setServiceWorkerClient waits for the requests in the client it
+   * replaces, and such a request waits for the main thread
+   * (invokeMethodAndWaitResult): setting a client again from the main thread
+   * while a service worker made a request deadlocked the app. Setting it to
+   * null crashed the app (flutter_inappwebview issue 1151).
+   */
   public void setServiceWorkerClient(Boolean isNull) {
-    if (serviceWorkerController != null) {
-      // set ServiceWorkerClient as null makes the app crashes, so just set a dummy ServiceWorkerClientCompat.
-      // https://github.com/pichillilorenzo/flutter_inappwebview/issues/1151
-      serviceWorkerController.setServiceWorkerClient(isNull ? dummyServiceWorkerClientCompat() : new ServiceWorkerClientCompat() {
-        @Nullable
-        @Override
-        public WebResourceResponse shouldInterceptRequest(@NonNull WebResourceRequest request) {
-          WebResourceRequestExt requestExt = WebResourceRequestExt.fromWebResourceRequest(request);
-
-          WebResourceResponseExt response = null;
-          if (channelDelegate != null) {
-            try {
-              response = channelDelegate.shouldInterceptRequest(requestExt);
-            } catch (InterruptedException e) {
-              Log.e(LOG_TAG, "", e);
-              return null;
-            }
-          }
-
-          if (response != null) {
-            String contentType = response.getContentType();
-            String contentEncoding = response.getContentEncoding();
-            byte[] data = response.getData();
-            Map<String, String> responseHeaders = response.getHeaders();
-            Integer statusCode = response.getStatusCode();
-            String reasonPhrase = response.getReasonPhrase();
-
-            ByteArrayInputStream inputStream = (data != null) ? new ByteArrayInputStream(data) : null;
-
-            if (statusCode != null && reasonPhrase != null) {
-              return new WebResourceResponse(contentType, contentEncoding, statusCode, reasonPhrase, responseHeaders, inputStream);
-            } else {
-              return new WebResourceResponse(contentType, contentEncoding, inputStream);
-            }
-          }
-
-          return null;
-        }
-      }); 
+    if (serviceWorkerController == null) {
+      return;
+    }
+    interceptor = isNull ? null : this;
+    if (!clientSet) {
+      clientSet = true;
+      serviceWorkerController.setServiceWorkerClient(ForwardingServiceWorkerClientCompat.INSTANCE);
     }
   }
 
-  private ServiceWorkerClientCompat dummyServiceWorkerClientCompat() {
-    return DummyServiceWorkerClientCompat.INSTANCE;
+  private static final class ForwardingServiceWorkerClientCompat extends ServiceWorkerClientCompat {
+    static final ServiceWorkerClientCompat INSTANCE = new ForwardingServiceWorkerClientCompat();
+
+    @Nullable
+    @Override
+    public WebResourceResponse shouldInterceptRequest(@NonNull WebResourceRequest request) {
+      final ServiceWorkerManager manager = interceptor;
+      final ServiceWorkerChannelDelegate channelDelegate = manager != null ? manager.channelDelegate : null;
+      if (channelDelegate == null) {
+        return null;
+      }
+      WebResourceRequestExt requestExt = WebResourceRequestExt.fromWebResourceRequest(request);
+      WebResourceResponseExt response;
+      try {
+        response = channelDelegate.shouldInterceptRequest(requestExt);
+      } catch (InterruptedException e) {
+        Log.e(LOG_TAG, "", e);
+        return null;
+      }
+      if (response == null) {
+        return null;
+      }
+      String contentType = response.getContentType();
+      String contentEncoding = response.getContentEncoding();
+      byte[] data = response.getData();
+      Map<String, String> responseHeaders = response.getHeaders();
+      Integer statusCode = response.getStatusCode();
+      String reasonPhrase = response.getReasonPhrase();
+      ByteArrayInputStream inputStream = (data != null) ? new ByteArrayInputStream(data) : null;
+      if (statusCode != null && reasonPhrase != null) {
+        return new WebResourceResponse(contentType, contentEncoding, statusCode, reasonPhrase, responseHeaders, inputStream);
+      }
+      return new WebResourceResponse(contentType, contentEncoding, inputStream);
+    }
   }
 
   @Override
   public void dispose() {
+    if (interceptor == this) {
+      interceptor = null;
+    }
     if (channelDelegate != null) {
       channelDelegate.dispose();
       channelDelegate = null;
     }
     plugin = null;
-  }
-
-  private static final class DummyServiceWorkerClientCompat extends ServiceWorkerClientCompat {
-    static final ServiceWorkerClientCompat INSTANCE = new DummyServiceWorkerClientCompat();
-
-    @Nullable
-    @Override
-    public WebResourceResponse shouldInterceptRequest(@NonNull WebResourceRequest request) {
-      return null;
-    }
   }
 }
