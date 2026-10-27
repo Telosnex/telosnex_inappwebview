@@ -60,27 +60,28 @@ void webViewWindows() {
       final Completer<InAppWebViewController> controllerCompleter =
           Completer<InAppWebViewController>();
       final Completer<int> onCreateWindowCompleter = Completer<int>();
-      await tester.pumpWidget(
-        Directionality(
-          textDirection: TextDirection.ltr,
-          child: InAppWebView(
-            key: GlobalKey(),
-            initialFile:
-                "test_assets/in_app_webview_on_create_window_test.html",
-            initialSettings: InAppWebViewSettings(
-              clearCache: true,
-              javaScriptCanOpenWindowsAutomatically: true,
-              supportMultipleWindows: true,
-            ),
-            onWebViewCreated: (controller) {
-              controllerCompleter.complete(controller);
-            },
-            onCreateWindow: (controller, createNavigationAction) async {
-              onCreateWindowCompleter.complete(createNavigationAction.windowId);
-              return true;
-            },
-          ),
+      // The opener stays while its window loads, as an app shows a popup
+      // over its page: replacing it tore its view down mid-handoff, and on
+      // CI's Android emulator the window then never loaded.
+      final openerKey = GlobalKey();
+      final opener = InAppWebView(
+        key: openerKey,
+        initialFile: "test_assets/in_app_webview_on_create_window_test.html",
+        initialSettings: InAppWebViewSettings(
+          clearCache: true,
+          javaScriptCanOpenWindowsAutomatically: true,
+          supportMultipleWindows: true,
         ),
+        onWebViewCreated: (controller) {
+          controllerCompleter.complete(controller);
+        },
+        onCreateWindow: (controller, createNavigationAction) async {
+          onCreateWindowCompleter.complete(createNavigationAction.windowId);
+          return true;
+        },
+      );
+      await tester.pumpWidget(
+        Directionality(textDirection: TextDirection.ltr, child: opener),
       );
 
       await tester.pump();
@@ -95,22 +96,32 @@ void webViewWindows() {
       await tester.pumpWidget(
         Directionality(
           textDirection: TextDirection.ltr,
-          child: InAppWebView(
-            key: GlobalKey(),
-            windowId: windowId,
-            initialSettings: InAppWebViewSettings(clearCache: true),
-            onWebViewCreated: (controller) {
-              windowControllerCompleter.complete(controller);
-            },
-            onLoadStop: (controller, url) async {
-              if (url!.scheme != "about" && !windowPageLoaded.isCompleted) {
-                windowPageLoaded.complete(url.toString());
-                await controller.evaluateJavascript(source: "window.close();");
-              }
-            },
-            onCloseWindow: (controller) {
-              onCloseWindowCompleter.complete();
-            },
+          child: Column(
+            children: [
+              Expanded(child: opener),
+              Expanded(
+                child: InAppWebView(
+                  key: GlobalKey(),
+                  windowId: windowId,
+                  initialSettings: InAppWebViewSettings(clearCache: true),
+                  onWebViewCreated: (controller) {
+                    windowControllerCompleter.complete(controller);
+                  },
+                  onLoadStop: (controller, url) async {
+                    if (url!.scheme != "about" &&
+                        !windowPageLoaded.isCompleted) {
+                      windowPageLoaded.complete(url.toString());
+                      await controller.evaluateJavascript(
+                        source: "window.close();",
+                      );
+                    }
+                  },
+                  onCloseWindow: (controller) {
+                    onCloseWindowCompleter.complete();
+                  },
+                ),
+              ),
+            ],
           ),
         ),
       );
