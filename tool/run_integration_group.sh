@@ -72,6 +72,17 @@ fi
 
 failed=()
 summary="| Unit | Result | Seconds |"$'\n'"|---|---|---|"$'\n'
+# Stops a launch: the process and, on Windows, its native process tree
+# (flutter.bat, dart, the app), which signals do not reach.
+stop_launch() {
+  if [[ "$(uname)" == MINGW* || "$(uname)" == MSYS* ]]; then
+    local winpid
+    winpid=$(cat /proc/$1/winpid 2>/dev/null)
+    [[ -n $winpid ]] && taskkill //f //t //pid "$winpid" > /dev/null 2>&1
+  fi
+  kill $1 2>/dev/null
+}
+
 for unit in "${units[@]}"; do
   defines=()
   case "$unit" in
@@ -93,15 +104,22 @@ for unit in "${units[@]}"; do
   # No tests for this platform: flutter test exits 79, but with a desktop
   # session the app's window stays open and the launch waited for the limit.
   notests=0
+  timedout=0
   while kill -0 $pid 2>/dev/null; do
     if grep -q 'No tests ran' "$log"; then
-      notests=1; sleep 2; kill $pid 2>/dev/null; break
+      notests=1; sleep 2; stop_launch $pid; break
+    fi
+    # The perl alarm does not reach native processes on Windows: the limit
+    # is kept here too.
+    if (( $(date +%s) - start >= limit + 5 )); then
+      timedout=1; stop_launch $pid; break
     fi
     sleep 1
   done
   wait $pid
   code=$?
   [[ $notests == 1 ]] && code=79
+  [[ $timedout == 1 ]] && code=142
   seconds=$(( $(date +%s) - start ))
   # Only this checkout's app (its build folder): runs for other devices on
   # the same machine have their own.
