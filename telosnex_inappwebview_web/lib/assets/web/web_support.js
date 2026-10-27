@@ -48,6 +48,11 @@
               if (iframe.contentWindow == null) {
                 return;
               }
+              // The iframe's own about:blank, before anything was loaded in
+              // it (a POST request is still being made): not a page load.
+              if (!iframe.hasAttribute("src") && !iframe.hasAttribute("srcdoc")) {
+                return;
+              }
               const userScriptsAtStart = _nativeCommunication("getUserOnlyScriptsAt", viewId, [0 /* AT_DOCUMENT_START */]);
               const userScriptsAtEnd = _nativeCommunication("getUserOnlyScriptsAt", viewId, [1 /* AT_DOCUMENT_END */]);
               try {

@@ -353,10 +353,25 @@ class InAppWebViewWebElement implements Disposable {
     );
   }
 
+  // The blob: URL of the last response shown (_convertHttpResponseToData).
+  String? _responseObjectUrl;
+
+  /// A URL that shows the response: a blob: URL, which has this page's
+  /// origin, so the page can be scripted (evaluateJavascript, user scripts,
+  /// events). A data: URL has an opaque origin.
   String _convertHttpResponseToData(XMLHttpRequest httpRequest) {
     final String contentType =
         httpRequest.getResponseHeader('content-type') ?? 'text/html';
-    return 'data:$contentType,' + Uri.encodeComponent(httpRequest.responseText);
+    if (_responseObjectUrl != null) {
+      URL.revokeObjectURL(_responseObjectUrl!);
+    }
+    _responseObjectUrl = URL.createObjectURL(
+      Blob(
+        [httpRequest.responseText.toJS].toJS,
+        BlobPropertyBag(type: contentType),
+      ),
+    );
+    return _responseObjectUrl!;
   }
 
   String getIFrameId() {
@@ -364,6 +379,9 @@ class InAppWebViewWebElement implements Disposable {
   }
 
   Future<void> loadUrl({required URLRequest urlRequest}) async {
+    // onLoadStart only comes with the iframe's load event, at the end of the
+    // load: loading starts here.
+    isLoading = true;
     if ((urlRequest.method == null || urlRequest.method == "GET") &&
         (urlRequest.headers == null || urlRequest.headers!.isEmpty)) {
       iframe.src = urlRequest.url.toString();
@@ -392,10 +410,12 @@ class InAppWebViewWebElement implements Disposable {
     required String data,
     String mimeType = "text/html",
   }) async {
+    isLoading = true;
     iframe.src = 'data:$mimeType,' + Uri.encodeComponent(data);
   }
 
   Future<void> loadFile({required String assetFilePath}) async {
+    isLoading = true;
     iframe.src = assetFilePath;
   }
 
@@ -439,8 +459,15 @@ class InAppWebViewWebElement implements Disposable {
     required String url,
     required Uint8List postData,
   }) async {
+    // As the other platforms (a form submission): the server reads the body
+    // as a form only with this content type.
     await loadUrl(
-      urlRequest: URLRequest(url: WebUri(url), method: "POST", body: postData),
+      urlRequest: URLRequest(
+        url: WebUri(url),
+        method: "POST",
+        body: postData,
+        headers: {"Content-Type": "application/x-www-form-urlencoded"},
+      ),
     );
   }
 
@@ -787,6 +814,10 @@ class InAppWebViewWebElement implements Disposable {
 
   @override
   void dispose() {
+    if (_responseObjectUrl != null) {
+      URL.revokeObjectURL(_responseObjectUrl!);
+      _responseObjectUrl = null;
+    }
     _channel?.setMethodCallHandler(null);
     _channel = null;
     if (windowId != null &&
@@ -823,7 +854,16 @@ class UserContentController implements Disposable {
   }
 
   bool removeUserOnlyScript(UserScript userScript) {
-    return _userOnlyScripts[userScript.injectionTime]!.remove(userScript);
+    // The script comes over the channel (UserScript.fromMap), a new object:
+    // the one added is found by its fields.
+    final scripts = _userOnlyScripts[userScript.injectionTime]!;
+    final map = jsonEncode(userScript.toMap());
+    final index = scripts.indexWhere((s) => jsonEncode(s.toMap()) == map);
+    if (index < 0) {
+      return false;
+    }
+    scripts.removeAt(index);
+    return true;
   }
 
   UserScript removeUserOnlyScriptAt(
