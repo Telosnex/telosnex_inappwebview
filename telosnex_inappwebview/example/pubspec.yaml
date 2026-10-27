@@ -43,6 +43,8 @@ dev_dependencies:
     sdk: flutter
   integration_test:
     sdk: flutter
+  # web_test_reporting.dart: the version flutter_test pins.
+  test_api: any
   # integration_test: ^1.0.2+1
 #  integration_test:
 #    git:

@@ -1,6 +1,9 @@
 import 'package:telosnex_inappwebview/telosnex_inappwebview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
+
+import 'web_test_reporting.dart';
 
 import 'process_global_config/main.dart' as process_global_config_tests;
 import 'in_app_webview/main.dart' as in_app_webview_tests;
@@ -18,7 +21,15 @@ import 'tracing_controller/main.dart' as tracing_controller_tests;
 import 'support_methods/main.dart' as support_methods_tests;
 
 void main() {
-  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  if (kIsWeb) {
+    installWebTestReporting(binding);
+    // A webview's iframe is added to the page on the frame after it is
+    // created. With the default policy frames are drawn only when a test
+    // pumps, so a test that waits for onLoadStop without pumping waited
+    // forever. Draw every scheduled frame, as an app does.
+    binding.framePolicy = LiveTestWidgetsFlutterBindingFramePolicy.fullyLive;
+  }
 
   PlatformInAppWebViewController.debugLoggingSettings.usePrint = true;
   PlatformInAppWebViewController.debugLoggingSettings.maxLogMessageLength =
@@ -69,6 +80,24 @@ void main() {
       group(
         '[in_app_webview:$i/6]',
         () => in_app_webview_tests.main(shardOverride: '$i/6'),
+      );
+    }
+  } else if (only.contains(',')) {
+    // Several units in one launch, in this order (to find which leaves
+    // state behind for another): group or in_app_webview:i/n.
+    for (final unit in only.split(',')) {
+      final [name, ...shard] = unit.split(':');
+      final tests = groups[name];
+      if (tests == null) {
+        throw ArgumentError(
+          'IAW_GROUP: $name; groups: ${groups.keys.join(', ')}',
+        );
+      }
+      group(
+        '[$unit]',
+        shard.isEmpty
+            ? tests
+            : () => in_app_webview_tests.main(shardOverride: shard.single),
       );
     }
   } else {
