@@ -24,12 +24,14 @@ void main() {
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   if (kIsWeb) {
     installWebTestReporting(binding);
-    // A webview's iframe is added to the page on the frame after it is
-    // created. With the default policy frames are drawn only when a test
-    // pumps, so a test that waits for onLoadStop without pumping waited
-    // forever. Draw every scheduled frame, as an app does.
-    binding.framePolicy = LiveTestWidgetsFlutterBindingFramePolicy.fullyLive;
   }
+  // Draw every scheduled frame, as an app does. With the default policy
+  // frames are drawn only when a test pumps, and webviews are placed and
+  // sized by frames: on the web the iframe is added on the frame after it
+  // is created (a test waiting for onLoadStop without pumping waited
+  // forever); on Android (hybrid composition) the view is sized when a frame
+  // shows it (it stayed 0x0 in a long launch).
+  binding.framePolicy = LiveTestWidgetsFlutterBindingFramePolicy.fullyLive;
 
   PlatformInAppWebViewController.debugLoggingSettings.usePrint = true;
   PlatformInAppWebViewController.debugLoggingSettings.maxLogMessageLength =
@@ -82,7 +84,7 @@ void main() {
         () => in_app_webview_tests.main(shardOverride: '$i/6'),
       );
     }
-  } else if (only.contains(',')) {
+  } else if (only.contains(',') || only.contains(':')) {
     // Several units in one launch, in this order (to find which leaves
     // state behind for another): group or in_app_webview:i/n.
     for (final unit in only.split(',')) {
