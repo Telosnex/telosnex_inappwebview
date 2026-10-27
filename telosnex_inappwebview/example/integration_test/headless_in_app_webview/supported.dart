@@ -14,8 +14,10 @@ void supported() {
         HeadlessInAppWebView.isPropertySupported(
           PlatformHeadlessInAppWebViewCreationParamsProperty.webViewEnvironment,
         ),
-        defaultTargetPlatform == TargetPlatform.windows ||
-            defaultTargetPlatform == TargetPlatform.linux,
+        // On the web, defaultTargetPlatform is the browser's OS.
+        !kIsWeb &&
+            (defaultTargetPlatform == TargetPlatform.windows ||
+                defaultTargetPlatform == TargetPlatform.linux),
       );
       expect(
         HeadlessInAppWebView.isMethodSupported(
