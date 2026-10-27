@@ -19,7 +19,7 @@
 #                   The Android emulator needs 10.0.2.2.
 #   IAW_TEST_TIMEOUT  Per test (flutter test --timeout, e.g. 45s).
 #   IAW_ONE_LAUNCH  0: no one-launch run first.
-#   IAW_ONE_LAUNCH_LIMIT  Seconds for the one launch (default 2400).
+#   IAW_ONE_LAUNCH_LIMIT  Seconds for the one launch (default 1200).
 #   IAW_DRIVER      web: run with flutter drive on the web-server device
 #                   (start chromedriver or another WebDriver first).
 #
@@ -177,7 +177,7 @@ if [[ $all == 1 && "${IAW_ONE_LAUNCH:-1}" == 1 ]]; then
   # failure, and on a crash or timeout the unit running then and those
   # after it, run again with a launch each, and their results count.
   log="$logs/all.log"
-  launch "$log" "${IAW_ONE_LAUNCH_LIMIT:-2400}"
+  launch "$log" "${IAW_ONE_LAUNCH_LIMIT:-1200}"
   report "all (one launch)" "$log"
   if [[ $code != 0 ]]; then
     rerun=()
