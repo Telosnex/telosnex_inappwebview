@@ -104,29 +104,12 @@ class InterceptAjaxRequestJS {
         reader.readAsArrayBuffer(body);
         return;
       }
-      if (body instanceof FormData) {
-        var entries = body.entries();
-        var dataString = '';
-        var boundary = '------WebKitFormBoundary' + Math.random().toString(36).substring(7);
-        var entry = entries.next();
-        while (!entry.done) {
-          var name = entry.value[0];
-          var value = entry.value[1];
-          dataString += boundary + '\r\n';
-          if (value instanceof File) {
-            dataString += 'Content-Disposition: form-data; name="' + name + '"; filename="' + value.name + '"\r\n';
-            dataString += 'Content-Type: ' + value.type + '\r\n\r\n';
-            dataString += value.data + '\r\n';
-          } else {
-            dataString += 'Content-Disposition: form-data; name="' + name + '"\r\n\r\n';
-            dataString += value + '\r\n';
-          }
-          entry = entries.next();
-        }
-        if (dataString.length > 0) {
-          dataString += boundary + '--\r\n';
-        }
-        resolve(dataString);
+      // FormData (with its files): the multipart body the browser would
+      // send, as bytes, as on iOS.
+      if (body instanceof FormData && window.Response != null) {
+        new Response(body).arrayBuffer().then(function(arrayBuffer) {
+          resolve(Array.from(new Uint8Array(arrayBuffer)));
+        }, reject);
         return;
       }
       resolve(body.toString());

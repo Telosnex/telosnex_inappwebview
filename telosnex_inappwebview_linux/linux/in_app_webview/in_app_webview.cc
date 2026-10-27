@@ -2361,7 +2361,7 @@ void InAppWebView::injectJavascriptFileFromUrl(const std::string& urlFile,
       "  script.src = " +
       JsStringLiteral(urlFile) +
       ";"
-      "  document.head.appendChild(script);"
+      "  (document.body || document.head).appendChild(script);"
       "})();";
   evaluateJavascript(script, std::nullopt, nullptr);
 }
