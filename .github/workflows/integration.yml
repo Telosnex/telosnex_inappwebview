@@ -34,6 +34,9 @@ jobs:
     timeout-minutes: 150
     container:
       image: ubuntu@sha256:c098726dd9b9733f3e885f8de0ef375206a311b0a317eadc40d347b1115fb944 # 26.04
+      # WebKit's processes share memory through /dev/shm, which Docker
+      # limits to 64 MB: in a long launch web processes crashed.
+      options: --shm-size=2g
     strategy:
       fail-fast: false
       matrix:
@@ -123,10 +126,33 @@ jobs:
         working-directory: test_node_server
       - run: flutter pub get
         working-directory: telosnex_inappwebview/example
+      # An app that exits mid-run (no Dart error): Windows Error Reporting
+      # writes a minidump of it.
+      - name: Windows crash dumps
+        if: ${{ matrix.device == 'windows' }}
+        shell: pwsh
+        run: |
+          $dir = Join-Path $env:IAW_LOGS 'crash'
+          New-Item -ItemType Directory -Force -Path $dir | Out-Null
+          $key = 'HKLM:\SOFTWARE\Microsoft\Windows\Windows Error Reporting\LocalDumps\telosnex_inappwebview_example.exe'
+          New-Item -Force -Path $key | Out-Null
+          Set-ItemProperty -Path $key -Name DumpFolder -Value $dir -Type ExpandString
+          Set-ItemProperty -Path $key -Name DumpType -Value 1 -Type DWord
+          Set-ItemProperty -Path $key -Name DumpCount -Value 5 -Type DWord
       - name: Example integration suite
         env:
           DEVICE: ${{ matrix.device }}
         run: tool/run_integration_group.sh "$DEVICE"
+      # The app's crash and exit events, with their exception codes.
+      - name: Collect Windows crash events
+        if: ${{ !cancelled() && matrix.device == 'windows' }}
+        shell: pwsh
+        run: |
+          $dir = Join-Path $env:IAW_LOGS 'crash'
+          New-Item -ItemType Directory -Force -Path $dir | Out-Null
+          Get-WinEvent -FilterHashtable @{ LogName = 'Application'; Id = 1000, 1001, 1026 } -MaxEvents 50 -ErrorAction SilentlyContinue |
+            Where-Object { $_.Message -match 'telosnex_inappwebview_example|msedgewebview2' } |
+            Format-List TimeCreated, Id, Message | Out-File (Join-Path $dir 'events.txt')
       # An app that exits mid-run (no Dart error) leaves a crash report.
       - name: Collect macOS crash reports
         if: ${{ !cancelled() && matrix.device == 'macos' }}
