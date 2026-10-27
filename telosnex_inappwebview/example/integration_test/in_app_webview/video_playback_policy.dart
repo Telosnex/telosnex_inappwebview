@@ -184,7 +184,6 @@ void videoPlaybackPolicy() {
             Completer<InAppWebViewController>();
         Completer<void> pageLoaded = Completer<void>();
         Completer<void> onEnterFullscreenCompleter = Completer<void>();
-        Completer<void> onExitFullscreenCompleter = Completer<void>();
 
         await tester.pumpWidget(
           Directionality(
@@ -208,14 +207,7 @@ void videoPlaybackPolicy() {
                 pageLoaded.complete();
               },
               onEnterFullscreen: (controller) {
-                if (!onEnterFullscreenCompleter.isCompleted) {
-                  onEnterFullscreenCompleter.complete();
-                }
-              },
-              onExitFullscreen: (controller) {
-                if (!onExitFullscreenCompleter.isCompleted) {
-                  onExitFullscreenCompleter.complete();
-                }
+                onEnterFullscreenCompleter.complete();
               },
             ),
           ),
@@ -226,15 +218,6 @@ void videoPlaybackPolicy() {
         await tester.pump();
 
         await expectLater(onEnterFullscreenCompleter.future, completes);
-
-        // Leave fullscreen: the next test's video can only go fullscreen
-        // once this one's player is gone (iOS).
-        final controller = await controllerCompleter.future;
-        await controller.evaluateJavascript(source: "exitFullscreen();");
-        await onExitFullscreenCompleter.future.timeout(
-          const Duration(seconds: 10),
-          onTimeout: () {},
-        );
       },
       skip: shouldSkipTest3,
     );
