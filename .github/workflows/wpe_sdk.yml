@@ -31,27 +31,18 @@ defaults:
     shell: bash
 
 jobs:
-  build:
-    name: ${{ matrix.target }}
-    runs-on: ${{ matrix.runner }}
+  # Each target is a build (2-4 hours) and a relocation test, in its own
+  # job; publish needs all three.
+  desktop-linux-x64:
+    name: Linux x64 WPE SDK
+    runs-on: ubuntu-24.04
     # A WebKit build takes 2-4 hours on a 4-core hosted runner.
     timeout-minutes: 360
     container:
-      image: ${{ matrix.image }}
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - target: ubuntu-26.04-x64
-            runner: ubuntu-24.04
-            image: ubuntu@sha256:c098726dd9b9733f3e885f8de0ef375206a311b0a317eadc40d347b1115fb944
-          - target: ubuntu-26.04-arm64
-            runner: ubuntu-24.04-arm
-            image: ubuntu@sha256:c098726dd9b9733f3e885f8de0ef375206a311b0a317eadc40d347b1115fb944
-          - target: debian-13-arm64
-            runner: ubuntu-24.04-arm
-            image: debian@sha256:913f6706df59a68922d1dd08f78c2476560a8d367897200a6005b00e5f67c2d5
-    steps:
+      image: ubuntu@sha256:c098726dd9b9733f3e885f8de0ef375206a311b0a317eadc40d347b1115fb944 # 26.04
+    env:
+      TARGET: ubuntu-26.04-x64
+    steps: &wpe_steps
       - name: Install git
         run: |
           apt-get update -qq
@@ -69,8 +60,8 @@ jobs:
         run: |
           telosnex_inappwebview_linux/wpe_sdk/key.sh > "$RUNNER_TEMP/key.txt"
           telosnex_inappwebview_linux/wpe_sdk/build.sh "$RUNNER_TEMP/out"
-          test -f "$RUNNER_TEMP/out/wpe-sdk-${{ matrix.target }}.tar.zst"
-          cp "$RUNNER_TEMP/key.txt" "$RUNNER_TEMP/out/wpe-sdk-${{ matrix.target }}.key"
+          test -f "$RUNNER_TEMP/out/wpe-sdk-$TARGET.tar.zst"
+          cp "$RUNNER_TEMP/key.txt" "$RUNNER_TEMP/out/wpe-sdk-$TARGET.key"
       - name: Test the SDK from another directory
         # Extracts the archive to a new directory, loads a page, and checks
         # that WebKit started its helpers from that directory. Container
@@ -78,17 +69,39 @@ jobs:
         # on the target systems.
         env:
           WEBKIT_DISABLE_SANDBOX_THIS_IS_DANGEROUS: "1"
-        run: telosnex_inappwebview_linux/wpe_sdk/test/run_relocation_test.sh "$RUNNER_TEMP/out/wpe-sdk-${{ matrix.target }}.tar.zst"
+        run: telosnex_inappwebview_linux/wpe_sdk/test/run_relocation_test.sh "$RUNNER_TEMP/out/wpe-sdk-$TARGET.tar.zst"
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: wpe-sdk-${{ matrix.target }}
+          name: wpe-sdk-${{ env.TARGET }}
           path: ${{ runner.temp }}/out/
           if-no-files-found: error
           retention-days: 30
 
+  desktop-linux-arm64:
+    name: Linux ARM64 WPE SDK
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 360
+    container:
+      image: ubuntu@sha256:c098726dd9b9733f3e885f8de0ef375206a311b0a317eadc40d347b1115fb944 # 26.04
+    env:
+      TARGET: ubuntu-26.04-arm64
+    steps: *wpe_steps
+
+  desktop-debian-13-arm64:
+    name: Debian 13 ARM64 WPE SDK
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 360
+    container:
+      image: debian@sha256:913f6706df59a68922d1dd08f78c2476560a8d367897200a6005b00e5f67c2d5 # 13
+    env:
+      TARGET: debian-13-arm64
+    steps: *wpe_steps
+
   publish:
-    needs: build
+    name: Publish WPE SDK
+    needs: [desktop-linux-x64, desktop-linux-arm64, desktop-debian-13-arm64]
     runs-on: ubuntu-24.04
+    timeout-minutes: 30
     permissions:
       contents: write
     env:

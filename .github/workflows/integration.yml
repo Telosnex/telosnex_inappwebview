@@ -35,30 +35,24 @@ jobs:
   # The pinned WPE SDK (wpe_sdk/prebuilt.json) on its own base system. The
   # Linux package's backend tests and the example's suite are separate jobs,
   # so they run at the same time.
-  linux:
+  desktop-linux-x64:
     if: ${{ github.event_name != 'workflow_dispatch' || inputs.platforms == 'all' || contains(inputs.platforms, 'linux') }}
-    name: ${{ matrix.name }}${{ matrix.suite == 'backend' && ' backend' || '' }}
-    runs-on: ${{ matrix.runner }}
+    name: Linux x64
+    runs-on: ubuntu-24.04
     timeout-minutes: 150
-    container:
+    container: &linux_container
       image: ubuntu@sha256:c098726dd9b9733f3e885f8de0ef375206a311b0a317eadc40d347b1115fb944 # 26.04
       # WebKit's processes share memory through /dev/shm, which Docker
       # limits to 64 MB: in a long launch web processes crashed.
       options: --shm-size=2g
-    strategy:
-      fail-fast: false
-      matrix:
-        arch: [x64, arm64]
-        suite: [example, backend]
-        include:
-          - { arch: x64, name: Linux x64, runner: ubuntu-24.04, target: ubuntu-26.04-x64 }
-          - { arch: arm64, name: Linux ARM64, runner: ubuntu-24.04-arm, target: ubuntu-26.04-arm64 }
     env:
+      TARGET: ubuntu-26.04-x64
+      SUITE: example
       # A CI container cannot create the bubblewrap sandbox's namespaces.
       WEBKIT_DISABLE_SANDBOX_THIS_IS_DANGEROUS: '1'
       XDG_RUNTIME_DIR: /tmp/xdg-runtime
       DEBIAN_FRONTEND: noninteractive
-    steps:
+    steps: &linux_steps
       - name: Install git
         run: |
           apt-get update -qq
@@ -67,8 +61,6 @@ jobs:
         with:
           persist-credentials: false
       - name: Install the build tools and the SDK's run-time packages
-        env:
-          TARGET: ${{ matrix.target }}
         run: |
           apt-get install -y -qq --no-install-recommends python3 > /dev/null
           read -ra runtime <<< "$(python3 -c "
@@ -87,12 +79,12 @@ jobs:
             "${runtime[@]}" > /dev/null
           mkdir -p "$XDG_RUNTIME_DIR"
           chmod 700 "$XDG_RUNTIME_DIR"
-      - uses: Telosnex/telosnex_ci_tools/actions/setup-flutter@7ae582de19a80ce2482b9a6648182890d7e7c96e # main
+      - uses: Telosnex/telosnex_ci_tools/actions/setup-flutter@cba77fc0d4330f1bef81193c53cd7dd976f0ebcf # v0.5.3
       - run: npm ci
-        if: ${{ matrix.suite == 'example' }}
+        if: ${{ env.SUITE == 'example' }}
         working-directory: test_node_server
       - name: Linux backend tests (telosnex_inappwebview_linux/example)
-        if: ${{ matrix.suite == 'backend' }}
+        if: ${{ env.SUITE == 'backend' }}
         working-directory: telosnex_inappwebview_linux/example
         run: |
           flutter pub get
@@ -104,36 +96,71 @@ jobs:
           done
           exit $status
       - name: Example integration suite
-        if: ${{ matrix.suite == 'example' }}
+        if: ${{ env.SUITE == 'example' }}
         run: |
           (cd telosnex_inappwebview/example && flutter pub get)
           tool/run_integration_group.sh linux
-      - if: ${{ !cancelled() && matrix.suite == 'example' }}
+      - if: ${{ !cancelled() && env.SUITE == 'example' }}
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: logs-${{ matrix.target }}
+          name: logs-${{ env.TARGET }}
           path: ${{ env.IAW_LOGS }}
           if-no-files-found: ignore
 
-  desktop:
-    if: ${{ github.event_name != 'workflow_dispatch' || inputs.platforms == 'all' || contains(inputs.platforms, 'macos') || contains(inputs.platforms, 'windows') }}
-    name: ${{ matrix.device == 'macos' && 'macOS ARM64' || 'Windows x64' }}
-    runs-on: ${{ matrix.device == 'macos' && 'macos-26' || 'windows-2025' }}
+  desktop-linux-x64-backend:
+    if: ${{ github.event_name != 'workflow_dispatch' || inputs.platforms == 'all' || contains(inputs.platforms, 'linux') }}
+    name: Linux x64 backend
+    runs-on: ubuntu-24.04
     timeout-minutes: 150
-    strategy:
-      fail-fast: false
-      matrix:
-        device: [macos, windows]
-        # A platform not asked for (workflow_dispatch): excluded. 'none'
-        # excludes nothing.
-        exclude:
-          - device: ${{ (github.event_name != 'workflow_dispatch' || inputs.platforms == 'all' || contains(inputs.platforms, 'macos')) && 'none' || 'macos' }}
-          - device: ${{ (github.event_name != 'workflow_dispatch' || inputs.platforms == 'all' || contains(inputs.platforms, 'windows')) && 'none' || 'windows' }}
-    steps:
+    container: *linux_container
+    env:
+      TARGET: ubuntu-26.04-x64
+      SUITE: backend
+      WEBKIT_DISABLE_SANDBOX_THIS_IS_DANGEROUS: '1'
+      XDG_RUNTIME_DIR: /tmp/xdg-runtime
+      DEBIAN_FRONTEND: noninteractive
+    steps: *linux_steps
+
+  desktop-linux-arm64:
+    if: ${{ github.event_name != 'workflow_dispatch' || inputs.platforms == 'all' || contains(inputs.platforms, 'linux') }}
+    name: Linux ARM64
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 150
+    container: *linux_container
+    env:
+      TARGET: ubuntu-26.04-arm64
+      SUITE: example
+      WEBKIT_DISABLE_SANDBOX_THIS_IS_DANGEROUS: '1'
+      XDG_RUNTIME_DIR: /tmp/xdg-runtime
+      DEBIAN_FRONTEND: noninteractive
+    steps: *linux_steps
+
+  desktop-linux-arm64-backend:
+    if: ${{ github.event_name != 'workflow_dispatch' || inputs.platforms == 'all' || contains(inputs.platforms, 'linux') }}
+    name: Linux ARM64 backend
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 150
+    container: *linux_container
+    env:
+      TARGET: ubuntu-26.04-arm64
+      SUITE: backend
+      WEBKIT_DISABLE_SANDBOX_THIS_IS_DANGEROUS: '1'
+      XDG_RUNTIME_DIR: /tmp/xdg-runtime
+      DEBIAN_FRONTEND: noninteractive
+    steps: *linux_steps
+
+  desktop-macos-arm64:
+    if: ${{ github.event_name != 'workflow_dispatch' || inputs.platforms == 'all' || contains(inputs.platforms, 'macos') }}
+    name: macOS ARM64
+    runs-on: macos-26
+    timeout-minutes: 150
+    env:
+      DEVICE: macos
+    steps: &desktop_steps
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - uses: Telosnex/telosnex_ci_tools/actions/setup-flutter@7ae582de19a80ce2482b9a6648182890d7e7c96e # main
+      - uses: Telosnex/telosnex_ci_tools/actions/setup-flutter@cba77fc0d4330f1bef81193c53cd7dd976f0ebcf # v0.5.3
       - run: npm ci
         working-directory: test_node_server
       - run: flutter pub get
@@ -141,7 +168,7 @@ jobs:
       # An app that exits mid-run (no Dart error): Windows Error Reporting
       # writes a minidump of it.
       - name: Windows crash dumps
-        if: ${{ matrix.device == 'windows' }}
+        if: ${{ env.DEVICE == 'windows' }}
         shell: pwsh
         run: |
           $dir = Join-Path $env:IAW_LOGS 'crash'
@@ -152,12 +179,10 @@ jobs:
           Set-ItemProperty -Path $key -Name DumpType -Value 1 -Type DWord
           Set-ItemProperty -Path $key -Name DumpCount -Value 5 -Type DWord
       - name: Example integration suite
-        env:
-          DEVICE: ${{ matrix.device }}
         run: tool/run_integration_group.sh "$DEVICE"
       # The app's crash and exit events, with their exception codes.
       - name: Collect Windows crash events
-        if: ${{ !cancelled() && matrix.device == 'windows' }}
+        if: ${{ !cancelled() && env.DEVICE == 'windows' }}
         shell: pwsh
         run: |
           $dir = Join-Path $env:IAW_LOGS 'crash'
@@ -167,7 +192,7 @@ jobs:
             Format-List TimeCreated, Id, Message | Out-File (Join-Path $dir 'events.txt')
       # An app that exits mid-run (no Dart error) leaves a crash report.
       - name: Collect macOS crash reports
-        if: ${{ !cancelled() && matrix.device == 'macos' }}
+        if: ${{ !cancelled() && env.DEVICE == 'macos' }}
         run: |
           mkdir -p "$IAW_LOGS/crash"
           find ~/Library/Logs/DiagnosticReports /Library/Logs/DiagnosticReports \
@@ -175,9 +200,18 @@ jobs:
       - if: ${{ !cancelled() }}
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: logs-${{ matrix.device }}
+          name: logs-${{ env.DEVICE }}
           path: ${{ env.IAW_LOGS }}
           if-no-files-found: ignore
+
+  desktop-windows-x64:
+    if: ${{ github.event_name != 'workflow_dispatch' || inputs.platforms == 'all' || contains(inputs.platforms, 'windows') }}
+    name: Windows x64
+    runs-on: windows-2025
+    timeout-minutes: 150
+    env:
+      DEVICE: windows
+    steps: *desktop_steps
 
   ios:
     if: ${{ github.event_name != 'workflow_dispatch' || inputs.platforms == 'all' || contains(inputs.platforms, 'ios') }}
@@ -188,12 +222,12 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - uses: Telosnex/telosnex_ci_tools/actions/setup-flutter@7ae582de19a80ce2482b9a6648182890d7e7c96e # main
+      - uses: Telosnex/telosnex_ci_tools/actions/setup-flutter@cba77fc0d4330f1bef81193c53cd7dd976f0ebcf # v0.5.3
       - run: npm ci
         working-directory: test_node_server
       - run: flutter pub get
         working-directory: telosnex_inappwebview/example
-      - uses: Telosnex/telosnex_ci_tools/actions/ios-simulator-boot@7ae582de19a80ce2482b9a6648182890d7e7c96e # main
+      - uses: Telosnex/telosnex_ci_tools/actions/ios-simulator-boot@cba77fc0d4330f1bef81193c53cd7dd976f0ebcf # v0.5.3
         id: simulator
       - name: Example integration suite
         env:
@@ -227,12 +261,12 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - uses: Telosnex/telosnex_ci_tools/actions/setup-flutter@7ae582de19a80ce2482b9a6648182890d7e7c96e # main
+      - uses: Telosnex/telosnex_ci_tools/actions/setup-flutter@cba77fc0d4330f1bef81193c53cd7dd976f0ebcf # v0.5.3
       - run: npm ci
         working-directory: test_node_server
       - run: flutter pub get
         working-directory: telosnex_inappwebview/example
-      - uses: Telosnex/telosnex_ci_tools/actions/android-emulator@7ae582de19a80ce2482b9a6648182890d7e7c96e # main
+      - uses: Telosnex/telosnex_ci_tools/actions/android-emulator@cba77fc0d4330f1bef81193c53cd7dd976f0ebcf # v0.5.3
         id: emulator
         with:
           api-level: '36'
@@ -294,30 +328,29 @@ jobs:
             ${{ steps.emulator.outputs.logcat }}
           if-no-files-found: ignore
 
-  web:
+  web-linux-chrome-dart2js:
     if: ${{ github.event_name != 'workflow_dispatch' || inputs.platforms == 'all' || contains(inputs.platforms, 'web') }}
-    name: Web Linux x64 Chrome
+    name: Web Linux x64 Chrome dart2js
     runs-on: ubuntu-24.04
     timeout-minutes: 150
+    env:
+      # flutter drive on the web-server device, through web-driver's chromedriver.
+      IAW_DRIVER: web
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - uses: Telosnex/telosnex_ci_tools/actions/setup-flutter@7ae582de19a80ce2482b9a6648182890d7e7c96e # main
+      - uses: Telosnex/telosnex_ci_tools/actions/setup-flutter@cba77fc0d4330f1bef81193c53cd7dd976f0ebcf # v0.5.3
       - run: npm ci
         working-directory: test_node_server
       - run: flutter pub get
         working-directory: telosnex_inappwebview/example
-      - uses: Telosnex/telosnex_ci_tools/actions/web-driver@7ae582de19a80ce2482b9a6648182890d7e7c96e # main
+      - uses: Telosnex/telosnex_ci_tools/actions/web-driver@cba77fc0d4330f1bef81193c53cd7dd976f0ebcf # v0.5.3
         with:
           browser: chrome
-      - name: Example integration suite (flutter drive)
-        env:
-          IAW_DRIVER: web
-        run: tool/run_integration_group.sh web-server
-      - if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        with:
-          name: logs-web
-          path: ${{ env.IAW_LOGS }}
-          if-no-files-found: ignore
+          artifact-name: logs-web
+          # The response data of the last launch (the one-launch run, or a
+          # unit's rerun) must show tests that passed: the run passed only
+          # when every unit did.
+          require-result: '.telosnexWebTestSummary.passed > 0'
+          run: tool/run_integration_group.sh web-server

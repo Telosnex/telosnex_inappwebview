@@ -4,12 +4,12 @@ on:
   pull_request:
     paths:
       - 'telosnex_inappwebview_linux/**'
-      - '.github/workflows/linux-headless-regressions.yml'
+      - '.github/workflows/linux_headless_regressions.yml'
   push:
     branches: [master]
     paths:
       - 'telosnex_inappwebview_linux/**'
-      - '.github/workflows/linux-headless-regressions.yml'
+      - '.github/workflows/linux_headless_regressions.yml'
   workflow_dispatch:
 
 permissions:
@@ -29,7 +29,7 @@ jobs:
       # no debian-13-x64 target.
       TELOSNEX_INAPPWEBVIEW_WPE_SDK: system
     steps:
-      - name: Install Flutter and WPE build dependencies
+      - name: Install WPE build dependencies
         run: |
           apt-get update
           apt-get install -y --no-install-recommends ca-certificates curl git \
@@ -39,13 +39,9 @@ jobs:
             libegl-mesa0 xvfb xauth dbus-x11 fonts-dejavu-core
           mkdir -m 700 "$XDG_RUNTIME_DIR"
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
-      - name: Install pinned Flutter SDK
-        # flutter-action has unpinned nested actions, which the org policy blocks.
-        run: |
-          git clone --depth 1 --branch 3.47.1 https://github.com/flutter/flutter.git /opt/flutter
-          test "$(git -C /opt/flutter rev-parse HEAD)" = 6655482ec06e547f90abf8ae7590466f4415978d
-          echo /opt/flutter/bin >> "$GITHUB_PATH"
-          /opt/flutter/bin/flutter --version
+      - uses: Telosnex/telosnex_ci_tools/actions/setup-flutter@cba77fc0d4330f1bef81193c53cd7dd976f0ebcf # v0.5.3
+        with:
+          version: '3.47.1'
       - name: Resolve dependencies
         working-directory: telosnex_inappwebview_linux
         run: flutter pub get

@@ -1,5 +1,8 @@
-import 'package:integration_test/integration_test_driver.dart';
+// flutter drive (web): telosnex_web_test's driver. It saves the page console
+// to the log path that web-driver gives (TELOSNEX_WEB_TEST_CONSOLE), writes
+// the report data (TELOSNEX_WEB_TEST_RESPONSE) and prints each failure. The
+// timeout is for the whole run of one group (tool/run_integration_group.sh).
+import 'package:telosnex_web_test/driver.dart';
 
-// flutter drive (web): prints each failure, exits 1 on any. The timeout is
-// for the whole run of one group (tool/run_integration_group.sh).
-Future<void> main() => integrationDriver(timeout: const Duration(minutes: 14));
+Future<void> main() =>
+    webIntegrationDriver(timeout: const Duration(minutes: 14));

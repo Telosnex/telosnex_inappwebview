@@ -3,7 +3,7 @@
 # keeps failing daily until the pin moves. GitHub emails a failed scheduled
 # run to whoever last changed this file. Telosnex ships this WebKit in its
 # Linux packages, so security releases are ours to ship.
-name: WPE SDK security watch
+name: WPE SDK watch
 on:
   schedule:
     - cron: "17 6 * * *"
@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Check upstream
         id: check
         run: |

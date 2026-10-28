@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
-import 'web_test_reporting.dart';
+import 'package:telosnex_web_test/telosnex_web_test.dart';
 
 import 'process_global_config/main.dart' as process_global_config_tests;
 import 'in_app_webview/main.dart' as in_app_webview_tests;
@@ -23,7 +23,7 @@ import 'support_methods/main.dart' as support_methods_tests;
 void main() {
   final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   if (kIsWeb) {
-    installWebTestReporting(binding);
+    installWebTestSupport(binding);
   }
   // Draw every scheduled frame, as an app does. With the default policy
   // frames are drawn only when a test pumps, and webviews are placed and
