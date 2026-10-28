@@ -87,8 +87,8 @@ jobs:
       TARGET: ubuntu-26.04-arm64
     steps: *wpe_steps
 
-  desktop-debian-13-arm64:
-    name: Debian 13 ARM64 WPE SDK
+  desktop-linux-arm64-debian-13:
+    name: Linux ARM64 Debian 13 WPE SDK
     runs-on: ubuntu-24.04-arm
     timeout-minutes: 360
     container:
@@ -99,7 +99,7 @@ jobs:
 
   publish:
     name: Publish WPE SDK
-    needs: [desktop-linux-x64, desktop-linux-arm64, desktop-debian-13-arm64]
+    needs: [desktop-linux-x64, desktop-linux-arm64, desktop-linux-arm64-debian-13]
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     permissions:
