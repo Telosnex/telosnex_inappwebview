@@ -91,10 +91,14 @@ void videoPlaybackPolicy() {
       InAppWebViewController controller = await controllerCompleter.future;
       await pageLoaded.future;
 
-      // Autoplay starts a moment after the load: up to 10 s (the iOS
-      // simulator took over 5 late in a long launch).
+      // Autoplay starts a moment after the load: up to 10 s. The test draws
+      // a frame only on pump, and on iOS the native web view is put on
+      // screen only in a frame after it is created. WebKit does not load
+      // the video of a web view that is not on screen, so pump while
+      // waiting.
       bool isPaused = true;
       for (var i = 0; i < 50 && isPaused; i++) {
+        await tester.pump();
         isPaused = await controller.evaluateJavascript(source: 'isPaused();');
         if (isPaused) await Future.delayed(const Duration(milliseconds: 200));
       }
@@ -130,6 +134,8 @@ void videoPlaybackPolicy() {
 
       controller = await controllerCompleter.future;
       await pageLoaded.future;
+      // On screen, so the video is paused by the policy, not by WebKit.
+      await tester.pump();
 
       isPaused = await controller.evaluateJavascript(source: 'isPaused();');
       expect(isPaused, true);
@@ -185,7 +191,7 @@ void videoPlaybackPolicy() {
       InAppWebViewSettingsProperty.allowsInlineMediaPlayback,
     );
 
-    testWidgets(
+    skippableTestWidgets(
       'Video plays fullscreen when allowsInlineMediaPlayback is false',
       (WidgetTester tester) async {
         Completer<InAppWebViewController> controllerCompleter =
@@ -223,9 +229,12 @@ void videoPlaybackPolicy() {
 
         await pageLoaded.future;
 
-        await tester.pump();
-
-        await expectLater(onEnterFullscreenCompleter.future, completes);
+        // Fullscreen starts when the video plays, which needs the web view
+        // on screen: pump while waiting (see "Auto media playback").
+        while (!onEnterFullscreenCompleter.isCompleted) {
+          await tester.pump();
+          await Future.delayed(const Duration(milliseconds: 200));
+        }
       },
       skip: shouldSkipTest3,
     );
