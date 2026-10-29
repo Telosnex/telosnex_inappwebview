@@ -88,14 +88,10 @@ void videoPlaybackPolicy() {
           ),
         ),
       );
+      await _pumpUntil(tester, pageLoaded);
       InAppWebViewController controller = await controllerCompleter.future;
-      await pageLoaded.future;
 
-      // Autoplay starts a moment after the load: up to 10 s. The test draws
-      // a frame only on pump, and on iOS the native web view is put on
-      // screen only in a frame after it is created. WebKit does not load
-      // the video of a web view that is not on screen, so pump while
-      // waiting.
+      // Autoplay starts a moment after the load: up to 10 s.
       bool isPaused = true;
       for (var i = 0; i < 50 && isPaused; i++) {
         await tester.pump();
@@ -132,10 +128,9 @@ void videoPlaybackPolicy() {
         ),
       );
 
-      controller = await controllerCompleter.future;
-      await pageLoaded.future;
       // On screen, so the video is paused by the policy, not by WebKit.
-      await tester.pump();
+      await _pumpUntil(tester, pageLoaded);
+      controller = await controllerCompleter.future;
 
       isPaused = await controller.evaluateJavascript(source: 'isPaused();');
       expect(isPaused, true);
@@ -181,7 +176,7 @@ void videoPlaybackPolicy() {
           ),
         );
 
-        await pageLoaded.future;
+        await _pumpUntil(tester, pageLoaded);
         expect(onEnterFullscreenCompleter.future, doesNotComplete);
       },
       skip: shouldSkipTest2,
@@ -227,14 +222,8 @@ void videoPlaybackPolicy() {
           ),
         );
 
-        await pageLoaded.future;
-
-        // Fullscreen starts when the video plays, which needs the web view
-        // on screen: pump while waiting (see "Auto media playback").
-        while (!onEnterFullscreenCompleter.isCompleted) {
-          await tester.pump();
-          await Future.delayed(const Duration(milliseconds: 200));
-        }
+        await _pumpUntil(tester, pageLoaded);
+        await _pumpUntil(tester, onEnterFullscreenCompleter);
       },
       skip: shouldSkipTest3,
     );
@@ -290,16 +279,26 @@ void videoPlaybackPolicy() {
         ),
       );
 
+      await _pumpUntil(tester, pageLoaded);
       InAppWebViewController controller = await controllerCompleter.future;
-      await pageLoaded.future;
 
       // The video goes fullscreen some time after it starts (iOS 26: it
       // starts inline). Exit once it is.
-      await onEnterFullscreenCompleter.future;
-      await tester.pump();
+      await _pumpUntil(tester, onEnterFullscreenCompleter);
       await controller.evaluateJavascript(source: "exitFullscreen();");
 
       await expectLater(onExitFullscreenCompleter.future, completes);
     }, skip: shouldSkipTest4);
   }, skip: shouldSkip);
+}
+
+/// Pumps until [done] completes. On iOS the native web view goes on screen
+/// only in a frame after it is created, and the test draws a frame only on
+/// pump. WebKit holds the video of a web view that is not on screen, and
+/// does not start an autoplay it held once the view shows.
+Future<void> _pumpUntil(WidgetTester tester, Completer<void> done) async {
+  while (!done.isCompleted) {
+    await tester.pump();
+    await Future.delayed(const Duration(milliseconds: 100));
+  }
 }
