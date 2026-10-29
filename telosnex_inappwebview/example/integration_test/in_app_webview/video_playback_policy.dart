@@ -4,9 +4,10 @@ void videoPlaybackPolicy() {
   // IAW_NO_VIDEO: CI's Android emulator (no GPU) crashed decoding this
   // H.264 video: the emulator process exited in this group in 3 runs, even
   // with its hardware decoder off, and every later group failed with it.
-  // These tests still run locally and on devices.
+  // These tests still run locally and on devices. The value is read as a
+  // string: bool.fromEnvironment is true only for "true", and CI passes 1.
   final shouldSkip =
-      const bool.fromEnvironment('IAW_NO_VIDEO') ||
+      const String.fromEnvironment('IAW_NO_VIDEO') == '1' ||
       !InAppWebViewSettings.isPropertySupported(
         InAppWebViewSettingsProperty.mediaPlaybackRequiresUserGesture,
       );
@@ -87,13 +88,13 @@ void videoPlaybackPolicy() {
           ),
         ),
       );
+      await _pumpUntil(tester, pageLoaded);
       InAppWebViewController controller = await controllerCompleter.future;
-      await pageLoaded.future;
 
-      // Autoplay starts a moment after the load: up to 10 s (the iOS
-      // simulator took over 5 late in a long launch).
+      // Autoplay starts a moment after the load: up to 10 s.
       bool isPaused = true;
       for (var i = 0; i < 50 && isPaused; i++) {
+        await tester.pump();
         isPaused = await controller.evaluateJavascript(source: 'isPaused();');
         if (isPaused) await Future.delayed(const Duration(milliseconds: 200));
       }
@@ -127,8 +128,9 @@ void videoPlaybackPolicy() {
         ),
       );
 
+      // On screen, so the video is paused by the policy, not by WebKit.
+      await _pumpUntil(tester, pageLoaded);
       controller = await controllerCompleter.future;
-      await pageLoaded.future;
 
       isPaused = await controller.evaluateJavascript(source: 'isPaused();');
       expect(isPaused, true);
@@ -174,7 +176,7 @@ void videoPlaybackPolicy() {
           ),
         );
 
-        await pageLoaded.future;
+        await _pumpUntil(tester, pageLoaded);
         expect(onEnterFullscreenCompleter.future, doesNotComplete);
       },
       skip: shouldSkipTest2,
@@ -184,7 +186,7 @@ void videoPlaybackPolicy() {
       InAppWebViewSettingsProperty.allowsInlineMediaPlayback,
     );
 
-    testWidgets(
+    skippableTestWidgets(
       'Video plays fullscreen when allowsInlineMediaPlayback is false',
       (WidgetTester tester) async {
         Completer<InAppWebViewController> controllerCompleter =
@@ -220,11 +222,8 @@ void videoPlaybackPolicy() {
           ),
         );
 
-        await pageLoaded.future;
-
-        await tester.pump();
-
-        await expectLater(onEnterFullscreenCompleter.future, completes);
+        await _pumpUntil(tester, pageLoaded);
+        await _pumpUntil(tester, onEnterFullscreenCompleter);
       },
       skip: shouldSkipTest3,
     );
@@ -280,16 +279,26 @@ void videoPlaybackPolicy() {
         ),
       );
 
+      await _pumpUntil(tester, pageLoaded);
       InAppWebViewController controller = await controllerCompleter.future;
-      await pageLoaded.future;
 
       // The video goes fullscreen some time after it starts (iOS 26: it
       // starts inline). Exit once it is.
-      await onEnterFullscreenCompleter.future;
-      await tester.pump();
+      await _pumpUntil(tester, onEnterFullscreenCompleter);
       await controller.evaluateJavascript(source: "exitFullscreen();");
 
       await expectLater(onExitFullscreenCompleter.future, completes);
     }, skip: shouldSkipTest4);
   }, skip: shouldSkip);
+}
+
+/// Pumps until [done] completes. On iOS the native web view goes on screen
+/// only in a frame after it is created, and the test draws a frame only on
+/// pump. WebKit holds the video of a web view that is not on screen, and
+/// does not start an autoplay it held once the view shows.
+Future<void> _pumpUntil(WidgetTester tester, Completer<void> done) async {
+  while (!done.isCompleted) {
+    await tester.pump();
+    await Future.delayed(const Duration(milliseconds: 100));
+  }
 }

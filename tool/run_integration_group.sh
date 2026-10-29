@@ -25,6 +25,9 @@
 #   IAW_DRIVER      web: run with flutter drive on the web-server device
 #                   (start chromedriver or another WebDriver first).
 #
+# An adb device (the Android emulator) that goes away stops the run: the
+# job log names the unit it went away in, and the units not run fail.
+#
 # Logs: $IAW_LOGS (default /tmp/iaw)/<unit>.log. Exit 1 if any unit failed.
 set -u
 device=$1; shift
@@ -81,6 +84,35 @@ if [[ "$(uname)" == Linux && -z "${WAYLAND_DISPLAY:-}${DISPLAY:-}" ]]; then
       echo | gnome-keyring-daemon --unlock --components=secrets > /dev/null 2>&1; fi
     exec xvfb-run -a "$@"' _)
 fi
+
+# An adb device (the Android emulator) that goes away fails every later
+# launch at once ("No supported devices found"): the units after it are
+# reported as not run, with the unit it went away in.
+adb_device=0
+if command -v adb > /dev/null && [[ "$(adb -s "$device" get-state 2> /dev/null)" == device ]]; then
+  adb_device=1
+fi
+device_gone() {
+  [[ $adb_device == 1 ]] || return 1
+  local i
+  for i in 1 2 3; do
+    [[ "$(adb -s "$device" get-state 2> /dev/null)" == device ]] && return 1
+    sleep 5
+  done
+  return 0
+}
+# not_run <unit> [unit...]: the device went away during <unit>; the units
+# listed did not run, and fail.
+gone=0
+not_run() {
+  local during=$1; shift
+  gone=1
+  echo "::error::The emulator $device exited during ${during:-the one launch}.${*:+ Not run: $*}"
+  for unit in "$@"; do
+    failed+=("$unit")
+    summary+="| $unit | not run: $device exited during ${during:-the one launch} | 0 |"$'\n'
+  done
+}
 
 failed=()
 summary="| Unit | Result | Seconds |"$'\n'"|---|---|---|"$'\n'
@@ -212,17 +244,33 @@ if [[ $all == 1 && "${IAW_ONE_LAUNCH:-1}" == 1 ]]; then
         rerun+=("$unit")
       fi
     done
-    echo "Running again, a launch each: ${rerun[*]:-none}"
-    for unit in "${rerun[@]}"; do
-      run_unit "$unit" "again after the one launch"
-    done
     # A failure that names no unit, after which nothing ran again.
     if [[ ${#rerun[@]} -eq 0 ]]; then failed+=("all"); fi
+    echo "Running again, a launch each: ${rerun[*]:-none}"
+    # The test that was running when the launch ended: the first one that
+    # did not complete.
+    during=$(grep -m1 -E ' - did not complete \[E\]$' "$log" |
+      sed -E 's/^[0-9:]+ \+[0-9]+( ~[0-9]+)?( -[0-9]+)?: //; s/ - did not complete \[E\]$//')
+    during=${during:-$last}
+    for i in "${!rerun[@]}"; do
+      if device_gone; then
+        not_run "$during" "${rerun[@]:$i}"; break
+      fi
+      run_unit "${rerun[$i]}" "again after the one launch"
+      during=${rerun[$i]}
+    done
+    if [[ $gone == 0 ]] && device_gone; then not_run "$during"; fi
   fi
 else
-  for unit in "${units[@]}"; do
-    run_unit "$unit"
+  during=
+  for i in "${!units[@]}"; do
+    if [[ -n $during ]] && device_gone; then
+      not_run "$during" "${units[@]:$i}"; break
+    fi
+    run_unit "${units[$i]}"
+    during=${units[$i]}
   done
+  if [[ $gone == 0 ]] && device_gone; then not_run "$during"; fi
 fi
 
 if [[ -n "${GITHUB_STEP_SUMMARY:-}" ]]; then printf '%s' "$summary" >> "$GITHUB_STEP_SUMMARY"; fi

@@ -100,7 +100,7 @@ void programmaticScroll() {
           InAppWebViewSettingsProperty.useHybridComposition,
         );
 
-    testWidgets(
+    skippableTestWidgets(
       'set and get scroll position on Android without Hybrid Composition',
       (WidgetTester tester) async {
         final String scrollTestPage = '''

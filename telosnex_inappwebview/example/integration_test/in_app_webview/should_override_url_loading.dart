@@ -6,8 +6,11 @@ void shouldOverrideUrlLoading() {
   );
 
   skippableGroup('shouldOverrideUrlLoading', () {
+    // The link goes to the local test server: an outside site can leave its
+    // load unfinished for minutes.
+    final linkUrl = WebUri('http://${environment["NODE_SERVER_IP"]}:8082/');
     final String page =
-        '''<!DOCTYPE html><head></head><body><a id="link" href="$TEST_URL_3">telosnex_inappwebview</a></body></html>''';
+        '''<!DOCTYPE html><head></head><body><a id="link" href="$linkUrl">telosnex_inappwebview</a></body></html>''';
     final String pageEncoded =
         'data:text/html;charset=utf-8;base64,' +
         base64Encode(const Utf8Encoder().convert(page));
@@ -59,7 +62,7 @@ void shouldOverrideUrlLoading() {
     final shouldSkipTest2 =
         !NavigationType.LINK_ACTIVATED.isSupported() ||
         (!kIsWeb && defaultTargetPlatform == TargetPlatform.windows);
-    testWidgets(
+    skippableTestWidgets(
       'allow requests on iOS only if navigationType == NavigationType.LINK_ACTIVATED',
       (WidgetTester tester) async {
         final Completer<InAppWebViewController> controllerCompleter =
@@ -114,7 +117,7 @@ void shouldOverrideUrlLoading() {
         );
         await pageLoads.stream.first; // Wait for the next page load.
         currentUrl = (await controller.getUrl())?.toString();
-        expect(currentUrl, TEST_URL_3.toString());
+        expect(currentUrl, linkUrl.toString());
 
         pageLoads.close();
       },
