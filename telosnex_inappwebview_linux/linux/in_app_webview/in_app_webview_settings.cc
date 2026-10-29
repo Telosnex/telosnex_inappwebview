@@ -6,9 +6,7 @@
 #include "../utils/log.h"
 #include "in_app_webview.h"
 
-#ifdef HAVE_WPE_PLATFORM
 #include <wpe/wpe-platform.h>
-#endif
 
 namespace telosnex_inappwebview_plugin {
 
@@ -379,7 +377,6 @@ void InAppWebViewSettings::applyToWebView(WebKitWebView* webview) const {
   webkit_settings_set_allow_modal_dialogs(settings, allowModalDialogs);
 }
 
-#ifdef HAVE_WPE_PLATFORM
 void InAppWebViewSettings::applyWpePlatformSettings(void* display_ptr) const {
   if (display_ptr == nullptr) {
     return;
@@ -491,7 +488,6 @@ void InAppWebViewSettings::applyWpePlatformSettings(void* display_ptr) const {
     g_clear_error(&error);
   }
 }
-#endif
 
 FlValue* InAppWebViewSettings::toFlValue() const {
   return to_fl_map({

@@ -107,13 +107,13 @@ linux/
 ## Platform Requirements
 
 - **Required**: WPE WebKit libraries (\`libwpe\`, \`wpewebkit\`)
-- **Optional**: \`wpebackend-fdo\` (legacy fallback backend - only needed if WPEPlatform is not available)
+- **Required**: WPEPlatform (\`wpe-platform-headless-2.0\`); the WPEBackend-FDO fallback was removed
 
 ## Native APIs Used
 
 - [WPE WebKit 2.0](https://wpewebkit.org/) for offscreen rendering
 - Official documentation: https://wpewebkit.org/reference(zero-copy GPU textures) or SHM (shared memory) as fallback
-- Backend: WPEPlatform (default, modern API) or WPEBackend-FDO (legacy fallback)-2.0/index.html
+- Backend: WPEPlatform
 - Uses texture-based platform view rendering via DMA-BUF or SHM as fallback
 
 ### Linux (WPE WebKit 2.0) Key Classes

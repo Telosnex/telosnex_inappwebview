@@ -24,7 +24,7 @@ endif()
 # them when the SDK changes.
 macro(_wpe_sdk_reset_checks dir)
   if(NOT "${dir}" STREQUAL "${_TELOSNEX_INAPPWEBVIEW_WPE_SDK_LAST}")
-    foreach(_module WPE_WEBKIT WPE_PLATFORM WPE_PLATFORM_HEADLESS WPE_FDO LIBWPE)
+    foreach(_module WPE_WEBKIT WPE_PLATFORM WPE_PLATFORM_HEADLESS LIBWPE)
       unset(__pkg_config_checked_${_module} CACHE)
     endforeach()
     unset(WEBKIT_HAS_WPE_PLATFORM_API CACHE)

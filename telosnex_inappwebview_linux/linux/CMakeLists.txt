@@ -22,18 +22,15 @@ set(NLOHMANN_JSON_VERSION "3.11.3")
 # WPE WebKit is designed for embedded systems and provides excellent offscreen
 # rendering performance through DMA-BUF buffer sharing.
 #
-# Dual API Support:
-#   - WPEPlatform API (wpe-platform-2.0): NEW default API for WPE WebKit 2.40+
-#   - WPEBackend-FDO (wpebackend-fdo-1.0): Legacy fallback for older systems
-#
-# By default the build downloads a pinned, relocatable WPE WebKit SDK and
-# bundles it with the app. See wpe_sdk.cmake for the options. With
+# The plugin uses the WPEPlatform API (headless display). By default the
+# build downloads a pinned, relocatable WPE WebKit SDK and bundles it with
+# the app. See wpe_sdk.cmake for the options. With
 # TELOSNEX_INAPPWEBVIEW_WPE_SDK=system, the build uses system packages:
-#   - wpe-webkit-2.0 (or wpe-webkit-1.1 on older systems)
-#   - wpe-platform-2.0 (preferred) OR wpebackend-fdo-1.0 (fallback)
+#   - wpe-webkit-2.0, 2.50 or later, built with WPEPlatform
+#   - wpe-platform-2.0 and wpe-platform-headless-2.0
 #   - libwpe-1.0
-#
-# See WPE_BACKEND.md for installation instructions.
+# The WPEBackend-FDO fallback is gone: nothing shipped it, and only a CI job
+# on Debian's WebKit 2.48 built it.
 
 find_package(PkgConfig REQUIRED)
 include("${CMAKE_CURRENT_SOURCE_DIR}/wpe_sdk.cmake")
@@ -46,30 +43,14 @@ pkg_check_modules(GTK REQUIRED IMPORTED_TARGET gtk+-3.0)
 
 message(STATUS "telosnex_inappwebview_linux: Using WPE WebKit backend")
 
-# Try wpe-webkit-2.0 first (newer API), fall back to wpe-webkit-1.1, then wpe-webkit-1.0
 pkg_check_modules(WPE_WEBKIT QUIET IMPORTED_TARGET wpe-webkit-2.0)
 if(NOT WPE_WEBKIT_FOUND)
-  pkg_check_modules(WPE_WEBKIT QUIET IMPORTED_TARGET wpe-webkit-1.1)
-  if(WPE_WEBKIT_FOUND)
-    message(STATUS "telosnex_inappwebview_linux: Found wpe-webkit-1.1 (${WPE_WEBKIT_VERSION})")
-  else()
-    pkg_check_modules(WPE_WEBKIT QUIET IMPORTED_TARGET wpe-webkit-1.0)
-    if(WPE_WEBKIT_FOUND)
-      message(STATUS "telosnex_inappwebview_linux: Found wpe-webkit-1.0 (${WPE_WEBKIT_VERSION})")
-    endif()
-  endif()
-else()
-  message(STATUS "telosnex_inappwebview_linux: Found wpe-webkit-2.0 (${WPE_WEBKIT_VERSION})")
+  message(FATAL_ERROR "WPE WebKit (wpe-webkit-2.0) not found. Use the default "
+                      "pinned SDK, or a system WPE WebKit 2.50 or later.")
 endif()
+message(STATUS "telosnex_inappwebview_linux: Found wpe-webkit-2.0 (${WPE_WEBKIT_VERSION})")
 
-if(NOT WPE_WEBKIT_FOUND)
-  message(FATAL_ERROR "WPE WebKit not found. Please install libwpewebkit-1.0-dev (Ubuntu/Debian) or wpe-webkit package.\n"
-                      "See WPE_BACKEND.md or https://wpewebkit.org/about/get-wpe.html")
-endif()
-
-# === WPE Platform API Detection (NEW - default) ===
-# Check for WPEPlatform API first (wpe-platform-2.0) - this is the modern API
-# introduced in WPE WebKit 2.40+ and is the preferred approach.
+# === WPEPlatform API (required) ===
 pkg_check_modules(WPE_PLATFORM QUIET IMPORTED_TARGET wpe-platform-2.0)
 pkg_check_modules(WPE_PLATFORM_HEADLESS QUIET IMPORTED_TARGET wpe-platform-headless-2.0)
 
@@ -81,8 +62,7 @@ if(WPE_PLATFORM_FOUND AND WPE_PLATFORM_HEADLESS_FOUND)
   set(CMAKE_REQUIRED_INCLUDES ${WPE_WEBKIT_INCLUDE_DIRS} ${WPE_PLATFORM_INCLUDE_DIRS})
   # Use full library paths. *_LIBRARIES has bare names (-lWPEWebKit-2.0)
   # without -L, which link only against a WebKit in the default search path.
-  # With the bundled SDK the check then always failed, and the build fell
-  # back to legacy FDO. -rpath-link lets the linker find the SDK's own
+  # With the bundled SDK the check then always failed. -rpath-link lets the linker find the SDK's own
   # dependencies (libwpe-1.0).
   set(CMAKE_REQUIRED_LIBRARIES ${WPE_WEBKIT_LINK_LIBRARIES} ${WPE_PLATFORM_LINK_LIBRARIES})
   set(CMAKE_REQUIRED_LINK_OPTIONS "LINKER:-rpath-link,${WPE_WEBKIT_LIBDIR}")
@@ -98,37 +78,16 @@ if(WPE_PLATFORM_FOUND AND WPE_PLATFORM_HEADLESS_FOUND)
   unset(CMAKE_REQUIRED_LIBRARIES)
   unset(CMAKE_REQUIRED_LINK_OPTIONS)
   
-  if(WEBKIT_HAS_WPE_PLATFORM_API)
-    message(STATUS "telosnex_inappwebview_linux: Found wpe-platform-2.0 (WPEPlatform API - DEFAULT)")
-    message(STATUS "telosnex_inappwebview_linux: Found wpe-platform-headless-2.0")
-    message(STATUS "telosnex_inappwebview_linux: WebKit has WPEPlatform API support (webkit_web_view_get_wpe_view)")
-    set(HAVE_WPE_PLATFORM ON)
-    add_compile_definitions(HAVE_WPE_PLATFORM=1)
-  else()
-    message(STATUS "telosnex_inappwebview_linux: wpe-platform-2.0 pkg-config found, but WebKit lacks WPEPlatform API")
-    message(STATUS "telosnex_inappwebview_linux: WebKit was likely built without WPEPlatform support, falling back to legacy FDO")
+  if(NOT WEBKIT_HAS_WPE_PLATFORM_API)
+    message(FATAL_ERROR "telosnex_inappwebview_linux: wpe-platform-2.0 was found, but "
+                        "WebKit was built without WPEPlatform (no "
+                        "webkit_web_view_get_wpe_view).")
   endif()
-endif()
-
-# === WPE Backend FDO Detection (Legacy - fallback) ===
-# Check for WPEBackend-FDO as fallback ONLY if WPEPlatform is NOT available
-# WPEPlatform and WPEBackend-FDO are mutually exclusive at compile time
-pkg_check_modules(WPE_FDO QUIET IMPORTED_TARGET wpebackend-fdo-1.0)
-if(WPE_FDO_FOUND AND NOT HAVE_WPE_PLATFORM)
-  message(STATUS "telosnex_inappwebview_linux: Found wpebackend-fdo-1.0 (Legacy FDO API)")
-  set(HAVE_WPE_FDO ON)
-  add_compile_definitions(HAVE_WPE_BACKEND_LEGACY=1)
-elseif(WPE_FDO_FOUND AND HAVE_WPE_PLATFORM)
-  message(STATUS "telosnex_inappwebview_linux: wpebackend-fdo-1.0 available but not used (WPEPlatform preferred)")
-endif()
-
-# Require at least one backend
-if(NOT HAVE_WPE_PLATFORM AND NOT HAVE_WPE_FDO)
-  message(FATAL_ERROR "Neither WPEPlatform (wpe-platform-2.0) nor WPEBackend-FDO (wpebackend-fdo-1.0) found.\n"
-                      "Please install one of:\n"
-                      "  - WPE WebKit 2.40+ with WPEPlatform support (recommended)\n"
-                      "  - wpebackend-fdo-1.0-dev (legacy fallback)\n"
-                      "See WPE_BACKEND.md for installation instructions.")
+  message(STATUS "telosnex_inappwebview_linux: Found wpe-platform-2.0 and wpe-platform-headless-2.0")
+else()
+  message(FATAL_ERROR "telosnex_inappwebview_linux: wpe-platform-2.0 and "
+                      "wpe-platform-headless-2.0 are required. Use the default "
+                      "pinned SDK, or a system WPE WebKit built with WPEPlatform.")
 endif()
 
 # Check for libwpe
@@ -293,17 +252,8 @@ target_link_libraries(${PLUGIN_NAME} PRIVATE PkgConfig::WPE_WEBKIT)
 target_link_libraries(${PLUGIN_NAME} PRIVATE PkgConfig::LIBWPE)
 target_link_libraries(${PLUGIN_NAME} PRIVATE PkgConfig::WAYLAND_SERVER)
 target_link_libraries(${PLUGIN_NAME} PRIVATE PkgConfig::LIBSECRET)
-
-# Link WPEPlatform if available (new API - default)
-if(HAVE_WPE_PLATFORM)
-  target_link_libraries(${PLUGIN_NAME} PRIVATE PkgConfig::WPE_PLATFORM)
-  target_link_libraries(${PLUGIN_NAME} PRIVATE PkgConfig::WPE_PLATFORM_HEADLESS)
-endif()
-
-# Link WPEBackend-FDO if available (legacy fallback)
-if(HAVE_WPE_FDO)
-  target_link_libraries(${PLUGIN_NAME} PRIVATE PkgConfig::WPE_FDO)
-endif()
+target_link_libraries(${PLUGIN_NAME} PRIVATE PkgConfig::WPE_PLATFORM)
+target_link_libraries(${PLUGIN_NAME} PRIVATE PkgConfig::WPE_PLATFORM_HEADLESS)
 
 # === Library Bundling ===
 if(WPE_SDK_DIR)
@@ -384,9 +334,6 @@ else()
   if(LIBWPE_LIBRARY_DIRS)
     list(APPEND WPE_LIB_DIRS ${LIBWPE_LIBRARY_DIRS})
   endif()
-  if(HAVE_WPE_FDO AND WPE_FDO_LIBRARY_DIRS)
-    list(APPEND WPE_LIB_DIRS ${WPE_FDO_LIBRARY_DIRS})
-  endif()
   # Add common paths as fallback
   list(APPEND WPE_LIB_DIRS
     "/usr/local/lib"
@@ -404,11 +351,6 @@ else()
 
   # WPEPlatform is built into libWPEWebKit-2.0 on modern builds, so there are
   # no separate libWPEPlatform*.so files to bundle.
-
-  # Find WPE Backend FDO library (legacy fallback)
-  if(HAVE_WPE_FDO)
-    find_and_add_library("libWPEBackend-fdo-1.0" "${WPE_LIB_DIRS}" WPE_BUNDLED_LIBS)
-  endif()
 
   # Also need to create symlinks for the sonames that the libraries expect
   # This will be handled at install time in the example CMakeLists.txt
@@ -470,13 +412,8 @@ target_link_libraries(${TEST_RUNNER} PRIVATE PkgConfig::WPE_WEBKIT)
 target_link_libraries(${TEST_RUNNER} PRIVATE PkgConfig::LIBWPE)
 target_link_libraries(${TEST_RUNNER} PRIVATE PkgConfig::WAYLAND_SERVER)
 target_link_libraries(${TEST_RUNNER} PRIVATE PkgConfig::LIBSECRET)
-if(HAVE_WPE_PLATFORM)
-  target_link_libraries(${TEST_RUNNER} PRIVATE PkgConfig::WPE_PLATFORM)
-  target_link_libraries(${TEST_RUNNER} PRIVATE PkgConfig::WPE_PLATFORM_HEADLESS)
-endif()
-if(HAVE_WPE_FDO)
-  target_link_libraries(${TEST_RUNNER} PRIVATE PkgConfig::WPE_FDO)
-endif()
+target_link_libraries(${TEST_RUNNER} PRIVATE PkgConfig::WPE_PLATFORM)
+target_link_libraries(${TEST_RUNNER} PRIVATE PkgConfig::WPE_PLATFORM_HEADLESS)
 target_link_libraries(${TEST_RUNNER} PRIVATE gtest_main gmock)
 
 # Enable automatic test discovery.

@@ -13,31 +13,12 @@ This plugin uses WPE WebKit for offscreen web rendering. WPE WebKit is the offic
 
 The WPE backend exports frames directly as GPU textures via DMA-BUF or SHM buffers.
 
-## Backend Selection
+## Backend
 
-The plugin supports two backend APIs, with automatic selection at compile time:
-
-| Backend | Package | Status | Description |
-|---------|---------|--------|-------------|
-| **WPEPlatform** | `wpe-platform-2.0` + `wpe-platform-headless-2.0` | **DEFAULT** | Modern API for WPE WebKit 2.40+. Recommended for new installations. |
-| **WPEBackend-FDO** | `wpebackend-fdo-1.0` | Legacy Fallback | Used only when WPEPlatform is not available. For older systems. |
-
-### Backend Detection Logic
-
-The build system automatically selects the backend:
-
-1. **If WPEPlatform is found** (`wpe-platform-2.0` and `wpe-platform-headless-2.0`):
-   - WPEPlatform is used as the default backend
-   - `HAVE_WPE_PLATFORM=1` is defined
-   - WPEBackend-FDO is ignored even if available
-
-2. **If WPEPlatform is NOT found** but WPEBackend-FDO is available:
-   - WPEBackend-FDO is used as legacy fallback
-   - `HAVE_WPE_BACKEND_LEGACY=1` is defined
-
-3. **If neither is found**: Build fails with an error message.
-
-> **Note:** WPEPlatform and WPEBackend-FDO are **mutually exclusive** at compile time. You cannot use both simultaneously.
+The plugin uses the WPEPlatform API (`wpe-platform-2.0` and
+`wpe-platform-headless-2.0`), which needs WPE WebKit 2.50 or later built with
+WPEPlatform. The build fails without it. The WPEBackend-FDO fallback was
+removed: nothing shipped it.
 
 ## Installation Options
 
@@ -146,7 +127,7 @@ WPE WebKit has many optional features that are **enabled by default**. If you do
 | `USE_QT6` | OFF | `qt6-base-dev qt6-declarative-dev` | Use Qt6 instead of Qt5 (requires `ENABLE_WPE_PLATFORM`) |
 | `ENABLE_WPE_1_1_API` | OFF | — | Build WPE 1.1 API instead of 2.0 |
 
-> **⚠️ WPEPlatform for this Plugin:** The `ENABLE_WPE_PLATFORM` flags above are for **building WPE WebKit from source**. To use the modern WPEPlatform backend with this Flutter plugin (the default), you must enable `ENABLE_WPE_PLATFORM=ON` and `ENABLE_WPE_PLATFORM_HEADLESS=ON` when building WPE WebKit. If these are disabled, the plugin will fall back to WPEBackend-FDO.
+> **⚠️ WPEPlatform for this Plugin:** The `ENABLE_WPE_PLATFORM` flags above are for **building WPE WebKit from source**. This Flutter plugin requires WPEPlatform: you must enable `ENABLE_WPE_PLATFORM=ON` and `ENABLE_WPE_PLATFORM_HEADLESS=ON` when building WPE WebKit. If these are disabled, the plugin does not build.
 
 ##### Disabling Optional Features
 
@@ -328,20 +309,7 @@ ninja -C build
 sudo ninja -C build install
 cd ..
 
-# === 2. Build WPEBackend-fdo (OPTIONAL - only for legacy fallback) ===
-# Skip this step if you enable ENABLE_WPE_PLATFORM in step 3.
-# Only needed for older WPE WebKit builds or as a fallback.
-wget https://wpewebkit.org/releases/wpebackend-fdo-1.16.1.tar.xz
-tar xf wpebackend-fdo-1.16.1.tar.xz
-cd wpebackend-fdo-1.16.1
-meson setup build \
-  --prefix=$WPE_PREFIX \
-  --buildtype=release
-ninja -C build
-sudo ninja -C build install
-cd ..
-
-# === 3. Build WPE WebKit ===
+# === 2. Build WPE WebKit ===
 # This is the largest component and takes significant time/resources
 wget https://wpewebkit.org/releases/wpewebkit-2.50.4.tar.xz
 tar xf wpewebkit-2.50.4.tar.xz
@@ -364,8 +332,7 @@ cmake -B build -G Ninja \
   -DENABLE_WPE_PLATFORM=ON \
   -DENABLE_WPE_PLATFORM_HEADLESS=ON
 
-# The last two flags enable the modern WPEPlatform backend (recommended).
-# If omitted, the plugin will fall back to legacy WPEBackend-FDO.
+# The last two flags enable WPEPlatform, which the plugin requires.
 
 # If you're missing optional dependencies, disable them:
 #   -DUSE_JPEGXL=OFF           # if libjxl-dev not installed
@@ -385,25 +352,9 @@ ninja -C build -j$(nproc)
 sudo ninja -C build install
 cd ..
 
-# === 4. Update library cache ===
+# === 3. Update library cache ===
 sudo ldconfig
 
-# === 5. Create the default backend symlink (OPTIONAL - only for legacy fallback) ===
-# WPE looks for libWPEBackend-default.so
-ARCH=$(uname -m)
-if [ -f "$WPE_PREFIX/lib/${ARCH}-linux-gnu/libWPEBackend-fdo-1.0.so.1" ]; then
-  sudo ln -sf "$WPE_PREFIX/lib/${ARCH}-linux-gnu/libWPEBackend-fdo-1.0.so.1" \
-    "$WPE_PREFIX/lib/libWPEBackend-default.so"
-elif [ -f "$WPE_PREFIX/lib/aarch64-linux-gnu/libWPEBackend-fdo-1.0.so.1" ]; then
-  sudo ln -sf "$WPE_PREFIX/lib/aarch64-linux-gnu/libWPEBackend-fdo-1.0.so.1" \
-    "$WPE_PREFIX/lib/libWPEBackend-default.so"
-elif [ -f "$WPE_PREFIX/lib/x86_64-linux-gnu/libWPEBackend-fdo-1.0.so.1" ]; then
-  sudo ln -sf "$WPE_PREFIX/lib/x86_64-linux-gnu/libWPEBackend-fdo-1.0.so.1" \
-    "$WPE_PREFIX/lib/libWPEBackend-default.so"
-elif [ -f "$WPE_PREFIX/lib/libWPEBackend-fdo-1.0.so.1" ]; then
-  sudo ln -sf "$WPE_PREFIX/lib/libWPEBackend-fdo-1.0.so.1" \
-    "$WPE_PREFIX/lib/libWPEBackend-default.so"
-fi
 ```
 
 #### Verify Installation
@@ -411,8 +362,6 @@ fi
 ```bash
 # Check pkg-config can find the libraries
 pkg-config --modversion wpe-webkit-2.0
-# (OPTIONAL - only for legacy fallback)
-pkg-config --modversion wpebackend-fdo-1.0
 pkg-config --modversion wpe-1.0
 ```
 
@@ -449,16 +398,6 @@ During build, you should see messages indicating which backend is being used:
 -- telosnex_inappwebview_linux: Will bundle /usr/local/lib/libwpe-1.0.so.1.10.0
 ```
 
-**With WPEBackend-FDO (legacy fallback):**
-```
--- telosnex_inappwebview_linux: Using WPE WebKit backend
--- telosnex_inappwebview_linux: Found wpe-webkit-2.0 (2.50.4)
--- telosnex_inappwebview_linux: Found wpebackend-fdo-1.0 (Legacy FDO API)
--- telosnex_inappwebview_linux: Will bundle /usr/local/lib/libWPEWebKit-2.0.so.1.6.9
--- telosnex_inappwebview_linux: Will bundle /usr/local/lib/libwpe-1.0.so.1.10.0
--- telosnex_inappwebview_linux: Will bundle /usr/local/lib/.../libWPEBackend-fdo-1.0.so.1.11.0
-```
-
 ### Run Your App
 
 The built app includes all WPE libraries bundled in the `lib/` directory and can be run directly:
@@ -482,10 +421,6 @@ The following files are automatically copied to your app's `lib/` directory:
 **With WPEPlatform (default):**
 - WPEPlatform is built into `libWPEWebKit-2.0.so`, so no additional libraries are needed.
 
-**With WPEBackend-FDO (legacy):**
-- `libWPEBackend-fdo-1.0.so.*` - FDO backend library
-- `libWPEBackend-default.so` - Symlink to FDO backend
-
 ## Architecture
 
 ```
@@ -504,16 +439,10 @@ InAppWebView (C++)
     │         │
     │         ▼
     │    ┌─────────────────────────────────────┐
-    │    │  WPE Backend (compile-time choice)  │
-    │    ├─────────────────────────────────────┤
-    │    │  WPEPlatform (DEFAULT)              │
+    │    │  WPEPlatform                        │
     │    │    - wpe-platform-2.0               │
     │    │    - wpe-platform-headless-2.0      │
-    │    │    - Modern API (WPE WebKit 2.40+)  │
-    │    ├─────────────────────────────────────┤
-    │    │  WPEBackend-FDO (LEGACY FALLBACK)   │
-    │    │    - wpebackend-fdo-1.0             │
-    │    │    - For older systems              │
+    │    │    - WPE WebKit 2.50+               │
     │    └─────────────────────────────────────┘
     │         │
     │         ▼
@@ -531,12 +460,9 @@ Ensure pkg-config can find the libraries:
 pkg-config --cflags --libs wpe-webkit-2.0
 pkg-config --cflags --libs wpe-1.0
 
-# WPEPlatform (default backend) - check if available
+# WPEPlatform (required)
 pkg-config --cflags --libs wpe-platform-2.0
 pkg-config --cflags --libs wpe-platform-headless-2.0
-
-# WPEBackend-FDO (legacy fallback) - check if available
-pkg-config --cflags --libs wpebackend-fdo-1.0
 ```
 
 If not found, add the installation prefix:
@@ -544,19 +470,6 @@ If not found, add the installation prefix:
 ```bash
 export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:/usr/local/lib/$(uname -m)-linux-gnu/pkgconfig:$PKG_CONFIG_PATH
 ```
-
-### "Failed to load WPEBackend-default.so"
-
-This error only applies to the **WPEBackend-FDO (legacy)** backend. If you're using WPEPlatform, you won't see this error.
-
-Create the default backend symlink:
-
-```bash
-sudo ln -sf /usr/local/lib/$(uname -m)-linux-gnu/libWPEBackend-fdo-1.0.so.1 \
-  /usr/local/lib/libWPEBackend-default.so
-```
-
-Or for the bundled app, ensure the symlink exists in the `lib/` directory.
 
 ### Build errors for WPE WebKit
 

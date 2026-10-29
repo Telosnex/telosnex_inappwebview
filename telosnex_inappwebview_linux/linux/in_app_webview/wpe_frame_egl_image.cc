@@ -7,9 +7,7 @@
 
 #include <epoxy/egl.h>
 
-#ifdef HAVE_WPE_PLATFORM
 #include <wpe/wpe-platform.h>
-#endif
 
 #include "../utils/log.h"
 
@@ -19,7 +17,6 @@ namespace {
 
 std::atomic<bool> g_import_failed{false};
 
-#ifdef HAVE_WPE_PLATFORM
 
 // DRM_FORMAT_MOD_INVALID, without needing drm_fourcc.h.
 constexpr uint64_t kModInvalid = 0x00ffffffffffffffULL;
@@ -116,7 +113,6 @@ void Fail(const char* why) {
   }
 }
 
-#endif  // HAVE_WPE_PLATFORM
 
 }  // namespace
 
@@ -124,7 +120,6 @@ void* wpe_frame_egl_image_for_current_context(const std::shared_ptr<void>& frame
   if (frame == nullptr || g_import_failed.load()) {
     return nullptr;
   }
-#ifdef HAVE_WPE_PLATFORM
   auto* buffer = static_cast<WPEBuffer*>(frame.get());
   if (!WPE_IS_BUFFER_DMA_BUF(buffer)) {
     return nullptr;
@@ -165,9 +160,6 @@ void* wpe_frame_egl_image_for_current_context(const std::shared_ptr<void>& frame
   }
   cached->images.push_back({display, image});
   return image;
-#else
-  return frame.get();
-#endif
 }
 
 bool wpe_frame_egl_image_failed() {

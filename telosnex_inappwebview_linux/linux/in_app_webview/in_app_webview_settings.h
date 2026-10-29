@@ -166,13 +166,11 @@ class InAppWebViewSettings {
    */
   void applyToWebView(WebKitWebView* webview) const;
 
-#ifdef HAVE_WPE_PLATFORM
   /**
    * Apply WPE Platform settings using the WPE Settings API.
    * @param display The WPE display to get settings from
    */
   void applyWpePlatformSettings(void* display) const;
-#endif
 
   /**
    * Convert to FlValue map.

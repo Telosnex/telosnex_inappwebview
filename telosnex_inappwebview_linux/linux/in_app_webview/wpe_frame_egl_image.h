@@ -15,8 +15,6 @@
 // when WebKit frees the buffer. The frame keeps the buffer alive while the
 // image is bound.
 //
-// Legacy WPEBackend-FDO: the frame already is an EGL image; returned as is.
-//
 // Returns null if there is no current EGL display or the import fails; then
 // wpe_frame_egl_image_failed() is true and the caller should use pixels.
 void* wpe_frame_egl_image_for_current_context(const std::shared_ptr<void>& frame);

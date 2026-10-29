@@ -3,10 +3,8 @@
 
 // WPE WebKit-based InAppWebView implementation
 //
-// Uses WPE WebKit for offscreen web rendering.
-// Supports two APIs:
-// - WPEPlatform (HAVE_WPE_PLATFORM): New modern API for WPE WebKit 2.40+
-// - WPEBackend-FDO (HAVE_WPE_BACKEND_LEGACY): Legacy API for older systems
+// Uses WPE WebKit and its WPEPlatform API (headless display) for offscreen
+// web rendering.
 //
 // WPE WebKit is designed for embedded systems and offers excellent offscreen rendering
 // capabilities through its backend system.
@@ -17,13 +15,9 @@
 // - Better suited for headless/offscreen rendering scenarios
 // - Direct OpenGL texture export (zero-copy when supported)
 //
-// Required packages (Ubuntu/Debian):
-//   - libwpe-1.0-dev (or build from source)
-//   - wpewebkit (build from source or use Flatpak)
-//   - wpe-platform-headless-2.0 (recommended) OR wpebackend-fdo-1.0-dev (legacy)
-//
-// Build from source:
-//   See WPE_BACKEND.md or https://wpewebkit.org/about/get-wpe.html
+// The build bundles a pinned WPE WebKit SDK (see wpe_sdk.cmake). A system
+// WebKit must be 2.50 or later, built with WPEPlatform
+// (wpe-platform-headless-2.0).
 
 #include <flutter_linux/flutter_linux.h>
 
@@ -31,17 +25,9 @@
 #include <wpe/webkit.h>
 #include <jsc/jsc.h>
 
-// WPEPlatform API (new modern API - default)
-#ifdef HAVE_WPE_PLATFORM
+// WPEPlatform API
 #include <wpe/wpe-platform.h>
 #include <wpe/headless/wpe-headless.h>
-#endif
-
-// WPEBackend-FDO API (legacy fallback)
-#ifdef HAVE_WPE_BACKEND_LEGACY
-#include <wpe/fdo-egl.h>
-#include <wpe/fdo.h>
-#endif
 
 #include <array>
 #include <atomic>
@@ -68,9 +54,6 @@
 #include "in_app_webview_settings.h"
 
 // Forward declaration of WPE types in global scope to avoid namespace conflicts
-#ifdef HAVE_WPE_BACKEND_LEGACY
-struct wpe_fdo_egl_exported_image;
-#endif
 
 namespace telosnex_inappwebview_plugin {
 
@@ -117,20 +100,12 @@ enum class WpePointerEventKind {
 // Pointer button type (matches Dart side)
 enum class WpePointerButton { None = 0, Primary = 1, Secondary = 2, Tertiary = 3 };
 
-#ifdef HAVE_WPE_BACKEND_LEGACY
-class InAppWebView;
-// See InAppWebView::backend_link_.
-struct WpeBackendLink {
-  InAppWebView* view = nullptr;
-  struct wpe_view_backend_exportable_fdo* exportable = nullptr;
-};
-#endif
 
 /// InAppWebView - WPE WebKit based implementation
 ///
 /// This class provides offscreen web rendering using WPE WebKit.
 /// Unlike WebKitGTK, WPE doesn't require a GTK widget hierarchy
-/// and can render directly to GPU textures via the FDO backend.
+/// and can render directly to GPU textures via DMA-BUF.
 class InAppWebView {
  public:
   static constexpr const char* METHOD_CHANNEL_NAME_PREFIX =
@@ -440,12 +415,10 @@ class InAppWebView {
   // Check if WPE WebKit is available on the system
   static bool IsWpeWebKitAvailable();
 
-#ifdef HAVE_WPE_PLATFORM
   // Check if DMA-BUF rendering should be used
   // Returns true if DMA-BUF rendering is expected to work, false if SHM should be used
   // Note: Environment detection is done at plugin registration via utils/software_rendering.h
   static bool PreflightDmaBufSupport();
-#endif
 
   // === Multi-Window Support ===
 
@@ -489,7 +462,6 @@ class InAppWebView {
   // WPE WebKit view
   WebKitWebView* webview_ = nullptr;
 
-#ifdef HAVE_WPE_PLATFORM
   // === WPEPlatform API members (modern) ===
   WPEDisplay* wpe_display_ = nullptr;     // Owned headless display
   WPEView* wpe_view_ = nullptr;           // From webkit_web_view_get_wpe_view, not owned
@@ -515,32 +487,7 @@ class InAppWebView {
   gulong buffer_rendered_handler_ = 0;    // Signal handler ID for buffer-rendered
   gulong scale_changed_handler_ = 0;      // Signal handler ID for notify::scale-factor
   mutable std::mutex wpe_buffer_mutex_;   // Mutex for thread-safe buffer access
-#endif
 
-#ifdef HAVE_WPE_BACKEND_LEGACY
-  // === WPEBackend-FDO API members (legacy) ===
-  WebKitWebViewBackend* backend_ = nullptr;
-  struct wpe_view_backend* wpe_backend_ = nullptr;
-
-  // WPE FDO exportable (for DMA-BUF buffer export)
-  struct wpe_view_backend_exportable_fdo* exportable_ = nullptr;
-
-  // Client data of the exportable and of the fullscreen and pointer-lock
-  // handlers. WebKit can keep the backend, and send frames to it, after this
-  // view is destroyed. The destructor sets `view` to null. The backend's
-  // destroy-notify frees the link together with the exportable.
-  WpeBackendLink* backend_link_ = nullptr;
-  
-  // Current EGL image from WPE (for zero-copy GPU texture sharing).
-  ::wpe_fdo_egl_exported_image* exported_image_ = nullptr;
-  
-  // Mutex for protecting exported_image_ access from multiple threads
-  mutable std::mutex exported_image_mutex_;
-  
-  // Flag to indicate the WebProcess has crashed and EGL resources are invalid
-  // This prevents using stale EGL images after a crash
-  std::atomic<bool> web_process_crashed_{false};
-#endif
 
   // EGL context for reading back pixels (both APIs)
   void* egl_display_ = nullptr;        // EGLDisplay
@@ -733,18 +680,10 @@ class InAppWebView {
   void UpdateMonitorRefreshRate();
 
  public:
-#ifdef HAVE_WPE_BACKEND_LEGACY
-  // === WPE FDO backend callbacks (legacy API only) ===
-  // Instance method called from C callback (must be public)
-  void OnExportDmaBuf(::wpe_fdo_egl_exported_image* image);
-  void OnExportShmBuffer(struct wpe_fdo_shm_exported_buffer* buffer);
-#endif
 
-#ifdef HAVE_WPE_PLATFORM
   // === WPEPlatform buffer rendering callback ===
   // Called when a new frame buffer is rendered by WPEView
   void OnWpePlatformBufferRendered(WPEBuffer* buffer);
-#endif
 
   // DOM fullscreen request handler (called from WPE backend)
   bool OnDomFullscreenRequest(bool fullscreen);
