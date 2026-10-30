@@ -478,6 +478,14 @@ class InAppWebView {
       std::make_shared<std::atomic<bool>>(false);
   // A TLS error waits for onReceivedServerTrustAuthRequest's answer.
   bool tls_challenge_pending_ = false;
+  // WebKit cancels an unanswered authentication request when a load starts
+  // that it can't match to the request. A client certificate request can
+  // come just before its own load's start, and then the load fails as
+  // cancelled with an empty URL. The plugin loads the URL again once
+  // (auth_retry_pending_ hides the failed load's stop).
+  std::string auth_cancelled_by_webkit_host_;
+  bool auth_retry_pending_ = false;
+  int auth_retries_ = 0;
   // The load failed with a policy change (the app cancelled it): no load stop.
   bool load_interrupted_by_policy_ = false;
   // FormPostLoad's page, which submits the form, is loading.

@@ -112,6 +112,13 @@ namespace telosnex_inappwebview_plugin {
 
 namespace {
 
+// Cancels an authentication request on the plugin's behalf, so the
+// "cancelled" handler can tell it apart from WebKit's own cancel.
+void CancelAuthRequest(WebKitAuthenticationRequest* request) {
+  g_object_set_data(G_OBJECT(request), "iaw-own-cancel", GINT_TO_POINTER(1));
+  webkit_authentication_request_cancel(request);
+}
+
 // WPE modifier mask - matches wpe_input_modifier enum from wpe/input.h
 // Control = bit 0 (1), Shift = bit 1 (2), Alt = bit 2 (4), Meta = bit 3 (8)
 // These are not used directly in C++ code - modifiers come from Dart already in WPE format
@@ -368,7 +375,7 @@ InAppWebView::~InAppWebView() {
   }
   pending_permission_requests_.clear();
   for (auto& pair : pending_auth_requests_) {
-    webkit_authentication_request_cancel(pair.second);
+    CancelAuthRequest(pair.second);
     g_object_unref(pair.second);
   }
   pending_auth_requests_.clear();
@@ -3429,6 +3436,13 @@ void InAppWebView::OnLoadChanged(WebKitWebView* web_view, WebKitLoadEvent load_e
       if (self->tls_challenge_pending_) {
         break;
       }
+      if (self->auth_retry_pending_) {
+        // The cancelled load before an authentication retry (OnLoadFailed).
+        self->auth_retry_pending_ = false;
+        break;
+      }
+      self->auth_cancelled_by_webkit_host_.clear();
+      self->auth_retries_ = 0;
       if (self->load_interrupted_by_policy_) {
         self->load_interrupted_by_policy_ = false;
         break;
@@ -3701,6 +3715,34 @@ gboolean InAppWebView::OnLoadFailed(WebKitWebView* web_view, WebKitLoadEvent loa
   
   if (self->channel_delegate_ == nullptr)
     return FALSE;
+
+  // WebKit cancelled this load's unanswered authentication request (see
+  // auth_cancelled_by_webkit_host_): load the URL again, once.
+  if (error != nullptr &&
+      g_error_matches(error, WEBKIT_NETWORK_ERROR, WEBKIT_NETWORK_ERROR_CANCELLED) &&
+      !self->auth_cancelled_by_webkit_host_.empty() && failing_uri != nullptr &&
+      get_host_from_url(failing_uri) == self->auth_cancelled_by_webkit_host_ &&
+      self->auth_retries_ < 1) {
+    self->auth_cancelled_by_webkit_host_.clear();
+    self->auth_retries_++;
+    self->auth_retry_pending_ = true;
+    struct Retry {
+      std::weak_ptr<int> alive;
+      WebKitWebView* web_view;
+      std::string uri;
+    };
+    g_idle_add(
+        +[](gpointer data) -> gboolean {
+          std::unique_ptr<Retry> retry(static_cast<Retry*>(data));
+          // Not if the app started another load meanwhile.
+          if (!retry->alive.expired() && !webkit_web_view_is_loading(retry->web_view)) {
+            webkit_web_view_load_uri(retry->web_view, retry->uri.c_str());
+          }
+          return G_SOURCE_REMOVE;
+        },
+        new Retry{self->lifetime_token_, web_view, failing_uri});
+    return FALSE;
+  }
 
   // stopLoading() and a new navigation cancel the load. That is not an error (W6c).
   if (error != nullptr && g_error_matches(error, WEBKIT_NETWORK_ERROR, WEBKIT_NETWORK_ERROR_CANCELLED)) {
@@ -4222,13 +4264,41 @@ gboolean InAppWebView::OnPermissionRequest(WebKitWebView* web_view,
 gboolean InAppWebView::OnAuthenticate(WebKitWebView* web_view, WebKitAuthenticationRequest* request,
                                       gpointer user_data) {
   auto* self = static_cast<InAppWebView*>(user_data);
+  {
+    struct Watch {
+      std::weak_ptr<int> alive;
+      InAppWebView* view;
+      WebKitWebView* web_view;
+      std::string host;
+    };
+    const gchar* request_host = webkit_authentication_request_get_host(request);
+    g_signal_connect_data(
+        request, "cancelled",
+        G_CALLBACK(+[](WebKitAuthenticationRequest* r, gpointer data) {
+          auto* watch = static_cast<Watch*>(data);
+          if (g_object_get_data(G_OBJECT(r), "iaw-own-cancel") != nullptr ||
+              watch->alive.expired()) {
+            return;
+          }
+          // Only when the load starting now is for the request's host: a
+          // navigation elsewhere cancels the request for good.
+          const gchar* current = webkit_web_view_get_uri(watch->web_view);
+          if (current != nullptr && get_host_from_url(current) == watch->host) {
+            watch->view->auth_cancelled_by_webkit_host_ = watch->host;
+          }
+        }),
+        new Watch{self->lifetime_token_, self, web_view,
+                  request_host != nullptr ? request_host : ""},
+        +[](gpointer data, GClosure*) { delete static_cast<Watch*>(data); },
+        static_cast<GConnectFlags>(0));
+  }
   if (ShouldIgnoreCallback(self)) {
-    webkit_authentication_request_cancel(request);
+    CancelAuthRequest(request);
     return TRUE;
   }
 
   if (!self->channel_delegate_) {
-    webkit_authentication_request_cancel(request);
+    CancelAuthRequest(request);
     return TRUE;
   }
 
@@ -4332,24 +4402,24 @@ gboolean InAppWebView::OnAuthenticate(WebKitWebView* web_view, WebKitAuthenticat
                   debugLog("Failed to load client certificate: " + std::string(error->message));
                   g_error_free(error);
                 }
-                webkit_authentication_request_cancel(it->second);
+                CancelAuthRequest(it->second);
               }
             } else {
               // No certificate path provided, cancel
               debugLog("Client certificate PROCEED without certificate path - canceling");
-              webkit_authentication_request_cancel(it->second);
+              CancelAuthRequest(it->second);
             }
             break;
           }
           
           case ClientCertResponseAction::IGNORE:
             // Ignore means don't handle this request (let WebKit handle or retry later)
-            webkit_authentication_request_cancel(it->second);
+            CancelAuthRequest(it->second);
             break;
           
           case ClientCertResponseAction::CANCEL:
           default:
-            webkit_authentication_request_cancel(it->second);
+            CancelAuthRequest(it->second);
             break;
         }
         
@@ -4366,7 +4436,7 @@ gboolean InAppWebView::OnAuthenticate(WebKitWebView* web_view, WebKitAuthenticat
       }
       auto it = pendingRequests->find(capturedId);
       if (it != pendingRequests->end()) {
-        webkit_authentication_request_cancel(it->second);
+        CancelAuthRequest(it->second);
         g_object_unref(it->second);
         pendingRequests->erase(it);
       }
@@ -4430,7 +4500,7 @@ gboolean InAppWebView::OnAuthenticate(WebKitWebView* web_view, WebKitAuthenticat
             
             webkit_credential_free(credential);
           } else {
-            webkit_authentication_request_cancel(it->second);
+            CancelAuthRequest(it->second);
           }
           break;
 
@@ -4466,14 +4536,14 @@ gboolean InAppWebView::OnAuthenticate(WebKitWebView* web_view, WebKitAuthenticat
             webkit_credential_free(credential);
           } else {
             // No saved credential found, cancel
-            webkit_authentication_request_cancel(it->second);
+            CancelAuthRequest(it->second);
           }
           break;
         }
 
         case HttpAuthResponseAction::CANCEL:
         default:
-          webkit_authentication_request_cancel(it->second);
+          CancelAuthRequest(it->second);
           break;
       }
       
@@ -4490,7 +4560,7 @@ gboolean InAppWebView::OnAuthenticate(WebKitWebView* web_view, WebKitAuthenticat
     }
     auto it = pendingRequests->find(capturedId);
     if (it != pendingRequests->end()) {
-      webkit_authentication_request_cancel(it->second);
+      CancelAuthRequest(it->second);
       g_object_unref(it->second);
       pendingRequests->erase(it);
     }
