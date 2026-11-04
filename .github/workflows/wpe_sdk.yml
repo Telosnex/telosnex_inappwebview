@@ -111,7 +111,7 @@ jobs:
         with:
           ref: ${{ github.sha }}
           fetch-depth: 1
-      - uses: Telosnex/telosnex_ci_tools/actions/download-artifact@0554f3662445d678e2effbd838d15968d673f7af # v0.5.6
+      - uses: Telosnex/telosnex_ci_tools/actions/download-artifact@c03733211dca28d8590002199d7a87af85edde51 # v0.5.7
         with:
           pattern: wpe-sdk-*
           path: ${{ runner.temp }}/out
