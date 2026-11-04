@@ -1,0 +1,15 @@
+# Upstream sources, checked daily by the Upstream watch workflow
+# (telosnex_ci_tools, lib/src/upstream.dart).
+sources:
+  - name: WPE WebKit SDK
+    run: |
+      w=telosnex_inappwebview_linux/wpe_sdk
+      python3 $w/watch/test_check.py
+      python3 $w/watch/check.py $w/sources.env | python3 -c '
+      import json, sys
+      r = json.load(sys.stdin)
+      print(json.dumps(r, indent=2))
+      if r["behind"]:
+          print("Pinned WPE WebKit %s is behind: %s. Newest advisory %s." % (r["pinned"], r["reason"], r["advisory"]))
+          print("Bump wpe_sdk/sources.env, push to wpe-sdk-release, merge the manifest branch, release Telosnex for Linux.")
+          sys.exit(1)'
