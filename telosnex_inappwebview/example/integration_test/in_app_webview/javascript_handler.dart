@@ -72,4 +72,42 @@ void javascriptHandler() {
       true,
     );
   }, skip: shouldSkip);
+
+  // A handler name with no handler: the result is null. On Windows the null
+  // result once crashed the app as it replied to the page.
+  skippableTestWidgets('JavaScript Handler with no handler', (
+    WidgetTester tester,
+  ) async {
+    final Completer<dynamic> reply = Completer<dynamic>();
+    await tester.pumpWidget(
+      Directionality(
+        textDirection: TextDirection.ltr,
+        child: InAppWebView(
+          key: GlobalKey(),
+          initialData: InAppWebViewInitialData(
+            data: """
+<!DOCTYPE html><html><body><script>
+window.addEventListener('flutterInAppWebViewPlatformReady', function() {
+  window.flutter_inappwebview.callHandler('noSuchHandler').then(function(result) {
+    window.flutter_inappwebview.callHandler('reply', result === undefined ? 'undefined' : result);
+  });
+});
+</script></body></html>
+""",
+          ),
+          onWebViewCreated: (controller) {
+            controller.addJavaScriptHandler(
+              handlerName: 'reply',
+              callback: (args) {
+                if (!reply.isCompleted) reply.complete(args[0]);
+              },
+            );
+          },
+          initialSettings: InAppWebViewSettings(javaScriptEnabled: true),
+        ),
+      ),
+    );
+
+    expect(await reply.future, anyOf(isNull, 'undefined'));
+  }, skip: shouldSkip);
 }
