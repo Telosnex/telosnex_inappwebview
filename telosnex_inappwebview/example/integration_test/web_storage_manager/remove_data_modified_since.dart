@@ -2,7 +2,8 @@ part of 'main.dart';
 
 // A local page with no outside resources: a live site can stop finishing its
 // load, and the test then times out waiting for onLoadStop.
-// The port is one the Node test server (8080-8083) does not use.
+// The port is free: the Node test server uses 8081-8083 and 4433, and the
+// InAppLocalhostServer test 8080.
 const _port = 8090;
 final _pageUrl = WebUri(
   'http://localhost:$_port/test_assets/web_storage_manager.html',
