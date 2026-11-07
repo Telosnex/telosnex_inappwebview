@@ -84,17 +84,8 @@ void javascriptHandler() {
         textDirection: TextDirection.ltr,
         child: InAppWebView(
           key: GlobalKey(),
-          initialData: InAppWebViewInitialData(
-            data: """
-<!DOCTYPE html><html><body><script>
-window.addEventListener('flutterInAppWebViewPlatformReady', function() {
-  window.flutter_inappwebview.callHandler('noSuchHandler').then(function(result) {
-    window.flutter_inappwebview.callHandler('reply', result === undefined ? 'undefined' : result);
-  });
-});
-</script></body></html>
-""",
-          ),
+          initialFile:
+              "test_assets/in_app_webview_javascript_handler_null_test.html",
           onWebViewCreated: (controller) {
             controller.addJavaScriptHandler(
               handlerName: 'reply',
