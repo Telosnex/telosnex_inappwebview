@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>JavaScript handler with no handler</title></head>
+<body>
+<script>
+  window.addEventListener("flutterInAppWebViewPlatformReady", function(event) {
+    window.flutter_inappwebview.callHandler("noSuchHandler").then(function(result) {
+      window.flutter_inappwebview.callHandler("reply", result === undefined ? "undefined" : result);
+    });
+  });
+</script>
+</body>
+</html>
