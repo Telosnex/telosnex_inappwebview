@@ -1,5 +1,12 @@
 part of 'main.dart';
 
+// A local page with no outside resources: a live site can stop finishing its
+// load, and the test then times out waiting for onLoadStop.
+const _port = 8081;
+final _pageUrl = WebUri(
+  'http://localhost:$_port/test_assets/web_storage_manager.html',
+);
+
 const _seedJs = '''
 (async () => {
   localStorage.setItem('wsm_key', 'wsm_value');
@@ -25,7 +32,7 @@ const _readJs = '''
 })()
 ''';
 
-/// Loads [TEST_CROSS_PLATFORM_URL_1] in a fresh WebView, runs [js] and
+/// Loads [_pageUrl] in a fresh WebView, runs [js] and
 /// removes the WebView again, so the clear runs with no WebView open.
 Future<dynamic> _runInPage(WidgetTester tester, String js) async {
   final controller = Completer<InAppWebViewController>();
@@ -35,7 +42,7 @@ Future<dynamic> _runInPage(WidgetTester tester, String js) async {
       textDirection: TextDirection.ltr,
       child: InAppWebView(
         key: GlobalKey(),
-        initialUrlRequest: URLRequest(url: TEST_CROSS_PLATFORM_URL_1),
+        initialUrlRequest: URLRequest(url: _pageUrl),
         onWebViewCreated: controller.complete,
         onLoadStop: (_, __) {
           if (!loaded.isCompleted) loaded.complete();
@@ -55,7 +62,7 @@ Future<dynamic> _runInPage(WidgetTester tester, String js) async {
 void removeDataModifiedSince() {
   skippableTestWidgets('ALL since the epoch clears storage with no WebView '
       'open', (WidgetTester tester) async {
-    final cookieUrl = WebUri(TEST_CROSS_PLATFORM_URL_1.toString());
+    final cookieUrl = _pageUrl;
     expect(await _runInPage(tester, _seedJs), isTrue);
     await CookieManager.instance().setCookie(
       url: cookieUrl,
