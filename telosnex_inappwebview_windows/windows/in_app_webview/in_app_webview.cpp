@@ -4246,7 +4246,7 @@ namespace telosnex_inappwebview_plugin
           callback->defaultBehaviour = [this, callHandlerID](const std::optional<const flutter::EncodableValue*> response)
             {
               std::string json = "null";
-              if (response.has_value() && !response.value()->IsNull()) {
+              if (response.has_value() && response.value() && !response.value()->IsNull()) {
                 json = std::get<std::string>(*(response.value()));
               }
 

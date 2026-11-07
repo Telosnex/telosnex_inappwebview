@@ -34,8 +34,14 @@ namespace telosnex_inappwebview_plugin
 
   WebViewChannelDelegate::CallJsHandlerCallback::CallJsHandlerCallback()
   {
+    // A null result (a handler that returns nothing, or no handler) comes
+    // as a null pointer: no value, not a value holding nullptr.
     decodeResult = [](const flutter::EncodableValue* value)
+      -> std::optional<const flutter::EncodableValue*>
       {
+        if (!value || value->IsNull()) {
+          return std::nullopt;
+        }
         return value;
       };
   }
