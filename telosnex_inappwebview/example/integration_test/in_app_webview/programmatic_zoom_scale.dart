@@ -34,7 +34,14 @@ void programmaticZoomScale() {
       final InAppWebViewController controller =
           await controllerCompleter.future;
       await pageLoaded.future;
-      expect(await controller.zoomIn(), true);
+      // The first onLoadStop can come before the page's scale is set, and
+      // zoomIn returns false until then.
+      var zoomedIn = false;
+      for (var i = 0; i < 10 && !zoomedIn; i++) {
+        zoomedIn = await controller.zoomIn();
+        if (!zoomedIn) await Future.delayed(Duration(milliseconds: 500));
+      }
+      expect(zoomedIn, true);
       await Future.delayed(Duration(seconds: 1));
       expect(await controller.zoomOut(), true);
     }, skip: shouldSkipTest1);
