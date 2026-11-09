@@ -34,7 +34,14 @@ void programmaticZoomScale() {
       final InAppWebViewController controller =
           await controllerCompleter.future;
       await pageLoaded.future;
-      expect(await controller.zoomIn(), true);
+      // The first onLoadStop can come before the page's scale is set, and
+      // zoomIn returns false until then.
+      var zoomedIn = false;
+      for (var i = 0; i < 10 && !zoomedIn; i++) {
+        zoomedIn = await controller.zoomIn();
+        if (!zoomedIn) await Future.delayed(Duration(milliseconds: 500));
+      }
+      expect(zoomedIn, true);
       await Future.delayed(Duration(seconds: 1));
       expect(await controller.zoomOut(), true);
     }, skip: shouldSkipTest1);
@@ -79,7 +86,19 @@ void programmaticZoomScale() {
         await pageLoaded.future;
         listenForScaleChange = true;
 
-        await controller.zoomBy(zoomFactor: 2);
+        // The first onLoadStop can come before the page's scale is set; a
+        // zoomBy then changes nothing, so it is tried again.
+        for (
+          var i = 0;
+          i < 10 && !onZoomScaleChangedCompleter.isCompleted;
+          i++
+        ) {
+          await controller.zoomBy(zoomFactor: 2);
+          await Future.any([
+            onZoomScaleChangedCompleter.future,
+            Future.delayed(Duration(seconds: 2)),
+          ]);
+        }
 
         await expectLater(onZoomScaleChangedCompleter.future, completes);
       },
@@ -100,7 +119,7 @@ void programmaticZoomScale() {
             textDirection: TextDirection.ltr,
             child: InAppWebView(
               key: GlobalKey(),
-              initialUrlRequest: URLRequest(url: WebUri('https://flutter.dev')),
+              initialUrlRequest: URLRequest(url: TEST_CROSS_PLATFORM_URL_1),
               onWebViewCreated: (controller) {
                 controllerCompleter.complete(controller);
               },
@@ -137,7 +156,7 @@ void programmaticZoomScale() {
             textDirection: TextDirection.ltr,
             child: InAppWebView(
               key: GlobalKey(),
-              initialUrlRequest: URLRequest(url: WebUri('https://flutter.dev')),
+              initialUrlRequest: URLRequest(url: TEST_CROSS_PLATFORM_URL_1),
               onWebViewCreated: (controller) {
                 controllerCompleter.complete(controller);
               },

@@ -18,6 +18,19 @@ void webHistory() {
       final StreamController<String> pageLoads =
           StreamController<String>.broadcast();
 
+      Future<String> waitForUrl(String expectedUrl) async {
+        await for (final url in pageLoads.stream) {
+          if (url == expectedUrl) {
+            return url;
+          }
+        }
+        throw Exception('Stream closed without receiving $expectedUrl');
+      }
+
+      // Listen before the first load: a fast page can stop loading before
+      // the test reaches its first wait.
+      final initialLoad = waitForUrl(TEST_CROSS_PLATFORM_URL_1.toString());
+
       await tester.pumpWidget(
         Directionality(
           textDirection: TextDirection.ltr,
@@ -39,17 +52,8 @@ void webHistory() {
 
       await tester.pump();
 
-      Future<String> waitForUrl(String expectedUrl) async {
-        await for (final url in pageLoads.stream) {
-          if (url == expectedUrl) {
-            return url;
-          }
-        }
-        throw Exception('Stream closed without receiving $expectedUrl');
-      }
-
       // Wait for initial page load
-      var url = await waitForUrl(TEST_CROSS_PLATFORM_URL_1.toString());
+      var url = await initialLoad;
       var webHistory = await controller.getCopyBackForwardList();
       expect(url, TEST_CROSS_PLATFORM_URL_1.toString());
       expect(webHistory!.currentIndex, 0);

@@ -1,7 +1,9 @@
 import 'package:telosnex_inappwebview/telosnex_inappwebview.dart';
 
 final TEST_URL_ABOUT_BLANK = WebUri('about:blank');
-final TEST_CROSS_PLATFORM_URL_1 = WebUri('https://flutter.dev/');
+// No video: flutter.dev's .mp4 files fail where the WebView has no H.264
+// (AOSP), and then onLoadStop never comes.
+final TEST_CROSS_PLATFORM_URL_1 = WebUri('https://www.example.com/');
 final TEST_CROSS_PLATFORM_URL_2 = WebUri('https://www.bing.com/');
 final TEST_URL_1 = WebUri('https://github.com/flutter');
 final TEST_URL_2 = WebUri('https://www.google.com/');

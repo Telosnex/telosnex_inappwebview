@@ -73,6 +73,14 @@ void main() {
     'in_app_localhost_server': in_app_localhost_server_tests.main,
     'support_methods': support_methods_tests.main,
   };
+  // IAW_SKIP (a --dart-define): groups, comma-separated, that cannot run on
+  // this device; e.g. chrome_safari_browser where no browser is installed.
+  const skip = String.fromEnvironment('IAW_SKIP');
+  for (final name in skip.split(',').where((n) => n.isNotEmpty)) {
+    if (groups.remove(name) == null) {
+      throw ArgumentError('IAW_SKIP: $name; groups: ${groups.keys.join(', ')}');
+    }
+  }
   if (only.isEmpty) {
     // The runner's units, in its order: the browser groups last (they cover
     // the app with another activity; on CI's Android emulator Flutter could
@@ -90,7 +98,7 @@ void main() {
         () => in_app_webview_tests.main(shardOverride: '$i/6'),
       );
     }
-    for (final name in last) {
+    for (final name in last.where(groups.containsKey)) {
       group('[$name]', groups[name]!);
     }
   } else if (only.contains(',') || only.contains(':')) {

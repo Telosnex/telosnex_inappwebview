@@ -47,7 +47,7 @@ void isSecureContext() {
           url: WebUri(
             defaultTargetPlatform == TargetPlatform.windows
                 ? await _insecureLocalUrl()
-                : 'http://example.com/',
+                : _insecureTestServerUrl() ?? 'http://example.com/',
           ),
         ),
       );
@@ -77,4 +77,11 @@ Future<String> _insecureLocalUrl() async {
     }
   }
   throw StateError('No non-loopback IPv4 address for the test server');
+}
+
+// The Node test server over HTTP, unless it is on loopback (a loopback page is
+// a secure context). A public HTTP page can be upgraded to HTTPS.
+String? _insecureTestServerUrl() {
+  final ip = InternetAddress.tryParse(environment['NODE_SERVER_IP'] ?? '');
+  return ip == null || ip.isLoopback ? null : 'http://${ip.address}:8082/';
 }
