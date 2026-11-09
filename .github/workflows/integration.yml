@@ -213,6 +213,15 @@ jobs:
       DEVICE: windows
     steps: *desktop_steps
 
+  desktop-windows-arm64:
+    if: ${{ github.event_name != 'workflow_dispatch' || inputs.platforms == 'all' || contains(inputs.platforms, 'windows') }}
+    name: Windows ARM64
+    runs-on: windows-11-arm
+    timeout-minutes: 150
+    env:
+      DEVICE: windows
+    steps: *desktop_steps
+
   ios:
     if: ${{ github.event_name != 'workflow_dispatch' || inputs.platforms == 'all' || contains(inputs.platforms, 'ios') }}
     name: iOS ARM64 simulator
