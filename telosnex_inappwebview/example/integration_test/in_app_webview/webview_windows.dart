@@ -1,5 +1,57 @@
 part of 'main.dart';
 
+// The opener page opens the popup page with target="_blank". Both come from
+// the local Node test server.
+WebUri _onCreateWindowUrl(String page) =>
+    WebUri('http://${environment["NODE_SERVER_IP"]}:8082/$page');
+final _openerUrl = _onCreateWindowUrl('on-create-window.html');
+final _popupUrl = _onCreateWindowUrl('on-create-window-popup.html');
+
+// The logs go to the test output, where CI keeps them.
+// ignore: avoid_print
+void _windowLog(String message) => print('[onCreateWindow] $message');
+
+/// Logs [step] with a timestamp, then waits for [future].
+///
+/// It fails at once if [failed] completes first, and fails with [step] in
+/// the message if [timeout] passes. A hang then names its step, well before
+/// the test's own 60 s timeout.
+Future<T> _windowStep<T>(
+  String step,
+  Future<T> future,
+  Completer<Never> failed, {
+  Duration timeout = const Duration(seconds: 20),
+}) async {
+  final start = DateTime.now();
+  _windowLog('${start.toIso8601String()} $step: waiting');
+  final T result = await Future.any<T>([future, failed.future]).timeout(
+    timeout,
+    onTimeout: () =>
+        throw TestFailure('$step: no result after ${timeout.inSeconds} s'),
+  );
+  final ms = DateTime.now().difference(start).inMilliseconds;
+  _windowLog('$step: done after $ms ms');
+  return result;
+}
+
+/// Callbacks that fail [failed] when [name]'s page process ends.
+({
+  void Function(InAppWebViewController, RenderProcessGoneDetail) gone,
+  void Function(InAppWebViewController) terminated,
+})
+_processEnded(String name, Completer<Never> failed) {
+  void fail(String why) {
+    _windowLog('$name: $why');
+    if (!failed.isCompleted) failed.completeError(TestFailure('$name: $why'));
+  }
+
+  return (
+    gone: (_, detail) =>
+        fail('page process ended (didCrash: ${detail.didCrash})'),
+    terminated: (_) => fail('web content process ended'),
+  );
+}
+
 void webViewWindows() {
   final shouldSkip = !InAppWebView.isPropertySupported(
     PlatformWebViewCreationParamsProperty.onCreateWindow,
@@ -23,8 +75,7 @@ void webViewWindows() {
           textDirection: TextDirection.ltr,
           child: InAppWebView(
             key: GlobalKey(),
-            initialFile:
-                "test_assets/in_app_webview_on_create_window_test.html",
+            initialUrlRequest: URLRequest(url: _openerUrl),
             initialSettings: InAppWebViewSettings(
               clearCache: true,
               javaScriptCanOpenWindowsAutomatically: true,
@@ -33,7 +84,7 @@ void webViewWindows() {
               controllerCompleter.complete(controller);
             },
             onLoadStop: (controller, url) {
-              if (url!.toString() == TEST_URL_EXAMPLE.toString()) {
+              if (url!.toString() == _popupUrl.toString()) {
                 pageLoaded.complete();
               }
             },
@@ -57,8 +108,11 @@ void webViewWindows() {
     skippableTestWidgets('onCreateWindow return true', (
       WidgetTester tester,
     ) async {
-      final Completer<InAppWebViewController> controllerCompleter =
-          Completer<InAppWebViewController>();
+      // Completes with an error when either page process ends: the test
+      // then fails at once instead of waiting for a load that cannot come.
+      final failed = Completer<Never>()..future.ignore();
+      final openerEnded = _processEnded('opener', failed);
+      final popupEnded = _processEnded('popup', failed);
       final Completer<int> onCreateWindowCompleter = Completer<int>();
       // The opener stays while its window loads, as an app shows a popup
       // over its page: replacing it tore its view down mid-handoff, and on
@@ -66,72 +120,88 @@ void webViewWindows() {
       final openerKey = GlobalKey();
       final opener = InAppWebView(
         key: openerKey,
-        initialFile: "test_assets/in_app_webview_on_create_window_test.html",
+        initialUrlRequest: URLRequest(url: _openerUrl),
         initialSettings: InAppWebViewSettings(
           clearCache: true,
           javaScriptCanOpenWindowsAutomatically: true,
           supportMultipleWindows: true,
         ),
-        onWebViewCreated: (controller) {
-          controllerCompleter.complete(controller);
-        },
+        onRenderProcessGone: openerEnded.gone,
+        onWebContentProcessDidTerminate: openerEnded.terminated,
         onCreateWindow: (controller, createNavigationAction) async {
           onCreateWindowCompleter.complete(createNavigationAction.windowId);
           return true;
         },
       );
-      await tester.pumpWidget(
-        Directionality(textDirection: TextDirection.ltr, child: opener),
+      await _windowStep(
+        'pump the opener',
+        tester.pumpWidget(
+          Directionality(textDirection: TextDirection.ltr, child: opener),
+        ),
+        failed,
       );
 
-      await tester.pump();
+      final windowId = await _windowStep(
+        'onCreateWindow',
+        onCreateWindowCompleter.future,
+        failed,
+      );
 
-      var windowId = await onCreateWindowCompleter.future;
-
-      final Completer windowControllerCompleter =
-          Completer<InAppWebViewController>();
+      final Completer<void> popupCreated = Completer<void>();
       final Completer<String> windowPageLoaded = Completer<String>();
       final Completer<void> onCloseWindowCompleter = Completer<void>();
 
-      await tester.pumpWidget(
-        Directionality(
-          textDirection: TextDirection.ltr,
-          child: Column(
-            children: [
-              Expanded(child: opener),
-              Expanded(
-                child: InAppWebView(
-                  key: GlobalKey(),
-                  windowId: windowId,
-                  initialSettings: InAppWebViewSettings(clearCache: true),
-                  onWebViewCreated: (controller) {
-                    windowControllerCompleter.complete(controller);
-                  },
-                  onLoadStop: (controller, url) async {
-                    if (url!.scheme != "about" &&
-                        !windowPageLoaded.isCompleted) {
-                      windowPageLoaded.complete(url.toString());
-                      await controller.evaluateJavascript(
-                        source: "window.close();",
-                      );
-                    }
-                  },
-                  onCloseWindow: (controller) {
-                    onCloseWindowCompleter.complete();
-                  },
+      await _windowStep(
+        'pump the popup',
+        tester.pumpWidget(
+          Directionality(
+            textDirection: TextDirection.ltr,
+            child: Column(
+              children: [
+                Expanded(child: opener),
+                Expanded(
+                  child: InAppWebView(
+                    key: GlobalKey(),
+                    windowId: windowId,
+                    initialSettings: InAppWebViewSettings(clearCache: true),
+                    onWebViewCreated: (controller) {
+                      popupCreated.complete();
+                    },
+                    onRenderProcessGone: popupEnded.gone,
+                    onWebContentProcessDidTerminate: popupEnded.terminated,
+                    onLoadStop: (controller, url) async {
+                      if (url!.scheme != "about" &&
+                          !windowPageLoaded.isCompleted) {
+                        windowPageLoaded.complete(url.toString());
+                        await controller.evaluateJavascript(
+                          source: "window.close();",
+                        );
+                      }
+                    },
+                    onCloseWindow: (controller) {
+                      onCloseWindowCompleter.complete();
+                    },
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
+        failed,
       );
 
-      await tester.pump();
-
-      final String windowUrlLoaded = await windowPageLoaded.future;
-
-      expect(windowUrlLoaded, TEST_URL_EXAMPLE.toString());
-      await expectLater(onCloseWindowCompleter.future, completes);
+      await _windowStep('popup onWebViewCreated', popupCreated.future, failed);
+      final String windowUrlLoaded = await _windowStep(
+        'popup onLoadStop',
+        windowPageLoaded.future,
+        failed,
+      );
+      expect(windowUrlLoaded, _popupUrl.toString());
+      await _windowStep(
+        'popup onCloseWindow',
+        onCloseWindowCompleter.future,
+        failed,
+      );
     }, skip: shouldSkipTest2);
 
     final shouldSkipTest3 =

@@ -8,7 +8,8 @@
 # example cookie_manager) or an in_app_webview shard (in_app_webview:2/6).
 # No units: every group, with in_app_webview in 6 shards, all in one launch
 # first; the units with a failure (or, after a crash or timeout, those not
-# finished) then run again with a launch each, and their results count.
+# finished) then run again with a launch each, and their results count. A
+# failed one launch is also a warning in the job, naming its failed tests.
 #
 # Environment:
 #   IAW_LIMIT       Seconds per unit (default 900). macOS has no timeout(1);
@@ -116,6 +117,7 @@ not_run() {
 
 failed=()
 summary="| Unit | Result | Seconds |"$'\n'"|---|---|---|"$'\n'
+notes=
 # Stops a launch: the process and, on Windows, its native process tree
 # (flutter.bat, dart, the app), which signals do not reach.
 stop_launch() {
@@ -198,6 +200,27 @@ report() {
   summary+="| $1 | ${result:-exit $code, no summary}${3:+ ($3)} | $seconds |"$'\n'
 }
 
+# one_launch_warning <log>: the one launch's failures as a warning and a
+# note under the summary, even when every unit then passes again. A test that
+# fails among the others and passes alone still has a bug: state that an
+# earlier test left, a crash, or a race.
+one_launch_warning() {
+  local tests first count
+  tests=$( { grep -E '\[E\]$' "$1" |
+      sed -E 's/^[0-9:]+ \+[0-9]+( ~[0-9]+)?( -[0-9]+)?: //; s/( - did not complete)? \[E\]$//'
+    grep -E '^Failure in method:' "$1" | sed -E 's/^Failure in method: *//'; } |
+    awk '!seen[$0]++')
+  first=$(head -1 <<< "$tests")
+  count=$(grep -c . <<< "$tests")
+  local what="first failure: ${first:-none named}; $count test(s) failed in it (${one_result:-exit $one_code, no summary})"
+  echo "::warning title=The one launch failed::$what"
+  notes+=$'\n'"**The one launch failed**, $what. The rows after it are relaunches; a test that passes there still needs a fix."$'\n'
+  if [[ -n "$tests" ]]; then
+    notes+=$'\n'"$(head -10 <<< "$tests" | sed 's/^/- /')"$'\n'
+    [[ $count -gt 10 ]] && notes+="- and $(( count - 10 )) more"$'\n'
+  fi
+}
+
 run_unit() {
   local unit=$1 note=${2:-} defines
   case "$unit" in
@@ -218,6 +241,7 @@ if [[ $all == 1 && "${IAW_ONE_LAUNCH:-1}" == 1 ]]; then
   log="$logs/all.log"
   launch "$log" "${IAW_ONE_LAUNCH_LIMIT:-1200}"
   report "all (one launch)" "$log"
+  one_result=$result one_code=$code
   if [[ $code != 0 ]]; then
     rerun=()
     # Units with a failed test: "[E]" lines (flutter test) or "Failure in
@@ -260,6 +284,7 @@ if [[ $all == 1 && "${IAW_ONE_LAUNCH:-1}" == 1 ]]; then
       during=${rerun[$i]}
     done
     if [[ $gone == 0 ]] && device_gone; then not_run "$during"; fi
+    one_launch_warning "$log"
   fi
 else
   during=
@@ -273,6 +298,7 @@ else
   if [[ $gone == 0 ]] && device_gone; then not_run "$during"; fi
 fi
 
+summary+=${notes:-}
 if [[ -n "${GITHUB_STEP_SUMMARY:-}" ]]; then printf '%s' "$summary" >> "$GITHUB_STEP_SUMMARY"; fi
 printf '%s' "$summary"
 if [[ ${#failed[@]} -gt 0 ]]; then echo "Failed: ${failed[*]}"; exit 1; fi
