@@ -357,7 +357,8 @@ jobs:
           working-directory: telosnex_inappwebview/example
           targets: integration_test/webview_flutter_test.dart
           # The whole suite in one launch: a group is chosen at build time.
-          build-args: --dart-define=IAW_NO_VIDEO=1
+          # Redroid has no browser for Custom Tabs and TWAs.
+          build-args: --dart-define=IAW_NO_VIDEO=1 --dart-define=IAW_SKIP=chrome_safari_browser
 
   android-arm64:
     name: Android ARM64 container

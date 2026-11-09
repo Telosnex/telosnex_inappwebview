@@ -100,7 +100,7 @@ void programmaticZoomScale() {
             textDirection: TextDirection.ltr,
             child: InAppWebView(
               key: GlobalKey(),
-              initialUrlRequest: URLRequest(url: WebUri('https://flutter.dev')),
+              initialUrlRequest: URLRequest(url: TEST_CROSS_PLATFORM_URL_1),
               onWebViewCreated: (controller) {
                 controllerCompleter.complete(controller);
               },
@@ -137,7 +137,7 @@ void programmaticZoomScale() {
             textDirection: TextDirection.ltr,
             child: InAppWebView(
               key: GlobalKey(),
-              initialUrlRequest: URLRequest(url: WebUri('https://flutter.dev')),
+              initialUrlRequest: URLRequest(url: TEST_CROSS_PLATFORM_URL_1),
               onWebViewCreated: (controller) {
                 controllerCompleter.complete(controller);
               },
