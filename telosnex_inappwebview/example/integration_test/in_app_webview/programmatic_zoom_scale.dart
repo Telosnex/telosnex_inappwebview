@@ -86,7 +86,19 @@ void programmaticZoomScale() {
         await pageLoaded.future;
         listenForScaleChange = true;
 
-        await controller.zoomBy(zoomFactor: 2);
+        // The first onLoadStop can come before the page's scale is set; a
+        // zoomBy then changes nothing, so it is tried again.
+        for (
+          var i = 0;
+          i < 10 && !onZoomScaleChangedCompleter.isCompleted;
+          i++
+        ) {
+          await controller.zoomBy(zoomFactor: 2);
+          await Future.any([
+            onZoomScaleChangedCompleter.future,
+            Future.delayed(Duration(seconds: 2)),
+          ]);
+        }
 
         await expectLater(onZoomScaleChangedCompleter.future, completes);
       },

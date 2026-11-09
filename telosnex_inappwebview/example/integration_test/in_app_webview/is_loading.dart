@@ -16,7 +16,8 @@ void isLoading() {
         textDirection: TextDirection.ltr,
         child: InAppWebView(
           key: GlobalKey(),
-          initialUrlRequest: URLRequest(url: TEST_CROSS_PLATFORM_URL_1),
+          // A large page: a small one can finish before isLoading is asked.
+          initialUrlRequest: URLRequest(url: TEST_URL_1),
           initialSettings: InAppWebViewSettings(clearCache: true),
           onWebViewCreated: (controller) {
             controllerCompleter.complete(controller);
