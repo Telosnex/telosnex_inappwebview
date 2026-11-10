@@ -1,7 +1,8 @@
 # Upstream sources, checked daily by the Upstream watch workflow
 # (telosnex_ci_tools, lib/src/upstream.dart).
 sources:
-  - name: WPE WebKit SDK
+  # WPE WebKit releases and WebKitGTK/WPE security advisories.
+  - name: wpewebkit.org
     run: |
       w=telosnex_inappwebview_linux/wpe_sdk
       python3 $w/watch/test_check.py
