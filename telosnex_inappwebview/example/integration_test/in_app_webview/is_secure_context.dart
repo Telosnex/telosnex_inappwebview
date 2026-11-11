@@ -10,8 +10,11 @@ void isSecureContext() {
   skippableTestWidgets('isSecureContext', (WidgetTester tester) async {
     final Completer<InAppWebViewController> controllerCompleter =
         Completer<InAppWebViewController>();
-    final StreamController<String> pageLoads =
-        StreamController<String>.broadcast();
+    // Not a broadcast stream: that drops a load that ends before the test
+    // listens, and example.com can load during the pump below (Linux CI,
+    // 11-10). This one keeps each load until the iterator reads it.
+    final StreamController<String> pageLoads = StreamController<String>();
+    final loads = StreamIterator(pageLoads.stream);
 
     await tester.pumpWidget(
       Directionality(
@@ -38,7 +41,7 @@ void isSecureContext() {
 
     final InAppWebViewController controller = await controllerCompleter.future;
     await tester.pump();
-    await pageLoads.stream.first;
+    expect(await loads.moveNext(), true);
     expect(await controller.isSecureContext(), true);
 
     if (!kIsWeb) {
@@ -51,10 +54,11 @@ void isSecureContext() {
           ),
         ),
       );
-      await pageLoads.stream.first;
+      expect(await loads.moveNext(), true);
       expect(await controller.isSecureContext(), false);
     }
 
+    await loads.cancel();
     pageLoads.close();
   }, skip: shouldSkip);
 }
