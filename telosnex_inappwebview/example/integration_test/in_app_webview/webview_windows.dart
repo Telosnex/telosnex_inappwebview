@@ -34,6 +34,29 @@ Future<T> _windowStep<T>(
   return result;
 }
 
+/// Pumps [widget], then pumps again until [key] is in the tree.
+///
+/// In each of 6 logged "popup onWebViewCreated" failures (Linux, macOS),
+/// pumpWidget returned in 0-2 ms and the popup never asked the platform to
+/// create its view, which it does from initState without needing a frame.
+/// Passing pumps took 7-69 ms, and creation followed within 33 ms. Off
+/// Android and the web, frames are drawn only when the test pumps, so a
+/// popup missed by that pump stayed unbuilt while the test waited.
+Future<void> _pumpUntilBuilt(
+  WidgetTester tester,
+  Widget widget,
+  GlobalKey key,
+) async {
+  await tester.pumpWidget(widget);
+  for (var pumps = 1; key.currentContext == null; pumps++) {
+    if (pumps == 20) {
+      throw TestFailure('$key not built after $pumps pumps');
+    }
+    _windowLog('$key not built by pump $pumps; pumping again');
+    await tester.pump(const Duration(milliseconds: 50));
+  }
+}
+
 /// Callbacks that fail [failed] when [name]'s page process ends.
 ({
   void Function(InAppWebViewController, RenderProcessGoneDetail) gone,
@@ -135,8 +158,10 @@ void webViewWindows() {
       );
       await _windowStep(
         'pump the opener',
-        tester.pumpWidget(
+        _pumpUntilBuilt(
+          tester,
           Directionality(textDirection: TextDirection.ltr, child: opener),
+          openerKey,
         ),
         failed,
       );
@@ -151,9 +176,11 @@ void webViewWindows() {
       final Completer<String> windowPageLoaded = Completer<String>();
       final Completer<void> onCloseWindowCompleter = Completer<void>();
 
+      final popupKey = GlobalKey();
       await _windowStep(
         'pump the popup',
-        tester.pumpWidget(
+        _pumpUntilBuilt(
+          tester,
           Directionality(
             textDirection: TextDirection.ltr,
             child: Column(
@@ -161,7 +188,7 @@ void webViewWindows() {
                 Expanded(child: opener),
                 Expanded(
                   child: InAppWebView(
-                    key: GlobalKey(),
+                    key: popupKey,
                     windowId: windowId,
                     initialSettings: InAppWebViewSettings(clearCache: true),
                     onWebViewCreated: (controller) {
@@ -186,6 +213,7 @@ void webViewWindows() {
               ],
             ),
           ),
+          popupKey,
         ),
         failed,
       );
