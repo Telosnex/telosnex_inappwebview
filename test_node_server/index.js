@@ -235,6 +235,27 @@ app.get("/test-download-file", (req, res) => {
   res.end();
 })
 
+// A page whose load takes about 3 s, because its image comes late. The
+// isLoading test needs a load that is still running when it asks.
+app.get("/slow-page", (req, res) => {
+  res.set("Cache-Control", "no-store");
+  res.send(`
+    <html>
+      <head>
+      </head>
+      <body>
+        <p>SLOW</p>
+        <img src="/slow-image" alt="slow image">
+      </body>
+    </html>
+  `);
+})
+
+app.get("/slow-image", (req, res) => {
+  res.set("Cache-Control", "no-store");
+  setTimeout(() => res.sendFile(path.join(__dirname, 'assets', 'flutter_logo.png')), 3000);
+})
+
 app.listen(8082)
 
 // Proxy server

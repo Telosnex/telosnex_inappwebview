@@ -34,8 +34,10 @@ void keepAlive() {
                 initialUrl.toString() == url.toString()) {
               pageLoaded.complete();
             }
+            // Host only: Bing can redirect to its page with tracking
+            // parameters added.
             if (!pageLoaded2.isCompleted &&
-                TEST_CROSS_PLATFORM_URL_2.toString() == url.toString()) {
+                url?.host == TEST_CROSS_PLATFORM_URL_2.host) {
               pageLoaded2.complete();
             }
           },
@@ -67,7 +69,7 @@ void keepAlive() {
         await controllerCompleter2.future;
 
     final String? currentUrl = (await controller2.getUrl())?.toString();
-    expect(currentUrl, TEST_CROSS_PLATFORM_URL_2.toString());
+    expect(Uri.parse(currentUrl ?? '').host, TEST_CROSS_PLATFORM_URL_2.host);
 
     await expectLater(
       InAppWebViewController.disposeKeepAlive(keepAlive),

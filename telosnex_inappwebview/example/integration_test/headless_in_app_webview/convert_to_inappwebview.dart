@@ -44,7 +44,9 @@ void convertToInAppWebView() {
             widgetControllerCompleter.complete(controller);
           },
           onLoadStop: (controller, url) {
-            if (url.toString() == TEST_CROSS_PLATFORM_URL_2.toString() &&
+            // Host only: Bing can redirect to its page with tracking
+            // parameters added.
+            if (url?.host == TEST_CROSS_PLATFORM_URL_2.host &&
                 !loadedUrl.isCompleted) {
               loadedUrl.complete(url.toString());
             }
@@ -66,6 +68,9 @@ void convertToInAppWebView() {
     await widgetController.loadUrl(
       urlRequest: URLRequest(url: TEST_CROSS_PLATFORM_URL_2),
     );
-    expect(await loadedUrl.future, TEST_CROSS_PLATFORM_URL_2.toString());
+    expect(
+      Uri.parse(await loadedUrl.future).host,
+      TEST_CROSS_PLATFORM_URL_2.host,
+    );
   }, skip: shouldSkip);
 }

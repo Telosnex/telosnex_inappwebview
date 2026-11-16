@@ -16,8 +16,13 @@ void isLoading() {
         textDirection: TextDirection.ltr,
         child: InAppWebView(
           key: GlobalKey(),
-          // A large page: a small one can finish before isLoading is asked.
-          initialUrlRequest: URLRequest(url: TEST_URL_1),
+          // The test server sends this page's image after 3 s, so the load
+          // is still running when isLoading is asked.
+          initialUrlRequest: URLRequest(
+            url: WebUri(
+              'http://${environment["NODE_SERVER_IP"]}:8082/slow-page',
+            ),
+          ),
           initialSettings: InAppWebViewSettings(clearCache: true),
           onWebViewCreated: (controller) {
             controllerCompleter.complete(controller);
