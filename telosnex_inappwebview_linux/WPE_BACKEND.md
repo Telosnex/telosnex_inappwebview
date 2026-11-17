@@ -2,6 +2,13 @@
 
 This document describes how to install and configure WPE WebKit for the telosnex_inappwebview Linux plugin.
 
+By default, the build of the plugin downloads a pinned, prebuilt WPE WebKit
+SDK and bundles it. You do not need this document for that default. This
+document is for a WPE WebKit that you install or build yourself, with
+`TELOSNEX_INAPPWEBVIEW_WPE_SDK=system` or with
+`TELOSNEX_INAPPWEBVIEW_WPE_SDK=<directory>`. See the
+[README](README.md#wpe-webkit-sdk).
+
 ## Overview
 
 This plugin uses WPE WebKit for offscreen web rendering. WPE WebKit is the official WebKit port for embedded systems:
@@ -373,7 +380,7 @@ export PKG_CONFIG_PATH=$WPE_PREFIX/lib/pkgconfig:$WPE_PREFIX/lib/$(uname -m)-lin
 
 ## Building the Flutter Plugin
 
-The plugin automatically detects WPE libraries via pkg-config. When WPE is found, it:
+With `TELOSNEX_INAPPWEBVIEW_WPE_SDK=system`, the plugin finds WPE WebKit through pkg-config. Then it:
 
 1. **Compiles with the WPE backend**
 2. **Bundles WPE libraries** into the Flutter app's `lib/` directory

@@ -1,23 +1,25 @@
-# flutter\_inappwebview\_platform\_interface
+# telosnex_inappwebview_platform_interface
 
-A common platform interface for the [`telosnex_inappwebview`](https://pub.dev/packages/flutter_inappwebview) plugin.
+The common platform interface of
+[`telosnex_inappwebview`](https://pub.dev/packages/telosnex_inappwebview).
+It is part of a fork of [flutter_inappwebview](https://github.com/pichillilorenzo/flutter_inappwebview). For the differences, see the [telosnex_inappwebview README](https://github.com/Telosnex/telosnex_inappwebview#differences-from-flutter_inappwebview).
 
-This interface allows platform-specific implementations of the `telosnex_inappwebview`
-plugin, as well as the plugin itself, to ensure they are supporting the
-same interface.
+The app-facing package and each platform package use this interface. Thus,
+they support the same API.
 
-# Usage
+## Usage
 
-To implement a new platform-specific implementation of `telosnex_inappwebview`, extend
-[`InAppWebViewPlatform`](lib/src/inappwebview_platform.dart) with an implementation that performs the
-platform-specific behavior, and when you register your plugin, set the default
-`InAppWebViewPlatform` by calling
+To add a platform implementation, extend
+[`InAppWebViewPlatform`](https://github.com/Telosnex/telosnex_inappwebview/blob/master/telosnex_inappwebview_platform_interface/lib/src/inappwebview_platform.dart).
+When the plugin registers, set the instance:
 `InAppWebViewPlatform.instance = MyPlatformWebview()`.
 
-# Note on breaking changes
+## Breaking changes
 
-Strongly prefer non-breaking changes (such as adding a method to the interface)
-over breaking changes for this package.
+Prefer a change that does not break other packages, for example a new
+method, to a breaking change. See
+[platform interface breaking changes](https://flutter.dev/go/platform-interface-breaking-changes).
 
-See https://flutter.dev/go/platform-interface-breaking-changes for a discussion
-on why a less-clean interface is preferable to a breaking change.
+## Changes
+
+See [CHANGELOG.md](https://github.com/Telosnex/telosnex_inappwebview/blob/master/telosnex_inappwebview_platform_interface/CHANGELOG.md).

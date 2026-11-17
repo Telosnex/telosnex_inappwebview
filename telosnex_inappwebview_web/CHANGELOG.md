@@ -1,3 +1,19 @@
+## 1.0.0
+
+First release of `telosnex_inappwebview_web`. It is a fork of `flutter_inappwebview_web` 1.2.0-beta.3 by Lorenzo Pichilli.
+
+- Renamed from `flutter_inappwebview_web`.
+- A headless webview reads `initialUserScripts` and sets `windowId`.
+- A POST response loads from a `blob:` URL, which has the origin of the app. Scripts, user scripts, and events work on it. Before, it was a `data:` URL.
+- `postUrl` sends `Content-Type: application/x-www-form-urlencoded`.
+- The empty `about:blank` of the iframe, before the first load, is not reported as a page load.
+- `isLoading` is `true` from the start of a load.
+- `removeUserOnlyScript` finds the script by its value.
+
+## Upstream history
+
+The entries below are from `flutter_inappwebview_web`. They use its version numbers.
+
 ## 1.2.0-beta.3
 
 - Updated flutter_inappwebview_platform_interface version to ^1.4.0-beta.3

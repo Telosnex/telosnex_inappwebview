@@ -1,3 +1,22 @@
+## 1.0.0
+
+First release of `telosnex_inappwebview_windows`. It is a fork of `flutter_inappwebview_windows` 0.7.0-beta.3 by Lorenzo Pichilli.
+
+- Renamed from `flutter_inappwebview_windows`. The native names changed too: the C++ plugin class and the method channels. An app can contain this package and `flutter_inappwebview` together.
+- Builds with Visual Studio 2026 (MSVC 14.5x). WIL is 1.0.260126.7 and the WebView2 SDK is 1.0.4078.44.
+- `WebStorageManager.removeDataModifiedSince` is supported, through the WebView2 profile.
+- `zoomBy` is supported, and `onZoomScaleChanged` is called.
+- A JavaScript handler that returns `null` does not stop the app.
+- `shouldOverrideUrlLoading` gets the navigation type. Before, link clicks were cancelled.
+- A window whose opener webview is gone loads its URL.
+- User scripts at document end run at global scope.
+- Fixes for `isHidden`, `loadData` with a base URL, `postUrl`, the size of a headless webview, console message strings, posted web message ports, and the attributes of injected files.
+- Thrown strings are not quoted. The view widget does nothing after it is disposed.
+
+## Upstream history
+
+The entries below are from `flutter_inappwebview_windows`. They use its version numbers.
+
 ## 0.7.0-beta.3
 
 - Updated flutter_inappwebview_platform_interface version to ^1.4.0-beta.3

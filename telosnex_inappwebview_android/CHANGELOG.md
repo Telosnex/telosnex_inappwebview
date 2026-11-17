@@ -1,3 +1,16 @@
+## 1.0.0
+
+First release of `telosnex_inappwebview_android`. It is a fork of `flutter_inappwebview_android` 1.2.0-beta.3 by Lorenzo Pichilli.
+
+- Renamed from `flutter_inappwebview_android`. The native names changed too: the Java package `com.telosnex.telosnex_inappwebview_android` and the method channels. An app can contain this package and `flutter_inappwebview` together.
+- A webview that is disposed while Flutter still shows it returns a placeholder view. Before, Flutter stopped the app.
+- A window that a page opens loads, also when its opener is disposed first.
+- The service worker client is set one time. It forwards requests to the Dart side that asked for them.
+
+## Upstream history
+
+The entries below are from `flutter_inappwebview_android`. They use its version numbers.
+
 ## 1.2.0-beta.3
 
 - Updated flutter_inappwebview_platform_interface version to ^1.4.0-beta.3

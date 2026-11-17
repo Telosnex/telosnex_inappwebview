@@ -1,13 +1,22 @@
-# flutter\_inappwebview\_ios
+# telosnex_inappwebview_ios
 
-The Apple iOS WKWebView implementation of [`telosnex_inappwebview`](https://pub.dev/packages/flutter_inappwebview).
+The iOS WKWebView implementation of
+[`telosnex_inappwebview`](https://pub.dev/packages/telosnex_inappwebview).
+It is part of a fork of [flutter_inappwebview](https://github.com/pichillilorenzo/flutter_inappwebview). For the differences, see the [telosnex_inappwebview README](https://github.com/Telosnex/telosnex_inappwebview#differences-from-flutter_inappwebview).
 
 ## Usage
 
-This package is [endorsed](https://flutter.dev/docs/development/packages-and-plugins/developing-packages#endorsed-federated-plugin),
-which means you can simply use `telosnex_inappwebview`
-normally. This package will be automatically included in your app when you do,
-so you do not need to add it to your `pubspec.yaml`.
+This package is
+[endorsed](https://docs.flutter.dev/packages-and-plugins/developing-packages#endorsed-federated-plugin).
+Add `telosnex_inappwebview` to your app, and Flutter includes this package.
+Add this package to `pubspec.yaml` only if you import it directly.
 
-However, if you `import` this package to use any of its APIs directly, you
-should add it to your `pubspec.yaml` as usual.
+## Requirements
+
+- iOS 12.0 or later.
+- Swift Package Manager. This package has no CocoaPods podspec. To enable
+  Swift Package Manager, run `flutter config --enable-swift-package-manager`.
+
+## Changes
+
+See [CHANGELOG.md](https://github.com/Telosnex/telosnex_inappwebview/blob/master/telosnex_inappwebview_ios/CHANGELOG.md).

@@ -1,3 +1,17 @@
+## 1.0.0
+
+First release of `telosnex_inappwebview`. It is a fork of `flutter_inappwebview` 6.2.0-beta.3 by Lorenzo Pichilli.
+
+- Renamed from `flutter_inappwebview`. Import `package:telosnex_inappwebview/telosnex_inappwebview.dart`. The JavaScript API of pages did not change: `window.flutter_inappwebview.callHandler(...)`.
+- An app can contain this package and `flutter_inappwebview` together. The packages, the method channels, the Android package, the Swift packages, and the plugin classes all have different names.
+- All platform packages are 1.0.0. Their CHANGELOGs list the fixes for each platform.
+- iOS and macOS use Swift Package Manager only. The CocoaPods podspecs are removed.
+- Linux uses WPE WebKit through `telosnex_inappwebview_linux`. Its build downloads a pinned WPE WebKit SDK and bundles it with the app.
+
+## Upstream history
+
+The entries below are from `flutter_inappwebview`. They use its version numbers.
+
 ## 6.2.0-beta.3
 
 - Added Linux support

@@ -1,3 +1,16 @@
+## 1.0.0
+
+First release of `telosnex_inappwebview_ios`. It is a fork of `flutter_inappwebview_ios` 1.2.0-beta.3 by Lorenzo Pichilli.
+
+- Renamed from `flutter_inappwebview_ios`. The native names changed too: the Swift package, the plugin class `TelosnexInAppWebViewPlugin`, and the method channels. An app can contain this package and `flutter_inappwebview` together.
+- Swift Package Manager only. The CocoaPods podspec is removed.
+- `getCertificate` reads the certificate from the server trust of the page.
+- Going back to a cached page calls `onLoadStop`. Before, it called `onReceivedError` with -999.
+
+## Upstream history
+
+The entries below are from `flutter_inappwebview_ios`. They use its version numbers.
+
 ## 1.2.0-beta.3
 
 - Updated flutter_inappwebview_platform_interface version to ^1.4.0-beta.3

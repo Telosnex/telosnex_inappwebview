@@ -1,11 +1,9 @@
 name: telosnex_inappwebview_linux
 description: "Linux implementation of telosnex_inappwebview plugin using WPE WebKit."
-version: 0.1.0-beta.1
-homepage: https://inappwebview.dev/
-repository: https://github.com/pichillilorenzo/flutter_inappwebview/tree/master/flutter_inappwebview_linux
-issue_tracker: https://github.com/pichillilorenzo/flutter_inappwebview/issues
-funding:
-  - https://inappwebview.dev/donate/
+version: 1.0.0
+homepage: https://github.com/Telosnex/telosnex_inappwebview
+repository: https://github.com/Telosnex/telosnex_inappwebview/tree/master/telosnex_inappwebview_linux
+issue_tracker: https://github.com/Telosnex/telosnex_inappwebview/issues
 topics:
   - html
   - webview
@@ -20,7 +18,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  telosnex_inappwebview_platform_interface: ^1.4.0-beta.3
+  telosnex_inappwebview_platform_interface: ^1.0.0
     # path: ../telosnex_inappwebview_platform_interface
 
 dev_dependencies:
@@ -80,5 +78,9 @@ flutter:
   #
   # For details regarding fonts in packages, see
   # https://flutter.dev/to/font-from-package
+
+# A self-signed test certificate and key for the TLS tests.
+false_secrets:
+  - /example/integration_test/review_common.dart
 
 resolution: workspace

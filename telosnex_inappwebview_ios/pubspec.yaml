@@ -1,11 +1,9 @@
 name: telosnex_inappwebview_ios
 description: iOS implementation of the telosnex_inappwebview plugin.
-version: 1.2.0-beta.3
-homepage: https://inappwebview.dev/
-repository: https://github.com/pichillilorenzo/flutter_inappwebview/tree/master/flutter_inappwebview_ios
-issue_tracker: https://github.com/pichillilorenzo/flutter_inappwebview/issues
-funding:
-  - https://inappwebview.dev/donate/
+version: 1.0.0
+homepage: https://github.com/Telosnex/telosnex_inappwebview
+repository: https://github.com/Telosnex/telosnex_inappwebview/tree/master/telosnex_inappwebview_ios
+issue_tracker: https://github.com/Telosnex/telosnex_inappwebview/issues
 topics:
   - html
   - webview
@@ -20,7 +18,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  telosnex_inappwebview_platform_interface: ^1.4.0-beta.3
+  telosnex_inappwebview_platform_interface: ^1.0.0
     # path: ../telosnex_inappwebview_platform_interface
 
 dev_dependencies:

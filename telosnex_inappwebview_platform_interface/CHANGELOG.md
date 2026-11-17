@@ -1,3 +1,20 @@
+## 1.0.0
+
+First release of `telosnex_inappwebview_platform_interface`. It is a fork of `flutter_inappwebview_platform_interface` 1.4.0-beta.3 by Lorenzo Pichilli.
+
+- Renamed from `flutter_inappwebview_platform_interface`.
+- `onReceivedError` is called for an error code that has no `WebResourceErrorType`. The type is `UNKNOWN`. Before, the event was dropped.
+- On iOS and macOS, error -1006 (`NSURLErrorDNSLookupFailed`) is `HOST_LOOKUP`.
+- The debug-mode donation message at startup is removed.
+- The supported-platform annotations match the Linux implementation: `HttpAuthResponseAction`, `PermissionResourceType`, `SslErrorType`, `WebResourceErrorType.HOST_LOOKUP`, `windowId`, and the origin allow lists. `shouldInterceptRequest` is not supported on Linux.
+- On Linux, an origin allow-list rule is `'*'`, an exact origin, or a `*.` subdomain rule, as on Android. Regular expressions are not supported.
+- The annotations show `zoomBy` and `WebStorageManager.removeDataModifiedSince` as supported on Windows.
+- The documentation says that content worlds are not supported on Web.
+
+## Upstream history
+
+The entries below are from `flutter_inappwebview_platform_interface`. They use its version numbers.
+
 ## 1.4.0-beta.3
 
 - Updated `flutter_inappwebview_internal_annotations` dependency from `^1.2.0` to `^1.3.0`

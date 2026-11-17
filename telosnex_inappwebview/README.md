@@ -1,115 +1,124 @@
 # telosnex_inappwebview
 
-A fork of [flutter_inappwebview](https://github.com/pichillilorenzo/flutter_inappwebview)
-by Lorenzo Pichilli, maintained by [Telosnex](https://telosnex.com). The
-API is upstream's; upstream's documentation below applies.
+[![pub package](https://img.shields.io/pub/v/telosnex_inappwebview.svg)](https://pub.dev/packages/telosnex_inappwebview)
+[![Integration](https://github.com/Telosnex/telosnex_inappwebview/actions/workflows/integration.yml/badge.svg?branch=master)](https://github.com/Telosnex/telosnex_inappwebview/actions/workflows/integration.yml)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/Telosnex/telosnex_inappwebview/blob/master/LICENSE)
 
-What differs:
+A Flutter plugin for an inline webview, a headless webview, and an in-app
+browser window. It supports Android, iOS, macOS, Windows, Linux, and Web.
 
-- **Linux**: a WPE WebKit backend, with a pinned, prebuilt, relocatable
-  WPE WebKit SDK that the build downloads and bundles
-  (`telosnex_inappwebview_linux/wpe_sdk`). See
-  [WPE_BACKEND.md](telosnex_inappwebview_linux/WPE_BACKEND.md).
-- **Windows**: builds with Visual Studio 2026 (MSVC 14.5x);
-  `WebStorageManager.removeDataModifiedSince` on WebView2.
-- **macOS**: Swift Package Manager.
-- **CI**: the example's integration suite on Linux, macOS, Windows, iOS,
-  Android and Chrome; nightly.
-- **Renamed**, native identifiers included (Android package
-  `com.telosnex.telosnex_inappwebview_*`, method channels, Swift packages,
-  plugin classes), so an app can contain this and flutter_inappwebview
-  together. The JavaScript API of pages is unchanged:
-  `window.flutter_inappwebview.callHandler(...)`.
+telosnex_inappwebview is a fork of
+[flutter_inappwebview](https://github.com/pichillilorenzo/flutter_inappwebview) 6.2.0-beta.3 by Lorenzo Pichilli.
+[Telosnex](https://telosnex.com) maintains it. The Dart API is the API of
+flutter_inappwebview, so the
+[flutter_inappwebview documentation](https://inappwebview.dev/docs/intro)
+applies.
 
-From flutter_inappwebview: depend on `telosnex_inappwebview`, and import
-`package:telosnex_inappwebview/telosnex_inappwebview.dart`.
+## Differences from flutter_inappwebview
 
-Upstream changes come in through `tool/rename_upstream.py`, which applies
-the rename to them first. Apache 2.0, like upstream ([LICENSE](LICENSE)).
+- **Names.** Each package has the `telosnex_` prefix. The native names
+  changed too: the Android package
+  (`com.telosnex.telosnex_inappwebview_android`), the method channels
+  (`com.telosnex/...`), the Swift packages, and the plugin classes. Thus, an
+  app can contain telosnex_inappwebview and flutter_inappwebview together.
+- **JavaScript API of pages.** It did not change. Pages call
+  `window.flutter_inappwebview.callHandler(...)`, as before.
+- **Linux.** The Linux backend uses WPE WebKit. By default, the build
+  downloads a pinned, prebuilt WPE WebKit SDK, checks its SHA-256, and
+  bundles it with the app. See
+  [telosnex_inappwebview_linux](https://pub.dev/packages/telosnex_inappwebview_linux).
+- **iOS and macOS.** The plugin uses Swift Package Manager only. There is no
+  CocoaPods podspec. The minimum macOS version is 10.15.
+- **Windows.** The plugin builds with Visual Studio 2026 (MSVC 14.5x).
+  `WebStorageManager.removeDataModifiedSince` and `zoomBy` are supported.
+- **Fixes.** The fork has fixes for each platform. The CHANGELOG of each
+  package lists them.
+- **Tests.** CI runs the integration tests of the example app on Android,
+  iOS, macOS, Windows, Linux, and Chrome, on x64 and arm64.
+- **Versions.** The versions start at 1.0.0 and do not follow the versions of
+  flutter_inappwebview.
 
----
+## Migrate from flutter_inappwebview
 
-<div align="center">
-
-# Flutter InAppWebView Plugin [![Share on Twitter](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Flutter%20InAppBrowser%20plugin!&url=https://github.com/pichillilorenzo/flutter_inappwebview&hashtags=flutter,flutterio,dart,dartlang,webview) [![Share on Facebook](https://img.shields.io/badge/share-facebook-blue.svg?longCache=true&style=flat&colorB=%234267b2)](https://www.facebook.com/sharer/sharer.php?u=https%3A//github.com/pichillilorenzo/flutter_inappwebview)
-
-![InAppWebView-logo](https://user-images.githubusercontent.com/5956938/195422744-bdcfed16-73f0-4bc9-94ab-ecf10771a1c4.png)
-
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-100-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
-
-[![telosnex_inappwebview version](https://img.shields.io/pub/v/flutter_inappwebview?include_prereleases)](https://pub.dartlang.org/packages/flutter_inappwebview)
-[![Pub Points](https://img.shields.io/pub/points/flutter_inappwebview)](https://pub.dev/packages/flutter_inappwebview/score)
-[![Pub Popularity](https://img.shields.io/pub/popularity/flutter_inappwebview)](https://pub.dev/packages/flutter_inappwebview/score)
-[![Pub Likes](https://img.shields.io/pub/likes/flutter_inappwebview)](https://pub.dev/packages/flutter_inappwebview/score)
-[![Awesome Flutter](https://img.shields.io/badge/Awesome-Flutter-blue.svg?longCache=true&style=flat-square)](https://stackoverflow.com/questions/tagged/flutter-inappwebview)
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](/LICENSE)
-
-[![Donate to this project](https://img.shields.io/badge/support-donate-yellow.svg)](https://inappwebview.dev/donate/)
-[![GitHub forks](https://img.shields.io/github/forks/pichillilorenzo/flutter_inappwebview?style=social)](https://github.com/pichillilorenzo/flutter_inappwebview)
-[![GitHub stars](https://img.shields.io/github/stars/pichillilorenzo/flutter_inappwebview?style=social)](https://github.com/pichillilorenzo/flutter_inappwebview)
-
-###### Supported Platforms
-
-[![telosnex_inappwebview_platform_interface version](https://img.shields.io/pub/v/flutter_inappwebview_platform_interface?include_prereleases&label=Platform%20Interface)](https://pub.dartlang.org/packages/flutter_inappwebview_platform_interface)
-[![telosnex_inappwebview_android version](https://img.shields.io/pub/v/flutter_inappwebview_android?include_prereleases&label=Android)](https://pub.dartlang.org/packages/flutter_inappwebview_android)
-[![telosnex_inappwebview_ios version](https://img.shields.io/pub/v/flutter_inappwebview_ios?include_prereleases&label=iOS)](https://pub.dartlang.org/packages/flutter_inappwebview_ios)
-[![telosnex_inappwebview_macos version](https://img.shields.io/pub/v/flutter_inappwebview_macos?include_prereleases&label=macOS)](https://pub.dartlang.org/packages/flutter_inappwebview_macos)
-[![telosnex_inappwebview_windows version](https://img.shields.io/pub/v/flutter_inappwebview_windows?include_prereleases&label=Windows)](https://pub.dartlang.org/packages/flutter_inappwebview_windows)
-[![telosnex_inappwebview_linux version](https://img.shields.io/pub/v/flutter_inappwebview_linux?include_prereleases&label=linux)](https://pub.dartlang.org/packages/flutter_inappwebview_linux)
-[![telosnex_inappwebview_web version](https://img.shields.io/pub/v/flutter_inappwebview_web?include_prereleases&label=Web)](https://pub.dartlang.org/packages/flutter_inappwebview_web)
-
-A Flutter plugin that allows you to add an inline webview, to use an headless webview, and to open an in-app browser window.
-
-</div>
-
-## Articles/Resources
-
-- [Official documentation: inappwebview.dev/docs](https://inappwebview.dev/docs/intro)
-- Read the online [API Reference](https://pub.dartlang.org/documentation/flutter_inappwebview/latest/) to get the **full API documentation**.
-- [Official blog: inappwebview.dev/blog](https://inappwebview.dev/blog/)
-- Find open source projects on the [Official Showcase page: inappwebview.dev/showcase](https://inappwebview.dev/showcase/)
-- Check the [telosnex_inappwebview_examples](https://github.com/pichillilorenzo/flutter_inappwebview_examples) repository for project examples
-- Check the [telosnex_inappwebview/example/integration_test/webview_flutter_test.dart](https://github.com/pichillilorenzo/flutter_inappwebview/blob/master/flutter_inappwebview/example/integration_test/webview_flutter_test.dart) file for other code examples
-- [Flutter Browser App](https://github.com/pichillilorenzo/flutter_browser_app): A Full-Featured Mobile Browser App (such as the Google Chrome mobile browser) created using Flutter and the features offered by the telosnex_inappwebview plugin
-
-## Showcase - Who use it
-
-Check the [Showcase](https://inappwebview.dev/showcase/) page to see an open list of Apps built with **Flutter** and **Flutter InAppWebView**.
-
-#### Are you using the **Flutter InAppWebView** plugin and would you like to add your App there?
-
-Send a submission request to the [Submit App](https://inappwebview.dev/submit-app/) page!
+1. In `pubspec.yaml`, replace `flutter_inappwebview` with
+   `telosnex_inappwebview: ^1.0.0`.
+2. Replace `package:flutter_inappwebview/flutter_inappwebview.dart` with
+   `package:telosnex_inappwebview/telosnex_inappwebview.dart`.
+3. If you import a platform package, replace its name too. For example,
+   replace `flutter_inappwebview_android` with `telosnex_inappwebview_android`.
+4. If `AndroidManifest.xml` declares the file provider of the plugin, change
+   two values. The class is
+   `com.telosnex.telosnex_inappwebview_android.InAppWebViewFileProvider`. The
+   authority is `${applicationId}.telosnex_inappwebview_android.fileprovider`.
+5. For iOS and macOS, make sure that Swift Package Manager is enabled:
+   `flutter config --enable-swift-package-manager`.
 
 ## Requirements
 
-- Dart sdk: "^3.8.0"
-- Flutter: ">=3.32.0"
-- Android: `minSdkVersion >= 19`, [AGP](https://developer.android.com/build/releases/gradle-plugin) version `>= 7.3.0` (use [Android Studio - Android Gradle plugin Upgrade Assistant](https://developer.android.com/build/agp-upgrade-assistant) for help)
-- iOS 12.0+, Xcode version `>= 15.0`
-- MacOS 10.14+: Xcode version `>= 15.0`
-- Windows: [NuGet CLI](https://learn.microsoft.com/en-us/nuget/install-nuget-client-tools?tabs=windows#nugetexe-cli) available on your PATH environment variable
-- Linux: WPE 2.0 WebKit built
+- Dart `^3.8.0` and Flutter 3.32.0 or later.
+- Android: `minSdkVersion` 19 or later, and
+  [Android Gradle plugin](https://developer.android.com/build/releases/gradle-plugin)
+  7.3.0 or later.
+- iOS: iOS 12.0 or later, Xcode 15 or later, and Swift Package Manager.
+- macOS: macOS 10.15 or later, Xcode 15 or later, and Swift Package Manager.
+- Windows: the
+  [NuGet CLI](https://learn.microsoft.com/en-us/nuget/install-nuget-client-tools?tabs=windows#nugetexe-cli)
+  on `PATH`.
+- Linux: CMake 3.19 or later. The pinned WPE WebKit SDK is for Ubuntu 26.04
+  (x64 and arm64) and Debian 13 (arm64). For other systems, see
+  [telosnex_inappwebview_linux](https://pub.dev/packages/telosnex_inappwebview_linux).
 
-## Installation
+## Documentation
 
-Add `telosnex_inappwebview` as a [dependency in your pubspec.yaml file](https://flutter.io/using-packages/).
+- [flutter_inappwebview documentation](https://inappwebview.dev/docs/intro).
+  In its examples, use the `telosnex_inappwebview` package names.
+- [API reference](https://pub.dev/documentation/telosnex_inappwebview/latest/).
+- Platform setup:
+  [Android](https://inappwebview.dev/docs/intro/#setup-android),
+  [iOS](https://inappwebview.dev/docs/intro/#setup-ios),
+  [macOS](https://inappwebview.dev/docs/intro/#setup-macos),
+  [Windows](https://inappwebview.dev/docs/intro/#setup-windows),
+  [Web](https://inappwebview.dev/docs/intro/#setup-web).
+- [Example app](https://github.com/Telosnex/telosnex_inappwebview/tree/master/telosnex_inappwebview/example) and its
+  [integration tests](https://github.com/Telosnex/telosnex_inappwebview/tree/master/telosnex_inappwebview/example/integration_test).
 
-### Platform Installation Setup:
-- [Android](https://inappwebview.dev/docs/intro/#setup-android)
-- [iOS](https://inappwebview.dev/docs/intro/#setup-ios)
-- [macOS](https://inappwebview.dev/docs/intro/#setup-macos)
-- [Windows](https://inappwebview.dev/docs/intro/#setup-windows)
-- [Web](https://inappwebview.dev/docs/intro/#setup-web)
+## Packages
 
-## Support
+| Package | Purpose | Version |
+|---|---|---|
+| [`telosnex_inappwebview`](https://pub.dev/packages/telosnex_inappwebview) | App-facing package | [![pub](https://img.shields.io/pub/v/telosnex_inappwebview.svg)](https://pub.dev/packages/telosnex_inappwebview) |
+| [`telosnex_inappwebview_platform_interface`](https://pub.dev/packages/telosnex_inappwebview_platform_interface) | Platform interface | [![pub](https://img.shields.io/pub/v/telosnex_inappwebview_platform_interface.svg)](https://pub.dev/packages/telosnex_inappwebview_platform_interface) |
+| [`telosnex_inappwebview_android`](https://pub.dev/packages/telosnex_inappwebview_android) | Android | [![pub](https://img.shields.io/pub/v/telosnex_inappwebview_android.svg)](https://pub.dev/packages/telosnex_inappwebview_android) |
+| [`telosnex_inappwebview_ios`](https://pub.dev/packages/telosnex_inappwebview_ios) | iOS | [![pub](https://img.shields.io/pub/v/telosnex_inappwebview_ios.svg)](https://pub.dev/packages/telosnex_inappwebview_ios) |
+| [`telosnex_inappwebview_macos`](https://pub.dev/packages/telosnex_inappwebview_macos) | macOS | [![pub](https://img.shields.io/pub/v/telosnex_inappwebview_macos.svg)](https://pub.dev/packages/telosnex_inappwebview_macos) |
+| [`telosnex_inappwebview_windows`](https://pub.dev/packages/telosnex_inappwebview_windows) | Windows | [![pub](https://img.shields.io/pub/v/telosnex_inappwebview_windows.svg)](https://pub.dev/packages/telosnex_inappwebview_windows) |
+| [`telosnex_inappwebview_linux`](https://pub.dev/packages/telosnex_inappwebview_linux) | Linux | [![pub](https://img.shields.io/pub/v/telosnex_inappwebview_linux.svg)](https://pub.dev/packages/telosnex_inappwebview_linux) |
+| [`telosnex_inappwebview_web`](https://pub.dev/packages/telosnex_inappwebview_web) | Web | [![pub](https://img.shields.io/pub/v/telosnex_inappwebview_web.svg)](https://pub.dev/packages/telosnex_inappwebview_web) |
 
-Did you find this plugin useful? Please consider to [make a donation](https://inappwebview.dev/donate/) to help improve it!
+Add only `telosnex_inappwebview` to an app. The platform packages are
+endorsed, so Flutter includes them.
 
-## Contributors ✨
+## Maintenance
 
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+- Report problems in the
+  [issue tracker of this repository](https://github.com/Telosnex/telosnex_inappwebview/issues).
+- Each change that users can see gets a line in the `CHANGELOG.md` of its
+  package, under `## Unreleased`. A release changes that heading to the new
+  version.
+- Changes from flutter_inappwebview come in through
+  [`tool/rename_upstream.py`](https://github.com/Telosnex/telosnex_inappwebview/blob/master/tool/rename_upstream.py). The script
+  applies the rename to them before the merge.
+
+## License and credits
+
+telosnex_inappwebview uses the Apache 2.0 license, as flutter_inappwebview
+does. See [LICENSE](https://github.com/Telosnex/telosnex_inappwebview/blob/master/LICENSE).
+
+flutter_inappwebview is the work of Lorenzo Pichilli and its contributors.
+To support flutter_inappwebview, see
+[inappwebview.dev/donate](https://inappwebview.dev/donate/).
+
+### flutter_inappwebview contributors
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -254,4 +263,6 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+This list follows the
+[all-contributors](https://github.com/all-contributors/all-contributors)
+specification.
