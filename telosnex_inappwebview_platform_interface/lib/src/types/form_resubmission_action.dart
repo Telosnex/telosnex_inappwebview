@@ -4,14 +4,14 @@ part 'form_resubmission_action.g.dart';
 
 ///Class that represents the action to take used by the [PlatformWebViewCreationParams.onFormResubmission] event.
 @ExchangeableEnum()
-class FormResubmissionAction_ {
+class FormResubmissionActionSpec {
   // ignore: unused_field
   final int _value;
-  const FormResubmissionAction_._internal(this._value);
+  const FormResubmissionActionSpec._internal(this._value);
 
   ///Resend data
-  static const RESEND = FormResubmissionAction_._internal(0);
+  static const RESEND = FormResubmissionActionSpec._internal(0);
 
   ///Don't resend data
-  static const DONT_RESEND = FormResubmissionAction_._internal(1);
+  static const DONT_RESEND = FormResubmissionActionSpec._internal(1);
 }

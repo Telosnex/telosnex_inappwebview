@@ -8,9 +8,9 @@ part 'ajax_request_event.g.dart';
 
 ///Class used by [AjaxRequest] class. It represents events measuring progress of an [AjaxRequest].
 @ExchangeableObject()
-class AjaxRequestEvent_ {
+class AjaxRequestEventSpec {
   ///Event type.
-  AjaxRequestEventType_? type;
+  AjaxRequestEventTypeSpec? type;
 
   ///Is a Boolean flag indicating if the total work to be done, and the amount of work already done, by the underlying process is calculable.
   ///In other words, it tells if the progress is measurable or not.
@@ -25,7 +25,7 @@ class AjaxRequestEvent_ {
   ///When downloading a resource using HTTP, this only represent the content itself, not headers and other overhead.
   int? total;
 
-  AjaxRequestEvent_({
+  AjaxRequestEventSpec({
     this.type,
     this.lengthComputable,
     this.loaded,

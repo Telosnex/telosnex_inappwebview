@@ -5,12 +5,12 @@ part 'process_failed_kind.g.dart';
 
 ///Class used to indicate the kind of process failure that has occurred.
 @ExchangeableEnum()
-class ProcessFailedKind_ {
+class ProcessFailedKindSpec {
   // ignore: unused_field
   final String _value;
   // ignore: unused_field
   final int? _nativeValue = null;
-  const ProcessFailedKind_._internal(this._value);
+  const ProcessFailedKindSpec._internal(this._value);
 
   ///Indicates that the browser process ended unexpectedly. The WebView automatically moves to the Closed state.
   ///The app has to recreate a new WebView to recover from this failure.
@@ -24,7 +24,7 @@ class ProcessFailedKind_ {
       ),
     ],
   )
-  static const BROWSER_PROCESS_EXITED = ProcessFailedKind_._internal(
+  static const BROWSER_PROCESS_EXITED = ProcessFailedKindSpec._internal(
     'BROWSER_PROCESS_EXITED',
   );
 
@@ -41,7 +41,7 @@ class ProcessFailedKind_ {
       ),
     ],
   )
-  static const RENDER_PROCESS_EXITED = ProcessFailedKind_._internal(
+  static const RENDER_PROCESS_EXITED = ProcessFailedKindSpec._internal(
     'RENDER_PROCESS_EXITED',
   );
 
@@ -68,7 +68,7 @@ class ProcessFailedKind_ {
       ),
     ],
   )
-  static const RENDER_PROCESS_UNRESPONSIVE = ProcessFailedKind_._internal(
+  static const RENDER_PROCESS_UNRESPONSIVE = ProcessFailedKindSpec._internal(
     'RENDER_PROCESS_UNRESPONSIVE',
   );
 
@@ -85,7 +85,7 @@ class ProcessFailedKind_ {
       ),
     ],
   )
-  static const FRAME_RENDER_PROCESS_EXITED = ProcessFailedKind_._internal(
+  static const FRAME_RENDER_PROCESS_EXITED = ProcessFailedKindSpec._internal(
     'FRAME_RENDER_PROCESS_EXITED',
   );
 
@@ -102,7 +102,7 @@ class ProcessFailedKind_ {
       ),
     ],
   )
-  static const UTILITY_PROCESS_EXITED = ProcessFailedKind_._internal(
+  static const UTILITY_PROCESS_EXITED = ProcessFailedKindSpec._internal(
     'UTILITY_PROCESS_EXITED',
   );
 
@@ -120,8 +120,9 @@ class ProcessFailedKind_ {
       ),
     ],
   )
-  static const SANDBOX_HELPER_PROCESS_EXITED =
-      ProcessFailedKind_._internal('SANDBOX_HELPER_PROCESS_EXITED');
+  static const SANDBOX_HELPER_PROCESS_EXITED = ProcessFailedKindSpec._internal(
+    'SANDBOX_HELPER_PROCESS_EXITED',
+  );
 
   ///Indicates that the GPU process ended unexpectedly.
   ///The failed process is recreated automatically.
@@ -136,7 +137,7 @@ class ProcessFailedKind_ {
       ),
     ],
   )
-  static const GPU_PROCESS_EXITED = ProcessFailedKind_._internal(
+  static const GPU_PROCESS_EXITED = ProcessFailedKindSpec._internal(
     'GPU_PROCESS_EXITED',
   );
 
@@ -153,7 +154,7 @@ class ProcessFailedKind_ {
       ),
     ],
   )
-  static const PPAPI_PLUGIN_PROCESS_EXITED = ProcessFailedKind_._internal(
+  static const PPAPI_PLUGIN_PROCESS_EXITED = ProcessFailedKindSpec._internal(
     'PPAPI_PLUGIN_PROCESS_EXITED',
   );
 
@@ -170,7 +171,7 @@ class ProcessFailedKind_ {
       ),
     ],
   )
-  static const PPAPI_BROKER_PROCESS_EXITED = ProcessFailedKind_._internal(
+  static const PPAPI_BROKER_PROCESS_EXITED = ProcessFailedKindSpec._internal(
     'PPAPI_BROKER_PROCESS_EXITED',
   );
 
@@ -185,7 +186,7 @@ class ProcessFailedKind_ {
       ),
     ],
   )
-  static const UNKNOWN_PROCESS_EXITED = ProcessFailedKind_._internal(
+  static const UNKNOWN_PROCESS_EXITED = ProcessFailedKindSpec._internal(
     'UNKNOWN_PROCESS_EXITED',
   );
 }

@@ -7,7 +7,7 @@ part 'printer.g.dart';
 
 ///Class representing the printer used by a [PlatformPrintJobController].
 @ExchangeableObject()
-class Printer_ {
+class PrinterSpec {
   ///The unique id of the printer.
   @SupportedPlatforms(platforms: [AndroidPlatform(), IOSPlatform()])
   String? id;
@@ -24,5 +24,5 @@ class Printer_ {
   @SupportedPlatforms(platforms: [MacOSPlatform()])
   String? name;
 
-  Printer_({this.id, this.type, this.languageLevel, this.name});
+  PrinterSpec({this.id, this.type, this.languageLevel, this.name});
 }

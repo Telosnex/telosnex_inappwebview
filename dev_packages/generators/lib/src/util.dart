@@ -14,6 +14,15 @@ final _coreCheckerObjectMethod = TypeChecker.typeNamedLiterally(
 );
 
 abstract class Util {
+  // The Spec suffix is reserved for handwritten inputs to code generation.
+  // Match whole identifiers so copied code keeps private names and constants.
+  static final _specName = RegExp(
+    r'(?<![\w$])([A-Z][a-zA-Z0-9]*)Spec(?![\w$])',
+  );
+
+  static String publicNames(String code) =>
+      code.replaceAllMapped(_specName, (match) => match[1]!);
+
   static bool typeIsNullable(DartType type) {
     return type.nullabilitySuffix != NullabilitySuffix.none ||
         type.toString() == 'dynamic';

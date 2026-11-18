@@ -9,7 +9,7 @@ part 'custom_scheme_response.g.dart';
 ///Class representing the response returned by the [PlatformWebViewCreationParams.onLoadResourceWithCustomScheme] event.
 ///It allows to load a specific resource. The resource data must be encoded to `base64`.
 @ExchangeableObject()
-class CustomSchemeResponse_ {
+class CustomSchemeResponseSpec {
   ///Data enconded to 'base64'.
   Uint8List data;
 
@@ -19,7 +19,7 @@ class CustomSchemeResponse_ {
   ///Content-Encoding of the data, such as `utf-8`.
   String contentEncoding;
 
-  CustomSchemeResponse_({
+  CustomSchemeResponseSpec({
     required this.data,
     required this.contentType,
     this.contentEncoding = 'utf-8',

@@ -7,7 +7,7 @@ part 'save_as_ui_showing_response.g.dart';
 
 ///Class that represents the response used by the [PlatformWebViewCreationParams.onSaveAsUIShowing] event.
 @ExchangeableObject()
-class SaveAsUIShowingResponse_ {
+class SaveAsUIShowingResponseSpec {
   ///Whether to cancel the Save As action.
   bool? cancel;
 
@@ -21,9 +21,9 @@ class SaveAsUIShowingResponse_ {
   bool? allowReplace;
 
   ///The save-as kind for the operation.
-  SaveAsKind_? kind;
+  SaveAsKindSpec? kind;
 
-  SaveAsUIShowingResponse_({
+  SaveAsUIShowingResponseSpec({
     this.cancel,
     this.suppressDefaultDialog,
     this.saveAsFilePath,

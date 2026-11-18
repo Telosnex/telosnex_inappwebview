@@ -7,7 +7,7 @@ part 'geolocation_permission_show_prompt_response.g.dart';
 
 ///Class used by the host application to set the Geolocation permission state for an origin during the [PlatformWebViewCreationParams.onGeolocationPermissionsShowPrompt] event.
 @ExchangeableObject()
-class GeolocationPermissionShowPromptResponse_ {
+class GeolocationPermissionShowPromptResponseSpec {
   ///The origin for which permissions are set.
   String origin;
 
@@ -18,7 +18,7 @@ class GeolocationPermissionShowPromptResponse_ {
   ///The default value is `false`.
   bool retain;
 
-  GeolocationPermissionShowPromptResponse_({
+  GeolocationPermissionShowPromptResponseSpec({
     required this.origin,
     required this.allow,
     this.retain = false,

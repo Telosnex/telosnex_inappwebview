@@ -8,7 +8,7 @@ part 'web_storage_origin.g.dart';
 ///Class that encapsulates information about the amount of storage currently used by an origin for the JavaScript storage APIs.
 ///An origin comprises the host, scheme and port of a URI. See [PlatformWebStorageManager] for details.
 @ExchangeableObject()
-class WebStorageOrigin_ {
+class WebStorageOriginSpec {
   ///The string representation of this origin.
   String? origin;
 
@@ -18,7 +18,7 @@ class WebStorageOrigin_ {
   ///The total amount of storage currently being used by this origin, for all JavaScript storage APIs, in bytes.
   int? usage;
 
-  WebStorageOrigin_({this.origin, this.quota, this.usage});
+  WebStorageOriginSpec({this.origin, this.quota, this.usage});
 }
 
 ///Class that encapsulates information about the amount of storage currently used by an origin for the JavaScript storage APIs.
@@ -26,7 +26,7 @@ class WebStorageOrigin_ {
 ///Use [WebStorageOrigin] instead.
 @Deprecated("Use WebStorageOrigin instead")
 @ExchangeableObject()
-class AndroidWebStorageOrigin_ {
+class AndroidWebStorageOriginSpec {
   ///The string representation of this origin.
   String? origin;
 
@@ -36,5 +36,5 @@ class AndroidWebStorageOrigin_ {
   ///The total amount of storage currently being used by this origin, for all JavaScript storage APIs, in bytes.
   int? usage;
 
-  AndroidWebStorageOrigin_({this.origin, this.quota, this.usage});
+  AndroidWebStorageOriginSpec({this.origin, this.quota, this.usage});
 }

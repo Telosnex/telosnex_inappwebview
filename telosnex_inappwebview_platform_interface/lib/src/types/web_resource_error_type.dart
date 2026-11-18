@@ -5,13 +5,13 @@ part 'web_resource_error_type.g.dart';
 
 ///Class that represents the error types returned by URL loading APIs.
 @ExchangeableEnum()
-class WebResourceErrorType_ {
+class WebResourceErrorTypeSpec {
   // ignore: unused_field
   final String _value;
   // ignore: unused_field
   final int? _nativeValue = null;
 
-  const WebResourceErrorType_._internal(this._value);
+  const WebResourceErrorTypeSpec._internal(this._value);
 
   ///User authentication failed on server.
   @EnumSupportedPlatforms(
@@ -24,7 +24,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const USER_AUTHENTICATION_FAILED = WebResourceErrorType_._internal(
+  static const USER_AUTHENTICATION_FAILED = WebResourceErrorTypeSpec._internal(
     "USER_AUTHENTICATION_FAILED",
   );
 
@@ -51,7 +51,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const BAD_URL = WebResourceErrorType_._internal("BAD_URL");
+  static const BAD_URL = WebResourceErrorTypeSpec._internal("BAD_URL");
 
   ///Failed to connect to the server.
   @EnumSupportedPlatforms(
@@ -88,7 +88,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const CANNOT_CONNECT_TO_HOST = WebResourceErrorType_._internal(
+  static const CANNOT_CONNECT_TO_HOST = WebResourceErrorTypeSpec._internal(
     "CANNOT_CONNECT_TO_HOST",
   );
 
@@ -103,7 +103,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const FAILED_SSL_HANDSHAKE = WebResourceErrorType_._internal(
+  static const FAILED_SSL_HANDSHAKE = WebResourceErrorTypeSpec._internal(
     "FAILED_SSL_HANDSHAKE",
   );
 
@@ -118,7 +118,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const GENERIC_FILE_ERROR = WebResourceErrorType_._internal(
+  static const GENERIC_FILE_ERROR = WebResourceErrorTypeSpec._internal(
     "GENERIC_FILE_ERROR",
   );
 
@@ -151,7 +151,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const FILE_NOT_FOUND = WebResourceErrorType_._internal(
+  static const FILE_NOT_FOUND = WebResourceErrorTypeSpec._internal(
     "FILE_NOT_FOUND",
   );
 
@@ -190,7 +190,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const HOST_LOOKUP = WebResourceErrorType_._internal("HOST_LOOKUP");
+  static const HOST_LOOKUP = WebResourceErrorTypeSpec._internal("HOST_LOOKUP");
 
   ///Failed to read or write to the server.
   @EnumSupportedPlatforms(
@@ -203,7 +203,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const IO = WebResourceErrorType_._internal("IO");
+  static const IO = WebResourceErrorTypeSpec._internal("IO");
 
   ///User authentication failed on proxy.
   @EnumSupportedPlatforms(
@@ -216,7 +216,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const PROXY_AUTHENTICATION = WebResourceErrorType_._internal(
+  static const PROXY_AUTHENTICATION = WebResourceErrorTypeSpec._internal(
     "PROXY_AUTHENTICATION",
   );
 
@@ -243,7 +243,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const TOO_MANY_REDIRECTS = WebResourceErrorType_._internal(
+  static const TOO_MANY_REDIRECTS = WebResourceErrorTypeSpec._internal(
     "TOO_MANY_REDIRECTS",
   );
 
@@ -276,7 +276,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const TIMEOUT = WebResourceErrorType_._internal("TIMEOUT");
+  static const TIMEOUT = WebResourceErrorTypeSpec._internal("TIMEOUT");
 
   ///Too many requests during this load.
   @EnumSupportedPlatforms(
@@ -289,7 +289,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const TOO_MANY_REQUESTS = WebResourceErrorType_._internal(
+  static const TOO_MANY_REQUESTS = WebResourceErrorTypeSpec._internal(
     "TOO_MANY_REQUESTS",
   );
 
@@ -328,7 +328,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const UNKNOWN = WebResourceErrorType_._internal("UNKNOWN");
+  static const UNKNOWN = WebResourceErrorTypeSpec._internal("UNKNOWN");
 
   ///Resource load was canceled by Safe Browsing.
   @EnumSupportedPlatforms(
@@ -341,7 +341,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const UNSAFE_RESOURCE = WebResourceErrorType_._internal(
+  static const UNSAFE_RESOURCE = WebResourceErrorTypeSpec._internal(
     "UNSAFE_RESOURCE",
   );
 
@@ -356,7 +356,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const UNSUPPORTED_AUTH_SCHEME = WebResourceErrorType_._internal(
+  static const UNSUPPORTED_AUTH_SCHEME = WebResourceErrorTypeSpec._internal(
     "UNSUPPORTED_AUTH_SCHEME",
   );
 
@@ -390,7 +390,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const UNSUPPORTED_SCHEME = WebResourceErrorType_._internal(
+  static const UNSUPPORTED_SCHEME = WebResourceErrorTypeSpec._internal(
     "UNSUPPORTED_SCHEME",
   );
 
@@ -423,7 +423,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const CANCELLED = WebResourceErrorType_._internal("CANCELLED");
+  static const CANCELLED = WebResourceErrorTypeSpec._internal("CANCELLED");
 
   ///A client or server connection was severed in the middle of an in-progress load.
   @EnumSupportedPlatforms(
@@ -448,7 +448,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const NETWORK_CONNECTION_LOST = WebResourceErrorType_._internal(
+  static const NETWORK_CONNECTION_LOST = WebResourceErrorTypeSpec._internal(
     "NETWORK_CONNECTION_LOST",
   );
 
@@ -470,7 +470,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const RESOURCE_UNAVAILABLE = WebResourceErrorType_._internal(
+  static const RESOURCE_UNAVAILABLE = WebResourceErrorTypeSpec._internal(
     "RESOURCE_UNAVAILABLE",
   );
 
@@ -491,7 +491,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const NOT_CONNECTED_TO_INTERNET = WebResourceErrorType_._internal(
+  static const NOT_CONNECTED_TO_INTERNET = WebResourceErrorTypeSpec._internal(
     "NOT_CONNECTED_TO_INTERNET",
   );
 
@@ -513,7 +513,7 @@ class WebResourceErrorType_ {
     ],
   )
   static const REDIRECT_TO_NON_EXISTENT_LOCATION =
-      WebResourceErrorType_._internal("REDIRECT_TO_NON_EXISTENT_LOCATION");
+      WebResourceErrorTypeSpec._internal("REDIRECT_TO_NON_EXISTENT_LOCATION");
 
   ///The URL Loading System received bad data from the server.
   @EnumSupportedPlatforms(
@@ -539,7 +539,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const BAD_SERVER_RESPONSE = WebResourceErrorType_._internal(
+  static const BAD_SERVER_RESPONSE = WebResourceErrorTypeSpec._internal(
     "BAD_SERVER_RESPONSE",
   );
 
@@ -561,9 +561,8 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const USER_CANCELLED_AUTHENTICATION = WebResourceErrorType_._internal(
-    "USER_CANCELLED_AUTHENTICATION",
-  );
+  static const USER_CANCELLED_AUTHENTICATION =
+      WebResourceErrorTypeSpec._internal("USER_CANCELLED_AUTHENTICATION");
 
   ///Authentication is required to access a resource.
   @EnumSupportedPlatforms(
@@ -589,9 +588,8 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const USER_AUTHENTICATION_REQUIRED = WebResourceErrorType_._internal(
-    "USER_AUTHENTICATION_REQUIRED",
-  );
+  static const USER_AUTHENTICATION_REQUIRED =
+      WebResourceErrorTypeSpec._internal("USER_AUTHENTICATION_REQUIRED");
 
   ///A server reported that a URL has a non-zero content length, but terminated the network connection gracefully without sending any data.
   @EnumSupportedPlatforms(
@@ -610,7 +608,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const ZERO_BYTE_RESOURCE = WebResourceErrorType_._internal(
+  static const ZERO_BYTE_RESOURCE = WebResourceErrorTypeSpec._internal(
     "ZERO_BYTE_RESOURCE",
   );
 
@@ -631,7 +629,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const CANNOT_DECODE_RAW_DATA = WebResourceErrorType_._internal(
+  static const CANNOT_DECODE_RAW_DATA = WebResourceErrorTypeSpec._internal(
     "CANNOT_DECODE_RAW_DATA",
   );
 
@@ -652,7 +650,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const CANNOT_DECODE_CONTENT_DATA = WebResourceErrorType_._internal(
+  static const CANNOT_DECODE_CONTENT_DATA = WebResourceErrorTypeSpec._internal(
     "CANNOT_DECODE_CONTENT_DATA",
   );
 
@@ -673,7 +671,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const CANNOT_PARSE_RESPONSE = WebResourceErrorType_._internal(
+  static const CANNOT_PARSE_RESPONSE = WebResourceErrorTypeSpec._internal(
     "CANNOT_PARSE_RESPONSE",
   );
 
@@ -695,7 +693,7 @@ class WebResourceErrorType_ {
     ],
   )
   static const APP_TRANSPORT_SECURITY_REQUIRES_SECURE_CONNECTION =
-      WebResourceErrorType_._internal(
+      WebResourceErrorTypeSpec._internal(
         "APP_TRANSPORT_SECURITY_REQUIRES_SECURE_CONNECTION",
       );
 
@@ -716,7 +714,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const FILE_IS_DIRECTORY = WebResourceErrorType_._internal(
+  static const FILE_IS_DIRECTORY = WebResourceErrorTypeSpec._internal(
     "FILE_IS_DIRECTORY",
   );
 
@@ -737,7 +735,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const NO_PERMISSIONS_TO_READ_FILE = WebResourceErrorType_._internal(
+  static const NO_PERMISSIONS_TO_READ_FILE = WebResourceErrorTypeSpec._internal(
     "NO_PERMISSIONS_TO_READ_FILE",
   );
 
@@ -758,7 +756,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const DATA_LENGTH_EXCEEDS_MAXIMUM = WebResourceErrorType_._internal(
+  static const DATA_LENGTH_EXCEEDS_MAXIMUM = WebResourceErrorTypeSpec._internal(
     "DATA_LENGTH_EXCEEDS_MAXIMUM",
   );
 
@@ -784,7 +782,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const SECURE_CONNECTION_FAILED = WebResourceErrorType_._internal(
+  static const SECURE_CONNECTION_FAILED = WebResourceErrorTypeSpec._internal(
     "SECURE_CONNECTION_FAILED",
   );
 
@@ -811,7 +809,7 @@ class WebResourceErrorType_ {
     ],
   )
   static const SERVER_CERTIFICATE_HAS_BAD_DATE =
-      WebResourceErrorType_._internal("SERVER_CERTIFICATE_HAS_BAD_DATE");
+      WebResourceErrorTypeSpec._internal("SERVER_CERTIFICATE_HAS_BAD_DATE");
 
   ///A server certificate was signed by a root server that isn’t trusted.
   @EnumSupportedPlatforms(
@@ -835,9 +833,8 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const SERVER_CERTIFICATE_UNTRUSTED = WebResourceErrorType_._internal(
-    "SERVER_CERTIFICATE_UNTRUSTED",
-  );
+  static const SERVER_CERTIFICATE_UNTRUSTED =
+      WebResourceErrorTypeSpec._internal("SERVER_CERTIFICATE_UNTRUSTED");
 
   ///A server certificate was not signed by any root server.
   @EnumSupportedPlatforms(
@@ -857,7 +854,7 @@ class WebResourceErrorType_ {
     ],
   )
   static const SERVER_CERTIFICATE_HAS_UNKNOWN_ROOT =
-      WebResourceErrorType_._internal("SERVER_CERTIFICATE_HAS_UNKNOWN_ROOT");
+      WebResourceErrorTypeSpec._internal("SERVER_CERTIFICATE_HAS_UNKNOWN_ROOT");
 
   ///A server certificate is not yet valid.
   @EnumSupportedPlatforms(
@@ -882,7 +879,7 @@ class WebResourceErrorType_ {
     ],
   )
   static const SERVER_CERTIFICATE_NOT_YET_VALID =
-      WebResourceErrorType_._internal("SERVER_CERTIFICATE_NOT_YET_VALID");
+      WebResourceErrorTypeSpec._internal("SERVER_CERTIFICATE_NOT_YET_VALID");
 
   ///A server certificate was rejected.
   @EnumSupportedPlatforms(
@@ -901,7 +898,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const CLIENT_CERTIFICATE_REJECTED = WebResourceErrorType_._internal(
+  static const CLIENT_CERTIFICATE_REJECTED = WebResourceErrorTypeSpec._internal(
     "CLIENT_CERTIFICATE_REJECTED",
   );
 
@@ -922,7 +919,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const CLIENT_CERTIFICATE_REQUIRED = WebResourceErrorType_._internal(
+  static const CLIENT_CERTIFICATE_REQUIRED = WebResourceErrorTypeSpec._internal(
     "CLIENT_CERTIFICATE_REQUIRED",
   );
 
@@ -943,7 +940,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const CANNOT_LOAD_FROM_NETWORK = WebResourceErrorType_._internal(
+  static const CANNOT_LOAD_FROM_NETWORK = WebResourceErrorTypeSpec._internal(
     "CANNOT_LOAD_FROM_NETWORK",
   );
 
@@ -964,7 +961,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const CANNOT_CREATE_FILE = WebResourceErrorType_._internal(
+  static const CANNOT_CREATE_FILE = WebResourceErrorTypeSpec._internal(
     "CANNOT_CREATE_FILE",
   );
 
@@ -985,7 +982,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const CANNOT_OPEN_FILE = WebResourceErrorType_._internal(
+  static const CANNOT_OPEN_FILE = WebResourceErrorTypeSpec._internal(
     "CANNOT_OPEN_FILE",
   );
 
@@ -1006,7 +1003,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const CANNOT_CLOSE_FILE = WebResourceErrorType_._internal(
+  static const CANNOT_CLOSE_FILE = WebResourceErrorTypeSpec._internal(
     "CANNOT_CLOSE_FILE",
   );
 
@@ -1027,7 +1024,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const CANNOT_WRITE_TO_FILE = WebResourceErrorType_._internal(
+  static const CANNOT_WRITE_TO_FILE = WebResourceErrorTypeSpec._internal(
     "CANNOT_WRITE_TO_FILE",
   );
 
@@ -1048,7 +1045,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const CANNOT_REMOVE_FILE = WebResourceErrorType_._internal(
+  static const CANNOT_REMOVE_FILE = WebResourceErrorTypeSpec._internal(
     "CANNOT_REMOVE_FILE",
   );
 
@@ -1069,7 +1066,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const CANNOT_MOVE_FILE = WebResourceErrorType_._internal(
+  static const CANNOT_MOVE_FILE = WebResourceErrorTypeSpec._internal(
     "CANNOT_MOVE_FILE",
   );
 
@@ -1091,7 +1088,7 @@ class WebResourceErrorType_ {
     ],
   )
   static const DOWNLOAD_DECODING_FAILED_MID_STREAM =
-      WebResourceErrorType_._internal("DOWNLOAD_DECODING_FAILED_MID_STREAM");
+      WebResourceErrorTypeSpec._internal("DOWNLOAD_DECODING_FAILED_MID_STREAM");
 
   ///A download task failed to decode an encoded file after downloading.
   @EnumSupportedPlatforms(
@@ -1111,7 +1108,9 @@ class WebResourceErrorType_ {
     ],
   )
   static const DOWNLOAD_DECODING_FAILED_TO_COMPLETE =
-      WebResourceErrorType_._internal("DOWNLOAD_DECODING_FAILED_TO_COMPLETE");
+      WebResourceErrorTypeSpec._internal(
+        "DOWNLOAD_DECODING_FAILED_TO_COMPLETE",
+      );
 
   ///The attempted connection required activating a data context while roaming, but international roaming is disabled.
   @EnumSupportedPlatforms(
@@ -1130,7 +1129,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const INTERNATIONAL_ROAMING_OFF = WebResourceErrorType_._internal(
+  static const INTERNATIONAL_ROAMING_OFF = WebResourceErrorTypeSpec._internal(
     "INTERNATIONAL_ROAMING_OFF",
   );
 
@@ -1151,7 +1150,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const CALL_IS_ACTIVE = WebResourceErrorType_._internal(
+  static const CALL_IS_ACTIVE = WebResourceErrorTypeSpec._internal(
     "CALL_IS_ACTIVE",
   );
 
@@ -1172,7 +1171,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const DATA_NOT_ALLOWED = WebResourceErrorType_._internal(
+  static const DATA_NOT_ALLOWED = WebResourceErrorTypeSpec._internal(
     "DATA_NOT_ALLOWED",
   );
 
@@ -1193,9 +1192,8 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const REQUEST_BODY_STREAM_EXHAUSTED = WebResourceErrorType_._internal(
-    "REQUEST_BODY_STREAM_EXHAUSTED",
-  );
+  static const REQUEST_BODY_STREAM_EXHAUSTED =
+      WebResourceErrorTypeSpec._internal("REQUEST_BODY_STREAM_EXHAUSTED");
 
   ///The shared container identifier of the URL session configuration is needed but has not been set.
   @EnumSupportedPlatforms(
@@ -1215,7 +1213,7 @@ class WebResourceErrorType_ {
     ],
   )
   static const BACKGROUND_SESSION_REQUIRES_SHARED_CONTAINER =
-      WebResourceErrorType_._internal(
+      WebResourceErrorTypeSpec._internal(
         "BACKGROUND_SESSION_REQUIRES_SHARED_CONTAINER",
       );
 
@@ -1237,7 +1235,7 @@ class WebResourceErrorType_ {
     ],
   )
   static const BACKGROUND_SESSION_IN_USE_BY_ANOTHER_PROCESS =
-      WebResourceErrorType_._internal(
+      WebResourceErrorTypeSpec._internal(
         "BACKGROUND_SESSION_IN_USE_BY_ANOTHER_PROCESS",
       );
 
@@ -1259,7 +1257,7 @@ class WebResourceErrorType_ {
     ],
   )
   static const BACKGROUND_SESSION_WAS_DISCONNECTED =
-      WebResourceErrorType_._internal("BACKGROUND_SESSION_WAS_DISCONNECTED");
+      WebResourceErrorTypeSpec._internal("BACKGROUND_SESSION_WAS_DISCONNECTED");
 
   ///Indicates that the host is unreachable.
   @EnumSupportedPlatforms(
@@ -1272,7 +1270,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const SERVER_UNREACHABLE = WebResourceErrorType_._internal(
+  static const SERVER_UNREACHABLE = WebResourceErrorTypeSpec._internal(
     "SERVER_UNREACHABLE",
   );
 
@@ -1287,7 +1285,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const CONNECTION_ABORTED = WebResourceErrorType_._internal(
+  static const CONNECTION_ABORTED = WebResourceErrorTypeSpec._internal(
     "CONNECTION_ABORTED",
   );
 
@@ -1302,7 +1300,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const RESET = WebResourceErrorType_._internal("RESET");
+  static const RESET = WebResourceErrorTypeSpec._internal("RESET");
 
   ///Indicates that the request redirect failed.
   @EnumSupportedPlatforms(
@@ -1315,7 +1313,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const REDIRECT_FAILED = WebResourceErrorType_._internal(
+  static const REDIRECT_FAILED = WebResourceErrorTypeSpec._internal(
     "REDIRECT_FAILED",
   );
 
@@ -1330,7 +1328,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const UNEXPECTED_ERROR = WebResourceErrorType_._internal(
+  static const UNEXPECTED_ERROR = WebResourceErrorTypeSpec._internal(
     "UNEXPECTED_ERROR",
   );
 
@@ -1347,7 +1345,7 @@ class WebResourceErrorType_ {
     ],
   )
   static const VALID_PROXY_AUTHENTICATION_REQUIRED =
-      WebResourceErrorType_._internal("VALID_PROXY_AUTHENTICATION_REQUIRED");
+      WebResourceErrorTypeSpec._internal("VALID_PROXY_AUTHENTICATION_REQUIRED");
 
   ///Generic policy error.
   @EnumSupportedPlatforms(
@@ -1360,7 +1358,9 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const POLICY_FAILED = WebResourceErrorType_._internal("POLICY_FAILED");
+  static const POLICY_FAILED = WebResourceErrorTypeSpec._internal(
+    "POLICY_FAILED",
+  );
 
   ///The MIME type of the resource is not supported.
   @EnumSupportedPlatforms(
@@ -1373,7 +1373,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const CANNOT_SHOW_MIME_TYPE = WebResourceErrorType_._internal(
+  static const CANNOT_SHOW_MIME_TYPE = WebResourceErrorTypeSpec._internal(
     "CANNOT_SHOW_MIME_TYPE",
   );
 
@@ -1388,7 +1388,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const CANNOT_SHOW_URI = WebResourceErrorType_._internal(
+  static const CANNOT_SHOW_URI = WebResourceErrorTypeSpec._internal(
     "CANNOT_SHOW_URI",
   );
 
@@ -1404,7 +1404,7 @@ class WebResourceErrorType_ {
     ],
   )
   static const FRAME_LOAD_INTERRUPTED_BY_POLICY_CHANGE =
-      WebResourceErrorType_._internal(
+      WebResourceErrorTypeSpec._internal(
         "FRAME_LOAD_INTERRUPTED_BY_POLICY_CHANGE",
       );
 
@@ -1419,7 +1419,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const CANNOT_USE_RESTRICTED_PORT = WebResourceErrorType_._internal(
+  static const CANNOT_USE_RESTRICTED_PORT = WebResourceErrorTypeSpec._internal(
     "CANNOT_USE_RESTRICTED_PORT",
   );
 
@@ -1434,7 +1434,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const DOWNLOAD_NETWORK_FAILED = WebResourceErrorType_._internal(
+  static const DOWNLOAD_NETWORK_FAILED = WebResourceErrorTypeSpec._internal(
     "DOWNLOAD_NETWORK_FAILED",
   );
 
@@ -1449,7 +1449,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const DOWNLOAD_CANCELLED_BY_USER = WebResourceErrorType_._internal(
+  static const DOWNLOAD_CANCELLED_BY_USER = WebResourceErrorTypeSpec._internal(
     "DOWNLOAD_CANCELLED_BY_USER",
   );
 
@@ -1464,7 +1464,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const DOWNLOAD_DESTINATION_FAILED = WebResourceErrorType_._internal(
+  static const DOWNLOAD_DESTINATION_FAILED = WebResourceErrorTypeSpec._internal(
     "DOWNLOAD_DESTINATION_FAILED",
   );
 
@@ -1479,7 +1479,7 @@ class WebResourceErrorType_ {
     ],
   )
   static const SERVER_CERTIFICATE_BAD_IDENTITY =
-      WebResourceErrorType_._internal("SERVER_CERTIFICATE_BAD_IDENTITY");
+      WebResourceErrorTypeSpec._internal("SERVER_CERTIFICATE_BAD_IDENTITY");
 
   ///The certificate has been revoked.
   @EnumSupportedPlatforms(
@@ -1491,7 +1491,7 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const SERVER_CERTIFICATE_REVOKED = WebResourceErrorType_._internal(
+  static const SERVER_CERTIFICATE_REVOKED = WebResourceErrorTypeSpec._internal(
     "SERVER_CERTIFICATE_REVOKED",
   );
 
@@ -1505,7 +1505,6 @@ class WebResourceErrorType_ {
       ),
     ],
   )
-  static const TLS_CERTIFICATE_GENERIC_ERROR = WebResourceErrorType_._internal(
-    "TLS_CERTIFICATE_GENERIC_ERROR",
-  );
+  static const TLS_CERTIFICATE_GENERIC_ERROR =
+      WebResourceErrorTypeSpec._internal("TLS_CERTIFICATE_GENERIC_ERROR");
 }

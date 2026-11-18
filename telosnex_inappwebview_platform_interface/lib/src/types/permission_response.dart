@@ -9,18 +9,18 @@ part 'permission_response.g.dart';
 
 ///Class that represents the response used by the [PlatformWebViewCreationParams.onPermissionRequest] event.
 @ExchangeableObject()
-class PermissionResponse_ {
+class PermissionResponseSpec {
   ///Resources granted to be accessed by origin.
   ///
   ///**NOTE for iOS, macOS and Windows**: not used. The [action] taken is based on the [PermissionRequest.resources].
-  List<PermissionResourceType_> resources;
+  List<PermissionResourceTypeSpec> resources;
 
   ///Indicate the [PermissionResponseAction] to take in response of a permission request.
-  PermissionResponseAction_? action;
+  PermissionResponseActionSpec? action;
 
-  PermissionResponse_({
+  PermissionResponseSpec({
     this.resources = const [],
-    this.action = PermissionResponseAction_.DENY,
+    this.action = PermissionResponseActionSpec.DENY,
   });
 }
 
@@ -28,15 +28,15 @@ class PermissionResponse_ {
 ///Use [PermissionResponse] instead.
 @Deprecated("Use PermissionResponse instead")
 @ExchangeableObject()
-class PermissionRequestResponse_ {
+class PermissionRequestResponseSpec {
   ///Resources granted to be accessed by origin.
   List<String> resources;
 
   ///Indicate the [PermissionRequestResponseAction] to take in response of a permission request.
-  PermissionRequestResponseAction_? action;
+  PermissionRequestResponseActionSpec? action;
 
-  PermissionRequestResponse_({
+  PermissionRequestResponseSpec({
     this.resources = const [],
-    this.action = PermissionRequestResponseAction_.DENY,
+    this.action = PermissionRequestResponseActionSpec.DENY,
   });
 }

@@ -6,18 +6,18 @@ part 'content_blocker_trigger_load_type.g.dart';
 
 ///Class that represents the possible load type for a [ContentBlockerTrigger].
 @ExchangeableEnum()
-class ContentBlockerTriggerLoadType_ {
+class ContentBlockerTriggerLoadTypeSpec {
   // ignore: unused_field
   final String _value;
-  const ContentBlockerTriggerLoadType_._internal(this._value);
+  const ContentBlockerTriggerLoadTypeSpec._internal(this._value);
 
   ///FIRST_PARTY is triggered only if the resource has the same scheme, domain, and port as the main page resource.
-  static const FIRST_PARTY = ContentBlockerTriggerLoadType_._internal(
+  static const FIRST_PARTY = ContentBlockerTriggerLoadTypeSpec._internal(
     'first-party',
   );
 
   ///THIRD_PARTY is triggered if the resource is not from the same domain as the main page resource.
-  static const THIRD_PARTY = ContentBlockerTriggerLoadType_._internal(
+  static const THIRD_PARTY = ContentBlockerTriggerLoadTypeSpec._internal(
     'third-party',
   );
 }

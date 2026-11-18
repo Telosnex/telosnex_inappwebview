@@ -29,7 +29,7 @@ List<X509Certificate>? _certificatesDeserializer(
 ///Class that represents an authentication credential consisting of information
 ///specific to the type of credential and the type of persistent storage to use, if any.
 @ExchangeableObject()
-class URLCredential_ {
+class URLCredentialSpec {
   ///The credential’s user name.
   String? username;
 
@@ -48,13 +48,13 @@ class URLCredential_ {
 
   ///Use [persistence] instead.
   @Deprecated("Use persistence instead")
-  IOSURLCredentialPersistence_? iosPersistence;
+  IOSURLCredentialPersistenceSpec? iosPersistence;
 
   ///The credential’s persistence setting.
   @SupportedPlatforms(platforms: [IOSPlatform(), MacOSPlatform()])
-  URLCredentialPersistence_? persistence;
+  URLCredentialPersistenceSpec? persistence;
 
-  URLCredential_({
+  URLCredentialSpec({
     this.username,
     this.password,
     @Deprecated("Use certificates instead") this.iosPersistence,

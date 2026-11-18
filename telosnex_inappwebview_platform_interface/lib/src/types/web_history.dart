@@ -7,12 +7,12 @@ part 'web_history.g.dart';
 
 ///This class contains a snapshot of the current back/forward list for a `WebView`.
 @ExchangeableObject()
-class WebHistory_ {
+class WebHistorySpec {
   ///List of all [WebHistoryItem]s.
-  List<WebHistoryItem_>? list;
+  List<WebHistoryItemSpec>? list;
 
   ///Index of the current [WebHistoryItem].
   int? currentIndex;
 
-  WebHistory_({this.list, this.currentIndex});
+  WebHistorySpec({this.list, this.currentIndex});
 }

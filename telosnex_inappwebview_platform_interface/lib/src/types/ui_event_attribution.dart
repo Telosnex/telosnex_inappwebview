@@ -16,7 +16,7 @@ part 'ui_event_attribution.g.dart';
 ///**Officially Supported Platforms/Implementations**:
 ///- iOS
 @ExchangeableObject()
-class UIEventAttribution_ {
+class UIEventAttributionSpec {
   ///An 8-bit number that identifies the source of the click for attribution. Value must be between 0 and 255.
   int sourceIdentifier;
 
@@ -30,7 +30,7 @@ class UIEventAttribution_ {
   String purchaser;
 
   @ExchangeableObjectConstructor()
-  UIEventAttribution_({
+  UIEventAttributionSpec({
     required this.sourceIdentifier,
     required this.destinationURL,
     required this.sourceDescription,

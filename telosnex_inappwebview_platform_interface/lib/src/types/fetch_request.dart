@@ -40,7 +40,7 @@ FetchRequestCredential? _fetchRequestCredentialDeserializer(
 
 ///Class that represents a HTTP request created with JavaScript using the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch).
 @ExchangeableObject()
-class FetchRequest_ {
+class FetchRequestSpec {
   ///The URL of the request.
   WebUri? url;
 
@@ -58,7 +58,7 @@ class FetchRequest_ {
 
   ///The request credentials used by the request.
   @ExchangeableObjectProperty(deserializer: _fetchRequestCredentialDeserializer)
-  FetchRequestCredential_? credentials;
+  FetchRequestCredentialSpec? credentials;
 
   ///The cache mode used by the request.
   String? cache;
@@ -70,7 +70,7 @@ class FetchRequest_ {
   String? referrer;
 
   ///The value of the referer HTTP header.
-  ReferrerPolicy_? referrerPolicy;
+  ReferrerPolicySpec? referrerPolicy;
 
   ///Contains the subresource integrity value of the request.
   String? integrity;
@@ -79,9 +79,9 @@ class FetchRequest_ {
   bool? keepalive;
 
   ///Indicates the [FetchRequestAction] that can be used to control the request.
-  FetchRequestAction_? action;
+  FetchRequestActionSpec? action;
 
-  FetchRequest_({
+  FetchRequestSpec({
     this.url,
     this.method,
     this.headers,
@@ -94,6 +94,6 @@ class FetchRequest_ {
     this.referrerPolicy,
     this.integrity,
     this.keepalive,
-    this.action = FetchRequestAction_.PROCEED,
+    this.action = FetchRequestActionSpec.PROCEED,
   });
 }

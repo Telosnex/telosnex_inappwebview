@@ -12,7 +12,7 @@ part 'http_authentication_challenge.g.dart';
 ///Class that represents the challenge of the [PlatformWebViewCreationParams.onReceivedHttpAuthRequest] event.
 ///It provides all the information about the challenge.
 @ExchangeableObject()
-class HttpAuthenticationChallenge_ extends URLAuthenticationChallenge_ {
+class HttpAuthenticationChallengeSpec extends URLAuthenticationChallengeSpec {
   ///A count of previous failed authentication attempts.
   int previousFailureCount;
 
@@ -22,17 +22,17 @@ class HttpAuthenticationChallenge_ extends URLAuthenticationChallenge_ {
   ///If the proposed credential is not nil and returns true when you call its hasPassword method, then the credential is ready to use as-is.
   ///If the proposed credential’s hasPassword method returns false, then the credential provides a default user name,
   ///and the client must prompt the user for a corresponding password.
-  URLCredential_? proposedCredential;
+  URLCredentialSpec? proposedCredential;
 
   ///Use [failureResponse] instead.
   @Deprecated("Use failureResponse instead")
-  IOSURLResponse_? iosFailureResponse;
+  IOSURLResponseSpec? iosFailureResponse;
 
   ///The URL response object representing the last authentication failure.
   ///This value is `null` if the protocol doesn’t use responses to indicate an authentication failure.
   ///
   ///**NOTE**: available only on iOS.
-  URLResponse_? failureResponse;
+  URLResponseSpec? failureResponse;
 
   ///Use [error] instead.
   @Deprecated("Use error instead")
@@ -44,7 +44,7 @@ class HttpAuthenticationChallenge_ extends URLAuthenticationChallenge_ {
   ///**NOTE**: available only on iOS.
   String? error;
 
-  HttpAuthenticationChallenge_({
+  HttpAuthenticationChallengeSpec({
     required this.previousFailureCount,
     required super.protectionSpace,
     @Deprecated("Use failureResponse instead") this.iosFailureResponse,

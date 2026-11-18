@@ -8,14 +8,14 @@ part 'browser_process_exited_detail.g.dart';
 
 ///An object that contains information for the [PlatformWebViewEnvironment.onBrowserProcessExited] event.
 @ExchangeableObject()
-class BrowserProcessExitedDetail_ {
+class BrowserProcessExitedDetailSpec {
   ///The kind of browser process exit that has occurred.
   @SupportedPlatforms(platforms: [WindowsPlatform()])
-  BrowserProcessExitKind_ kind;
+  BrowserProcessExitKindSpec kind;
 
   ///The process ID of the browser process that has exited.
   @SupportedPlatforms(platforms: [WindowsPlatform()])
   int? processId;
 
-  BrowserProcessExitedDetail_({required this.kind, this.processId});
+  BrowserProcessExitedDetailSpec({required this.kind, this.processId});
 }

@@ -6,28 +6,28 @@ part 'show_file_chooser_request_mode.g.dart';
 
 ///It represents file chooser mode of a [ShowFileChooserRequest].
 @ExchangeableEnum()
-class ShowFileChooserRequestMode_ {
+class ShowFileChooserRequestModeSpec {
   // ignore: unused_field
   final int _value;
   // ignore: unused_field
   final int? _nativeValue = null;
-  const ShowFileChooserRequestMode_._internal(this._value);
+  const ShowFileChooserRequestModeSpec._internal(this._value);
 
   ///Open single file. Requires that the file exists before allowing the user to pick it.
   @EnumSupportedPlatforms(platforms: [EnumAndroidPlatform(value: 0)])
-  static const OPEN = ShowFileChooserRequestMode_._internal(0);
+  static const OPEN = ShowFileChooserRequestModeSpec._internal(0);
 
   ///Like Open but allows multiple files to be selected.
   @EnumSupportedPlatforms(platforms: [EnumAndroidPlatform(value: 1)])
-  static const OPEN_MULTIPLE = ShowFileChooserRequestMode_._internal(1);
+  static const OPEN_MULTIPLE = ShowFileChooserRequestModeSpec._internal(1);
 
   ///Like Open but allows a folder to be selected.
   ///The implementation should enumerate all files selected by this operation.
   ///This feature is not supported at the moment.
   @EnumSupportedPlatforms(platforms: [EnumAndroidPlatform(value: 2)])
-  static const OPEN_FOLDER = ShowFileChooserRequestMode_._internal(2);
+  static const OPEN_FOLDER = ShowFileChooserRequestModeSpec._internal(2);
 
   ///Allows picking a nonexistent file and saving it.
   @EnumSupportedPlatforms(platforms: [EnumAndroidPlatform(value: 3)])
-  static const SAVE = ShowFileChooserRequestMode_._internal(3);
+  static const SAVE = ShowFileChooserRequestModeSpec._internal(3);
 }

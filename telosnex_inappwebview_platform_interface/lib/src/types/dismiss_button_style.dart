@@ -4,19 +4,19 @@ part 'dismiss_button_style.g.dart';
 
 ///Class used to set the custom style for the dismiss button.
 @ExchangeableEnum()
-class DismissButtonStyle_ {
+class DismissButtonStyleSpec {
   // ignore: unused_field
   final int _value;
-  const DismissButtonStyle_._internal(this._value);
+  const DismissButtonStyleSpec._internal(this._value);
 
   ///Makes the button title the localized string "Done".
-  static const DONE = DismissButtonStyle_._internal(0);
+  static const DONE = DismissButtonStyleSpec._internal(0);
 
   ///Makes the button title the localized string "Close".
-  static const CLOSE = DismissButtonStyle_._internal(1);
+  static const CLOSE = DismissButtonStyleSpec._internal(1);
 
   ///Makes the button title the localized string "Cancel".
-  static const CANCEL = DismissButtonStyle_._internal(2);
+  static const CANCEL = DismissButtonStyleSpec._internal(2);
 }
 
 ///An iOS-specific class used to set the custom style for the dismiss button.
@@ -26,17 +26,17 @@ class DismissButtonStyle_ {
 ///Use [DismissButtonStyle] instead.
 @Deprecated("Use DismissButtonStyle instead")
 @ExchangeableEnum()
-class IOSSafariDismissButtonStyle_ {
+class IOSSafariDismissButtonStyleSpec {
   // ignore: unused_field
   final int _value;
-  const IOSSafariDismissButtonStyle_._internal(this._value);
+  const IOSSafariDismissButtonStyleSpec._internal(this._value);
 
   ///Makes the button title the localized string "Done".
-  static const DONE = IOSSafariDismissButtonStyle_._internal(0);
+  static const DONE = IOSSafariDismissButtonStyleSpec._internal(0);
 
   ///Makes the button title the localized string "Close".
-  static const CLOSE = IOSSafariDismissButtonStyle_._internal(1);
+  static const CLOSE = IOSSafariDismissButtonStyleSpec._internal(1);
 
   ///Makes the button title the localized string "Cancel".
-  static const CANCEL = IOSSafariDismissButtonStyle_._internal(2);
+  static const CANCEL = IOSSafariDismissButtonStyleSpec._internal(2);
 }

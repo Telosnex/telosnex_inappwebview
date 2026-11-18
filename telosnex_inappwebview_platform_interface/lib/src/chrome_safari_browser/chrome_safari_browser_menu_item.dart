@@ -15,7 +15,7 @@ part 'chrome_safari_browser_menu_item.g.dart';
   ],
 )
 @ExchangeableObject()
-class ChromeSafariBrowserMenuItem_ {
+class ChromeSafariBrowserMenuItemSpec {
   ///The menu item id. It should be different from [ChromeSafariBrowserActionButton.id].
   int id;
 
@@ -23,7 +23,7 @@ class ChromeSafariBrowserMenuItem_ {
   String label;
 
   ///Item image.
-  UIImage_? image;
+  UIImageSpec? image;
 
   ///Use onClick instead.
   @Deprecated("Use onClick instead")
@@ -33,7 +33,7 @@ class ChromeSafariBrowserMenuItem_ {
   void Function(WebUri? url, String title)? onClick;
 
   @ExchangeableObjectConstructor()
-  ChromeSafariBrowserMenuItem_({
+  ChromeSafariBrowserMenuItemSpec({
     required this.id,
     required this.label,
     this.image,

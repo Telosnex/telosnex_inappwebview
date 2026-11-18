@@ -10,14 +10,14 @@ part 'url_protection_space_http_auth_credentials.g.dart';
 ///Class that represents a [URLProtectionSpace] with all of its [URLCredential]s.
 ///It used by [PlatformHttpAuthCredentialDatabase.getAllAuthCredentials].
 @ExchangeableObject()
-class URLProtectionSpaceHttpAuthCredentials_ {
+class URLProtectionSpaceHttpAuthCredentialsSpec {
   ///The protection space.
-  URLProtectionSpace_? protectionSpace;
+  URLProtectionSpaceSpec? protectionSpace;
 
   ///The list of all its http authentication credentials.
-  List<URLCredential_>? credentials;
+  List<URLCredentialSpec>? credentials;
 
-  URLProtectionSpaceHttpAuthCredentials_({
+  URLProtectionSpaceHttpAuthCredentialsSpec({
     this.protectionSpace,
     this.credentials,
   });

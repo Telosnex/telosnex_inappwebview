@@ -8,7 +8,7 @@ part 'js_prompt_request.g.dart';
 
 ///Class that represents the request of the [PlatformWebViewCreationParams.onJsPrompt] event.
 @ExchangeableObject()
-class JsPromptRequest_ {
+class JsPromptRequestSpec {
   ///The url of the page requesting the dialog.
   WebUri? url;
 
@@ -26,7 +26,7 @@ class JsPromptRequest_ {
   @SupportedPlatforms(platforms: [IOSPlatform(), MacOSPlatform()])
   bool? isMainFrame;
 
-  JsPromptRequest_({
+  JsPromptRequestSpec({
     this.url,
     this.message,
     this.defaultValue,

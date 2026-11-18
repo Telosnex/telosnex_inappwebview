@@ -8,7 +8,7 @@ part 'request_focus_node_href_result.g.dart';
 
 ///Class that represents the result used by the [PlatformInAppWebViewController.requestFocusNodeHref] method.
 @ExchangeableObject()
-class RequestFocusNodeHrefResult_ {
+class RequestFocusNodeHrefResultSpec {
   ///The anchor's href attribute.
   WebUri? url;
 
@@ -18,5 +18,5 @@ class RequestFocusNodeHrefResult_ {
   ///The image's src attribute.
   String? src;
 
-  RequestFocusNodeHrefResult_({this.url, this.title, this.src});
+  RequestFocusNodeHrefResultSpec({this.url, this.title, this.src});
 }

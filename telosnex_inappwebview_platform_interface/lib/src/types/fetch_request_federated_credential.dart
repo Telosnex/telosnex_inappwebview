@@ -8,7 +8,7 @@ part 'fetch_request_federated_credential.g.dart';
 
 ///Class that represents a [FederatedCredential](https://developer.mozilla.org/en-US/docs/Web/API/FederatedCredential) type of credentials.
 @ExchangeableObject()
-class FetchRequestFederatedCredential_ extends FetchRequestCredential_ {
+class FetchRequestFederatedCredentialSpec extends FetchRequestCredentialSpec {
   ///Credential's identifier.
   dynamic id;
 
@@ -24,7 +24,7 @@ class FetchRequestFederatedCredential_ extends FetchRequestCredential_ {
   ///URL pointing to an image for an icon. This image is intended for display in a credential chooser. The URL must be accessible without authentication.
   WebUri? iconURL;
 
-  FetchRequestFederatedCredential_({
+  FetchRequestFederatedCredentialSpec({
     type,
     this.id,
     this.name,

@@ -11,7 +11,7 @@ part 'ajax_request.g.dart';
 
 ///Class that represents a JavaScript [XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) object.
 @ExchangeableObject()
-class AjaxRequest_ {
+class AjaxRequestSpec {
   ///Data passed as a parameter to the `XMLHttpRequest.send()` method.
   dynamic data;
 
@@ -37,10 +37,10 @@ class AjaxRequest_ {
   bool? withCredentials;
 
   ///The HTTP request headers.
-  AjaxRequestHeaders_? headers;
+  AjaxRequestHeadersSpec? headers;
 
   ///The state of the `XMLHttpRequest` request.
-  AjaxRequestReadyState_? readyState;
+  AjaxRequestReadyStateSpec? readyState;
 
   ///The numerical HTTP [status code](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status) of the `XMLHttpRequest`'s response.
   int? status;
@@ -74,12 +74,12 @@ class AjaxRequest_ {
   Map<String, dynamic>? responseHeaders;
 
   ///Event type of the `XMLHttpRequest` request.
-  AjaxRequestEvent_? event;
+  AjaxRequestEventSpec? event;
 
   ///Indicates the [AjaxRequestAction] that can be used to control the `XMLHttpRequest` request.
-  AjaxRequestAction_? action;
+  AjaxRequestActionSpec? action;
 
-  AjaxRequest_({
+  AjaxRequestSpec({
     this.data,
     this.method,
     this.url,
@@ -98,6 +98,6 @@ class AjaxRequest_ {
     this.statusText,
     this.responseHeaders,
     this.event,
-    this.action = AjaxRequestAction_.PROCEED,
+    this.action = AjaxRequestActionSpec.PROCEED,
   });
 }

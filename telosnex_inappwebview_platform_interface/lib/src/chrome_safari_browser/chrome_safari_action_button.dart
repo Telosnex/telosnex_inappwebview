@@ -16,7 +16,7 @@ part 'chrome_safari_action_button.g.dart';
   ],
 )
 @ExchangeableObject()
-class ChromeSafariBrowserActionButton_ {
+class ChromeSafariBrowserActionButtonSpec {
   ///The action button id. It should be different from the [ChromeSafariBrowserMenuItem.id].
   int id;
 
@@ -37,7 +37,7 @@ class ChromeSafariBrowserActionButton_ {
   void Function(WebUri? url, String title)? onClick;
 
   @ExchangeableObjectConstructor()
-  ChromeSafariBrowserActionButton_({
+  ChromeSafariBrowserActionButtonSpec({
     required this.id,
     required this.icon,
     required this.description,

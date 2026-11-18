@@ -6,7 +6,7 @@ part 'find_options.g.dart';
 
 ///Class that represents find options for find-on-page operations.
 @ExchangeableObject()
-class FindOptions_ {
+class FindOptionsSpec {
   ///The text to find.
   String? findTerm;
 
@@ -22,7 +22,7 @@ class FindOptions_ {
   ///Whether to suppress the default find dialog.
   bool? suppressDefaultFindDialog;
 
-  FindOptions_({
+  FindOptionsSpec({
     this.findTerm,
     this.shouldMatchCase,
     this.shouldMatchWord,

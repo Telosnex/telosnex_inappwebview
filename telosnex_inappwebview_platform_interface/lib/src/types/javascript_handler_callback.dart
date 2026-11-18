@@ -19,17 +19,18 @@ typedef JavaScriptHandlerCallback = dynamic Function(List<dynamic> arguments);
 ///
 ///Also, a [JavaScriptHandlerFunction] can return json data to the JavaScript side.
 ///In this case, simply return data that you want to send and it will be automatically json encoded using [jsonEncode] from the `dart:convert` library.
-typedef JavaScriptHandlerFunction = dynamic Function(JavaScriptHandlerFunctionData data);
+typedef JavaScriptHandlerFunction =
+    dynamic Function(JavaScriptHandlerFunctionData data);
 
 ///A class that represents the data passed to a [JavaScriptHandlerFunction] added with [PlatformInAppWebViewController.addJavaScriptHandler].
 @ExchangeableObject()
-class JavaScriptHandlerFunctionData_ {
+class JavaScriptHandlerFunctionDataSpec {
   List<dynamic> args;
   WebUri origin;
   bool isMainFrame;
   WebUri requestUrl;
 
-  JavaScriptHandlerFunctionData_({
+  JavaScriptHandlerFunctionDataSpec({
     this.args = const [],
     required this.origin,
     required this.isMainFrame,

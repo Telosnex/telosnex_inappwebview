@@ -4,26 +4,28 @@ part 'scrollview_content_inset_adjustment_behavior.g.dart';
 
 ///Class used to configure how safe area insets are added to the adjusted content inset.
 @ExchangeableEnum()
-class ScrollViewContentInsetAdjustmentBehavior_ {
+class ScrollViewContentInsetAdjustmentBehaviorSpec {
   // ignore: unused_field
   final int _value;
-  const ScrollViewContentInsetAdjustmentBehavior_._internal(this._value);
+  const ScrollViewContentInsetAdjustmentBehaviorSpec._internal(this._value);
 
   ///Automatically adjust the scroll view insets.
   static const AUTOMATIC =
-      ScrollViewContentInsetAdjustmentBehavior_._internal(0);
+      ScrollViewContentInsetAdjustmentBehaviorSpec._internal(0);
 
   ///Adjust the insets only in the scrollable directions.
   static const SCROLLABLE_AXES =
-      ScrollViewContentInsetAdjustmentBehavior_._internal(1);
+      ScrollViewContentInsetAdjustmentBehaviorSpec._internal(1);
 
   ///Do not adjust the scroll view insets.
-  static const NEVER =
-      ScrollViewContentInsetAdjustmentBehavior_._internal(2);
+  static const NEVER = ScrollViewContentInsetAdjustmentBehaviorSpec._internal(
+    2,
+  );
 
   ///Always include the safe area insets in the content adjustment.
-  static const ALWAYS =
-      ScrollViewContentInsetAdjustmentBehavior_._internal(3);
+  static const ALWAYS = ScrollViewContentInsetAdjustmentBehaviorSpec._internal(
+    3,
+  );
 }
 
 ///An iOS-specific class used to configure how safe area insets are added to the adjusted content inset.
@@ -33,24 +35,26 @@ class ScrollViewContentInsetAdjustmentBehavior_ {
 ///Use [ScrollViewContentInsetAdjustmentBehavior] instead.
 @Deprecated("Use ScrollViewContentInsetAdjustmentBehavior instead")
 @ExchangeableEnum()
-class IOSUIScrollViewContentInsetAdjustmentBehavior_ {
+class IOSUIScrollViewContentInsetAdjustmentBehaviorSpec {
   // ignore: unused_field
   final int _value;
-  const IOSUIScrollViewContentInsetAdjustmentBehavior_._internal(this._value);
+  const IOSUIScrollViewContentInsetAdjustmentBehaviorSpec._internal(
+    this._value,
+  );
 
   ///Automatically adjust the scroll view insets.
   static const AUTOMATIC =
-      IOSUIScrollViewContentInsetAdjustmentBehavior_._internal(0);
+      IOSUIScrollViewContentInsetAdjustmentBehaviorSpec._internal(0);
 
   ///Adjust the insets only in the scrollable directions.
   static const SCROLLABLE_AXES =
-      IOSUIScrollViewContentInsetAdjustmentBehavior_._internal(1);
+      IOSUIScrollViewContentInsetAdjustmentBehaviorSpec._internal(1);
 
   ///Do not adjust the scroll view insets.
   static const NEVER =
-      IOSUIScrollViewContentInsetAdjustmentBehavior_._internal(2);
+      IOSUIScrollViewContentInsetAdjustmentBehaviorSpec._internal(2);
 
   ///Always include the safe area insets in the content adjustment.
   static const ALWAYS =
-      IOSUIScrollViewContentInsetAdjustmentBehavior_._internal(3);
+      IOSUIScrollViewContentInsetAdjustmentBehaviorSpec._internal(3);
 }

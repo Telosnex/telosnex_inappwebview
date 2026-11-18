@@ -6,7 +6,7 @@ part 'in_app_webview_rect.g.dart';
 
 ///A class that represents a structure that contains the location and dimensions of a rectangle.
 @ExchangeableObject()
-class InAppWebViewRect_ {
+class InAppWebViewRectSpec {
   ///x position
   double x;
 
@@ -20,7 +20,7 @@ class InAppWebViewRect_ {
   double height;
 
   @ExchangeableObjectConstructor()
-  InAppWebViewRect_({
+  InAppWebViewRectSpec({
     required this.x,
     required this.y,
     required this.width,

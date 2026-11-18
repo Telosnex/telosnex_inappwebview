@@ -7,10 +7,10 @@ part 'http_auth_response_action.g.dart';
 
 ///Class used by [HttpAuthResponse] class.
 @ExchangeableEnum()
-class HttpAuthResponseAction_ {
+class HttpAuthResponseActionSpec {
   // ignore: unused_field
   final int _value;
-  const HttpAuthResponseAction_._internal(this._value);
+  const HttpAuthResponseActionSpec._internal(this._value);
 
   ///Instructs the WebView to cancel the authentication request.
   @EnumSupportedPlatforms(
@@ -22,7 +22,7 @@ class HttpAuthResponseAction_ {
       EnumLinuxPlatform(value: 0),
     ],
   )
-  static const CANCEL = HttpAuthResponseAction_._internal(0);
+  static const CANCEL = HttpAuthResponseActionSpec._internal(0);
 
   ///Instructs the WebView to proceed with the authentication with the given credentials.
   @EnumSupportedPlatforms(
@@ -34,7 +34,7 @@ class HttpAuthResponseAction_ {
       EnumLinuxPlatform(value: 1),
     ],
   )
-  static const PROCEED = HttpAuthResponseAction_._internal(1);
+  static const PROCEED = HttpAuthResponseActionSpec._internal(1);
 
   ///Uses the credentials stored for the current host.
   @EnumSupportedPlatforms(
@@ -46,5 +46,5 @@ class HttpAuthResponseAction_ {
     ],
   )
   static const USE_SAVED_HTTP_AUTH_CREDENTIALS =
-      HttpAuthResponseAction_._internal(2);
+      HttpAuthResponseActionSpec._internal(2);
 }

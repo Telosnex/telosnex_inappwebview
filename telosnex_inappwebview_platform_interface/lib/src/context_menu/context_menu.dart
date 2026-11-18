@@ -19,11 +19,11 @@ part 'context_menu.g.dart';
   ],
 )
 @ExchangeableObject()
-class ContextMenu_ {
+class ContextMenuSpec {
   ///Event fired when the context menu for this WebView is being built.
   ///
   ///[hitTestResult] represents the hit result for hitting an HTML elements.
-  final void Function(InAppWebViewHitTestResult_ hitTestResult)?
+  final void Function(InAppWebViewHitTestResultSpec hitTestResult)?
   onCreateContextMenu;
 
   ///Event fired when the context menu for this WebView is being hidden.
@@ -32,21 +32,21 @@ class ContextMenu_ {
   ///Event fired when a context menu item has been clicked.
   ///
   ///[contextMenuItemClicked] represents the [ContextMenuItem] clicked.
-  final void Function(ContextMenuItem_ contextMenuItemClicked)?
+  final void Function(ContextMenuItemSpec contextMenuItemClicked)?
   onContextMenuActionItemClicked;
 
   ///Use [settings] instead
   @Deprecated("Use settings instead")
-  final ContextMenuOptions_? options;
+  final ContextMenuOptionsSpec? options;
 
   ///Context menu settings.
-  final ContextMenuSettings_? settings;
+  final ContextMenuSettingsSpec? settings;
 
   ///List of the custom [ContextMenuItem].
-  final List<ContextMenuItem_> menuItems;
+  final List<ContextMenuItemSpec> menuItems;
 
   @ExchangeableObjectConstructor()
-  ContextMenu_({
+  ContextMenuSpec({
     this.menuItems = const [],
     this.onCreateContextMenu,
     this.onHideContextMenu,

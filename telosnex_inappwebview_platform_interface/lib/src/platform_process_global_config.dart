@@ -169,7 +169,7 @@ abstract class PlatformProcessGlobalConfig extends PlatformInterface {
   ],
 )
 @ExchangeableObject(copyMethod: true)
-class ProcessGlobalConfigSettings_ {
+class ProcessGlobalConfigSettingsSpec {
   ///The directory name suffix to be used for the current process.
   ///Must not contain a path separator and should not be empty.
   ///
@@ -228,9 +228,9 @@ class ProcessGlobalConfigSettings_ {
       ),
     ],
   )
-  ProcessGlobalConfigDirectoryBasePaths_? directoryBasePaths;
+  ProcessGlobalConfigDirectoryBasePathsSpec? directoryBasePaths;
 
-  ProcessGlobalConfigSettings_({
+  ProcessGlobalConfigSettingsSpec({
     this.dataDirectorySuffix,
     this.directoryBasePaths,
   });
@@ -260,14 +260,14 @@ class ProcessGlobalConfigSettings_ {
 ///**Officially Supported Platforms/Implementations**:
 ///- Android native WebView ([Official API - ProxyConfig](https://developer.android.com/reference/androidx/webkit/ProxyConfig))
 @ExchangeableObject()
-class ProcessGlobalConfigDirectoryBasePaths_ {
+class ProcessGlobalConfigDirectoryBasePathsSpec {
   ///The absolute base path for the WebView data directory.
   String dataDirectoryBasePath;
 
   ///The absolute base path for the WebView cache directory.
   String cacheDirectoryBasePath;
 
-  ProcessGlobalConfigDirectoryBasePaths_({
+  ProcessGlobalConfigDirectoryBasePathsSpec({
     required this.dataDirectoryBasePath,
     required this.cacheDirectoryBasePath,
   });

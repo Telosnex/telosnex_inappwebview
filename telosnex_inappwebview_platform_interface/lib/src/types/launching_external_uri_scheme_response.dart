@@ -6,9 +6,9 @@ part 'launching_external_uri_scheme_response.g.dart';
 
 ///Class that represents the response used by the [PlatformWebViewCreationParams.onLaunchingExternalUriScheme] event.
 @ExchangeableObject()
-class LaunchingExternalUriSchemeResponse_ {
+class LaunchingExternalUriSchemeResponseSpec {
   ///Set to `true` to cancel the external URI scheme launch.
   bool cancel;
 
-  LaunchingExternalUriSchemeResponse_({required this.cancel});
+  LaunchingExternalUriSchemeResponseSpec({required this.cancel});
 }

@@ -9,7 +9,7 @@ part 'script_html_tag_attributes.g.dart';
 
 ///Class that represents the possible the `<script>` HTML attributes to be set used by [PlatformInAppWebViewController.injectJavascriptFileFromUrl].
 @ExchangeableObject()
-class ScriptHtmlTagAttributes_ {
+class ScriptHtmlTagAttributesSpec {
   ///This attribute indicates the type of script represented. The value of this attribute will be in one of the following categories.
   ///The default value is `text/javascript`.
   String type;
@@ -43,7 +43,7 @@ class ScriptHtmlTagAttributes_ {
 
   ///Normal script elements pass minimal information to the `window.onerror` for scripts which do not pass the standard CORS checks.
   ///To allow error logging for sites which use a separate domain for static media, use this attribute.
-  CrossOrigin_? crossOrigin;
+  CrossOriginSpec? crossOrigin;
 
   ///This attribute contains inline metadata that a user agent can use to verify that a fetched resource has been delivered free of unexpected manipulation.
   String? integrity;
@@ -58,7 +58,7 @@ class ScriptHtmlTagAttributes_ {
   String? nonce;
 
   ///Indicates which referrer to send when fetching the script, or resources fetched by the script.
-  ReferrerPolicy_? referrerPolicy;
+  ReferrerPolicySpec? referrerPolicy;
 
   ///Represents a callback function that will be called as soon as the script has been loaded successfully.
   ///
@@ -71,7 +71,7 @@ class ScriptHtmlTagAttributes_ {
   Function? onError;
 
   @ExchangeableObjectConstructor()
-  ScriptHtmlTagAttributes_({
+  ScriptHtmlTagAttributesSpec({
     this.type = "text/javascript",
     this.id,
     this.async,

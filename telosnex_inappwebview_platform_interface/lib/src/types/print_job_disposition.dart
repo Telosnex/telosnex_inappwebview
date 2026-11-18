@@ -7,24 +7,24 @@ part 'print_job_disposition.g.dart';
 
 ///Class representing the constants that specify values for the print job disposition of a [PlatformPrintJobController].
 @ExchangeableEnum()
-class PrintJobDisposition_ {
+class PrintJobDispositionSpec {
   // ignore: unused_field
   final String _value;
-  const PrintJobDisposition_._internal(this._value);
+  const PrintJobDispositionSpec._internal(this._value);
 
   ///Normal print job.
   @EnumSupportedPlatforms(platforms: [EnumMacOSPlatform(value: 'spool')])
-  static const SPOOL = PrintJobDisposition_._internal('SPOOL');
+  static const SPOOL = PrintJobDispositionSpec._internal('SPOOL');
 
   ///Send to Preview application.
   @EnumSupportedPlatforms(platforms: [EnumMacOSPlatform(value: 'preview')])
-  static const PREVIEW = PrintJobDisposition_._internal("PREVIEW");
+  static const PREVIEW = PrintJobDispositionSpec._internal("PREVIEW");
 
   ///Save to a file.
   @EnumSupportedPlatforms(platforms: [EnumMacOSPlatform(value: 'save')])
-  static const SAVE = PrintJobDisposition_._internal("SAVE");
+  static const SAVE = PrintJobDispositionSpec._internal("SAVE");
 
   ///Cancel print job.
   @EnumSupportedPlatforms(platforms: [EnumMacOSPlatform(value: 'cancel')])
-  static const CANCEL = PrintJobDisposition_._internal("CANCEL");
+  static const CANCEL = PrintJobDispositionSpec._internal("CANCEL");
 }

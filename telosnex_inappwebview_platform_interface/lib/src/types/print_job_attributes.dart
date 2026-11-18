@@ -19,10 +19,10 @@ part 'print_job_attributes.g.dart';
 ///Class representing the attributes of a [PlatformPrintJobController].
 ///These attributes describe how the printed content should be laid out.
 @ExchangeableObject()
-class PrintJobAttributes_ {
+class PrintJobAttributesSpec {
   ///The color mode.
   @SupportedPlatforms(platforms: [AndroidPlatform(), MacOSPlatform()])
-  PrintJobColorMode_? colorMode;
+  PrintJobColorModeSpec? colorMode;
 
   ///The duplex mode to use for the print job.
   @SupportedPlatforms(
@@ -32,21 +32,21 @@ class PrintJobAttributes_ {
       MacOSPlatform(),
     ],
   )
-  PrintJobDuplexMode_? duplex;
+  PrintJobDuplexModeSpec? duplex;
 
   ///The orientation of the printed content, portrait or landscape.
   @SupportedPlatforms(
     platforms: [AndroidPlatform(), IOSPlatform(), MacOSPlatform()],
   )
-  PrintJobOrientation_? orientation;
+  PrintJobOrientationSpec? orientation;
 
   ///The media size.
   @SupportedPlatforms(platforms: [AndroidPlatform()])
-  PrintJobMediaSize_? mediaSize;
+  PrintJobMediaSizeSpec? mediaSize;
 
   ///The supported resolution in DPI (dots per inch).
   @SupportedPlatforms(platforms: [AndroidPlatform()])
-  PrintJobResolution_? resolution;
+  PrintJobResolutionSpec? resolution;
 
   ///The margins for each printed page.
   ///Margins define the white space around the content where the left margin defines
@@ -73,14 +73,14 @@ class PrintJobAttributes_ {
   ///The value of this property is a rectangle that defines the area in which the printer can print content.
   ///Sometimes this is referred to as the imageable area of the paper.
   @SupportedPlatforms(platforms: [IOSPlatform(), MacOSPlatform()])
-  InAppWebViewRect_? printableRect;
+  InAppWebViewRectSpec? printableRect;
 
   ///The size of the paper used for printing.
   ///
   ///The value of this property is a rectangle that defines the size of paper chosen for the print job.
   ///The origin is always (0,0).
   @SupportedPlatforms(platforms: [IOSPlatform(), MacOSPlatform()])
-  InAppWebViewRect_? paperRect;
+  InAppWebViewRectSpec? paperRect;
 
   ///The maximum height of the content area.
   ///
@@ -109,15 +109,15 @@ class PrintJobAttributes_ {
 
   ///The horizontal pagination mode.
   @SupportedPlatforms(platforms: [MacOSPlatform()])
-  PrintJobPaginationMode_? horizontalPagination;
+  PrintJobPaginationModeSpec? horizontalPagination;
 
   ///The vertical pagination to the specified mode.
   @SupportedPlatforms(platforms: [MacOSPlatform()])
-  PrintJobPaginationMode_? verticalPagination;
+  PrintJobPaginationModeSpec? verticalPagination;
 
   ///The action specified for the job.
   @SupportedPlatforms(platforms: [MacOSPlatform()])
-  PrintJobDisposition_? jobDisposition;
+  PrintJobDispositionSpec? jobDisposition;
 
   ///Indicates whether the image is centered horizontally.
   @SupportedPlatforms(platforms: [MacOSPlatform()])
@@ -167,7 +167,7 @@ class PrintJobAttributes_ {
   @SupportedPlatforms(platforms: [MacOSPlatform()])
   int? time;
 
-  PrintJobAttributes_({
+  PrintJobAttributesSpec({
     this.colorMode,
     this.duplex,
     this.orientation,

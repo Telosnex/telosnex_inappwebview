@@ -11,7 +11,7 @@ part 'client_cert_challenge.g.dart';
 ///Class that represents the challenge of the [PlatformWebViewCreationParams.onReceivedClientCertRequest] event.
 ///It provides all the information about the challenge.
 @ExchangeableObject()
-class ClientCertChallenge_ extends URLAuthenticationChallenge_ {
+class ClientCertChallengeSpec extends URLAuthenticationChallengeSpec {
   ///Use [principals] instead.
   @Deprecated('Use principals instead')
   List<String>? androidPrincipals;
@@ -57,9 +57,9 @@ class ClientCertChallenge_ extends URLAuthenticationChallenge_ {
 
   ///The collection contains mutually trusted CA certificates.
   @SupportedPlatforms(platforms: [WindowsPlatform()])
-  List<SslCertificate_>? mutuallyTrustedCertificates;
+  List<SslCertificateSpec>? mutuallyTrustedCertificates;
 
-  ClientCertChallenge_({
+  ClientCertChallengeSpec({
     required super.protectionSpace,
     @Deprecated('Use principals instead') this.androidPrincipals,
     this.principals,

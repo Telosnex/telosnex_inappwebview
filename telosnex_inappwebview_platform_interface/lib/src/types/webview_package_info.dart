@@ -6,26 +6,26 @@ part 'webview_package_info.g.dart';
 
 ///Class that represents a `WebView` package info.
 @ExchangeableObject()
-class WebViewPackageInfo_ {
+class WebViewPackageInfoSpec {
   ///The version name of this WebView package.
   String? versionName;
 
   ///The name of this WebView package.
   String? packageName;
 
-  WebViewPackageInfo_({this.versionName, this.packageName});
+  WebViewPackageInfoSpec({this.versionName, this.packageName});
 }
 
 ///Class that represents an Android `WebView` package info.
 ///Use [WebViewPackageInfo] instead.
 @Deprecated("Use WebViewPackageInfo instead")
 @ExchangeableObject()
-class AndroidWebViewPackageInfo_ {
+class AndroidWebViewPackageInfoSpec {
   ///The version name of this WebView package.
   String? versionName;
 
   ///The name of this WebView package.
   String? packageName;
 
-  AndroidWebViewPackageInfo_({this.versionName, this.packageName});
+  AndroidWebViewPackageInfoSpec({this.versionName, this.packageName});
 }

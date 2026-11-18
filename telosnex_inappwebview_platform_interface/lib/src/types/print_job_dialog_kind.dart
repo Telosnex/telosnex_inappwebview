@@ -6,14 +6,14 @@ part 'print_job_dialog_kind.g.dart';
 
 ///Class representing the print dialog kind used by a [PlatformPrintJobController].
 @ExchangeableEnum()
-class PrintJobDialogKind_ {
+class PrintJobDialogKindSpec {
   // ignore: unused_field
   final int _value;
-  const PrintJobDialogKind_._internal(this._value);
+  const PrintJobDialogKindSpec._internal(this._value);
 
   ///Use the browser print dialog UI.
-  static const BROWSER = PrintJobDialogKind_._internal(0);
+  static const BROWSER = PrintJobDialogKindSpec._internal(0);
 
   ///Use the system print dialog UI.
-  static const SYSTEM = PrintJobDialogKind_._internal(1);
+  static const SYSTEM = PrintJobDialogKindSpec._internal(1);
 }

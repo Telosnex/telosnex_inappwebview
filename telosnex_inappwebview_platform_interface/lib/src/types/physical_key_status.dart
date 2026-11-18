@@ -6,7 +6,7 @@ part 'physical_key_status.g.dart';
 
 ///Contains the information packed into the LPARAM sent to a Win32 key event.
 @ExchangeableObject()
-class PhysicalKeyStatus_ {
+class PhysicalKeyStatusSpec {
   ///Indicates that the key is an extended key.
   bool isExtendedKey;
 
@@ -26,7 +26,7 @@ class PhysicalKeyStatus_ {
   bool wasKeyDown;
 
   @ExchangeableObjectConstructor()
-  PhysicalKeyStatus_({
+  PhysicalKeyStatusSpec({
     required this.isExtendedKey,
     required this.isKeyReleased,
     required this.isMenuKeyDown,

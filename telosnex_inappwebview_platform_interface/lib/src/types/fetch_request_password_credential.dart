@@ -8,7 +8,7 @@ part 'fetch_request_password_credential.g.dart';
 
 ///Class that represents a [PasswordCredential](https://developer.mozilla.org/en-US/docs/Web/API/PasswordCredential) type of credentials.
 @ExchangeableObject()
-class FetchRequestPasswordCredential_ extends FetchRequestCredential_ {
+class FetchRequestPasswordCredentialSpec extends FetchRequestCredentialSpec {
   ///Credential's identifier.
   dynamic id;
 
@@ -21,7 +21,7 @@ class FetchRequestPasswordCredential_ extends FetchRequestCredential_ {
   ///URL pointing to an image for an icon. This image is intended for display in a credential chooser. The URL must be accessible without authentication.
   WebUri? iconURL;
 
-  FetchRequestPasswordCredential_({
+  FetchRequestPasswordCredentialSpec({
     type,
     this.id,
     this.name,

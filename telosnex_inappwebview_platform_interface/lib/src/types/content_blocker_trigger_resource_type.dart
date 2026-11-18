@@ -6,32 +6,27 @@ part 'content_blocker_trigger_resource_type.g.dart';
 
 ///Class that represents the possible resource type defined for a [ContentBlockerTrigger].
 @ExchangeableEnum()
-class ContentBlockerTriggerResourceType_ {
+class ContentBlockerTriggerResourceTypeSpec {
   // ignore: unused_field
   final String _value;
-  const ContentBlockerTriggerResourceType_._internal(this._value);
+  const ContentBlockerTriggerResourceTypeSpec._internal(this._value);
 
-  static const DOCUMENT = ContentBlockerTriggerResourceType_._internal(
+  static const DOCUMENT = ContentBlockerTriggerResourceTypeSpec._internal(
     'document',
   );
-  static const IMAGE = ContentBlockerTriggerResourceType_._internal(
-    'image',
-  );
-  static const STYLE_SHEET = ContentBlockerTriggerResourceType_._internal(
+  static const IMAGE = ContentBlockerTriggerResourceTypeSpec._internal('image');
+  static const STYLE_SHEET = ContentBlockerTriggerResourceTypeSpec._internal(
     'style-sheet',
   );
-  static const SCRIPT = ContentBlockerTriggerResourceType_._internal(
+  static const SCRIPT = ContentBlockerTriggerResourceTypeSpec._internal(
     'script',
   );
-  static const FONT = ContentBlockerTriggerResourceType_._internal(
-    'font',
+  static const FONT = ContentBlockerTriggerResourceTypeSpec._internal('font');
+  static const MEDIA = ContentBlockerTriggerResourceTypeSpec._internal('media');
+  static const SVG_DOCUMENT = ContentBlockerTriggerResourceTypeSpec._internal(
+    'svg-document',
   );
-  static const MEDIA = ContentBlockerTriggerResourceType_._internal(
-    'media',
-  );
-  static const SVG_DOCUMENT =
-      ContentBlockerTriggerResourceType_._internal('svg-document');
 
   ///Any untyped load
-  static const RAW = ContentBlockerTriggerResourceType_._internal('raw');
+  static const RAW = ContentBlockerTriggerResourceTypeSpec._internal('raw');
 }

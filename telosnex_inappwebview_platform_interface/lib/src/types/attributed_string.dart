@@ -13,7 +13,7 @@ part 'attributed_string.g.dart';
 ///Class that represents a string with associated attributes
 ///used by the [PlatformPullToRefreshController] and [PullToRefreshSettings] classes.
 @ExchangeableObject()
-class AttributedString_ {
+class AttributedStringSpec {
   ///The characters for the new object.
   String string;
 
@@ -22,7 +22,7 @@ class AttributedString_ {
   ///The value of this attribute is a [Color] object.
   ///Use this attribute to specify the color of the background area behind the text.
   ///If you do not specify this attribute, no background color is drawn.
-  Color_? backgroundColor;
+  ColorSpec? backgroundColor;
 
   ///The vertical offset for the position of the text.
   ///
@@ -41,7 +41,7 @@ class AttributedString_ {
   ///The value of this attribute is a [Color] object.
   ///Use this attribute to specify the color of the text during rendering.
   ///If you do not specify this attribute, the text is rendered in black.
-  Color_? foregroundColor;
+  ColorSpec? foregroundColor;
 
   ///The kerning of the text.
   ///
@@ -69,20 +69,20 @@ class AttributedString_ {
   ///The color of the strikethrough.
   ///
   ///The value of this attribute is a [Color] object. The default value is `null`, indicating same as foreground color.
-  Color_? strikethroughColor;
+  ColorSpec? strikethroughColor;
 
   ///The strikethrough style of the text.
   ///
   ///This value indicates whether the text has a line through it and corresponds to one of the constants described in [UnderlineStyle].
   ///The default value for this attribute is [UnderlineStyle.STYLE_NONE].
-  UnderlineStyle_? strikethroughStyle;
+  UnderlineStyleSpec? strikethroughStyle;
 
   ///The color of the stroke.
   ///
   ///The value of this parameter is a [Color] object.
   ///If it is not defined (which is the case by default), it is assumed to be the same as the value of foregroundColor;
   ///otherwise, it describes the outline color.
-  Color_? strokeColor;
+  ColorSpec? strokeColor;
 
   ///The width of the stroke.
   ///
@@ -98,21 +98,21 @@ class AttributedString_ {
   ///
   ///The value of this attribute is a [AttributedStringTextEffectStyle] object.
   ///The default value of this property is `null`, indicating no text effect.
-  AttributedStringTextEffectStyle_? textEffect;
+  AttributedStringTextEffectStyleSpec? textEffect;
 
   ///The color of the underline.
   ///
   ///The value of this attribute is a [Color] object.
   ///The default value is `null`, indicating same as foreground color.
-  Color_? underlineColor;
+  ColorSpec? underlineColor;
 
   ///The underline style of the text.
   ///
   ///This value indicates whether the text is underlined and corresponds to one of the constants described in [UnderlineStyle].
   ///The default value for this attribute is [UnderlineStyle.STYLE_NONE].
-  UnderlineStyle_? underlineStyle;
+  UnderlineStyleSpec? underlineStyle;
 
-  AttributedString_({
+  AttributedStringSpec({
     required this.string,
     this.backgroundColor,
     this.baselineOffset,
@@ -136,7 +136,7 @@ class AttributedString_ {
 ///Use [AttributedString] instead.
 @Deprecated("Use AttributedString instead")
 @ExchangeableObject()
-class IOSNSAttributedString_ {
+class IOSNSAttributedStringSpec {
   ///The characters for the new object.
   String string;
 
@@ -145,7 +145,7 @@ class IOSNSAttributedString_ {
   ///The value of this attribute is a [Color] object.
   ///Use this attribute to specify the color of the background area behind the text.
   ///If you do not specify this attribute, no background color is drawn.
-  Color_? backgroundColor;
+  ColorSpec? backgroundColor;
 
   ///The vertical offset for the position of the text.
   ///
@@ -164,7 +164,7 @@ class IOSNSAttributedString_ {
   ///The value of this attribute is a [Color] object.
   ///Use this attribute to specify the color of the text during rendering.
   ///If you do not specify this attribute, the text is rendered in black.
-  Color_? foregroundColor;
+  ColorSpec? foregroundColor;
 
   ///The kerning of the text.
   ///
@@ -192,20 +192,20 @@ class IOSNSAttributedString_ {
   ///The color of the strikethrough.
   ///
   ///The value of this attribute is a [Color] object. The default value is `null`, indicating same as foreground color.
-  Color_? strikethroughColor;
+  ColorSpec? strikethroughColor;
 
   ///The strikethrough style of the text.
   ///
   ///This value indicates whether the text has a line through it and corresponds to one of the constants described in [IOSNSUnderlineStyle].
   ///The default value for this attribute is [IOSNSUnderlineStyle.STYLE_NONE].
-  IOSNSUnderlineStyle_? strikethroughStyle;
+  IOSNSUnderlineStyleSpec? strikethroughStyle;
 
   ///The color of the stroke.
   ///
   ///The value of this parameter is a [Color] object.
   ///If it is not defined (which is the case by default), it is assumed to be the same as the value of foregroundColor;
   ///otherwise, it describes the outline color.
-  Color_? strokeColor;
+  ColorSpec? strokeColor;
 
   ///The width of the stroke.
   ///
@@ -221,21 +221,21 @@ class IOSNSAttributedString_ {
   ///
   ///The value of this attribute is a [IOSNSAttributedStringTextEffectStyle] object.
   ///The default value of this property is `null`, indicating no text effect.
-  IOSNSAttributedStringTextEffectStyle_? textEffect;
+  IOSNSAttributedStringTextEffectStyleSpec? textEffect;
 
   ///The color of the underline.
   ///
   ///The value of this attribute is a [Color] object.
   ///The default value is `null`, indicating same as foreground color.
-  Color_? underlineColor;
+  ColorSpec? underlineColor;
 
   ///The underline style of the text.
   ///
   ///This value indicates whether the text is underlined and corresponds to one of the constants described in [IOSNSUnderlineStyle].
   ///The default value for this attribute is [IOSNSUnderlineStyle.STYLE_NONE].
-  IOSNSUnderlineStyle_? underlineStyle;
+  IOSNSUnderlineStyleSpec? underlineStyle;
 
-  IOSNSAttributedString_({
+  IOSNSAttributedStringSpec({
     required this.string,
     this.backgroundColor,
     this.baselineOffset,

@@ -8,7 +8,7 @@ part 'http_auth_response.g.dart';
 
 ///Class that represents the response used by the [PlatformWebViewCreationParams.onReceivedHttpAuthRequest] event.
 @ExchangeableObject()
-class HttpAuthResponse_ {
+class HttpAuthResponseSpec {
   ///Represents the username used for the authentication if the [action] corresponds to [HttpAuthResponseAction.PROCEED]
   String username;
 
@@ -19,12 +19,12 @@ class HttpAuthResponse_ {
   bool permanentPersistence;
 
   ///Indicate the [HttpAuthResponseAction] to take in response of the authentication challenge.
-  HttpAuthResponseAction_? action;
+  HttpAuthResponseActionSpec? action;
 
-  HttpAuthResponse_({
+  HttpAuthResponseSpec({
     this.username = "",
     this.password = "",
     this.permanentPersistence = false,
-    this.action = HttpAuthResponseAction_.CANCEL,
+    this.action = HttpAuthResponseActionSpec.CANCEL,
   });
 }

@@ -8,9 +8,9 @@ part 'url_authentication_challenge.g.dart';
 ///Class that represents a challenge from a server requiring authentication from the client.
 ///It provides all the information about the challenge.
 @ExchangeableObject()
-class URLAuthenticationChallenge_ {
+class URLAuthenticationChallengeSpec {
   ///The protection space requiring authentication.
-  URLProtectionSpace_ protectionSpace;
+  URLProtectionSpaceSpec protectionSpace;
 
-  URLAuthenticationChallenge_({required this.protectionSpace});
+  URLAuthenticationChallengeSpec({required this.protectionSpace});
 }

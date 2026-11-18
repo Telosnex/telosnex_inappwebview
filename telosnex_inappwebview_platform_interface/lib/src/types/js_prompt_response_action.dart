@@ -6,14 +6,14 @@ part 'js_prompt_response_action.g.dart';
 
 ///Class used by [JsPromptResponse] class.
 @ExchangeableEnum()
-class JsPromptResponseAction_ {
+class JsPromptResponseActionSpec {
   // ignore: unused_field
   final int _value;
-  const JsPromptResponseAction_._internal(this._value);
+  const JsPromptResponseActionSpec._internal(this._value);
 
   ///Confirm that the user hit confirm button.
-  static const CONFIRM = JsPromptResponseAction_._internal(0);
+  static const CONFIRM = JsPromptResponseActionSpec._internal(0);
 
   ///Confirm that the user hit cancel button.
-  static const CANCEL = JsPromptResponseAction_._internal(1);
+  static const CANCEL = JsPromptResponseActionSpec._internal(1);
 }

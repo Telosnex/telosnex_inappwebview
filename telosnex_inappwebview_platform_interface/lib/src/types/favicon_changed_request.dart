@@ -9,12 +9,12 @@ part 'favicon_changed_request.g.dart';
 
 ///Class that represents the request used by the [PlatformWebViewCreationParams.onFaviconChanged] event.
 @ExchangeableObject()
-class FaviconChangedRequest_ {
+class FaviconChangedRequestSpec {
   ///The favicon URL for the current page, if available.
   WebUri? url;
 
   ///The favicon bytes for the current page, if available.
   Uint8List? icon;
 
-  FaviconChangedRequest_({this.url, this.icon});
+  FaviconChangedRequestSpec({this.url, this.icon});
 }

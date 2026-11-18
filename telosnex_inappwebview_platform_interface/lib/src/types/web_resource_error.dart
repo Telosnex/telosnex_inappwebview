@@ -28,14 +28,14 @@ WebResourceErrorType _deserializeType(dynamic type, {EnumMethod? enumMethod}) {
 
 ///Encapsulates information about errors occurred during loading of web resources.
 @ExchangeableObject()
-class WebResourceError_ {
+class WebResourceErrorSpec {
   ///The type of the error. [WebResourceErrorType.UNKNOWN] when the platform
   ///reports a code that has no type here.
   @ExchangeableObjectProperty(deserializer: _deserializeType)
-  WebResourceErrorType_ type;
+  WebResourceErrorTypeSpec type;
 
   ///The string describing the error.
   String description;
 
-  WebResourceError_({required this.type, required this.description});
+  WebResourceErrorSpec({required this.type, required this.description});
 }

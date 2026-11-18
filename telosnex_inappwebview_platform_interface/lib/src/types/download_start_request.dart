@@ -8,7 +8,7 @@ part 'download_start_request.g.dart';
 
 ///Class representing a download request of the WebView used by the event [PlatformWebViewCreationParams.onDownloadStartRequest].
 @ExchangeableObject()
-class DownloadStartRequest_ {
+class DownloadStartRequestSpec {
   ///The full url to the content that should be downloaded.
   @SupportedPlatforms(
     platforms: [
@@ -67,7 +67,7 @@ class DownloadStartRequest_ {
   )
   String? textEncodingName;
 
-  DownloadStartRequest_({
+  DownloadStartRequestSpec({
     required this.url,
     this.userAgent,
     this.contentDisposition,

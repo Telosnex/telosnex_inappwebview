@@ -7,7 +7,7 @@ part 'login_request.g.dart';
 
 ///Class used by [PlatformWebViewCreationParams.onReceivedLoginRequest] event.
 @ExchangeableObject()
-class LoginRequest_ {
+class LoginRequestSpec {
   ///The account realm used to look up accounts.
   String realm;
 
@@ -18,5 +18,5 @@ class LoginRequest_ {
   ///Authenticator specific arguments used to log in the user.
   String args;
 
-  LoginRequest_({required this.realm, this.account, required this.args});
+  LoginRequestSpec({required this.realm, this.account, required this.args});
 }

@@ -7,10 +7,10 @@ part 'print_job_orientation.g.dart';
 
 ///Class representing the orientation of a [PlatformPrintJobController].
 @ExchangeableEnum()
-class PrintJobOrientation_ {
+class PrintJobOrientationSpec {
   // ignore: unused_field
   final int _value;
-  const PrintJobOrientation_._internal(this._value);
+  const PrintJobOrientationSpec._internal(this._value);
 
   ///Pages are printed in portrait orientation.
   @EnumSupportedPlatforms(
@@ -21,7 +21,7 @@ class PrintJobOrientation_ {
       EnumWindowsPlatform(value: 0),
     ],
   )
-  static const PORTRAIT = PrintJobOrientation_._internal(0);
+  static const PORTRAIT = PrintJobOrientationSpec._internal(0);
 
   ///Pages are printed in landscape orientation.
   @EnumSupportedPlatforms(
@@ -32,5 +32,5 @@ class PrintJobOrientation_ {
       EnumWindowsPlatform(value: 1),
     ],
   )
-  static const LANDSCAPE = PrintJobOrientation_._internal(1);
+  static const LANDSCAPE = PrintJobOrientationSpec._internal(1);
 }

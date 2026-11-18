@@ -121,10 +121,9 @@ class SupportedPlatformsGenerator
     final classBuffer = StringBuffer();
 
     final packageName = element.library?.uri.pathSegments.first ?? 'unknown';
-    var className = visitor.constructor.returnType.element.name ?? '';
-    if (className.endsWith('_')) {
-      className = className.substring(0, className.length - 1);
-    }
+    final className = Util.publicNames(
+      visitor.constructor.returnType.element.name ?? '',
+    );
 
     if (hasClassSupportedFunction) {
       classBuffer.writeln("""

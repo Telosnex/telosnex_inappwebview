@@ -4,26 +4,26 @@ part 'attributed_string_text_effect_style.g.dart';
 
 ///Class that represents the supported proxy types.
 @ExchangeableEnum()
-class AttributedStringTextEffectStyle_ {
+class AttributedStringTextEffectStyleSpec {
   // ignore: unused_field
   final String _value;
-  const AttributedStringTextEffectStyle_._internal(this._value);
+  const AttributedStringTextEffectStyleSpec._internal(this._value);
 
   ///A graphical text effect that gives glyphs the appearance of letterpress printing, which involves pressing the type into the paper.
   static const LETTERPRESS_STYLE =
-      AttributedStringTextEffectStyle_._internal("letterpressStyle");
+      AttributedStringTextEffectStyleSpec._internal("letterpressStyle");
 }
 
 ///An iOS-specific Class that represents the supported proxy types.
 ///Use [AttributedStringTextEffectStyle] instead.
 @Deprecated("Use AttributedStringTextEffectStyle instead")
 @ExchangeableEnum()
-class IOSNSAttributedStringTextEffectStyle_ {
+class IOSNSAttributedStringTextEffectStyleSpec {
   // ignore: unused_field
   final String _value;
-  const IOSNSAttributedStringTextEffectStyle_._internal(this._value);
+  const IOSNSAttributedStringTextEffectStyleSpec._internal(this._value);
 
   ///A graphical text effect that gives glyphs the appearance of letterpress printing, which involves pressing the type into the paper.
   static const LETTERPRESS_STYLE =
-      IOSNSAttributedStringTextEffectStyle_._internal("letterpressStyle");
+      IOSNSAttributedStringTextEffectStyleSpec._internal("letterpressStyle");
 }

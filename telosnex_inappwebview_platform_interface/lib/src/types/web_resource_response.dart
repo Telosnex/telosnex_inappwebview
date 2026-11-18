@@ -7,7 +7,7 @@ part 'web_resource_response.g.dart';
 
 ///Class representing a resource response of the `WebView`.
 @ExchangeableObject()
-class WebResourceResponse_ {
+class WebResourceResponseSpec {
   ///The resource response's MIME type, for example `text/html`.
   String? contentType;
 
@@ -34,7 +34,7 @@ class WebResourceResponse_ {
   ///**NOTE**: available on Android 21+. For Android < 21 it won't be used.
   String? reasonPhrase;
 
-  WebResourceResponse_({
+  WebResourceResponseSpec({
     this.contentType = "",
     this.contentEncoding = "utf-8",
     this.data,

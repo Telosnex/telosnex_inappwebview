@@ -5,12 +5,12 @@ part 'focus_direction.g.dart';
 
 ///Class used to indicate the force dark mode.
 @ExchangeableEnum()
-class FocusDirection_ {
+class FocusDirectionSpec {
   // ignore: unused_field
   final String _value;
   // ignore: unused_field
   final int? _nativeValue = null;
-  const FocusDirection_._internal(this._value);
+  const FocusDirectionSpec._internal(this._value);
 
   ///Move focus up.
   @EnumSupportedPlatforms(
@@ -23,7 +23,7 @@ class FocusDirection_ {
       ),
     ],
   )
-  static const UP = FocusDirection_._internal('UP');
+  static const UP = FocusDirectionSpec._internal('UP');
 
   ///Move focus down.
   @EnumSupportedPlatforms(
@@ -36,7 +36,7 @@ class FocusDirection_ {
       ),
     ],
   )
-  static const DOWN = FocusDirection_._internal('DOWN');
+  static const DOWN = FocusDirectionSpec._internal('DOWN');
 
   ///Move focus to the left.
   @EnumSupportedPlatforms(
@@ -49,7 +49,7 @@ class FocusDirection_ {
       ),
     ],
   )
-  static const LEFT = FocusDirection_._internal('LEFT');
+  static const LEFT = FocusDirectionSpec._internal('LEFT');
 
   ///Move focus to the right.
   @EnumSupportedPlatforms(
@@ -62,5 +62,5 @@ class FocusDirection_ {
       ),
     ],
   )
-  static const RIGHT = FocusDirection_._internal('RIGHT');
+  static const RIGHT = FocusDirectionSpec._internal('RIGHT');
 }

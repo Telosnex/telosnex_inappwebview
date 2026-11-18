@@ -36,7 +36,7 @@ dynamic _deserializeIcon(dynamic icon, {EnumMethod? enumMethod}) {
   platforms: [AndroidPlatform(), IOSPlatform(), MacOSPlatform()],
 )
 @ExchangeableObject()
-class InAppBrowserMenuItem_ {
+class InAppBrowserMenuItemSpec {
   ///The menu item id.
   int id;
 
@@ -58,7 +58,7 @@ class InAppBrowserMenuItem_ {
       MacOSPlatform(),
     ],
   )
-  Color_? iconColor;
+  ColorSpec? iconColor;
 
   ///Item order.
   int? order;
@@ -69,7 +69,7 @@ class InAppBrowserMenuItem_ {
   ///Callback function to be invoked when the menu item is clicked
   void Function()? onClick;
 
-  InAppBrowserMenuItem_({
+  InAppBrowserMenuItemSpec({
     required this.id,
     required this.title,
     this.icon,

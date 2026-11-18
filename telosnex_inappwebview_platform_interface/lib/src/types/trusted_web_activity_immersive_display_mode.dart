@@ -9,28 +9,28 @@ part 'trusted_web_activity_immersive_display_mode.g.dart';
 ///Class that represents the default display mode of a Trusted Web Activity.
 ///The system UI (status bar, navigation bar) is shown, and the browser toolbar is hidden while the user is on a verified origin.
 @ExchangeableObject()
-class TrustedWebActivityImmersiveDisplayMode_
-    implements TrustedWebActivityDisplayMode_ {
+class TrustedWebActivityImmersiveDisplayModeSpec
+    implements TrustedWebActivityDisplayModeSpec {
   ///Whether the Trusted Web Activity should be in sticky immersive mode.
   bool isSticky;
 
   ///Use [displayCutoutMode] instead.
   @Deprecated("Use displayCutoutMode instead")
-  AndroidLayoutInDisplayCutoutMode_? layoutInDisplayCutoutMode;
+  AndroidLayoutInDisplayCutoutModeSpec? layoutInDisplayCutoutMode;
 
   ///The constant defining how to deal with display cutouts.
-  LayoutInDisplayCutoutMode_ displayCutoutMode;
+  LayoutInDisplayCutoutModeSpec displayCutoutMode;
 
   static final _type = "IMMERSIVE_MODE";
 
   @ExchangeableObjectConstructor()
-  TrustedWebActivityImmersiveDisplayMode_({
+  TrustedWebActivityImmersiveDisplayModeSpec({
     required this.isSticky,
-    this.displayCutoutMode = LayoutInDisplayCutoutMode_.DEFAULT,
+    this.displayCutoutMode = LayoutInDisplayCutoutModeSpec.DEFAULT,
     this.layoutInDisplayCutoutMode,
   }) {
     displayCutoutMode = layoutInDisplayCutoutMode != null
-        ? LayoutInDisplayCutoutMode_.fromNativeValue(
+        ? LayoutInDisplayCutoutModeSpec.fromNativeValue(
             layoutInDisplayCutoutMode?.toNativeValue(),
           )!
         : displayCutoutMode;

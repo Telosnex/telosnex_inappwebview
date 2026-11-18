@@ -14,7 +14,7 @@ part 'web_authenticate_session_settings.g.dart';
     MacOSPlatform(available: '10.15'),
   ],
 )
-class WebAuthenticationSessionSettings_ {
+class WebAuthenticationSessionSettingsSpec {
   ///A Boolean value that indicates whether the session should ask the browser for a private authentication session.
   ///
   ///Set [prefersEphemeralWebBrowserSession] to `true` to request that the browser
@@ -33,7 +33,7 @@ class WebAuthenticationSessionSettings_ {
   )
   bool? prefersEphemeralWebBrowserSession;
 
-  WebAuthenticationSessionSettings_({
+  WebAuthenticationSessionSettingsSpec({
     this.prefersEphemeralWebBrowserSession = false,
   });
 

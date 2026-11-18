@@ -6,10 +6,10 @@ part 'url_request_attribution.g.dart';
 
 ///Class that represents the constants used to indicate the entities that can make a network request.
 @ExchangeableEnum()
-class URLRequestAttribution_ {
+class URLRequestAttributionSpec {
   // ignore: unused_field
   final int _value;
-  const URLRequestAttribution_._internal(this._value);
+  const URLRequestAttributionSpec._internal(this._value);
 
   ///A developer-initiated network request.
   ///
@@ -17,9 +17,9 @@ class URLRequestAttribution_ {
   ///This includes requests that your app makes to get user data. This is the default value.
   ///
   ///For cases where the user enters a URL, like in the navigation bar of a web browser, or taps or clicks a URL to load the content it represents, use the [URLRequestAttribution.USER] value instead.
-  static const DEVELOPER = URLRequestAttribution_._internal(0);
+  static const DEVELOPER = URLRequestAttributionSpec._internal(0);
 
   ///Use this value for the attribution parameter of a [URLRequest] that satisfies a user request to access an explicit, unmodified URL.
   ///In all other cases, use the [URLRequestAttribution.DEVELOPER] value instead.
-  static const USER = URLRequestAttribution_._internal(1);
+  static const USER = URLRequestAttributionSpec._internal(1);
 }

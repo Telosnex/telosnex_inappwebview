@@ -8,10 +8,10 @@ part 'browser_process_infos_changed_detail.g.dart';
 
 ///An object that contains information for the [PlatformWebViewEnvironment.onProcessInfosChanged] event.
 @ExchangeableObject()
-class BrowserProcessInfosChangedDetail_ {
+class BrowserProcessInfosChangedDetailSpec {
   ///The kind of the process.
   @SupportedPlatforms(platforms: [WindowsPlatform()])
-  List<BrowserProcessInfo_> infos;
+  List<BrowserProcessInfoSpec> infos;
 
-  BrowserProcessInfosChangedDetail_({this.infos = const []});
+  BrowserProcessInfosChangedDetailSpec({this.infos = const []});
 }

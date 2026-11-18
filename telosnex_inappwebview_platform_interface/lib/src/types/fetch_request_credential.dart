@@ -9,9 +9,9 @@ part 'fetch_request_credential.g.dart';
 
 ///Class that is an interface for [FetchRequestCredentialDefault], [FetchRequestFederatedCredential] and [FetchRequestPasswordCredential] classes.
 @ExchangeableObject()
-class FetchRequestCredential_ {
+class FetchRequestCredentialSpec {
   ///Type of credentials.
   String? type;
 
-  FetchRequestCredential_({this.type});
+  FetchRequestCredentialSpec({this.type});
 }

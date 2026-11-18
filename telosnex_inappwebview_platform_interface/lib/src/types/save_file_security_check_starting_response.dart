@@ -6,14 +6,14 @@ part 'save_file_security_check_starting_response.g.dart';
 
 ///Class that represents the response used by the [PlatformWebViewCreationParams.onSaveFileSecurityCheckStarting] event.
 @ExchangeableObject()
-class SaveFileSecurityCheckStartingResponse_ {
+class SaveFileSecurityCheckStartingResponseSpec {
   ///Whether to cancel the save operation.
   bool? cancelSave;
 
   ///Whether to suppress the default policy check.
   bool? suppressDefaultPolicy;
 
-  SaveFileSecurityCheckStartingResponse_({
+  SaveFileSecurityCheckStartingResponseSpec({
     this.cancelSave,
     this.suppressDefaultPolicy,
   });

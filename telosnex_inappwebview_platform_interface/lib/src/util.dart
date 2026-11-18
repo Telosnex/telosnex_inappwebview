@@ -405,8 +405,7 @@ extension UtilColor on Color {
     hexString = hexString.trim();
     if (hexString.length == 4) {
       // convert for example #f00 to #ff0000
-      hexString =
-          "#${hexString[1] * 2}${hexString[2] * 2}${hexString[3] * 2}";
+      hexString = "#${hexString[1] * 2}${hexString[2] * 2}${hexString[3] * 2}";
     }
     final buffer = StringBuffer();
     if (hexString.length == 6 || hexString.length == 7) buffer.write('ff');
@@ -595,9 +594,13 @@ void debugLog({
 
 // Class used only by the build_runner for @ExchangeableObject annotation.
 // For some strange reason, Color is not recognized anymore by the dart analyzer correctly.
-class Color_ extends Color {
-  Color_(super.value);
+class ColorSpec extends Color {
+  ColorSpec(super.value);
 }
+
+// Keep the old name available to platform interface consumers.
+// ignore: camel_case_types
+typedef Color_ = ColorSpec;
 
 abstract mixin class ChannelController implements Disposable {
   MethodChannel? _channel;
@@ -634,10 +637,7 @@ extension InternalChannelController on ChannelController {
   bool get disposed => _channel == null;
 
   void initMethodCallHandler() {
-    assert(
-      channel != null,
-      'Method Channel for $runtimeType not initialized!',
-    );
+    assert(channel != null, 'Method Channel for $runtimeType not initialized!');
     assert(
       handler != null,
       'Method Call Handler for $runtimeType not initialized!',

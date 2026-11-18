@@ -21,14 +21,14 @@ part 'chrome_safari_browser_secondary_toolbar.g.dart';
   ],
 )
 @ExchangeableObject()
-class ChromeSafariBrowserSecondaryToolbar_ {
+class ChromeSafariBrowserSecondaryToolbarSpec {
   ///The android layout resource.
-  AndroidResource_ layout;
+  AndroidResourceSpec layout;
 
   ///The IDs of clickable views. The `onClick` event of these views will be handled by custom tabs.
-  List<ChromeSafariBrowserSecondaryToolbarClickableID_> clickableIDs;
+  List<ChromeSafariBrowserSecondaryToolbarClickableIDSpec> clickableIDs;
 
-  ChromeSafariBrowserSecondaryToolbar_({
+  ChromeSafariBrowserSecondaryToolbarSpec({
     required this.layout,
     this.clickableIDs = const [],
   });
@@ -41,14 +41,14 @@ class ChromeSafariBrowserSecondaryToolbar_ {
   ],
 )
 @ExchangeableObject()
-class ChromeSafariBrowserSecondaryToolbarClickableID_ {
+class ChromeSafariBrowserSecondaryToolbarClickableIDSpec {
   ///The android id resource
-  AndroidResource_ id;
+  AndroidResourceSpec id;
 
   ///Callback function to be invoked when the item is clicked
   void Function(WebUri? url)? onClick;
 
-  ChromeSafariBrowserSecondaryToolbarClickableID_({
+  ChromeSafariBrowserSecondaryToolbarClickableIDSpec({
     required this.id,
     this.onClick,
   });

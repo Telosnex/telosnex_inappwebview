@@ -11,7 +11,7 @@ part 'print_job_resolution.g.dart';
 ///For example, a printer with 600 DPI can produce higher quality images
 ///the one with 300 DPI resolution.
 @ExchangeableObject()
-class PrintJobResolution_ {
+class PrintJobResolutionSpec {
   ///The unique resolution id.
   ///
   ///It is unique amongst other resolutions supported by the printer.
@@ -28,7 +28,7 @@ class PrintJobResolution_ {
   ///The horizontal resolution in DPI (dots per inch).
   final int horizontalDpi;
 
-  const PrintJobResolution_({
+  const PrintJobResolutionSpec({
     required this.id,
     required this.label,
     required this.verticalDpi,

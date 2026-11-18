@@ -9,10 +9,10 @@ part 'browser_process_info.g.dart';
 
 ///An object that contains information for a process in the [PlatformWebViewEnvironment].
 @ExchangeableObject()
-class BrowserProcessInfo_ {
+class BrowserProcessInfoSpec {
   ///The kind of the process.
   @SupportedPlatforms(platforms: [WindowsPlatform()])
-  BrowserProcessKind_ kind;
+  BrowserProcessKindSpec kind;
 
   ///The process id of the process.
   @SupportedPlatforms(platforms: [WindowsPlatform()])
@@ -21,7 +21,7 @@ class BrowserProcessInfo_ {
   ///A list of associated [FrameInfo]s which are actively running
   ///(showing or hiding UI elements) in the renderer process.
   @SupportedPlatforms(platforms: [WindowsPlatform(available: '1.0.2210.55')])
-  List<FrameInfo_>? frameInfos;
+  List<FrameInfoSpec>? frameInfos;
 
-  BrowserProcessInfo_({required this.kind, this.processId, this.frameInfos});
+  BrowserProcessInfoSpec({required this.kind, this.processId, this.frameInfos});
 }

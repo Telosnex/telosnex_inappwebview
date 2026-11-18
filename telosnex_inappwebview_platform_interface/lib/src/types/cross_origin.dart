@@ -9,16 +9,14 @@ part 'cross_origin.g.dart';
 ///It could be used with [ScriptHtmlTagAttributes] and [CSSLinkHtmlTagAttributes]
 ///when fetching a resource `<link>` or a `<script>` (or resources fetched by the `<script>`).
 @ExchangeableEnum()
-class CrossOrigin_ {
+class CrossOriginSpec {
   // ignore: unused_field
   final String _value;
-  const CrossOrigin_._internal(this._value);
+  const CrossOriginSpec._internal(this._value);
 
   ///CORS requests for this element will have the credentials flag set to 'same-origin'.
-  static const ANONYMOUS = CrossOrigin_._internal("anonymous");
+  static const ANONYMOUS = CrossOriginSpec._internal("anonymous");
 
   ///CORS requests for this element will have the credentials flag set to 'include'.
-  static const USE_CREDENTIALS = CrossOrigin_._internal(
-    "use-credentials",
-  );
+  static const USE_CREDENTIALS = CrossOriginSpec._internal("use-credentials");
 }

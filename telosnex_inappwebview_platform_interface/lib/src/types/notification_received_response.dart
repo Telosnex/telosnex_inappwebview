@@ -6,9 +6,9 @@ part 'notification_received_response.g.dart';
 
 ///Class that represents the response used by the [PlatformWebViewCreationParams.onNotificationReceived] event.
 @ExchangeableObject()
-class NotificationReceivedResponse_ {
+class NotificationReceivedResponseSpec {
   ///Set to `true` to indicate the notification has been handled by the host.
   bool handled;
 
-  NotificationReceivedResponse_({required this.handled});
+  NotificationReceivedResponseSpec({required this.handled});
 }

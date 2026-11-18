@@ -13,14 +13,14 @@ part 'renderer_priority_policy.g.dart';
 ///and this should not be changed unless the caller also handles renderer crashes with [PlatformWebViewCreationParams.onRenderProcessGone].
 ///Any other setting will result in WebView renderers being killed by the system more aggressively than the application.
 @ExchangeableObject()
-class RendererPriorityPolicy_ {
+class RendererPriorityPolicySpec {
   ///The minimum priority at which this WebView desires the renderer process to be bound.
-  RendererPriority_? rendererRequestedPriority;
+  RendererPrioritySpec? rendererRequestedPriority;
 
   ///If `true`, this flag specifies that when this WebView is not visible, it will be treated as if it had requested a priority of [RendererPriority.RENDERER_PRIORITY_WAIVED].
   bool waivedWhenNotVisible;
 
-  RendererPriorityPolicy_({
+  RendererPriorityPolicySpec({
     required this.rendererRequestedPriority,
     required this.waivedWhenNotVisible,
   });

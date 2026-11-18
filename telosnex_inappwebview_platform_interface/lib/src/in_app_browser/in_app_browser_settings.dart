@@ -115,7 +115,7 @@ class BrowserOptions {
     ),
   ],
 )
-class InAppBrowserSettings_
+class InAppBrowserSettingsSpec
     implements BrowserOptions, AndroidOptions, IosOptions {
   ///Set to `true` to create the browser and load the page, but not show it. Omit or set to `false` to have the browser open and load normally.
   ///The default value is `false`.
@@ -150,7 +150,7 @@ class InAppBrowserSettings_
       LinuxPlatform(),
     ],
   )
-  Color_? toolbarTopBackgroundColor;
+  ColorSpec? toolbarTopBackgroundColor;
 
   ///Set to `true` to hide the url bar on the toolbar at the top. The default value is `false`.
   @SupportedPlatforms(
@@ -218,11 +218,11 @@ class InAppBrowserSettings_
 
   ///Set the tint color to apply to the navigation bar background.
   @SupportedPlatforms(platforms: [IOSPlatform()])
-  Color_? toolbarTopBarTintColor;
+  ColorSpec? toolbarTopBarTintColor;
 
   ///Set the tint color to apply to the navigation items and bar button items.
   @SupportedPlatforms(platforms: [IOSPlatform()])
-  Color_? toolbarTopTintColor;
+  ColorSpec? toolbarTopTintColor;
 
   ///Set to `true` to hide the toolbar at the bottom of the WebView. The default value is `false`.
   @SupportedPlatforms(platforms: [IOSPlatform()])
@@ -230,11 +230,11 @@ class InAppBrowserSettings_
 
   ///Set the custom background color of the toolbar at the bottom.
   @SupportedPlatforms(platforms: [IOSPlatform()])
-  Color_? toolbarBottomBackgroundColor;
+  ColorSpec? toolbarBottomBackgroundColor;
 
   ///Set the tint color to apply to the bar button items.
   @SupportedPlatforms(platforms: [IOSPlatform()])
-  Color_? toolbarBottomTintColor;
+  ColorSpec? toolbarBottomTintColor;
 
   ///Set to `true` to set the toolbar at the bottom translucent. The default value is `true`.
   @SupportedPlatforms(platforms: [IOSPlatform()])
@@ -246,7 +246,7 @@ class InAppBrowserSettings_
 
   ///Set the custom color for the close button.
   @SupportedPlatforms(platforms: [IOSPlatform()])
-  Color_? closeButtonColor;
+  ColorSpec? closeButtonColor;
 
   ///Set to `true` to hide the close button. The default value is `false`.
   @SupportedPlatforms(platforms: [IOSPlatform()])
@@ -254,22 +254,22 @@ class InAppBrowserSettings_
 
   ///Set the custom color for the menu button.
   @SupportedPlatforms(platforms: [IOSPlatform()])
-  Color_? menuButtonColor;
+  ColorSpec? menuButtonColor;
 
   ///Set the custom modal presentation style when presenting the WebView. The default value is [ModalPresentationStyle.FULL_SCREEN].
   @SupportedPlatforms(platforms: [IOSPlatform()])
-  ModalPresentationStyle_? presentationStyle;
+  ModalPresentationStyleSpec? presentationStyle;
 
   ///Set to the custom transition style when presenting the WebView. The default value is [ModalTransitionStyle.COVER_VERTICAL].
   @SupportedPlatforms(platforms: [IOSPlatform()])
-  ModalTransitionStyle_? transitionStyle;
+  ModalTransitionStyleSpec? transitionStyle;
 
   ///How the browser window should be added to the main window.
   ///The default value is [WindowType.WINDOW].
   @SupportedPlatforms(
     platforms: [MacOSPlatform(), WindowsPlatform(), LinuxPlatform()],
   )
-  WindowType_? windowType;
+  WindowTypeSpec? windowType;
 
   ///The window’s alpha value.
   ///The default value is `1.0`.
@@ -280,20 +280,20 @@ class InAppBrowserSettings_
 
   ///Flags that describe the window’s current style, such as if it’s resizable or in full-screen mode.
   @SupportedPlatforms(platforms: [MacOSPlatform()])
-  WindowStyleMask_? windowStyleMask;
+  WindowStyleMaskSpec? windowStyleMask;
 
   ///The type of separator that the app displays between the title bar and content of a window.
   @SupportedPlatforms(platforms: [MacOSPlatform(available: '11.0')])
-  WindowTitlebarSeparatorStyle_? windowTitlebarSeparatorStyle;
+  WindowTitlebarSeparatorStyleSpec? windowTitlebarSeparatorStyle;
 
   ///Sets the origin and size of the window’s frame rectangle according to a given frame rectangle,
   ///thereby setting its position and size onscreen.
   @SupportedPlatforms(
     platforms: [MacOSPlatform(), WindowsPlatform(), LinuxPlatform()],
   )
-  InAppWebViewRect_? windowFrame;
+  InAppWebViewRectSpec? windowFrame;
 
-  InAppBrowserSettings_({
+  InAppBrowserSettingsSpec({
     this.hidden = false,
     this.hideToolbarTop = false,
     this.toolbarTopBackgroundColor,
@@ -310,8 +310,8 @@ class InAppBrowserSettings_
     this.closeButtonColor,
     this.hideCloseButton = false,
     this.menuButtonColor,
-    this.presentationStyle = ModalPresentationStyle_.FULL_SCREEN,
-    this.transitionStyle = ModalTransitionStyle_.COVER_VERTICAL,
+    this.presentationStyle = ModalPresentationStyleSpec.FULL_SCREEN,
+    this.transitionStyle = ModalTransitionStyleSpec.COVER_VERTICAL,
     this.hideTitleBar = false,
     this.toolbarTopFixedTitle,
     this.closeOnCannotGoBack = true,
@@ -326,7 +326,7 @@ class InAppBrowserSettings_
 
   @override
   @ExchangeableObjectMethod(ignore: true)
-  InAppBrowserSettings_ copy() {
+  InAppBrowserSettingsSpec copy() {
     throw UnimplementedError();
   }
 

@@ -8,9 +8,9 @@ part 'request_image_ref_result.g.dart';
 
 ///Class that represents the result used by the [PlatformInAppWebViewController.requestImageRef] method.
 @ExchangeableObject()
-class RequestImageRefResult_ {
+class RequestImageRefResultSpec {
   ///The image's url.
   WebUri? url;
 
-  RequestImageRefResult_({this.url});
+  RequestImageRefResultSpec({this.url});
 }

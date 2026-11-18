@@ -8,13 +8,13 @@ part 'accelerator_key_pressed_detail.g.dart';
 
 ///Class that represents details of the [PlatformWebViewCreationParams.onAcceleratorKeyPressed] event.
 @ExchangeableObject()
-class AcceleratorKeyPressedDetail_ {
+class AcceleratorKeyPressedDetailSpec {
   int? keyEventKind;
-  PhysicalKeyStatus_? physicalKeyStatus;
+  PhysicalKeyStatusSpec? physicalKeyStatus;
   int? virtualKey;
 
   @ExchangeableObjectConstructor()
-  AcceleratorKeyPressedDetail_({
+  AcceleratorKeyPressedDetailSpec({
     this.keyEventKind,
     this.physicalKeyStatus,
     this.virtualKey,

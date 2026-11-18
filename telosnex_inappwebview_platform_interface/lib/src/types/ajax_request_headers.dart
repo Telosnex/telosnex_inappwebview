@@ -7,15 +7,15 @@ part 'ajax_request_headers.g.dart';
 
 ///Class that represents the HTTP headers of an [AjaxRequest].
 @ExchangeableObject()
-class AjaxRequestHeaders_ {
+class AjaxRequestHeadersSpec {
   final Map<String, dynamic> _headers;
   final Map<String, dynamic> _newHeaders = {};
 
   @ExchangeableObjectConstructor()
-  AjaxRequestHeaders_(this._headers);
+  AjaxRequestHeadersSpec(this._headers);
 
   ///Gets a possible [AjaxRequestHeaders] instance from a [Map] value.
-  static AjaxRequestHeaders_? fromMap(
+  static AjaxRequestHeadersSpec? fromMap(
     Map<String, dynamic>? map, {
     EnumMethod? enumMethod,
   }) {
@@ -23,7 +23,7 @@ class AjaxRequestHeaders_ {
       return null;
     }
 
-    return AjaxRequestHeaders_(map);
+    return AjaxRequestHeadersSpec(map);
   }
 
   ///Gets the HTTP headers of the [AjaxRequest].

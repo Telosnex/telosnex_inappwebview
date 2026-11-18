@@ -6,12 +6,12 @@ part 'web_storage_item.g.dart';
 
 ///Class that represents a single web storage item of the JavaScript `window.sessionStorage` and `window.localStorage` objects.
 @ExchangeableObject()
-class WebStorageItem_ {
+class WebStorageItemSpec {
   ///Item key.
   String? key;
 
   ///Item value.
   dynamic value;
 
-  WebStorageItem_({this.key, this.value});
+  WebStorageItemSpec({this.key, this.value});
 }

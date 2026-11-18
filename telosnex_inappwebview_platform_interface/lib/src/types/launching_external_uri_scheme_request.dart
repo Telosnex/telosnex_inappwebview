@@ -7,7 +7,7 @@ part 'launching_external_uri_scheme_request.g.dart';
 
 ///Class that represents the request used by the [PlatformWebViewCreationParams.onLaunchingExternalUriScheme] event.
 @ExchangeableObject()
-class LaunchingExternalUriSchemeRequest_ {
+class LaunchingExternalUriSchemeRequestSpec {
   ///The URI with the external URI scheme to be launched.
   WebUri uri;
 
@@ -17,7 +17,7 @@ class LaunchingExternalUriSchemeRequest_ {
   ///Whether the external URI scheme request was initiated through a user gesture.
   bool? isUserInitiated;
 
-  LaunchingExternalUriSchemeRequest_({
+  LaunchingExternalUriSchemeRequestSpec({
     required this.uri,
     this.initiatingOrigin,
     this.isUserInitiated,

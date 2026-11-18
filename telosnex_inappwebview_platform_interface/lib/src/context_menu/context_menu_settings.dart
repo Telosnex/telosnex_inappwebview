@@ -7,19 +7,19 @@ part 'context_menu_settings.g.dart';
 
 ///Class that represents available settings used by [ContextMenu].
 @ExchangeableObject(copyMethod: true)
-class ContextMenuSettings_ {
+class ContextMenuSettingsSpec {
   ///Whether all the default system context menu items should be hidden or not. The default value is `false`.
   bool hideDefaultSystemContextMenuItems;
 
-  ContextMenuSettings_({this.hideDefaultSystemContextMenuItems = false});
+  ContextMenuSettingsSpec({this.hideDefaultSystemContextMenuItems = false});
 }
 
 ///Use [ContextMenuSettings] instead.
 @Deprecated("Use ContextMenuSettings instead")
 @ExchangeableObject(copyMethod: true)
-class ContextMenuOptions_ {
+class ContextMenuOptionsSpec {
   ///Whether all the default system context menu items should be hidden or not. The default value is `false`.
   bool hideDefaultSystemContextMenuItems;
 
-  ContextMenuOptions_({this.hideDefaultSystemContextMenuItems = false});
+  ContextMenuOptionsSpec({this.hideDefaultSystemContextMenuItems = false});
 }

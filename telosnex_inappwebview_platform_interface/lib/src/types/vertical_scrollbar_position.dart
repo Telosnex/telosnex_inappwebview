@@ -4,42 +4,42 @@ part 'vertical_scrollbar_position.g.dart';
 
 ///Class used to configure the position of the vertical scroll bar.
 @ExchangeableEnum()
-class VerticalScrollbarPosition_ {
+class VerticalScrollbarPositionSpec {
   // ignore: unused_field
   final int _value;
-  const VerticalScrollbarPosition_._internal(this._value);
+  const VerticalScrollbarPositionSpec._internal(this._value);
 
   ///Position the scroll bar at the default position as determined by the system.
   static const SCROLLBAR_POSITION_DEFAULT =
-      VerticalScrollbarPosition_._internal(0);
+      VerticalScrollbarPositionSpec._internal(0);
 
   ///Position the scroll bar along the left edge.
   static const SCROLLBAR_POSITION_LEFT =
-      VerticalScrollbarPosition_._internal(1);
+      VerticalScrollbarPositionSpec._internal(1);
 
   ///Position the scroll bar along the right edge.
   static const SCROLLBAR_POSITION_RIGHT =
-      VerticalScrollbarPosition_._internal(2);
+      VerticalScrollbarPositionSpec._internal(2);
 }
 
 ///An Android-specific class used to configure the position of the vertical scroll bar.
 ///Use [VerticalScrollbarPosition] instead.
 @Deprecated("Use VerticalScrollbarPosition instead")
 @ExchangeableEnum()
-class AndroidVerticalScrollbarPosition_ {
+class AndroidVerticalScrollbarPositionSpec {
   // ignore: unused_field
   final int _value;
-  const AndroidVerticalScrollbarPosition_._internal(this._value);
+  const AndroidVerticalScrollbarPositionSpec._internal(this._value);
 
   ///Position the scroll bar at the default position as determined by the system.
   static const SCROLLBAR_POSITION_DEFAULT =
-      AndroidVerticalScrollbarPosition_._internal(0);
+      AndroidVerticalScrollbarPositionSpec._internal(0);
 
   ///Position the scroll bar along the left edge.
   static const SCROLLBAR_POSITION_LEFT =
-      AndroidVerticalScrollbarPosition_._internal(1);
+      AndroidVerticalScrollbarPositionSpec._internal(1);
 
   ///Position the scroll bar along the right edge.
   static const SCROLLBAR_POSITION_RIGHT =
-      AndroidVerticalScrollbarPosition_._internal(2);
+      AndroidVerticalScrollbarPositionSpec._internal(2);
 }

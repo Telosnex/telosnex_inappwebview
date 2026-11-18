@@ -54,9 +54,9 @@ class ExchangeableEnumGenerator
     // Visits all the children of element in no particular order.
     element.visitChildren(visitor);
 
-    final className = visitor.constructor.returnType.element.name ?? '';
-    // remove "_" to generate the correct class name
-    final extClassName = className.replaceFirst("_", "");
+    final extClassName = Util.publicNames(
+      visitor.constructor.returnType.element.name ?? '',
+    );
 
     final classBuffer = StringBuffer();
     final classDocs =
@@ -123,8 +123,7 @@ class ExchangeableEnumGenerator
         final fieldBody = parsed
             .getFragmentDeclaration(fieldElement.firstFragment)
             ?.node
-            .toString()
-            .replaceAll(className, extClassName);
+            .toString();
         if (fieldBody != null) {
           final docs = fieldElement.documentationComment;
           if (docs != null) {
@@ -142,7 +141,7 @@ class ExchangeableEnumGenerator
           if (fieldElement.isConst) {
             classBuffer.write("const ");
           }
-          classBuffer.writeln("$fieldBody;");
+          classBuffer.writeln("${Util.publicNames(fieldBody)};");
         }
         continue;
       }
@@ -159,7 +158,7 @@ class ExchangeableEnumGenerator
       }
       if (fieldName == '_value' || fieldName == '_nativeValue') {
         classBuffer.writeln(
-          "final ${fieldElement.type.toString().replaceFirst("_", "")} $fieldName;",
+          "final ${Util.publicNames(fieldElement.type.toString())} $fieldName;",
         );
       } else {
         final fieldValue = fieldElement.computeConstantValue()?.getField(
@@ -340,16 +339,7 @@ class ExchangeableEnumGenerator
           ?.node
           .toString();
       if (methodBodyRaw != null) {
-        // Replace type names: first className, then type references ending with _
-        var methodBody = methodBodyRaw
-            .replaceAll(className, extClassName)
-            .replaceAll("_.", ".")
-            .replaceAll("_?", "?")
-            .replaceAll("_>", ">")
-            .replaceAllMapped(
-              RegExp(r'([A-Z][a-zA-Z0-9]*)_\b'),
-              (match) => match.group(1)!,
-            );
+        final methodBody = Util.publicNames(methodBodyRaw);
 
         final docs = methodElement.documentationComment;
         if (docs != null) {

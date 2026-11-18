@@ -5,11 +5,11 @@ part 'window_type.g.dart';
 
 ///Class that represents how a browser window should be added to the main window.
 @ExchangeableEnum()
-class WindowType_ {
+class WindowTypeSpec {
   // ignore: unused_field
   final String _value;
 
-  const WindowType_._internal(this._value);
+  const WindowTypeSpec._internal(this._value);
 
   ///Adds the new browser window as a separate new window from the main window.
   @EnumSupportedPlatforms(
@@ -18,7 +18,7 @@ class WindowType_ {
       EnumWindowsPlatform(value: 'WINDOW'),
     ],
   )
-  static const WINDOW = WindowType_._internal('WINDOW');
+  static const WINDOW = WindowTypeSpec._internal('WINDOW');
 
   ///Adds the new browser window as a child window of the main window.
   @EnumSupportedPlatforms(
@@ -27,11 +27,11 @@ class WindowType_ {
       EnumWindowsPlatform(value: 'CHILD'),
     ],
   )
-  static const CHILD = WindowType_._internal('CHILD');
+  static const CHILD = WindowTypeSpec._internal('CHILD');
 
   ///Adds the new browser window as a new tab in a tabbed window of the main window.
   @EnumSupportedPlatforms(
     platforms: [EnumMacOSPlatform(value: 'TABBED', available: "10.12+")],
   )
-  static const TABBED = WindowType_._internal('TABBED');
+  static const TABBED = WindowTypeSpec._internal('TABBED');
 }

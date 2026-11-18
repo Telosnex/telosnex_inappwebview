@@ -14,7 +14,7 @@ part 'ui_image.g.dart';
 ///- iOS
 ///- MacOS
 @ExchangeableObject()
-class UIImage_ {
+class UIImageSpec {
   ///The name of the image asset or file.
   String? name;
 
@@ -31,7 +31,7 @@ class UIImage_ {
   Uint8List? data;
 
   @ExchangeableObjectConstructor()
-  UIImage_({this.name, this.systemName, this.data}) {
+  UIImageSpec({this.name, this.systemName, this.data}) {
     assert(name != null || systemName != null || data != null);
   }
 }

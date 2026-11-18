@@ -10,41 +10,44 @@ part 'web_message.g.dart';
 ///The Dart representation of the HTML5 PostMessage event.
 ///See https://html.spec.whatwg.org/multipage/comms.html#the-messageevent-interfaces for definition of a MessageEvent in HTML5.
 @ExchangeableObject(fromMapForceAllInline: true)
-class WebMessage_ {
+class WebMessageSpec {
   ///The data of the message.
   dynamic data;
 
   ///The payload type of the message.
-  WebMessageType_ type;
+  WebMessageTypeSpec type;
 
   ///The ports that are sent with the message.
   List<IWebMessagePort>? ports;
 
   @ExchangeableObjectConstructor()
-  WebMessage_({this.data, this.type = WebMessageType_.STRING, this.ports}) {
+  WebMessageSpec({
+    this.data,
+    this.type = WebMessageTypeSpec.STRING,
+    this.ports,
+  }) {
     assert(
-      ((data == null || data is String) &&
-              type == WebMessageType_.STRING) ||
+      ((data == null || data is String) && type == WebMessageTypeSpec.STRING) ||
           (data != null &&
               data is Uint8List &&
-              type == WebMessageType_.ARRAY_BUFFER),
+              type == WebMessageTypeSpec.ARRAY_BUFFER),
     );
   }
 }
 
 ///The type corresponding to the [WebMessage].
 @ExchangeableEnum()
-class WebMessageType_ {
+class WebMessageTypeSpec {
   // ignore: unused_field
   final int _value;
 
-  const WebMessageType_._internal(this._value);
+  const WebMessageTypeSpec._internal(this._value);
 
   ///Indicates the payload of WebMessageCompat is String.
-  static const STRING = WebMessageType_._internal(0);
+  static const STRING = WebMessageTypeSpec._internal(0);
 
   ///Indicates the payload of WebMessageCompat is JavaScript ArrayBuffer.
   ///
   ///**NOTE**: available only if [WebViewFeature.WEB_MESSAGE_ARRAY_BUFFER] feature is supported.
-  static const ARRAY_BUFFER = WebMessageType_._internal(1);
+  static const ARRAY_BUFFER = WebMessageTypeSpec._internal(1);
 }

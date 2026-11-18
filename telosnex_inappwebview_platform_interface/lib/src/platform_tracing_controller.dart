@@ -236,7 +236,7 @@ List<dynamic> _serializeCategories(
   ],
 )
 @ExchangeableObject(copyMethod: true)
-class TracingSettings_ {
+class TracingSettingsSpec {
   ///Adds predefined [TracingCategory] and/or custom [String] sets of categories to be included in the trace output.
   ///
   ///Note that the categories are defined by the currently-in-use version of WebView.
@@ -256,10 +256,10 @@ class TracingSettings_ {
   ///
   ///{@macro telosnex_inappwebview_platform_interface.TracingSettings.tracingMode.supported_platforms}
   @SupportedPlatforms(platforms: [AndroidPlatform()])
-  TracingMode_? tracingMode;
+  TracingModeSpec? tracingMode;
 
   @ExchangeableObjectConstructor()
-  TracingSettings_({this.categories = const [], this.tracingMode}) {
+  TracingSettingsSpec({this.categories = const [], this.tracingMode}) {
     assert(
       categories
           .map(

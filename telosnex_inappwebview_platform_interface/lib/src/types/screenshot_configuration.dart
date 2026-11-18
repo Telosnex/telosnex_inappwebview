@@ -9,7 +9,7 @@ part 'screenshot_configuration.g.dart';
 
 ///Class that represents the configuration data to use when generating an image from a web view’s contents using [PlatformInAppWebViewController.takeScreenshot].
 @ExchangeableObject()
-class ScreenshotConfiguration_ {
+class ScreenshotConfigurationSpec {
   ///The portion of your web view to capture, specified as a rectangle in the view’s coordinate system.
   ///The default value of this property is `null`, which captures everything in the view’s bounds rectangle.
   ///If you specify a custom rectangle, it must lie within the bounds rectangle of the `WebView` object.
@@ -21,7 +21,7 @@ class ScreenshotConfiguration_ {
       WindowsPlatform(),
     ],
   )
-  InAppWebViewRect_? rect;
+  InAppWebViewRectSpec? rect;
 
   ///The width of the captured image, in points.
   ///Use this property to scale the generated image to the specified width.
@@ -43,7 +43,7 @@ class ScreenshotConfiguration_ {
       WindowsPlatform(),
     ],
   )
-  CompressFormat_ compressFormat;
+  CompressFormatSpec compressFormat;
 
   ///Hint to the compressor, `0-100`. The value is interpreted differently depending on the [CompressFormat].
   ///[CompressFormat.PNG] is lossless, so this value is ignored.
@@ -73,14 +73,14 @@ class ScreenshotConfiguration_ {
   bool afterScreenUpdates;
 
   @ExchangeableObjectConstructor()
-  ScreenshotConfiguration_({
+  ScreenshotConfigurationSpec({
     this.rect,
     this.snapshotWidth,
-    CompressFormat_? compressFormat,
+    CompressFormatSpec? compressFormat,
     this.quality = 100,
     @Deprecated("Use afterScreenUpdates instead") this.iosAfterScreenUpdates,
     this.afterScreenUpdates = true,
-  }) : compressFormat = compressFormat ?? CompressFormat_.PNG {
+  }) : compressFormat = compressFormat ?? CompressFormatSpec.PNG {
     assert(quality >= 0);
     // ignore: deprecated_member_use_from_same_package
     afterScreenUpdates = iosAfterScreenUpdates != null

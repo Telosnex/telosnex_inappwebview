@@ -11,15 +11,15 @@ part 'console_message.g.dart';
 ///
 ///To receive notifications of these messages, use the [PlatformWebViewCreationParams.onConsoleMessage] event.
 @ExchangeableObject()
-class ConsoleMessage_ {
+class ConsoleMessageSpec {
   ///Console message
   String message;
 
   ///Console message level
-  ConsoleMessageLevel_ messageLevel;
+  ConsoleMessageLevelSpec messageLevel;
 
-  ConsoleMessage_({
+  ConsoleMessageSpec({
     this.message = "",
-    this.messageLevel = ConsoleMessageLevel_.LOG,
+    this.messageLevel = ConsoleMessageLevelSpec.LOG,
   });
 }

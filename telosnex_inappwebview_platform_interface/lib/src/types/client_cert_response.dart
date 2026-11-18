@@ -9,7 +9,7 @@ part 'client_cert_response.g.dart';
 
 ///Class that represents the response used by the [PlatformWebViewCreationParams.onReceivedClientCertRequest] event.
 @ExchangeableObject()
-class ClientCertResponse_ {
+class ClientCertResponseSpec {
   ///The file path of the certificate to use.
   @SupportedPlatforms(
     platforms: [AndroidPlatform(), IOSPlatform(), MacOSPlatform()],
@@ -35,18 +35,18 @@ class ClientCertResponse_ {
   int selectedCertificate;
 
   ///Indicate the [ClientCertResponseAction] to take in response of the client certificate challenge.
-  ClientCertResponseAction_? action;
+  ClientCertResponseActionSpec? action;
 
   @ExchangeableObjectConstructor()
-  ClientCertResponse_({
+  ClientCertResponseSpec({
     this.certificatePath = "",
     this.certificatePassword = "",
     @Deprecated('Use keyStoreType instead') this.androidKeyStoreType = "PKCS12",
     this.keyStoreType = "PKCS12",
     this.selectedCertificate = -1,
-    this.action = ClientCertResponseAction_.CANCEL,
+    this.action = ClientCertResponseActionSpec.CANCEL,
   }) {
-    if (action == ClientCertResponseAction_.PROCEED && !Util.isWindows) {
+    if (action == ClientCertResponseActionSpec.PROCEED && !Util.isWindows) {
       assert(certificatePath.isNotEmpty);
     }
 

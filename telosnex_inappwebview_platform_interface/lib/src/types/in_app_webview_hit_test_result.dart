@@ -7,12 +7,12 @@ part 'in_app_webview_hit_test_result.g.dart';
 
 ///Class that represents the hit result for hitting an HTML elements.
 @ExchangeableObject()
-class InAppWebViewHitTestResult_ {
+class InAppWebViewHitTestResultSpec {
   ///The type of the hit test result.
-  InAppWebViewHitTestResultType_? type;
+  InAppWebViewHitTestResultTypeSpec? type;
 
   ///Additional type-dependant information about the result.
   String? extra;
 
-  InAppWebViewHitTestResult_({this.type, this.extra});
+  InAppWebViewHitTestResultSpec({this.type, this.extra});
 }

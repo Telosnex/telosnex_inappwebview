@@ -59,7 +59,7 @@ List<ContentBlocker> _deserializeContentBlockers(
     WindowsPlatform(),
   ],
 )
-class InAppWebViewSettings_ {
+class InAppWebViewSettingsSpec {
   ///Set to `true` to be able to listen at the [PlatformWebViewCreationParams.shouldOverrideUrlLoading] event.
   ///
   ///If the [PlatformWebViewCreationParams.shouldOverrideUrlLoading] event is implemented and this value is `null`,
@@ -337,7 +337,7 @@ class InAppWebViewSettings_ {
       ),
     ],
   )
-  UserPreferredContentMode_? preferredContentMode;
+  UserPreferredContentModeSpec? preferredContentMode;
 
   ///Set to `true` to be able to listen at the [PlatformWebViewCreationParams.shouldInterceptAjaxRequest] event.
   ///
@@ -569,7 +569,7 @@ because there isn't any way to make the website data store non-persistent for th
   ///Use a [WebViewAssetLoader] instance to load local files including application's static assets and resources using http(s):// URLs.
   ///Loading local files using web-like URLs instead of `file://` is desirable as it is compatible with the Same-Origin policy.
   @SupportedPlatforms(platforms: [AndroidPlatform()])
-  WebViewAssetLoader_? webViewAssetLoader;
+  WebViewAssetLoaderSpec? webViewAssetLoader;
 
   ///Sets the text zoom of the page in percent. The default value is `100`.
   @SupportedPlatforms(
@@ -687,7 +687,7 @@ because there isn't any way to make the website data store non-persistent for th
       ),
     ],
   )
-  MixedContentMode_? mixedContentMode;
+  MixedContentModeSpec? mixedContentMode;
 
   ///Enables or disables content URL access within WebView. Content URL access allows WebView to load content from a content provider installed in the system. The default value is `true`.
   @SupportedPlatforms(
@@ -756,7 +756,7 @@ because there isn't any way to make the website data store non-persistent for th
       ),
     ],
   )
-  CacheMode_? cacheMode;
+  CacheModeSpec? cacheMode;
 
   ///Sets the cursive font family name. The default value is `"cursive"`.
   @SupportedPlatforms(
@@ -837,7 +837,7 @@ because there isn't any way to make the website data store non-persistent for th
       ),
     ],
   )
-  ActionModeMenuItem_? disabledActionModeMenuItems;
+  ActionModeMenuItemSpec? disabledActionModeMenuItems;
 
   ///Sets the fantasy font family name. The default value is `"fantasy"`.
   @SupportedPlatforms(
@@ -894,7 +894,7 @@ because there isn't any way to make the website data store non-persistent for th
       ),
     ],
   )
-  ForceDark_? forceDark;
+  ForceDarkSpec? forceDark;
 
   ///Use [algorithmicDarkeningAllowed] instead.
   ///
@@ -919,7 +919,7 @@ because there isn't any way to make the website data store non-persistent for th
       ),
     ],
   )
-  ForceDarkStrategy_? forceDarkStrategy;
+  ForceDarkStrategySpec? forceDarkStrategy;
 
   ///Sets whether Geolocation is enabled. The default is `true`.
   @SupportedPlatforms(
@@ -947,7 +947,7 @@ because there isn't any way to make the website data store non-persistent for th
       ),
     ],
   )
-  LayoutAlgorithm_? layoutAlgorithm;
+  LayoutAlgorithmSpec? layoutAlgorithm;
 
   ///Sets whether the WebView loads pages in overview mode, that is, zooms out the content to fit on screen by width.
   ///This setting is taken into account when the content width is greater than the width of the WebView control, for example, when [useWideViewPort] is enabled.
@@ -1203,7 +1203,7 @@ as it can cause framerate drops on animations in Android 9 and lower (see [Hybri
       ),
     ],
   )
-  OverScrollMode_? overScrollMode;
+  OverScrollModeSpec? overScrollMode;
 
   ///Informs WebView of the network state.
   ///This is used to set the JavaScript property `window.navigator.isOnline` and generates the online/offline event as specified in HTML5, sec. 5.7.7.
@@ -1233,7 +1233,7 @@ as it can cause framerate drops on animations in Android 9 and lower (see [Hybri
       ),
     ],
   )
-  ScrollBarStyle_? scrollBarStyle;
+  ScrollBarStyleSpec? scrollBarStyle;
 
   ///Sets the position of the vertical scroll bar.
   ///The default value is [VerticalScrollbarPosition.SCROLLBAR_POSITION_DEFAULT].
@@ -1246,7 +1246,7 @@ as it can cause framerate drops on animations in Android 9 and lower (see [Hybri
       ),
     ],
   )
-  VerticalScrollbarPosition_? verticalScrollbarPosition;
+  VerticalScrollbarPositionSpec? verticalScrollbarPosition;
 
   ///Defines the delay in milliseconds that a scrollbar waits before fade out.
   @SupportedPlatforms(
@@ -1295,7 +1295,7 @@ as it can cause framerate drops on animations in Android 9 and lower (see [Hybri
       ),
     ],
   )
-  RendererPriorityPolicy_? rendererPriorityPolicy;
+  RendererPriorityPolicySpec? rendererPriorityPolicy;
 
   ///Sets whether the default Android WebView’s internal error page should be suppressed or displayed for bad navigations.
   ///`true` means suppressed (not shown), `false` means it will be displayed. The default value is `false`.
@@ -1322,7 +1322,7 @@ as it can cause framerate drops on animations in Android 9 and lower (see [Hybri
       ),
     ],
   )
-  Color_? verticalScrollbarThumbColor;
+  ColorSpec? verticalScrollbarThumbColor;
 
   ///Sets the vertical scrollbar track color.
   @SupportedPlatforms(
@@ -1335,7 +1335,7 @@ as it can cause framerate drops on animations in Android 9 and lower (see [Hybri
       ),
     ],
   )
-  Color_? verticalScrollbarTrackColor;
+  ColorSpec? verticalScrollbarTrackColor;
 
   ///Sets the horizontal scrollbar thumb color.
   @SupportedPlatforms(
@@ -1348,7 +1348,7 @@ as it can cause framerate drops on animations in Android 9 and lower (see [Hybri
       ),
     ],
   )
-  Color_? horizontalScrollbarThumbColor;
+  ColorSpec? horizontalScrollbarThumbColor;
 
   ///Sets the horizontal scrollbar track color.
   @SupportedPlatforms(
@@ -1361,7 +1361,7 @@ as it can cause framerate drops on animations in Android 9 and lower (see [Hybri
       ),
     ],
   )
-  Color_? horizontalScrollbarTrackColor;
+  ColorSpec? horizontalScrollbarTrackColor;
 
   ///Control whether algorithmic darkening is allowed.
   ///
@@ -1601,7 +1601,7 @@ as it can cause framerate drops on animations in Android 9 and lower (see [Hybri
       ),
     ],
   )
-  SelectionGranularity_? selectionGranularity;
+  SelectionGranularitySpec? selectionGranularity;
 
   ///Specifying a dataDetectoryTypes value adds interactivity to web content that matches the value.
   ///For example, Safari adds a link to “apple.com” in the text “Visit apple.com” if the dataDetectorTypes property is set to [DataDetectorTypes.LINK].
@@ -1616,7 +1616,7 @@ as it can cause framerate drops on animations in Android 9 and lower (see [Hybri
       ),
     ],
   )
-  List<DataDetectorTypes_>? dataDetectorTypes;
+  List<DataDetectorTypesSpec>? dataDetectorTypes;
 
   ///Set `true` if shared cookies from `HTTPCookieStorage.shared` should used for every load request in the WebView.
   ///The default value is `false`.
@@ -1667,7 +1667,7 @@ as it can cause framerate drops on animations in Android 9 and lower (see [Hybri
       ),
     ],
   )
-  ScrollViewDecelerationRate_? decelerationRate;
+  ScrollViewDecelerationRateSpec? decelerationRate;
 
   ///A Boolean value that determines whether bouncing always occurs when vertical scrolling reaches the end of the content.
   ///If this property is set to `true` and [InAppWebViewSettings.disallowOverScroll] is `false`,
@@ -1769,7 +1769,7 @@ as it can cause framerate drops on animations in Android 9 and lower (see [Hybri
       ),
     ],
   )
-  ScrollViewContentInsetAdjustmentBehavior_? contentInsetAdjustmentBehavior;
+  ScrollViewContentInsetAdjustmentBehaviorSpec? contentInsetAdjustmentBehavior;
 
   ///A Boolean value that determines whether scrolling is disabled in a particular direction.
   ///If this property is `false`, scrolling is permitted in both horizontal and vertical directions.
@@ -1956,7 +1956,7 @@ as it can cause framerate drops on animations in Android 9 and lower (see [Hybri
       ),
     ],
   )
-  Color_? underPageBackgroundColor;
+  ColorSpec? underPageBackgroundColor;
 
   ///A Boolean value indicating whether text interaction is enabled or not.
   ///The default value is `true`.
@@ -2443,7 +2443,7 @@ as it can cause framerate drops on animations in Android 9 and lower (see [Hybri
       ),
     ],
   )
-  PdfToolbarItems_? hiddenPdfToolbarItems;
+  PdfToolbarItemsSpec? hiddenPdfToolbarItems;
 
   ///[reputationCheckingRequired] is used to control whether SmartScreen enabled or not.
   ///
@@ -2592,7 +2592,7 @@ as it can cause framerate drops on animations in Android 9 and lower (see [Hybri
       ),
     ],
   )
-  Set<Sandbox_>? iframeSandbox;
+  Set<SandboxSpec>? iframeSandbox;
 
   ///A string that reflects the `referrerpolicy` HTML attribute indicating which referrer to use when fetching the linked resource.
   @SupportedPlatforms(
@@ -2605,7 +2605,7 @@ as it can cause framerate drops on animations in Android 9 and lower (see [Hybri
       ),
     ],
   )
-  ReferrerPolicy_? iframeReferrerPolicy;
+  ReferrerPolicySpec? iframeReferrerPolicy;
 
   ///A string that reflects the `name` HTML attribute, containing a name by which to refer to the frame.
   @SupportedPlatforms(
@@ -2928,7 +2928,7 @@ as it can cause framerate drops on animations in Android 9 and lower (see [Hybri
       ),
     ],
   )
-  FontHintingStyle_? fontHintingStyle;
+  FontHintingStyleSpec? fontHintingStyle;
 
   ///Sets the font subpixel layout for LCD rendering.
   ///This determines how subpixel rendering is performed based on the
@@ -2948,7 +2948,7 @@ as it can cause framerate drops on animations in Android 9 and lower (see [Hybri
       ),
     ],
   )
-  FontSubpixelLayout_? fontSubpixelLayout;
+  FontSubpixelLayoutSpec? fontSubpixelLayout;
 
   ///Sets the font DPI (dots per inch) for text rendering.
   ///This affects the size at which fonts are rendered.
@@ -3304,7 +3304,7 @@ as it can cause framerate drops on animations in Android 9 and lower (see [Hybri
   bool? allowTopNavigationToDataUrls;
 
   @ExchangeableObjectConstructor()
-  InAppWebViewSettings_({
+  InAppWebViewSettingsSpec({
     this.useShouldOverrideUrlLoading,
     this.useOnLoadResource,
     this.useOnDownloadStart,
@@ -3320,7 +3320,7 @@ as it can cause framerate drops on animations in Android 9 and lower (see [Hybri
     this.horizontalScrollBarEnabled = true,
     this.resourceCustomSchemes = const [],
     this.contentBlockers = const [],
-    this.preferredContentMode = UserPreferredContentMode_.RECOMMENDED,
+    this.preferredContentMode = UserPreferredContentModeSpec.RECOMMENDED,
     this.useShouldInterceptAjaxRequest,
     this.useOnAjaxReadyStateChange,
     this.useOnAjaxProgress,
@@ -3350,7 +3350,7 @@ as it can cause framerate drops on animations in Android 9 and lower (see [Hybri
     this.appCachePath,
     this.blockNetworkImage = false,
     this.blockNetworkLoads = false,
-    this.cacheMode = CacheMode_.LOAD_DEFAULT,
+    this.cacheMode = CacheModeSpec.LOAD_DEFAULT,
     this.cursiveFontFamily = "cursive",
     this.defaultFixedFontSize = 16,
     this.defaultFontSize = 16,
@@ -3381,11 +3381,11 @@ as it can cause framerate drops on animations in Android 9 and lower (see [Hybri
     this.useHybridComposition = true,
     this.useShouldInterceptRequest,
     this.useOnRenderProcessGone,
-    this.overScrollMode = OverScrollMode_.IF_CONTENT_SCROLLS,
+    this.overScrollMode = OverScrollModeSpec.IF_CONTENT_SCROLLS,
     this.networkAvailable,
-    this.scrollBarStyle = ScrollBarStyle_.SCROLLBARS_INSIDE_OVERLAY,
+    this.scrollBarStyle = ScrollBarStyleSpec.SCROLLBARS_INSIDE_OVERLAY,
     this.verticalScrollbarPosition =
-        VerticalScrollbarPosition_.SCROLLBAR_POSITION_DEFAULT,
+        VerticalScrollbarPositionSpec.SCROLLBAR_POSITION_DEFAULT,
     this.scrollBarDefaultDelayBeforeFade,
     this.scrollbarFadingEnabled = true,
     this.scrollBarFadeDuration,
@@ -3409,12 +3409,12 @@ as it can cause framerate drops on animations in Android 9 and lower (see [Hybri
     this.allowsInlineMediaPlayback = false,
     this.allowsPictureInPictureMediaPlayback = true,
     this.isFraudulentWebsiteWarningEnabled = true,
-    this.selectionGranularity = SelectionGranularity_.DYNAMIC,
-    this.dataDetectorTypes = const [DataDetectorTypes_.NONE],
+    this.selectionGranularity = SelectionGranularitySpec.DYNAMIC,
+    this.dataDetectorTypes = const [DataDetectorTypesSpec.NONE],
     this.sharedCookiesEnabled = false,
     this.automaticallyAdjustsScrollIndicatorInsets = false,
     this.accessibilityIgnoresInvertColors = false,
-    this.decelerationRate = ScrollViewDecelerationRate_.NORMAL,
+    this.decelerationRate = ScrollViewDecelerationRateSpec.NORMAL,
     this.alwaysBounceVertical = false,
     this.alwaysBounceHorizontal = false,
     this.scrollsToTop = true,
@@ -3422,7 +3422,7 @@ as it can cause framerate drops on animations in Android 9 and lower (see [Hybri
     this.maximumZoomScale = 1.0,
     this.minimumZoomScale = 1.0,
     this.contentInsetAdjustmentBehavior =
-        ScrollViewContentInsetAdjustmentBehavior_.NEVER,
+        ScrollViewContentInsetAdjustmentBehaviorSpec.NEVER,
     this.isDirectionalLockEnabled = false,
     this.mediaType,
     this.pageZoom = 1.0,
@@ -3457,7 +3457,7 @@ as it can cause framerate drops on animations in Android 9 and lower (see [Hybri
     this.generalAutofillEnabled = true,
     this.passwordAutosaveEnabled = false,
     this.pinchZoomEnabled = true,
-    this.hiddenPdfToolbarItems = PdfToolbarItems_.NONE,
+    this.hiddenPdfToolbarItems = PdfToolbarItemsSpec.NONE,
     this.reputationCheckingRequired = true,
     this.nonClientRegionSupportEnabled = false,
     this.isUserInteractionEnabled = true,

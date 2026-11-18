@@ -5,12 +5,12 @@ part 'permission_resource_type.g.dart';
 
 ///Class that represents a type of resource used to ask user's permission.
 @ExchangeableEnum()
-class PermissionResourceType_ {
+class PermissionResourceTypeSpec {
   // ignore: unused_field
   final String _value;
   // ignore: unused_field
   final dynamic _nativeValue = null;
-  const PermissionResourceType_._internal(this._value);
+  const PermissionResourceTypeSpec._internal(this._value);
 
   ///Resource belongs to audio capture device, like microphone.
   @EnumSupportedPlatforms(
@@ -44,7 +44,7 @@ class PermissionResourceType_ {
       EnumLinuxPlatform(value: 1),
     ],
   )
-  static const MICROPHONE = PermissionResourceType_._internal('MICROPHONE');
+  static const MICROPHONE = PermissionResourceTypeSpec._internal('MICROPHONE');
 
   ///Resource will allow sysex messages to be sent to or received from MIDI devices.
   ///These messages are privileged operations, e.g. modifying sound libraries and sampling data, or even updating the MIDI device's firmware.
@@ -65,7 +65,7 @@ class PermissionResourceType_ {
       ),
     ],
   )
-  static const MIDI_SYSEX = PermissionResourceType_._internal('MIDI_SYSEX');
+  static const MIDI_SYSEX = PermissionResourceTypeSpec._internal('MIDI_SYSEX');
 
   ///Resource belongs to protected media identifier. After the user grants this resource, the origin can use EME APIs to generate the license requests.
   @EnumSupportedPlatforms(
@@ -84,7 +84,7 @@ class PermissionResourceType_ {
       ),
     ],
   )
-  static const PROTECTED_MEDIA_ID = PermissionResourceType_._internal(
+  static const PROTECTED_MEDIA_ID = PermissionResourceTypeSpec._internal(
     'PROTECTED_MEDIA_ID',
   );
 
@@ -120,7 +120,7 @@ class PermissionResourceType_ {
       EnumLinuxPlatform(value: 0),
     ],
   )
-  static const CAMERA = PermissionResourceType_._internal('CAMERA');
+  static const CAMERA = PermissionResourceTypeSpec._internal('CAMERA');
 
   ///A media device or devices that can capture audio and video.
   @EnumSupportedPlatforms(
@@ -142,7 +142,7 @@ class PermissionResourceType_ {
       EnumLinuxPlatform(value: 2),
     ],
   )
-  static const CAMERA_AND_MICROPHONE = PermissionResourceType_._internal(
+  static const CAMERA_AND_MICROPHONE = PermissionResourceTypeSpec._internal(
     'CAMERA_AND_MICROPHONE',
   );
 
@@ -154,7 +154,7 @@ class PermissionResourceType_ {
     ],
   )
   static const DEVICE_ORIENTATION_AND_MOTION =
-      PermissionResourceType_._internal('DEVICE_ORIENTATION_AND_MOTION');
+      PermissionResourceTypeSpec._internal('DEVICE_ORIENTATION_AND_MOTION');
 
   ///Indicates an unknown permission.
   @EnumSupportedPlatforms(
@@ -168,7 +168,7 @@ class PermissionResourceType_ {
       EnumLinuxPlatform(value: 7),
     ],
   )
-  static const UNKNOWN = PermissionResourceType_._internal('UNKNOWN');
+  static const UNKNOWN = PermissionResourceTypeSpec._internal('UNKNOWN');
 
   ///Indicates permission to access geolocation.
   @EnumSupportedPlatforms(
@@ -182,7 +182,9 @@ class PermissionResourceType_ {
       EnumLinuxPlatform(value: 3),
     ],
   )
-  static const GEOLOCATION = PermissionResourceType_._internal('GEOLOCATION');
+  static const GEOLOCATION = PermissionResourceTypeSpec._internal(
+    'GEOLOCATION',
+  );
 
   ///Indicates permission to send web notifications.
   @EnumSupportedPlatforms(
@@ -196,7 +198,7 @@ class PermissionResourceType_ {
       EnumLinuxPlatform(value: 4),
     ],
   )
-  static const NOTIFICATIONS = PermissionResourceType_._internal(
+  static const NOTIFICATIONS = PermissionResourceTypeSpec._internal(
     'NOTIFICATIONS',
   );
 
@@ -211,7 +213,7 @@ class PermissionResourceType_ {
       ),
     ],
   )
-  static const OTHER_SENSORS = PermissionResourceType_._internal(
+  static const OTHER_SENSORS = PermissionResourceTypeSpec._internal(
     'OTHER_SENSORS',
   );
 
@@ -226,7 +228,7 @@ class PermissionResourceType_ {
       ),
     ],
   )
-  static const CLIPBOARD_READ = PermissionResourceType_._internal(
+  static const CLIPBOARD_READ = PermissionResourceTypeSpec._internal(
     'CLIPBOARD_READ',
   );
 
@@ -242,9 +244,8 @@ class PermissionResourceType_ {
       ),
     ],
   )
-  static const MULTIPLE_AUTOMATIC_DOWNLOADS = PermissionResourceType_._internal(
-    'MULTIPLE_AUTOMATIC_DOWNLOADS',
-  );
+  static const MULTIPLE_AUTOMATIC_DOWNLOADS =
+      PermissionResourceTypeSpec._internal('MULTIPLE_AUTOMATIC_DOWNLOADS');
 
   ///Indicates permission to read and write to files or folders on the device.
   ///Permission is requested when developers use the [File System Access API](https://developer.mozilla.org/en-US/docs/Web/API/File_System_API)
@@ -260,7 +261,7 @@ class PermissionResourceType_ {
       ),
     ],
   )
-  static const FILE_READ_WRITE = PermissionResourceType_._internal(
+  static const FILE_READ_WRITE = PermissionResourceTypeSpec._internal(
     'FILE_READ_WRITE',
   );
 
@@ -279,7 +280,7 @@ class PermissionResourceType_ {
       ),
     ],
   )
-  static const AUTOPLAY = PermissionResourceType_._internal('AUTOPLAY');
+  static const AUTOPLAY = PermissionResourceTypeSpec._internal('AUTOPLAY');
 
   ///Indicates permission to use fonts on the device.
   ///Permission is requested when developers use the [Local Font Access API](https://wicg.github.io/local-font-access/)
@@ -294,7 +295,9 @@ class PermissionResourceType_ {
       ),
     ],
   )
-  static const LOCAL_FONTS = PermissionResourceType_._internal('LOCAL_FONTS');
+  static const LOCAL_FONTS = PermissionResourceTypeSpec._internal(
+    'LOCAL_FONTS',
+  );
 
   ///Indicates permission to open and place windows on the screen.
   ///Permission is requested when developers use the [Multi-Screen Window Placement API](https://www.w3.org/TR/window-placement/)
@@ -309,7 +312,7 @@ class PermissionResourceType_ {
       ),
     ],
   )
-  static const WINDOW_MANAGEMENT = PermissionResourceType_._internal(
+  static const WINDOW_MANAGEMENT = PermissionResourceTypeSpec._internal(
     'WINDOW_MANAGEMENT',
   );
 }

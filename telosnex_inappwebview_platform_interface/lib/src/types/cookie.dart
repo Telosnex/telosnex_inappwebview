@@ -9,7 +9,7 @@ part 'cookie.g.dart';
 
 ///Class that represents a cookie returned by the [PlatformCookieManager].
 @ExchangeableObject()
-class Cookie_ {
+class CookieSpec {
   ///The cookie name.
   @SupportedPlatforms(
     platforms: [
@@ -80,7 +80,7 @@ class Cookie_ {
       WindowsPlatform(),
     ],
   )
-  HTTPCookieSameSitePolicy_? sameSite;
+  HTTPCookieSameSitePolicySpec? sameSite;
 
   ///Indicates if the cookie is secure or not.
   @SupportedPlatforms(
@@ -124,7 +124,7 @@ class Cookie_ {
   )
   String? path;
 
-  Cookie_({
+  CookieSpec({
     required this.name,
     required this.value,
     this.expiresDate,

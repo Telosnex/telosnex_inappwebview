@@ -6,7 +6,7 @@ part 'security_origin.g.dart';
 
 ///An object that identifies the origin of a particular resource.
 @ExchangeableObject()
-class SecurityOrigin_ {
+class SecurityOriginSpec {
   ///The security origin’s host.
   String host;
 
@@ -16,7 +16,7 @@ class SecurityOrigin_ {
   ///The security origin's protocol.
   String protocol;
 
-  SecurityOrigin_({
+  SecurityOriginSpec({
     required this.host,
     required this.port,
     required this.protocol,
@@ -30,7 +30,7 @@ class SecurityOrigin_ {
 ///Use [SecurityOrigin] instead.
 @Deprecated("Use SecurityOrigin instead")
 @ExchangeableObject()
-class IOSWKSecurityOrigin_ {
+class IOSWKSecurityOriginSpec {
   ///The security origin’s host.
   String host;
 
@@ -40,7 +40,7 @@ class IOSWKSecurityOrigin_ {
   ///The security origin's protocol.
   String protocol;
 
-  IOSWKSecurityOrigin_({
+  IOSWKSecurityOriginSpec({
     required this.host,
     required this.port,
     required this.protocol,

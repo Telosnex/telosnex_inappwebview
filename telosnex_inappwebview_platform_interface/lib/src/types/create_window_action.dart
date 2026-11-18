@@ -12,7 +12,7 @@ part 'create_window_action.g.dart';
 
 ///Class that represents the navigation request used by the [PlatformWebViewCreationParams.onCreateWindow] event.
 @ExchangeableObject()
-class CreateWindowAction_ extends NavigationAction_ {
+class CreateWindowActionSpec extends NavigationActionSpec {
   ///The window id. Used by `WebView` to create a new WebView.
   int windowId;
 
@@ -26,7 +26,7 @@ class CreateWindowAction_ extends NavigationAction_ {
 
   ///Use [windowFeatures] instead.
   @Deprecated("Use windowFeatures instead")
-  IOSWKWindowFeatures_? iosWindowFeatures;
+  IOSWKWindowFeaturesSpec? iosWindowFeatures;
 
   ///Window features requested by the webpage.
   @SupportedPlatforms(
@@ -48,9 +48,9 @@ class CreateWindowAction_ extends NavigationAction_ {
       ),
     ],
   )
-  WindowFeatures_? windowFeatures;
+  WindowFeaturesSpec? windowFeatures;
 
-  CreateWindowAction_({
+  CreateWindowActionSpec({
     required this.windowId,
     @Deprecated('Use isDialog instead') this.androidIsDialog,
     this.isDialog,

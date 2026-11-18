@@ -9,10 +9,10 @@ part 'process_failed_detail.g.dart';
 
 ///An object that contains information about a frame on a webpage.
 @ExchangeableObject()
-class ProcessFailedDetail_ {
+class ProcessFailedDetailSpec {
   ///The kind of process failure that has occurred.
   @SupportedPlatforms(platforms: [WindowsPlatform()])
-  ProcessFailedKind_ kind;
+  ProcessFailedKindSpec kind;
 
   ///The exit code of the failing process, for telemetry purposes.
   ///
@@ -30,7 +30,7 @@ class ProcessFailedDetail_ {
 
   ///The reason for the process failure.
   @SupportedPlatforms(platforms: [WindowsPlatform()])
-  ProcessFailedReason_? reason;
+  ProcessFailedReasonSpec? reason;
 
   ///This property is the full path of the module that caused the crash in cases of Windows Code Integrity failures.
   ///
@@ -52,9 +52,9 @@ class ProcessFailedDetail_ {
   ///frames is null for all other process failure kinds, including the case in which the failed process was the renderer
   ///for the main frame and subframes within it, for which the failure kind is [ProcessFailedKind.RENDER_PROCESS_EXITED].
   @SupportedPlatforms(platforms: [WindowsPlatform()])
-  List<FrameInfo_>? frameInfos;
+  List<FrameInfoSpec>? frameInfos;
 
-  ProcessFailedDetail_({
+  ProcessFailedDetailSpec({
     required this.kind,
     this.exitCode,
     this.processDescription,

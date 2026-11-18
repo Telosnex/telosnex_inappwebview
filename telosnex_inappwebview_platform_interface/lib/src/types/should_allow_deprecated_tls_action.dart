@@ -5,16 +5,16 @@ part 'should_allow_deprecated_tls_action.g.dart';
 ///Class that is used by [PlatformWebViewCreationParams.shouldAllowDeprecatedTLS] event.
 ///It represents the policy to pass back to the decision handler.
 @ExchangeableEnum()
-class ShouldAllowDeprecatedTLSAction_ {
+class ShouldAllowDeprecatedTLSActionSpec {
   // ignore: unused_field
   final int _value;
-  const ShouldAllowDeprecatedTLSAction_._internal(this._value);
+  const ShouldAllowDeprecatedTLSActionSpec._internal(this._value);
 
   ///Cancel the navigation.
-  static const CANCEL = ShouldAllowDeprecatedTLSAction_._internal(0);
+  static const CANCEL = ShouldAllowDeprecatedTLSActionSpec._internal(0);
 
   ///Allow the navigation to continue.
-  static const ALLOW = ShouldAllowDeprecatedTLSAction_._internal(1);
+  static const ALLOW = ShouldAllowDeprecatedTLSActionSpec._internal(1);
 }
 
 ///Class that is used by [PlatformWebViewCreationParams.shouldAllowDeprecatedTLS] event.
@@ -22,14 +22,14 @@ class ShouldAllowDeprecatedTLSAction_ {
 ///Use [ShouldAllowDeprecatedTLSAction] instead.
 @Deprecated("Use ShouldAllowDeprecatedTLSAction instead")
 @ExchangeableEnum()
-class IOSShouldAllowDeprecatedTLSAction_ {
+class IOSShouldAllowDeprecatedTLSActionSpec {
   // ignore: unused_field
   final int _value;
-  const IOSShouldAllowDeprecatedTLSAction_._internal(this._value);
+  const IOSShouldAllowDeprecatedTLSActionSpec._internal(this._value);
 
   ///Cancel the navigation.
-  static const CANCEL = IOSShouldAllowDeprecatedTLSAction_._internal(0);
+  static const CANCEL = IOSShouldAllowDeprecatedTLSActionSpec._internal(0);
 
   ///Allow the navigation to continue.
-  static const ALLOW = IOSShouldAllowDeprecatedTLSAction_._internal(1);
+  static const ALLOW = IOSShouldAllowDeprecatedTLSActionSpec._internal(1);
 }

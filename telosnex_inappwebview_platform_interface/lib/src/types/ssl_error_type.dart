@@ -9,12 +9,12 @@ part 'ssl_error_type.g.dart';
 ///Class that represents the SSL Primary error associated to the server SSL certificate.
 ///Used by the [ServerTrustChallenge] class.
 @ExchangeableEnum()
-class SslErrorType_ {
+class SslErrorTypeSpec {
   // ignore: unused_field
   final String _value;
   // ignore: unused_field
   final int? _nativeValue = null;
-  const SslErrorType_._internal(this._value);
+  const SslErrorTypeSpec._internal(this._value);
 
   ///The certificate is not yet valid.
   @EnumSupportedPlatforms(
@@ -28,7 +28,7 @@ class SslErrorType_ {
       EnumLinuxPlatform(value: 1),
     ],
   )
-  static const NOT_YET_VALID = SslErrorType_._internal('NOT_YET_VALID');
+  static const NOT_YET_VALID = SslErrorTypeSpec._internal('NOT_YET_VALID');
 
   ///The certificate has expired.
   @EnumSupportedPlatforms(
@@ -48,7 +48,7 @@ class SslErrorType_ {
       EnumLinuxPlatform(value: 2),
     ],
   )
-  static const EXPIRED = SslErrorType_._internal('EXPIRED');
+  static const EXPIRED = SslErrorTypeSpec._internal('EXPIRED');
 
   ///Hostname mismatch.
   @EnumSupportedPlatforms(
@@ -62,7 +62,7 @@ class SslErrorType_ {
       EnumLinuxPlatform(value: 3),
     ],
   )
-  static const IDMISMATCH = SslErrorType_._internal('IDMISMATCH');
+  static const IDMISMATCH = SslErrorTypeSpec._internal('IDMISMATCH');
 
   ///The certificate authority is not trusted.
   @EnumSupportedPlatforms(
@@ -76,7 +76,7 @@ class SslErrorType_ {
       EnumLinuxPlatform(value: 4),
     ],
   )
-  static const UNTRUSTED = SslErrorType_._internal('UNTRUSTED');
+  static const UNTRUSTED = SslErrorTypeSpec._internal('UNTRUSTED');
 
   ///The date of the certificate is invalid.
   @EnumSupportedPlatforms(
@@ -89,7 +89,7 @@ class SslErrorType_ {
       ),
     ],
   )
-  static const DATE_INVALID = SslErrorType_._internal('DATE_INVALID');
+  static const DATE_INVALID = SslErrorTypeSpec._internal('DATE_INVALID');
 
   ///Indicates an invalid setting or result. A generic error occurred.
   @EnumSupportedPlatforms(
@@ -121,7 +121,7 @@ class SslErrorType_ {
       EnumLinuxPlatform(value: 0),
     ],
   )
-  static const INVALID = SslErrorType_._internal('INVALID');
+  static const INVALID = SslErrorTypeSpec._internal('INVALID');
 
   ///The user specified that the certificate should not be trusted.
   ///
@@ -145,7 +145,7 @@ class SslErrorType_ {
       ),
     ],
   )
-  static const DENY = SslErrorType_._internal('DENY');
+  static const DENY = SslErrorTypeSpec._internal('DENY');
 
   ///Indicates the evaluation succeeded and the certificate is implicitly trusted, but user intent was not explicitly specified.
   ///
@@ -171,7 +171,7 @@ class SslErrorType_ {
       ),
     ],
   )
-  static const UNSPECIFIED = SslErrorType_._internal('UNSPECIFIED');
+  static const UNSPECIFIED = SslErrorTypeSpec._internal('UNSPECIFIED');
 
   ///Trust is denied, but recovery may be possible.
   ///
@@ -198,7 +198,7 @@ class SslErrorType_ {
       ),
     ],
   )
-  static const RECOVERABLE_TRUST_FAILURE = SslErrorType_._internal(
+  static const RECOVERABLE_TRUST_FAILURE = SslErrorTypeSpec._internal(
     'RECOVERABLE_TRUST_FAILURE',
   );
 
@@ -224,7 +224,7 @@ class SslErrorType_ {
       ),
     ],
   )
-  static const FATAL_TRUST_FAILURE = SslErrorType_._internal(
+  static const FATAL_TRUST_FAILURE = SslErrorTypeSpec._internal(
     'FATAL_TRUST_FAILURE',
   );
 
@@ -258,7 +258,7 @@ class SslErrorType_ {
       EnumLinuxPlatform(value: 6),
     ],
   )
-  static const OTHER_ERROR = SslErrorType_._internal('OTHER_ERROR');
+  static const OTHER_ERROR = SslErrorTypeSpec._internal('OTHER_ERROR');
 
   ///Indicates that the SSL certificate common name does not match the web address.
   @EnumSupportedPlatforms(
@@ -272,7 +272,7 @@ class SslErrorType_ {
       ),
     ],
   )
-  static const COMMON_NAME_IS_INCORRECT = SslErrorType_._internal(
+  static const COMMON_NAME_IS_INCORRECT = SslErrorTypeSpec._internal(
     'COMMON_NAME_IS_INCORRECT',
   );
 
@@ -288,7 +288,7 @@ class SslErrorType_ {
       EnumLinuxPlatform(value: 5),
     ],
   )
-  static const REVOKED = SslErrorType_._internal('REVOKED');
+  static const REVOKED = SslErrorTypeSpec._internal('REVOKED');
 }
 
 ///Class that represents the Android-specific primary error associated to the server SSL certificate.
@@ -296,28 +296,28 @@ class SslErrorType_ {
 ///Use [SslErrorType] instead.
 @Deprecated("Use SslErrorType instead")
 @ExchangeableEnum()
-class AndroidSslError_ {
+class AndroidSslErrorSpec {
   // ignore: unused_field
   final int _value;
-  const AndroidSslError_._internal(this._value);
+  const AndroidSslErrorSpec._internal(this._value);
 
   ///The certificate is not yet valid
-  static const SSL_NOTYETVALID = AndroidSslError_._internal(0);
+  static const SSL_NOTYETVALID = AndroidSslErrorSpec._internal(0);
 
   ///The certificate has expired
-  static const SSL_EXPIRED = AndroidSslError_._internal(1);
+  static const SSL_EXPIRED = AndroidSslErrorSpec._internal(1);
 
   ///Hostname mismatch
-  static const SSL_IDMISMATCH = AndroidSslError_._internal(2);
+  static const SSL_IDMISMATCH = AndroidSslErrorSpec._internal(2);
 
   ///The certificate authority is not trusted
-  static const SSL_UNTRUSTED = AndroidSslError_._internal(3);
+  static const SSL_UNTRUSTED = AndroidSslErrorSpec._internal(3);
 
   ///The date of the certificate is invalid
-  static const SSL_DATE_INVALID = AndroidSslError_._internal(4);
+  static const SSL_DATE_INVALID = AndroidSslErrorSpec._internal(4);
 
   ///A generic error occurred
-  static const SSL_INVALID = AndroidSslError_._internal(5);
+  static const SSL_INVALID = AndroidSslErrorSpec._internal(5);
 }
 
 ///Class that represents the iOS-specific primary error associated to the server SSL certificate.
@@ -325,27 +325,27 @@ class AndroidSslError_ {
 ///Use [SslErrorType] instead.
 @Deprecated("Use SslErrorType instead")
 @ExchangeableEnum()
-class IOSSslError_ {
+class IOSSslErrorSpec {
   // ignore: unused_field
   final int _value;
 
-  const IOSSslError_._internal(this._value);
+  const IOSSslErrorSpec._internal(this._value);
 
   ///Indicates an invalid setting or result.
-  static const INVALID = IOSSslError_._internal(0);
+  static const INVALID = IOSSslErrorSpec._internal(0);
 
   ///Indicates a user-configured deny; do not proceed.
-  static const DENY = IOSSslError_._internal(3);
+  static const DENY = IOSSslErrorSpec._internal(3);
 
   ///Indicates the evaluation succeeded and the certificate is implicitly trusted, but user intent was not explicitly specified.
-  static const UNSPECIFIED = IOSSslError_._internal(4);
+  static const UNSPECIFIED = IOSSslErrorSpec._internal(4);
 
   ///Indicates a trust policy failure which can be overridden by the user.
-  static const RECOVERABLE_TRUST_FAILURE = IOSSslError_._internal(5);
+  static const RECOVERABLE_TRUST_FAILURE = IOSSslErrorSpec._internal(5);
 
   ///Indicates a trust failure which cannot be overridden by the user.
-  static const FATAL_TRUST_FAILURE = IOSSslError_._internal(6);
+  static const FATAL_TRUST_FAILURE = IOSSslErrorSpec._internal(6);
 
   ///Indicates a failure other than that of trust evaluation.
-  static const OTHER_ERROR = IOSSslError_._internal(7);
+  static const OTHER_ERROR = IOSSslErrorSpec._internal(7);
 }

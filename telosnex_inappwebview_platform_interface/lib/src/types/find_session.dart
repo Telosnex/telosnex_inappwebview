@@ -6,7 +6,7 @@ import 'enum_method.dart';
 part 'find_session.g.dart';
 
 @ExchangeableObject()
-class FindSession_ {
+class FindSessionSpec {
   ///Returns the total number of results.
   int resultCount;
 
@@ -15,9 +15,9 @@ class FindSession_ {
   int highlightedResultIndex;
 
   /// Defines how results are reported through the find panel's UI.
-  SearchResultDisplayStyle_ searchResultDisplayStyle;
+  SearchResultDisplayStyleSpec searchResultDisplayStyle;
 
-  FindSession_({
+  FindSessionSpec({
     required this.resultCount,
     required this.highlightedResultIndex,
     required this.searchResultDisplayStyle,

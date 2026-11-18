@@ -8,7 +8,7 @@ part 'context_menu_item.g.dart';
 
 ///Class that represent an item of the [ContextMenu].
 @ExchangeableObject()
-class ContextMenuItem_ {
+class ContextMenuItemSpec {
   ///Use [id] instead.
   @Deprecated("Use id instead")
   int? androidId;
@@ -29,7 +29,7 @@ class ContextMenuItem_ {
   Function()? action;
 
   @ExchangeableObjectConstructor()
-  ContextMenuItem_({
+  ContextMenuItemSpec({
     this.id,
     @Deprecated("Use id instead") this.androidId,
     @Deprecated("Use id instead") this.iosId,

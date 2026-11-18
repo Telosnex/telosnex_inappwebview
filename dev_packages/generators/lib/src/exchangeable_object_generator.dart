@@ -52,15 +52,15 @@ class ExchangeableObjectGenerator
     // Visits all the children of element in no particular order.
     element.visitChildren(visitor);
 
-    final className = visitor.constructor.returnType.element.name;
     final superClass =
         visitor.constructor.returnType.superclass?.element.name != 'Object'
         ? visitor.constructor.returnType.superclass
         : null;
     final interfaces = visitor.constructor.returnType.interfaces;
-    final superClassName = superClass?.element.name?.replaceFirst("_", "");
-    // remove "_" to generate the correct class name
-    final extClassName = (className ?? '').replaceFirst("_", "");
+    final superClassName = Util.publicNames(superClass?.element.name ?? '');
+    final extClassName = Util.publicNames(
+      visitor.constructor.returnType.element.name ?? '',
+    );
 
     final classBuffer = StringBuffer();
     final classDocs =
@@ -86,7 +86,7 @@ class ExchangeableObjectGenerator
     );
     if (interfaces.isNotEmpty) {
       classBuffer.writeln(
-        ' implements ${interfaces.map((i) => (i.element.name ?? '').replaceFirst("_", "")).join(', ')}',
+        ' implements ${interfaces.map((i) => Util.publicNames(i.element.name ?? '')).join(', ')}',
       );
     }
     if (superClass != null) {
@@ -120,9 +120,10 @@ class ExchangeableObjectGenerator
         final isNullable = Util.typeIsNullable(fieldElement.type);
         final constructorParameter = visitor.constructorParameters[fieldName];
         if (constructorParameter != null) {
-          // remove class reference terminating with "_"
-          var defaultValueCode = constructorParameter.defaultValueCode
-              ?.replaceFirst("_.", ".");
+          final defaultValue = constructorParameter.defaultValueCode;
+          final defaultValueCode = defaultValue == null
+              ? null
+              : Util.publicNames(defaultValue);
 
           // Check if the field type is an ExchangeableEnum (non-const default)
           // Only apply this logic for generated constructors, not custom ones
@@ -139,7 +140,7 @@ class ExchangeableObjectGenerator
           var constructorField = '';
           if (useInitializerList) {
             // Use regular parameter (not this.field) with nullable type
-            final baseType = fieldElement.type.toString().replaceFirst("_", "");
+            final baseType = Util.publicNames(fieldElement.type.toString());
             final nullableType = isNullable ? baseType : '$baseType?';
             constructorField = '$nullableType $fieldName';
             // Add to initializer list
@@ -188,10 +189,7 @@ class ExchangeableObjectGenerator
       if (fieldElement.isConst) {
         classBuffer.write("const ");
       }
-      // remove class reference terminating with "_"
-      classBuffer.write(
-        "${fieldElement.type.toString().replaceFirst("_", "")} ",
-      );
+      classBuffer.write("${Util.publicNames(fieldElement.type.toString())} ");
       if (!fieldElement.hasInitializer) {
         classBuffer.writeln("$fieldName;");
       } else {
@@ -202,9 +200,10 @@ class ExchangeableObjectGenerator
         final fieldBody = parsed
             .getFragmentDeclaration(fieldElement.firstFragment)
             ?.node
-            .toString()
-            .replaceAll(className ?? '', extClassName);
-        classBuffer.writeln("$fieldBody;");
+            .toString();
+        classBuffer.writeln(
+          "${fieldBody == null ? null : Util.publicNames(fieldBody)};",
+        );
       }
     }
 
@@ -214,13 +213,12 @@ class ExchangeableObjectGenerator
         final parameterName = parameter.name ?? '';
         final parameterType = parameter.type;
         final isNullable = Util.typeIsNullable(parameter.type);
-        // remove class reference terminating with "_"
-        var defaultValueCode = parameter.defaultValueCode?.replaceFirst(
-          "_.",
-          ".",
-        );
+        final defaultValue = parameter.defaultValueCode;
+        final defaultValueCode = defaultValue == null
+            ? null
+            : Util.publicNames(defaultValue);
         var constructorField =
-            '${!isNullable && defaultValueCode == null ? 'required ' : ''}${parameterType.toString().replaceFirst("_", "")} $parameterName${defaultValueCode != null ? ' = $defaultValueCode' : ''}';
+            '${!isNullable && defaultValueCode == null ? 'required ' : ''}${Util.publicNames(parameterType.toString())} $parameterName${defaultValueCode != null ? ' = $defaultValueCode' : ''}';
         if (parameter.metadata.hasDeprecated) {
           deprecatedFields.add(parameter);
           constructorField =
@@ -258,21 +256,12 @@ class ExchangeableObjectGenerator
           .getFragmentDeclaration(visitor.constructor.firstFragment)
           ?.node;
       if (constructorBody != null) {
-        var generatedConstructor = constructorBody
-            .toString()
-            .replaceAll(className ?? '', extClassName)
-            .replaceAll("@ExchangeableObjectConstructor()", "");
-
-        // Replace type names ending with _ (e.g., CompressFormat_? -> CompressFormat?)
-        // First replace _. (type access) then _? (nullable type) then _ (type name)
-        generatedConstructor = generatedConstructor
-            .replaceAll("_.", ".")
-            .replaceAll("_?", "?")
-            .replaceAll("_>", ">")
-            .replaceAllMapped(
-              RegExp(r'([A-Z][a-zA-Z0-9]*)_\b'),
-              (match) => match.group(1)!,
-            );
+        final generatedConstructor = Util.publicNames(
+          constructorBody.toString().replaceAll(
+            '@ExchangeableObjectConstructor()',
+            '',
+          ),
+        );
 
         classBuffer.writeln(generatedConstructor);
       }
@@ -380,17 +369,17 @@ class ExchangeableObjectGenerator
                 fieldTypeElement,
               );
               classBuffer.write(
-                fieldTypeElement.name!.replaceFirst("_", "") +
+                Util.publicNames(fieldTypeElement.name!) +
                     ".fromMap($deprecatedFieldName${deprecatedIsNullable ? '?' : ''}.toMap())${!isNullable && hasNullableFromMap ? '!' : ''}",
               );
             } else if (hasFromNativeValue && deprecatedHasToNativeValue) {
               classBuffer.write(
-                fieldTypeElement.name!.replaceFirst("_", "") +
+                Util.publicNames(fieldTypeElement.name!) +
                     '.fromNativeValue($deprecatedFieldName${deprecatedIsNullable ? '?' : ''}.toNativeValue())${!isNullable ? '!' : ''}',
               );
             } else if (hasFromValue && deprecatedHasToValue) {
               classBuffer.write(
-                fieldTypeElement.name!.replaceFirst("_", "") +
+                Util.publicNames(fieldTypeElement.name!) +
                     '.fromValue($deprecatedFieldName${deprecatedIsNullable ? '?' : ''}.toValue())${!isNullable ? '!' : ''}',
               );
             } else if (deprecatedField.type.getDisplayString(
@@ -594,9 +583,7 @@ class ExchangeableObjectGenerator
         if (fieldSupportedDocs != null) {
           classBuffer.writeln(fieldSupportedDocs);
         }
-        classBuffer.writeln(
-          methodBody.toString().replaceAll(className ?? '', extClassName),
-        );
+        classBuffer.writeln(Util.publicNames(methodBody.toString()));
       }
     }
 
@@ -744,8 +731,10 @@ class ExchangeableObjectGenerator
 
   String getFromMapValue(String value, DartType elementType) {
     final fieldTypeElement = elementType.element;
-    // remove class reference terminating with "_"
-    final classNameReference = fieldTypeElement?.name?.replaceFirst("_", "");
+    final fieldTypeName = fieldTypeElement?.name;
+    final classNameReference = fieldTypeName == null
+        ? null
+        : Util.publicNames(fieldTypeName);
     final isNullable = Util.typeIsNullable(elementType);
     final displayString = elementType.getDisplayString(withNullability: false);
     if (displayString == "Uri") {
@@ -760,7 +749,7 @@ class ExchangeableObjectGenerator
       } else {
         return "$value != null ? WebUri($value) : null";
       }
-    } else if (displayString == "Color" || displayString == "Color_") {
+    } else if (Util.publicNames(displayString) == "Color") {
       if (!isNullable) {
         return "UtilColor.fromStringRepresentation($value)!";
       } else {
@@ -786,7 +775,7 @@ class ExchangeableObjectGenerator
       final genericTypes = Util.getGenericTypes(elementType);
       final genericType = genericTypes.isNotEmpty ? genericTypes.first : null;
       final genericTypeReplaced = genericType != null
-          ? genericType.toString().replaceAll("_", "")
+          ? Util.publicNames(genericType.toString())
           : null;
       if (genericType != null && !Util.isDartCoreType(genericType)) {
         final genericTypeFieldName = 'e';
@@ -883,7 +872,7 @@ class ExchangeableObjectGenerator
       return fieldName + (isNullable ? '?' : '') + '.toString()';
     } else if (displayString == "WebUri") {
       return fieldName + (isNullable ? '?' : '') + '.toString()';
-    } else if (displayString == "Color" || displayString == "Color_") {
+    } else if (Util.publicNames(displayString) == "Color") {
       return fieldName + (isNullable ? '?' : '') + '.toHex()';
     } else if (displayString == "EdgeInsets") {
       return fieldName + (isNullable ? '?' : '') + '.toMap()';

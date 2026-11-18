@@ -5,12 +5,12 @@ part 'process_failed_reason.g.dart';
 
 ///Class used to indicate the kind of process failure that has occurred.
 @ExchangeableEnum()
-class ProcessFailedReason_ {
+class ProcessFailedReasonSpec {
   // ignore: unused_field
   final String _value;
   // ignore: unused_field
   final int? _nativeValue = null;
-  const ProcessFailedReason_._internal(this._value);
+  const ProcessFailedReasonSpec._internal(this._value);
 
   ///An unexpected process failure occurred.
   @EnumSupportedPlatforms(
@@ -23,7 +23,7 @@ class ProcessFailedReason_ {
       ),
     ],
   )
-  static const UNEXPECTED = ProcessFailedReason_._internal('UNEXPECTED');
+  static const UNEXPECTED = ProcessFailedReasonSpec._internal('UNEXPECTED');
 
   ///The process became unresponsive. This only applies to the main frame's render process.
   @EnumSupportedPlatforms(
@@ -36,9 +36,7 @@ class ProcessFailedReason_ {
       ),
     ],
   )
-  static const UNRESPONSIVE = ProcessFailedReason_._internal(
-    'UNRESPONSIVE',
-  );
+  static const UNRESPONSIVE = ProcessFailedReasonSpec._internal('UNRESPONSIVE');
 
   ///The process was terminated. For example, from Task Manager.
   @EnumSupportedPlatforms(
@@ -51,7 +49,7 @@ class ProcessFailedReason_ {
       ),
     ],
   )
-  static const TERMINATED = ProcessFailedReason_._internal('TERMINATED');
+  static const TERMINATED = ProcessFailedReasonSpec._internal('TERMINATED');
 
   ///The process crashed.
   @EnumSupportedPlatforms(
@@ -64,7 +62,7 @@ class ProcessFailedReason_ {
       ),
     ],
   )
-  static const CRASHED = ProcessFailedReason_._internal('CRASHED');
+  static const CRASHED = ProcessFailedReasonSpec._internal('CRASHED');
 
   ///The process failed to launch.
   @EnumSupportedPlatforms(
@@ -77,7 +75,7 @@ class ProcessFailedReason_ {
       ),
     ],
   )
-  static const LAUNCH_FAILED = ProcessFailedReason_._internal(
+  static const LAUNCH_FAILED = ProcessFailedReasonSpec._internal(
     'LAUNCH_FAILED',
   );
 
@@ -92,7 +90,7 @@ class ProcessFailedReason_ {
       ),
     ],
   )
-  static const OUT_OF_MEMORY = ProcessFailedReason_._internal(
+  static const OUT_OF_MEMORY = ProcessFailedReasonSpec._internal(
     'OUT_OF_MEMORY',
   );
 }

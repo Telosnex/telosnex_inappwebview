@@ -23,7 +23,7 @@ part 'platform_webview_asset_loader.g.dart';
 ///{@macro telosnex_inappwebview_platform_interface.WebViewAssetLoader.supported_platforms}
 @SupportedPlatforms(platforms: [AndroidPlatform()])
 @ExchangeableObject(copyMethod: true)
-class WebViewAssetLoader_ {
+class WebViewAssetLoaderSpec {
   ///An unused domain reserved for Android applications to intercept requests for app assets.
   ///
   ///It is used by default unless the user specified a different domain.
@@ -41,7 +41,7 @@ class WebViewAssetLoader_ {
   ///and will use whichever is the first to return a non-null.
   List<PlatformPathHandler>? pathHandlers;
 
-  WebViewAssetLoader_({this.domain, this.httpAllowed, this.pathHandlers});
+  WebViewAssetLoaderSpec({this.domain, this.httpAllowed, this.pathHandlers});
 }
 
 ///{@template telosnex_inappwebview_platform_interface.PlatformPathHandlerCreationParams}

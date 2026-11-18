@@ -7,7 +7,7 @@ part 'save_file_security_check_starting_request.g.dart';
 
 ///Class that represents the request used by the [PlatformWebViewCreationParams.onSaveFileSecurityCheckStarting] event.
 @ExchangeableObject()
-class SaveFileSecurityCheckStartingRequest_ {
+class SaveFileSecurityCheckStartingRequestSpec {
   ///The document origin URI of the file save operation.
   WebUri? documentOriginUri;
 
@@ -23,7 +23,7 @@ class SaveFileSecurityCheckStartingRequest_ {
   ///Whether to suppress the default policy check.
   bool? suppressDefaultPolicy;
 
-  SaveFileSecurityCheckStartingRequest_({
+  SaveFileSecurityCheckStartingRequestSpec({
     this.documentOriginUri,
     this.fileExtension,
     this.filePath,

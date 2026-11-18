@@ -8,11 +8,11 @@ part 'server_trust_auth_response.g.dart';
 
 ///Class that represents the response used by the [PlatformWebViewCreationParams.onReceivedServerTrustAuthRequest] event.
 @ExchangeableObject()
-class ServerTrustAuthResponse_ {
+class ServerTrustAuthResponseSpec {
   ///Indicate the [ServerTrustAuthResponseAction] to take in response of the server trust authentication challenge.
-  ServerTrustAuthResponseAction_? action;
+  ServerTrustAuthResponseActionSpec? action;
 
-  ServerTrustAuthResponse_({
-    this.action = ServerTrustAuthResponseAction_.CANCEL,
+  ServerTrustAuthResponseSpec({
+    this.action = ServerTrustAuthResponseActionSpec.CANCEL,
   });
 }

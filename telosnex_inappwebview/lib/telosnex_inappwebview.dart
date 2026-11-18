@@ -28,6 +28,7 @@ export 'package:telosnex_inappwebview_platform_interface/telosnex_inappwebview_p
         InternalInAppWebViewKeepAlive,
         IdGenerator,
         Color_,
+        ColorSpec,
         Util,
         UtilColor,
         HexColor,

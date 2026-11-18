@@ -9,14 +9,14 @@ part 'navigation_action.g.dart';
 
 ///An object that contains information about an action that causes navigation to occur.
 @ExchangeableObject()
-class NavigationAction_ {
+class NavigationActionSpec {
   ///The URL request object associated with the navigation action.
   ///
   ///**NOTE for Android**: If the request is associated to the [PlatformWebViewCreationParams.onCreateWindow] event
   ///and the window has been created using JavaScript, [request.url] will be `null`,
   ///the [request.method] is always `GET`, and [request.headers] value is always `null`.
   ///Also, on Android < 21, the [request.method]  is always `GET` and [request.headers] value is always `null`.
-  URLRequest_ request;
+  URLRequestSpec request;
 
   ///Indicates whether the request was made for the main frame.
   ///
@@ -72,7 +72,7 @@ class NavigationAction_ {
 
   ///Use [navigationType] instead.
   @Deprecated("Use navigationType instead")
-  IOSWKNavigationType_? iosWKNavigationType;
+  IOSWKNavigationTypeSpec? iosWKNavigationType;
 
   ///The type of action triggering the navigation.
   @SupportedPlatforms(
@@ -90,11 +90,11 @@ class NavigationAction_ {
       WindowsPlatform(),
     ],
   )
-  NavigationType_? navigationType;
+  NavigationTypeSpec? navigationType;
 
   ///Use [sourceFrame] instead.
   @Deprecated("Use sourceFrame instead")
-  IOSWKFrameInfo_? iosSourceFrame;
+  IOSWKFrameInfoSpec? iosSourceFrame;
 
   ///The frame that requested the navigation.
   @SupportedPlatforms(
@@ -111,11 +111,11 @@ class NavigationAction_ {
       ),
     ],
   )
-  FrameInfo_? sourceFrame;
+  FrameInfoSpec? sourceFrame;
 
   ///Use [targetFrame] instead.
   @Deprecated("Use targetFrame instead")
-  IOSWKFrameInfo_? iosTargetFrame;
+  IOSWKFrameInfoSpec? iosTargetFrame;
 
   ///The frame in which to display the new content.
   @SupportedPlatforms(
@@ -132,7 +132,7 @@ class NavigationAction_ {
       ),
     ],
   )
-  FrameInfo_? targetFrame;
+  FrameInfoSpec? targetFrame;
 
   ///A value indicating whether the web content used a download attribute to indicate that this should be downloaded.
   @SupportedPlatforms(
@@ -153,7 +153,7 @@ class NavigationAction_ {
   )
   bool? shouldPerformDownload;
 
-  NavigationAction_({
+  NavigationActionSpec({
     required this.request,
     required this.isForMainFrame,
     @Deprecated('Use hasGesture instead') this.androidHasGesture,

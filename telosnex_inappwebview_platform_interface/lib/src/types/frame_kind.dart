@@ -5,12 +5,12 @@ part 'frame_kind.g.dart';
 
 ///Class used to indicate the the frame kind.
 @ExchangeableEnum()
-class FrameKind_ {
+class FrameKindSpec {
   // ignore: unused_field
   final String _value;
   // ignore: unused_field
   final int? _nativeValue = null;
-  const FrameKind_._internal(this._value);
+  const FrameKindSpec._internal(this._value);
 
   ///Indicates that the frame is an unknown type frame. We may extend this enum type to identify more frame kinds in the future.
   @EnumSupportedPlatforms(
@@ -23,7 +23,7 @@ class FrameKind_ {
       ),
     ],
   )
-  static const UNKNOWN = FrameKind_._internal('UNKNOWN');
+  static const UNKNOWN = FrameKindSpec._internal('UNKNOWN');
 
   ///Indicates that the frame is a primary main frame(webview).
   @EnumSupportedPlatforms(
@@ -36,7 +36,7 @@ class FrameKind_ {
       ),
     ],
   )
-  static const MAIN_FRAME = FrameKind_._internal('MAIN_FRAME');
+  static const MAIN_FRAME = FrameKindSpec._internal('MAIN_FRAME');
 
   ///Indicates that the frame is an iframe.
   @EnumSupportedPlatforms(
@@ -49,7 +49,7 @@ class FrameKind_ {
       ),
     ],
   )
-  static const IFRAME = FrameKind_._internal('IFRAME');
+  static const IFRAME = FrameKindSpec._internal('IFRAME');
 
   ///Indicates that the frame is an embed element.
   @EnumSupportedPlatforms(
@@ -62,7 +62,7 @@ class FrameKind_ {
       ),
     ],
   )
-  static const EMBED = FrameKind_._internal('EMBED');
+  static const EMBED = FrameKindSpec._internal('EMBED');
 
   ///Indicates that the frame is an object element.
   @EnumSupportedPlatforms(
@@ -75,5 +75,5 @@ class FrameKind_ {
       ),
     ],
   )
-  static const OBJECT = FrameKind_._internal('OBJECT');
+  static const OBJECT = FrameKindSpec._internal('OBJECT');
 }

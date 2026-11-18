@@ -7,12 +7,12 @@ part 'call_async_javascript_result.g.dart';
 
 ///Class that represents either a success or a failure, including an associated value in each case for [PlatformInAppWebViewController.callAsyncJavaScript].
 @ExchangeableObject()
-class CallAsyncJavaScriptResult_ {
+class CallAsyncJavaScriptResultSpec {
   ///It contains the success value.
   dynamic value;
 
   ///It contains the failure value.
   String? error;
 
-  CallAsyncJavaScriptResult_({this.value, this.error});
+  CallAsyncJavaScriptResultSpec({this.value, this.error});
 }

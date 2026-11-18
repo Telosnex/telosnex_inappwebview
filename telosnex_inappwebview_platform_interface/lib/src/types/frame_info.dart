@@ -9,7 +9,7 @@ part 'frame_info.g.dart';
 
 ///An object that contains information about a frame on a webpage.
 @ExchangeableObject()
-class FrameInfo_ {
+class FrameInfoSpec {
   ///A Boolean value indicating whether the frame is the web site's main frame or a subframe.
   @SupportedPlatforms(
     platforms: [IOSPlatform(), MacOSPlatform(), WindowsPlatform()],
@@ -20,13 +20,13 @@ class FrameInfo_ {
   @SupportedPlatforms(
     platforms: [IOSPlatform(), MacOSPlatform(), WindowsPlatform()],
   )
-  URLRequest_? request;
+  URLRequestSpec? request;
 
   ///The frame’s security origin.
   @SupportedPlatforms(
     platforms: [IOSPlatform(), MacOSPlatform(), WindowsPlatform()],
   )
-  SecurityOrigin_? securityOrigin;
+  SecurityOriginSpec? securityOrigin;
 
   ///Gets the name attribute of the frame, as in <iframe name="frame-name">...</iframe>.
   @SupportedPlatforms(platforms: [WindowsPlatform()])
@@ -38,9 +38,9 @@ class FrameInfo_ {
 
   ///The kind of the frame.
   @SupportedPlatforms(platforms: [WindowsPlatform()])
-  FrameKind_? kind;
+  FrameKindSpec? kind;
 
-  FrameInfo_({
+  FrameInfoSpec({
     required this.isMainFrame,
     required this.request,
     this.securityOrigin,
@@ -57,17 +57,17 @@ class FrameInfo_ {
 ///Use [FrameInfo] instead.
 @Deprecated("Use FrameInfo instead")
 @ExchangeableObject()
-class IOSWKFrameInfo_ {
+class IOSWKFrameInfoSpec {
   ///A Boolean value indicating whether the frame is the web site's main frame or a subframe.
   bool isMainFrame;
 
   ///The frame’s current request.
-  URLRequest_? request;
+  URLRequestSpec? request;
 
   ///The frame’s security origin.
-  IOSWKSecurityOrigin_? securityOrigin;
+  IOSWKSecurityOriginSpec? securityOrigin;
 
-  IOSWKFrameInfo_({
+  IOSWKFrameInfoSpec({
     required this.isMainFrame,
     required this.request,
     this.securityOrigin,

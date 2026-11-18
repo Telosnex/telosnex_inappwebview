@@ -8,12 +8,12 @@ part 'js_before_unload_request.g.dart';
 
 ///Class that represents the request of the [PlatformWebViewCreationParams.onJsBeforeUnload] event.
 @ExchangeableObject()
-class JsBeforeUnloadRequest_ {
+class JsBeforeUnloadRequestSpec {
   ///The url of the page requesting the dialog.
   WebUri? url;
 
   ///Message to be displayed in the window.
   String? message;
 
-  JsBeforeUnloadRequest_({this.url, this.message});
+  JsBeforeUnloadRequestSpec({this.url, this.message});
 }

@@ -6,7 +6,7 @@ part 'window_features.g.dart';
 
 ///Class that specifies optional attributes for the containing window when a new web view is requested.
 @ExchangeableObject()
-class WindowFeatures_ {
+class WindowFeaturesSpec {
   ///A Boolean value indicating whether the containing window should be resizable, or `null` if resizability is not specified.
   bool? allowsResizing;
 
@@ -31,7 +31,7 @@ class WindowFeatures_ {
   ///A Double value specifying the y-coordinate of the containing window, or `null` if the y-coordinate is not specified.
   double? y;
 
-  WindowFeatures_({
+  WindowFeaturesSpec({
     this.allowsResizing,
     this.height,
     this.menuBarVisibility,
@@ -47,7 +47,7 @@ class WindowFeatures_ {
 ///Use [WindowFeatures] instead.
 @Deprecated("Use WindowFeatures instead")
 @ExchangeableObject()
-class IOSWKWindowFeatures_ {
+class IOSWKWindowFeaturesSpec {
   ///A Boolean value indicating whether the containing window should be resizable, or `null` if resizability is not specified.
   bool? allowsResizing;
 
@@ -72,7 +72,7 @@ class IOSWKWindowFeatures_ {
   ///A Double value specifying the y-coordinate of the containing window, or `null` if the y-coordinate is not specified.
   double? y;
 
-  IOSWKWindowFeatures_({
+  IOSWKWindowFeaturesSpec({
     this.allowsResizing,
     this.height,
     this.menuBarVisibility,

@@ -10,7 +10,7 @@ part 'web_notification.g.dart';
 ///
 ///This corresponds to the properties of the [ICoreWebView2Notification](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/icorewebview2notification?view=webview2-1.0.3595.46) interface.
 @ExchangeableObject()
-class WebNotification_ {
+class WebNotificationSpec {
   ///The title of the notification.
   String? title;
 
@@ -18,7 +18,7 @@ class WebNotification_ {
   String? body;
 
   ///The text direction.
-  TextDirectionKind_? direction;
+  TextDirectionKindSpec? direction;
 
   ///The language of the notification.
   String? language;
@@ -55,7 +55,7 @@ class WebNotification_ {
   ///An empty list is returned if no vibration patterns are specified.
   List<int>? vibrationPattern;
 
-  WebNotification_({
+  WebNotificationSpec({
     this.title,
     this.body,
     this.direction,

@@ -7,21 +7,21 @@ part 'print_job_rendering_quality.g.dart';
 
 ///Class representing the rendering quality of a [PlatformPrintJobController].
 @ExchangeableEnum()
-class PrintJobRenderingQuality_ {
+class PrintJobRenderingQualitySpec {
   // ignore: unused_field
   final int _value;
-  const PrintJobRenderingQuality_._internal(this._value);
+  const PrintJobRenderingQualitySpec._internal(this._value);
 
   ///Renders the printing at the best possible quality, regardless of speed.
   @EnumSupportedPlatforms(
     platforms: [EnumIOSPlatform(value: 0), EnumMacOSPlatform(value: 0)],
   )
-  static const BEST = PrintJobRenderingQuality_._internal(0);
+  static const BEST = PrintJobRenderingQualitySpec._internal(0);
 
   ///Sacrifices the least possible amount of rendering quality for speed to maintain a responsive user interface.
   ///This option should be used only after establishing that best quality rendering does indeed make the user interface unresponsive.
   @EnumSupportedPlatforms(
     platforms: [EnumIOSPlatform(value: 1), EnumMacOSPlatform(value: 1)],
   )
-  static const RESPONSIVE = PrintJobRenderingQuality_._internal(1);
+  static const RESPONSIVE = PrintJobRenderingQualitySpec._internal(1);
 }

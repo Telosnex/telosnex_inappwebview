@@ -8,9 +8,9 @@ part 'navigation_response.g.dart';
 
 ///Class that represents the navigation response used by the [PlatformWebViewCreationParams.onNavigationResponse] event.
 @ExchangeableObject()
-class NavigationResponse_ {
+class NavigationResponseSpec {
   ///The URL for the response.
-  URLResponse_? response;
+  URLResponseSpec? response;
 
   ///A Boolean value that indicates whether the response targets the web view’s main frame.
   bool isForMainFrame;
@@ -18,7 +18,7 @@ class NavigationResponse_ {
   ///A Boolean value that indicates whether WebKit is capable of displaying the response’s MIME type natively.
   bool canShowMIMEType;
 
-  NavigationResponse_({
+  NavigationResponseSpec({
     this.response,
     required this.isForMainFrame,
     required this.canShowMIMEType,
@@ -29,9 +29,9 @@ class NavigationResponse_ {
 ///Use [NavigationResponse] instead.
 @Deprecated("Use NavigationResponse instead")
 @ExchangeableObject()
-class IOSWKNavigationResponse_ {
+class IOSWKNavigationResponseSpec {
   ///The URL for the response.
-  IOSURLResponse_? response;
+  IOSURLResponseSpec? response;
 
   ///A Boolean value that indicates whether the response targets the web view’s main frame.
   bool isForMainFrame;
@@ -39,7 +39,7 @@ class IOSWKNavigationResponse_ {
   ///A Boolean value that indicates whether WebKit is capable of displaying the response’s MIME type natively.
   bool canShowMIMEType;
 
-  IOSWKNavigationResponse_({
+  IOSWKNavigationResponseSpec({
     this.response,
     required this.isForMainFrame,
     required this.canShowMIMEType,

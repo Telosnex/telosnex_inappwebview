@@ -11,7 +11,7 @@ part 'notification_received_request.g.dart';
 ///This class bundles the [senderOrigin] and the [notificationController] that can be used
 ///to interact with the web notification (report shown, clicked, closed, etc.).
 @ExchangeableObject(fromMapFactory: false)
-class NotificationReceivedRequest_ {
+class NotificationReceivedRequestSpec {
   ///The origin of the web content that sends the notification.
   WebUri? senderOrigin;
 
@@ -25,7 +25,7 @@ class NotificationReceivedRequest_ {
   ///- Access the notification data via [PlatformWebNotificationController.notification]
   PlatformWebNotificationController? notificationController;
 
-  NotificationReceivedRequest_({
+  NotificationReceivedRequestSpec({
     this.senderOrigin,
     this.notificationController,
   });

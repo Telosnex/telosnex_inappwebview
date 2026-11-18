@@ -9,7 +9,7 @@ part 'user_script.g.dart';
 
 ///Class that represents a script that the `WebView` injects into the web page.
 @ExchangeableObject()
-class UserScript_ {
+class UserScriptSpec {
   ///The script’s group name.
   String? groupName;
 
@@ -17,7 +17,7 @@ class UserScript_ {
   String source;
 
   ///The time at which to inject the script into the `WebView`.
-  UserScriptInjectionTime_ injectionTime;
+  UserScriptInjectionTimeSpec injectionTime;
 
   ///Use [forMainFrameOnly] instead.
   @Deprecated("Use forMainFrameOnly instead")
@@ -72,7 +72,7 @@ class UserScript_ {
   late ContentWorld contentWorld;
 
   @ExchangeableObjectConstructor()
-  UserScript_({
+  UserScriptSpec({
     this.groupName,
     required this.source,
     required this.injectionTime,

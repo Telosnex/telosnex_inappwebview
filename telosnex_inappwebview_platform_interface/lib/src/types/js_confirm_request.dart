@@ -8,7 +8,7 @@ part 'js_confirm_request.g.dart';
 
 ///Class that represents the request of the [PlatformWebViewCreationParams.onJsConfirm] event.
 @ExchangeableObject()
-class JsConfirmRequest_ {
+class JsConfirmRequestSpec {
   ///The url of the page requesting the dialog.
   WebUri? url;
 
@@ -23,7 +23,7 @@ class JsConfirmRequest_ {
   @SupportedPlatforms(platforms: [IOSPlatform(), MacOSPlatform()])
   bool? isMainFrame;
 
-  JsConfirmRequest_({
+  JsConfirmRequestSpec({
     this.url,
     this.message,
     @Deprecated("Use isMainFrame instead") this.iosIsMainFrame,

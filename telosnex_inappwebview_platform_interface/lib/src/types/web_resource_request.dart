@@ -7,7 +7,7 @@ part 'web_resource_request.g.dart';
 
 ///Class representing a resource request of the `WebView`.
 @ExchangeableObject()
-class WebResourceRequest_ {
+class WebResourceRequestSpec {
   ///The URL for which the resource request was made.
   WebUri url;
 
@@ -39,7 +39,7 @@ class WebResourceRequest_ {
   ///**NOTE**: available on Android 21+. For Android < 21 it will be always `false`.
   bool? isRedirect;
 
-  WebResourceRequest_({
+  WebResourceRequestSpec({
     required this.url,
     this.headers,
     this.method,

@@ -8,7 +8,7 @@ part 'js_alert_request.g.dart';
 
 ///Class that represents the request of the [PlatformWebViewCreationParams.onJsAlert] event.
 @ExchangeableObject()
-class JsAlertRequest_ {
+class JsAlertRequestSpec {
   ///The url of the page requesting the dialog.
   WebUri? url;
 
@@ -23,7 +23,7 @@ class JsAlertRequest_ {
   @SupportedPlatforms(platforms: [IOSPlatform(), MacOSPlatform()])
   bool? isMainFrame;
 
-  JsAlertRequest_({
+  JsAlertRequestSpec({
     this.url,
     this.message,
     @Deprecated("Use isMainFrame instead") this.iosIsMainFrame,

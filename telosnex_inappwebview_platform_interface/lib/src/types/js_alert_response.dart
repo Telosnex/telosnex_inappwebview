@@ -8,7 +8,7 @@ part 'js_alert_response.g.dart';
 
 ///Class that represents the response used by the [PlatformWebViewCreationParams.onJsAlert] event to control a JavaScript alert dialog.
 @ExchangeableObject()
-class JsAlertResponse_ {
+class JsAlertResponseSpec {
   ///Message to be displayed in the window.
   String message;
 
@@ -19,12 +19,12 @@ class JsAlertResponse_ {
   bool handledByClient;
 
   ///Action used to confirm that the user hit confirm button.
-  JsAlertResponseAction_? action;
+  JsAlertResponseActionSpec? action;
 
-  JsAlertResponse_({
+  JsAlertResponseSpec({
     this.message = "",
     this.handledByClient = false,
     this.confirmButtonTitle = "",
-    this.action = JsAlertResponseAction_.CONFIRM,
+    this.action = JsAlertResponseActionSpec.CONFIRM,
   });
 }

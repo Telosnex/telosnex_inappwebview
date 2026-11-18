@@ -8,7 +8,7 @@ part 'favicon.g.dart';
 
 ///Class that represents a favicon of a website. It is used by [PlatformInAppWebViewController.getFavicons] method.
 @ExchangeableObject()
-class Favicon_ {
+class FaviconSpec {
   ///The url of the favicon image.
   WebUri url;
 
@@ -21,5 +21,5 @@ class Favicon_ {
   ///The height of the favicon image.
   int? height;
 
-  Favicon_({required this.url, this.rel, this.width, this.height});
+  FaviconSpec({required this.url, this.rel, this.width, this.height});
 }

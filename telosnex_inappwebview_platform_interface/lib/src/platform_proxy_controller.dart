@@ -253,7 +253,7 @@ abstract class PlatformProxyController extends PlatformInterface {
   ],
 )
 @ExchangeableObject(copyMethod: true)
-class ProxySettings_ {
+class ProxySettingsSpec {
   ///List of bypass rules.
   ///
   ///A bypass rule describes URLs that should skip proxy override settings and make a direct connection instead. These can be URLs or IP addresses. Wildcards are accepted.
@@ -295,7 +295,7 @@ class ProxySettings_ {
       LinuxPlatform(),
     ],
   )
-  List<ProxyRule_> proxyRules;
+  List<ProxyRuleSpec> proxyRules;
 
   ///Hostnames without a period in them (and that are not IP literals) will skip proxy settings and be connected to directly instead. Examples: `"abc"`, `"local"`, `"some-domain"`.
   ///
@@ -327,7 +327,7 @@ class ProxySettings_ {
   @SupportedPlatforms(platforms: [AndroidPlatform()])
   bool reverseBypassEnabled;
 
-  ProxySettings_({
+  ProxySettingsSpec({
     this.bypassRules = const [],
     this.directs = const [],
     this.proxyRules = const [],

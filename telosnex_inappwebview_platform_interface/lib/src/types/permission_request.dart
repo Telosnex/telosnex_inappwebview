@@ -11,7 +11,7 @@ part 'permission_request.g.dart';
 
 ///Class that represents the response used by the [PlatformWebViewCreationParams.onPermissionRequest] event.
 @ExchangeableObject()
-class PermissionRequest_ {
+class PermissionRequestSpec {
   ///The origin of web content which attempt to access the restricted resources.
   WebUri origin;
 
@@ -19,12 +19,12 @@ class PermissionRequest_ {
   ///
   ///**NOTE for iOS, macOS and Windows**: this list will have only 1 element and will be used by the [PermissionResponse.action]
   ///as the resource to consider when applying the corresponding action.
-  List<PermissionResourceType_> resources;
+  List<PermissionResourceTypeSpec> resources;
 
   ///The frame that initiates the request in the web view.
-  FrameInfo_? frame;
+  FrameInfoSpec? frame;
 
-  PermissionRequest_({
+  PermissionRequestSpec({
     required this.origin,
     this.resources = const [],
     this.frame,

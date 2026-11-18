@@ -7,9 +7,9 @@ part 'screen_capture_starting_request.g.dart';
 
 ///Class that represents the request used by the [PlatformWebViewCreationParams.onScreenCaptureStarting] event.
 @ExchangeableObject()
-class ScreenCaptureStartingRequest_ {
+class ScreenCaptureStartingRequestSpec {
   ///The frame that requests screen capture.
-  FrameInfo_? frame;
+  FrameInfoSpec? frame;
 
   ///Whether to cancel the screen capture.
   bool? cancel;
@@ -17,5 +17,5 @@ class ScreenCaptureStartingRequest_ {
   ///Whether the event has been handled.
   bool? handled;
 
-  ScreenCaptureStartingRequest_({this.frame, this.cancel, this.handled});
+  ScreenCaptureStartingRequestSpec({this.frame, this.cancel, this.handled});
 }

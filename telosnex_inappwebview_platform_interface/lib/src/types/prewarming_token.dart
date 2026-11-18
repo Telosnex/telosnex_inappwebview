@@ -7,9 +7,9 @@ part 'prewarming_token.g.dart';
 
 ///Class that represents the Prewarming Token returned by [PlatformChromeSafariBrowser.prewarmConnections].
 @ExchangeableObject()
-class PrewarmingToken_ {
+class PrewarmingTokenSpec {
   ///Prewarming Token id.
   final String id;
 
-  PrewarmingToken_({required this.id});
+  PrewarmingTokenSpec({required this.id});
 }

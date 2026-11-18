@@ -6,12 +6,12 @@ part 'webview_render_process_action.g.dart';
 ///Class that represents the action to take used by the [PlatformWebViewCreationParams.onRenderProcessUnresponsive] and [PlatformWebViewCreationParams.onRenderProcessResponsive] event
 ///to terminate the Android [WebViewRenderProcess](https://developer.android.com/reference/android/webkit/WebViewRenderProcess).
 @ExchangeableEnum()
-class WebViewRenderProcessAction_ {
+class WebViewRenderProcessActionSpec {
   // ignore: unused_field
   final int _value;
-  const WebViewRenderProcessAction_._internal(this._value);
+  const WebViewRenderProcessActionSpec._internal(this._value);
 
   ///Cause this renderer to terminate.
   @EnumSupportedPlatforms(platforms: [EnumAndroidPlatform()])
-  static const TERMINATE = WebViewRenderProcessAction_._internal(0);
+  static const TERMINATE = WebViewRenderProcessActionSpec._internal(0);
 }

@@ -8,9 +8,9 @@ part 'fetch_request_credential_default.g.dart';
 
 ///Class that represents the default credentials used by an [FetchRequest].
 @ExchangeableObject()
-class FetchRequestCredentialDefault_ extends FetchRequestCredential_ {
+class FetchRequestCredentialDefaultSpec extends FetchRequestCredentialSpec {
   ///The value of the credentials.
   String? value;
 
-  FetchRequestCredentialDefault_({type, this.value}) : super(type: type);
+  FetchRequestCredentialDefaultSpec({type, this.value}) : super(type: type);
 }

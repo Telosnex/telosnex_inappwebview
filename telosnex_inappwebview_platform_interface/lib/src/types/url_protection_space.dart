@@ -31,7 +31,7 @@ List<X509Certificate>? _distinguishedNamesDeserializer(
 
 ///Class that represents a protection space requiring authentication.
 @ExchangeableObject()
-class URLProtectionSpace_ {
+class URLProtectionSpaceSpec {
   ///The hostname of the server.
   String host;
 
@@ -47,14 +47,14 @@ class URLProtectionSpace_ {
   int? port;
 
   ///The SSL certificate used.
-  SslCertificate_? sslCertificate;
+  SslCertificateSpec? sslCertificate;
 
   ///The SSL Error associated.
-  SslError_? sslError;
+  SslErrorSpec? sslError;
 
   ///Use [authenticationMethod] instead.
   @Deprecated("Use authenticationMethod instead")
-  IOSNSURLProtectionSpaceAuthenticationMethod_? iosAuthenticationMethod;
+  IOSNSURLProtectionSpaceAuthenticationMethodSpec? iosAuthenticationMethod;
 
   ///The authentication method used by the receiver.
   @SupportedPlatforms(
@@ -71,7 +71,7 @@ class URLProtectionSpace_ {
       ),
     ],
   )
-  URLProtectionSpaceAuthenticationMethod_? authenticationMethod;
+  URLProtectionSpaceAuthenticationMethodSpec? authenticationMethod;
 
   ///Use [distinguishedNames] instead.
   @Deprecated("Use distinguishedNames instead")
@@ -122,7 +122,7 @@ class URLProtectionSpace_ {
 
   ///Use [proxyType] instead.
   @Deprecated("Use proxyType instead")
-  IOSNSURLProtectionSpaceProxyType_? iosProxyType;
+  IOSNSURLProtectionSpaceProxyTypeSpec? iosProxyType;
 
   ///The receiver's proxy type.
   ///This value is `null` if the receiver does not represent a proxy protection space.
@@ -141,9 +141,9 @@ class URLProtectionSpace_ {
       ),
     ],
   )
-  URLProtectionSpaceProxyType_? proxyType;
+  URLProtectionSpaceProxyTypeSpec? proxyType;
 
-  URLProtectionSpace_({
+  URLProtectionSpaceSpec({
     required this.host,
     this.protocol,
     this.realm,

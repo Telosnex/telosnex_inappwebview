@@ -10,15 +10,15 @@ part 'safe_browsing_response.g.dart';
 ///Class that represents the response used by the [PlatformWebViewCreationParams.onSafeBrowsingHit] event.
 ///It is used to indicate an action to take when hitting a malicious URL.
 @ExchangeableObject()
-class SafeBrowsingResponse_ {
+class SafeBrowsingResponseSpec {
   ///If reporting is enabled, all reports will be sent according to the privacy policy referenced by [PlatformInAppWebViewController.getSafeBrowsingPrivacyPolicyUrl].
   bool report;
 
   ///Indicate the [SafeBrowsingResponseAction] to take when hitting a malicious URL.
-  SafeBrowsingResponseAction_? action;
+  SafeBrowsingResponseActionSpec? action;
 
-  SafeBrowsingResponse_({
+  SafeBrowsingResponseSpec({
     this.report = true,
-    this.action = SafeBrowsingResponseAction_.SHOW_INTERSTITIAL,
+    this.action = SafeBrowsingResponseActionSpec.SHOW_INTERSTITIAL,
   });
 }

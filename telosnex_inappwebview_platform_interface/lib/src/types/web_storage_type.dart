@@ -7,17 +7,15 @@ part 'web_storage_type.g.dart';
 ///Class that represents the type of Web Storage: `localStorage` or `sessionStorage`.
 ///Used by the [PlatformStorage] class.
 @ExchangeableEnum()
-class WebStorageType_ {
+class WebStorageTypeSpec {
   // ignore: unused_field
   final String _value;
-  const WebStorageType_._internal(this._value);
+  const WebStorageTypeSpec._internal(this._value);
 
   ///`window.localStorage`: same as [SESSION_STORAGE], but persists even when the browser is closed and reopened.
-  static const LOCAL_STORAGE = WebStorageType_._internal("localStorage");
+  static const LOCAL_STORAGE = WebStorageTypeSpec._internal("localStorage");
 
   ///`window.sessionStorage`: maintains a separate storage area for each given origin that's available for the duration
   ///of the page session (as long as the browser is open, including page reloads and restores).
-  static const SESSION_STORAGE = WebStorageType_._internal(
-    "sessionStorage",
-  );
+  static const SESSION_STORAGE = WebStorageTypeSpec._internal("sessionStorage");
 }

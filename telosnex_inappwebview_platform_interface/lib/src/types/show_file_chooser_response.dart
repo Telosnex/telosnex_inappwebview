@@ -7,7 +7,7 @@ part 'show_file_chooser_response.g.dart';
 
 ///Class used in the [PlatformWebViewCreationParams.onShowFileChooser] method.
 @ExchangeableObject()
-class ShowFileChooserResponse_ {
+class ShowFileChooserResponseSpec {
   ///Whether the file chooser request was handled by the client.
   final bool handledByClient;
 
@@ -15,5 +15,5 @@ class ShowFileChooserResponse_ {
   ///Each file path must be a valid file URI using the "file:" scheme.
   final List<String>? filePaths;
 
-  ShowFileChooserResponse_({required this.handledByClient, this.filePaths});
+  ShowFileChooserResponseSpec({required this.handledByClient, this.filePaths});
 }

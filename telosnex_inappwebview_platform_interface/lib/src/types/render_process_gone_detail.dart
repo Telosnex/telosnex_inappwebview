@@ -9,7 +9,7 @@ part 'render_process_gone_detail.g.dart';
 ///Class that provides more specific information about why the render process exited.
 ///It is used by the [PlatformWebViewCreationParams.onRenderProcessGone] event.
 @ExchangeableObject()
-class RenderProcessGoneDetail_ {
+class RenderProcessGoneDetailSpec {
   ///Indicates whether the render process was observed to crash, or whether it was killed by the system.
   ///
   ///If the render process was killed, this is most likely caused by the system being low on memory.
@@ -17,9 +17,9 @@ class RenderProcessGoneDetail_ {
 
   /// Returns the renderer priority that was set at the time that the renderer exited. This may be greater than the priority that
   /// any individual `WebView` requested using [].
-  RendererPriority_? rendererPriorityAtExit;
+  RendererPrioritySpec? rendererPriorityAtExit;
 
-  RenderProcessGoneDetail_({
+  RenderProcessGoneDetailSpec({
     required this.didCrash,
     this.rendererPriorityAtExit,
   });

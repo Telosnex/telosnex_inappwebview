@@ -6,14 +6,14 @@ part 'ajax_request_action.g.dart';
 
 ///Class used by [AjaxRequest] class.
 @ExchangeableEnum()
-class AjaxRequestAction_ {
+class AjaxRequestActionSpec {
   // ignore: unused_field
   final int _value;
-  const AjaxRequestAction_._internal(this._value);
+  const AjaxRequestActionSpec._internal(this._value);
 
   ///Aborts the current [AjaxRequest].
-  static const ABORT = AjaxRequestAction_._internal(0);
+  static const ABORT = AjaxRequestActionSpec._internal(0);
 
   ///Proceeds with the current [AjaxRequest].
-  static const PROCEED = AjaxRequestAction_._internal(1);
+  static const PROCEED = AjaxRequestActionSpec._internal(1);
 }

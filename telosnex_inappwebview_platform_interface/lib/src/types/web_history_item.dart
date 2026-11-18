@@ -9,7 +9,7 @@ part 'web_history_item.g.dart';
 ///A convenience class for accessing fields in an entry in the back/forward list of a `WebView`.
 ///Each [WebHistoryItem] is a snapshot of the requested history item.
 @ExchangeableObject()
-class WebHistoryItem_ {
+class WebHistoryItemSpec {
   ///Original url of this history item.
   WebUri? originalUrl;
 
@@ -29,7 +29,7 @@ class WebHistoryItem_ {
   @SupportedPlatforms(platforms: [WindowsPlatform()])
   int? entryId;
 
-  WebHistoryItem_({
+  WebHistoryItemSpec({
     this.originalUrl,
     this.title,
     this.url,

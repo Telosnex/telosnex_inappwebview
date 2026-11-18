@@ -7,7 +7,7 @@ part 'ssl_certificate_dname.g.dart';
 
 ///Distinguished name helper class. Used by [SslCertificate].
 @ExchangeableObject()
-class SslCertificateDName_ {
+class SslCertificateDNameSpec {
   ///Common-name (CN) component of the name
   String? CName;
 
@@ -20,7 +20,7 @@ class SslCertificateDName_ {
   ///Organizational Unit (OU) component of the name
   String? UName;
 
-  SslCertificateDName_({
+  SslCertificateDNameSpec({
     this.CName = "",
     this.DName = "",
     this.OName = "",

@@ -7,7 +7,7 @@ part 'url_response.g.dart';
 
 ///The metadata associated with the response to a URL load request, independent of protocol and URL scheme.
 @ExchangeableObject()
-class URLResponse_ {
+class URLResponseSpec {
   ///The URL for the response.
   WebUri? url;
 
@@ -29,7 +29,7 @@ class URLResponse_ {
   ///The response’s HTTP status code.
   int? statusCode;
 
-  URLResponse_({
+  URLResponseSpec({
     this.url,
     required this.expectedContentLength,
     this.mimeType,
@@ -43,7 +43,7 @@ class URLResponse_ {
 ///Use [URLResponse] instead.
 @Deprecated("Use URLResponse instead")
 @ExchangeableObject()
-class IOSURLResponse_ {
+class IOSURLResponseSpec {
   ///The URL for the response.
   Uri? url;
 
@@ -65,7 +65,7 @@ class IOSURLResponse_ {
   ///The response’s HTTP status code.
   int? statusCode;
 
-  IOSURLResponse_({
+  IOSURLResponseSpec({
     this.url,
     required this.expectedContentLength,
     this.mimeType,

@@ -17,7 +17,7 @@ part 'webview_environment_settings.g.dart';
 ///may be overridden by values either specified in environment variables or in the registry.
 @SupportedPlatforms(platforms: [WindowsPlatform(), LinuxPlatform()])
 @ExchangeableObject(copyMethod: true)
-class WebViewEnvironmentSettings_ {
+class WebViewEnvironmentSettingsSpec {
   ///Use [browserExecutableFolder] to specify whether WebView2 controls use a fixed
   ///or installed version of the WebView2 Runtime that exists on a user machine.
   ///To use a fixed version of the WebView2 Runtime, pass the folder path that contains
@@ -137,7 +137,7 @@ class WebViewEnvironmentSettings_ {
       ),
     ],
   )
-  final List<CustomSchemeRegistration_>? customSchemeRegistrations;
+  final List<CustomSchemeRegistrationSpec>? customSchemeRegistrations;
 
   ///Whether other processes can create WebView2 from WebView2Environment created
   ///with the same user data folder and therefore sharing the same WebView browser process instance.
@@ -244,7 +244,7 @@ class WebViewEnvironmentSettings_ {
       ),
     ],
   )
-  final EnvironmentChannelSearchKind_? channelSearchKind;
+  final EnvironmentChannelSearchKindSpec? channelSearchKind;
 
   ///Sets the [releaseChannels], which is a mask of one or more [EnvironmentReleaseChannels]
   ///indicating which channels environment creation should search for.
@@ -290,7 +290,7 @@ class WebViewEnvironmentSettings_ {
       ),
     ],
   )
-  final EnvironmentReleaseChannels_? releaseChannels;
+  final EnvironmentReleaseChannelsSpec? releaseChannels;
 
   ///The ScrollBar style being set on the WebView2 Environment.
   ///
@@ -309,7 +309,7 @@ class WebViewEnvironmentSettings_ {
       ),
     ],
   )
-  final EnvironmentScrollbarStyle_? scrollbarStyle;
+  final EnvironmentScrollbarStyleSpec? scrollbarStyle;
 
   ///Set the cache model for the WebContext.
   ///
@@ -324,7 +324,7 @@ class WebViewEnvironmentSettings_ {
       ),
     ],
   )
-  final CacheModel_? cacheModel;
+  final CacheModelSpec? cacheModel;
 
   ///Enable or disable spell checking in the WebContext.
   ///
@@ -434,7 +434,7 @@ class WebViewEnvironmentSettings_ {
   )
   final List<String>? sandboxPaths;
 
-  WebViewEnvironmentSettings_({
+  WebViewEnvironmentSettingsSpec({
     this.browserExecutableFolder,
     this.userDataFolder,
     this.additionalBrowserArguments,

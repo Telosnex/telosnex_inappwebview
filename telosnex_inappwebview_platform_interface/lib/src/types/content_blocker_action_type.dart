@@ -7,11 +7,11 @@ part 'content_blocker_action_type.g.dart';
 
 ///Class that represents the kind of action that can be used with a [ContentBlockerTrigger].
 @ExchangeableEnum()
-class ContentBlockerActionType_ {
+class ContentBlockerActionTypeSpec {
   // ignore: unused_field
   final String _value;
 
-  const ContentBlockerActionType_._internal(this._value);
+  const ContentBlockerActionTypeSpec._internal(this._value);
 
   ///Stops loading of the resource. If the resource was cached, the cache is ignored.
   @EnumSupportedPlatforms(
@@ -22,7 +22,7 @@ class ContentBlockerActionType_ {
       EnumLinuxPlatform(value: 'block'),
     ],
   )
-  static const BLOCK = ContentBlockerActionType_._internal('block');
+  static const BLOCK = ContentBlockerActionTypeSpec._internal('block');
 
   ///Hides elements of the page based on a CSS selector.
   ///A selector field contains the selector list.
@@ -37,7 +37,7 @@ class ContentBlockerActionType_ {
       EnumLinuxPlatform(value: 'css-display-none'),
     ],
   )
-  static const CSS_DISPLAY_NONE = ContentBlockerActionType_._internal(
+  static const CSS_DISPLAY_NONE = ContentBlockerActionTypeSpec._internal(
     'css-display-none',
   );
 
@@ -51,7 +51,7 @@ class ContentBlockerActionType_ {
       EnumLinuxPlatform(value: 'make-https'),
     ],
   )
-  static const MAKE_HTTPS = ContentBlockerActionType_._internal(
+  static const MAKE_HTTPS = ContentBlockerActionTypeSpec._internal(
     'make-https',
   );
 
@@ -65,7 +65,7 @@ class ContentBlockerActionType_ {
       EnumLinuxPlatform(value: 'block-cookies'),
     ],
   )
-  static const BLOCK_COOKIES = ContentBlockerActionType_._internal(
+  static const BLOCK_COOKIES = ContentBlockerActionTypeSpec._internal(
     'block-cookies',
   );
 
@@ -77,6 +77,7 @@ class ContentBlockerActionType_ {
       EnumLinuxPlatform(value: 'ignore-previous-rules'),
     ],
   )
-  static const IGNORE_PREVIOUS_RULES =
-      ContentBlockerActionType_._internal('ignore-previous-rules');
+  static const IGNORE_PREVIOUS_RULES = ContentBlockerActionTypeSpec._internal(
+    'ignore-previous-rules',
+  );
 }

@@ -11,7 +11,7 @@ part 'url_request.g.dart';
 
 ///A URL load request that is independent of protocol or URL scheme.
 @ExchangeableObject()
-class URLRequest_ {
+class URLRequestSpec {
   ///The URL of the request. Setting this to `null` will load `about:blank`.
   WebUri? url;
 
@@ -95,7 +95,7 @@ class URLRequest_ {
 
   ///Use [cachePolicy] instead.
   @Deprecated("Use cachePolicy instead")
-  IOSURLRequestCachePolicy_? iosCachePolicy;
+  IOSURLRequestCachePolicySpec? iosCachePolicy;
 
   ///The request’s cache policy.
   @SupportedPlatforms(
@@ -112,7 +112,7 @@ class URLRequest_ {
       ),
     ],
   )
-  URLRequestCachePolicy_? cachePolicy;
+  URLRequestCachePolicySpec? cachePolicy;
 
   ///Use [httpShouldHandleCookies] instead.
   @Deprecated("Use httpShouldHandleCookies instead")
@@ -158,7 +158,7 @@ class URLRequest_ {
 
   ///Use [networkServiceType] instead.
   @Deprecated("Use networkServiceType instead")
-  IOSURLRequestNetworkServiceType_? iosNetworkServiceType;
+  IOSURLRequestNetworkServiceTypeSpec? iosNetworkServiceType;
 
   ///The service type associated with this request.
   @SupportedPlatforms(
@@ -175,7 +175,7 @@ class URLRequest_ {
       ),
     ],
   )
-  URLRequestNetworkServiceType_? networkServiceType;
+  URLRequestNetworkServiceTypeSpec? networkServiceType;
 
   ///Use [timeoutInterval] instead.
   @Deprecated("Use timeoutInterval instead")
@@ -260,9 +260,9 @@ class URLRequest_ {
       ),
     ],
   )
-  URLRequestAttribution_? attribution;
+  URLRequestAttributionSpec? attribution;
 
-  URLRequest_({
+  URLRequestSpec({
     required this.url,
     this.method,
     this.headers,

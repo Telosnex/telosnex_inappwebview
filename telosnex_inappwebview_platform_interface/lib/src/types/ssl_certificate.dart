@@ -10,12 +10,12 @@ part 'ssl_certificate.g.dart';
 
 ///SSL certificate info (certificate details) class.
 @ExchangeableObject()
-class SslCertificate_ {
+class SslCertificateSpec {
   ///Name of the entity this certificate is issued by.
-  SslCertificateDName_? issuedBy;
+  SslCertificateDNameSpec? issuedBy;
 
   ///Name of the entity this certificate is issued to.
-  SslCertificateDName_? issuedTo;
+  SslCertificateDNameSpec? issuedTo;
 
   ///Not-after date from the validity period.
   DateTime? validNotAfterDate;
@@ -26,7 +26,7 @@ class SslCertificate_ {
   ///The original source certificate, if available.
   X509Certificate? x509Certificate;
 
-  SslCertificate_({
+  SslCertificateSpec({
     this.issuedBy,
     this.issuedTo,
     this.validNotAfterDate,

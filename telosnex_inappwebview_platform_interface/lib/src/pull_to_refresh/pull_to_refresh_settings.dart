@@ -13,7 +13,7 @@ part 'pull_to_refresh_settings.g.dart';
 ///Pull-To-Refresh Settings for [PlatformPullToRefreshController].
 @SupportedPlatforms(platforms: [AndroidPlatform(), IOSPlatform()])
 @ExchangeableObject(copyMethod: true)
-class PullToRefreshSettings_ {
+class PullToRefreshSettingsSpec {
   ///Sets whether the pull-to-refresh feature is enabled or not.
   ///The default value is `true`.
   @SupportedPlatforms(platforms: [AndroidPlatform(), IOSPlatform()])
@@ -21,11 +21,11 @@ class PullToRefreshSettings_ {
 
   ///The color of the refresh control.
   @SupportedPlatforms(platforms: [AndroidPlatform(), IOSPlatform()])
-  Color_? color;
+  ColorSpec? color;
 
   ///The background color of the refresh control.
   @SupportedPlatforms(platforms: [AndroidPlatform(), IOSPlatform()])
-  Color_? backgroundColor;
+  ColorSpec? backgroundColor;
 
   ///The distance to trigger a sync in dips.
   @SupportedPlatforms(platforms: [AndroidPlatform()])
@@ -37,13 +37,13 @@ class PullToRefreshSettings_ {
 
   ///The size of the refresh indicator.
   @SupportedPlatforms(platforms: [AndroidPlatform()])
-  PullToRefreshSize_? size;
+  PullToRefreshSizeSpec? size;
 
   ///The title text to display in the refresh control.
   @SupportedPlatforms(platforms: [IOSPlatform()])
-  AttributedString_? attributedTitle;
+  AttributedStringSpec? attributedTitle;
 
-  PullToRefreshSettings_({
+  PullToRefreshSettingsSpec({
     this.enabled = true,
     this.color,
     this.backgroundColor,

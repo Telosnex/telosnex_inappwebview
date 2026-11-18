@@ -7,13 +7,13 @@ part 'print_job_duplex_mode.g.dart';
 
 ///Class representing the orientation of a [PlatformPrintJobController].
 @ExchangeableEnum()
-class PrintJobDuplexMode_ {
+class PrintJobDuplexModeSpec {
   // ignore: unused_field
   final String _value;
   // ignore: unused_field
   final int? _nativeValue = null;
 
-  const PrintJobDuplexMode_._internal(this._value);
+  const PrintJobDuplexModeSpec._internal(this._value);
 
   ///No double-sided (duplex) printing; single-sided printing only.
   @EnumSupportedPlatforms(
@@ -24,7 +24,7 @@ class PrintJobDuplexMode_ {
       EnumWindowsPlatform(value: 1),
     ],
   )
-  static const NONE = PrintJobDuplexMode_._internal('NONE');
+  static const NONE = PrintJobDuplexModeSpec._internal('NONE');
 
   ///Duplex printing that flips the back page along the long edge of the paper.
   ///Pages are turned sideways along the long edge - like a book.
@@ -36,7 +36,7 @@ class PrintJobDuplexMode_ {
       EnumWindowsPlatform(value: 2),
     ],
   )
-  static const LONG_EDGE = PrintJobDuplexMode_._internal('LONG_EDGE');
+  static const LONG_EDGE = PrintJobDuplexModeSpec._internal('LONG_EDGE');
 
   ///Duplex print that flips the back page along the short edge of the paper.
   ///Pages are turned upwards along the short edge - like a notepad.
@@ -48,5 +48,5 @@ class PrintJobDuplexMode_ {
       EnumWindowsPlatform(value: 3),
     ],
   )
-  static const SHORT_EDGE = PrintJobDuplexMode_._internal('SHORT_EDGE');
+  static const SHORT_EDGE = PrintJobDuplexModeSpec._internal('SHORT_EDGE');
 }

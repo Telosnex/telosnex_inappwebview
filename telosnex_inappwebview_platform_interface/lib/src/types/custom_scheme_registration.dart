@@ -8,7 +8,7 @@ part 'custom_scheme_registration.g.dart';
 ///Class that represents the registration of a custom scheme for [WebViewEnvironmentSettings] method.
 @SupportedPlatforms(platforms: [WindowsPlatform()])
 @ExchangeableObject()
-class CustomSchemeRegistration_ {
+class CustomSchemeRegistrationSpec {
   ///The name of the custom scheme to register.
   String scheme;
 
@@ -23,7 +23,7 @@ class CustomSchemeRegistration_ {
   ///Specifically, if you have a URI of the following form you should set the HasAuthorityComponent value as listed.
   bool? hasAuthorityComponent;
 
-  CustomSchemeRegistration_({
+  CustomSchemeRegistrationSpec({
     required this.scheme,
     this.allowedOrigins,
     this.treatAsSecure,

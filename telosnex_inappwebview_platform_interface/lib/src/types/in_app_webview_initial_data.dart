@@ -7,7 +7,7 @@ part 'in_app_webview_initial_data.g.dart';
 
 ///Initial [data] as a content for an `WebView` instance, using [baseUrl] as the base URL for it.
 @ExchangeableObject()
-class InAppWebViewInitialData_ {
+class InAppWebViewInitialDataSpec {
   ///A String of data in the given encoding.
   String data;
 
@@ -28,7 +28,7 @@ class InAppWebViewInitialData_ {
   @SupportedPlatforms(platforms: [AndroidPlatform()])
   WebUri? historyUrl;
 
-  InAppWebViewInitialData_({
+  InAppWebViewInitialDataSpec({
     required this.data,
     this.mimeType = "text/html",
     this.encoding = "utf8",

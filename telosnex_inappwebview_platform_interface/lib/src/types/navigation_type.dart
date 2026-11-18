@@ -5,13 +5,13 @@ part 'navigation_type.g.dart';
 
 ///Class that represents the type of action triggering a navigation for the [PlatformWebViewCreationParams.shouldOverrideUrlLoading] event.
 @ExchangeableEnum()
-class NavigationType_ {
+class NavigationTypeSpec {
   // ignore: unused_field
   final String _value;
   // ignore: unused_field
   final int? _nativeValue = null;
 
-  const NavigationType_._internal(this._value);
+  const NavigationTypeSpec._internal(this._value);
 
   ///A link with an href attribute was activated by the user.
   @EnumSupportedPlatforms(
@@ -31,9 +31,7 @@ class NavigationType_ {
       EnumWindowsPlatform(value: 0),
     ],
   )
-  static const LINK_ACTIVATED = NavigationType_._internal(
-    'LINK_ACTIVATED',
-  );
+  static const LINK_ACTIVATED = NavigationTypeSpec._internal('LINK_ACTIVATED');
 
   ///A form was submitted.
   @EnumSupportedPlatforms(
@@ -52,9 +50,7 @@ class NavigationType_ {
       ),
     ],
   )
-  static const FORM_SUBMITTED = NavigationType_._internal(
-    'FORM_SUBMITTED',
-  );
+  static const FORM_SUBMITTED = NavigationTypeSpec._internal('FORM_SUBMITTED');
 
   ///An item from the back-forward list was requested.
   @EnumSupportedPlatforms(
@@ -79,7 +75,7 @@ class NavigationType_ {
       ),
     ],
   )
-  static const BACK_FORWARD = NavigationType_._internal('BACK_FORWARD');
+  static const BACK_FORWARD = NavigationTypeSpec._internal('BACK_FORWARD');
 
   ///The webpage was reloaded.
   @EnumSupportedPlatforms(
@@ -104,7 +100,7 @@ class NavigationType_ {
       ),
     ],
   )
-  static const RELOAD = NavigationType_._internal('RELOAD');
+  static const RELOAD = NavigationTypeSpec._internal('RELOAD');
 
   ///A form was resubmitted (for example by going back, going forward, or reloading).
   @EnumSupportedPlatforms(
@@ -123,7 +119,7 @@ class NavigationType_ {
       ),
     ],
   )
-  static const FORM_RESUBMITTED = NavigationType_._internal(
+  static const FORM_RESUBMITTED = NavigationTypeSpec._internal(
     'FORM_RESUBMITTED',
   );
 
@@ -145,33 +141,33 @@ class NavigationType_ {
       EnumWindowsPlatform(value: 3),
     ],
   )
-  static const OTHER = NavigationType_._internal('OTHER');
+  static const OTHER = NavigationTypeSpec._internal('OTHER');
 }
 
 ///Class that represents the type of action triggering a navigation on iOS for the [PlatformWebViewCreationParams.shouldOverrideUrlLoading] event.
 ///Use [NavigationType] instead.
 @Deprecated("Use NavigationType instead")
 @ExchangeableEnum()
-class IOSWKNavigationType_ {
+class IOSWKNavigationTypeSpec {
   // ignore: unused_field
   final int _value;
-  const IOSWKNavigationType_._internal(this._value);
+  const IOSWKNavigationTypeSpec._internal(this._value);
 
   ///A link with an href attribute was activated by the user.
-  static const LINK_ACTIVATED = IOSWKNavigationType_._internal(0);
+  static const LINK_ACTIVATED = IOSWKNavigationTypeSpec._internal(0);
 
   ///A form was submitted.
-  static const FORM_SUBMITTED = IOSWKNavigationType_._internal(1);
+  static const FORM_SUBMITTED = IOSWKNavigationTypeSpec._internal(1);
 
   ///An item from the back-forward list was requested.
-  static const BACK_FORWARD = IOSWKNavigationType_._internal(2);
+  static const BACK_FORWARD = IOSWKNavigationTypeSpec._internal(2);
 
   ///The webpage was reloaded.
-  static const RELOAD = IOSWKNavigationType_._internal(3);
+  static const RELOAD = IOSWKNavigationTypeSpec._internal(3);
 
   ///A form was resubmitted (for example by going back, going forward, or reloading).
-  static const FORM_RESUBMITTED = IOSWKNavigationType_._internal(4);
+  static const FORM_RESUBMITTED = IOSWKNavigationTypeSpec._internal(4);
 
   ///Navigation is taking place for some other reason.
-  static const OTHER = IOSWKNavigationType_._internal(-1);
+  static const OTHER = IOSWKNavigationTypeSpec._internal(-1);
 }

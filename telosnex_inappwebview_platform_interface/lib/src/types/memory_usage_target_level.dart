@@ -4,14 +4,14 @@ part 'memory_usage_target_level.g.dart';
 
 ///Constants that describe memory usage target levels.
 @ExchangeableEnum()
-class MemoryUsageTargetLevel_ {
+class MemoryUsageTargetLevelSpec {
   // ignore: unused_field
   final int _value;
-  const MemoryUsageTargetLevel_._internal(this._value);
+  const MemoryUsageTargetLevelSpec._internal(this._value);
 
   ///Normal memory usage target level.
-  static const NORMAL = MemoryUsageTargetLevel_._internal(0);
+  static const NORMAL = MemoryUsageTargetLevelSpec._internal(0);
 
   ///Low memory usage target level.
-  static const LOW = MemoryUsageTargetLevel_._internal(1);
+  static const LOW = MemoryUsageTargetLevelSpec._internal(1);
 }
