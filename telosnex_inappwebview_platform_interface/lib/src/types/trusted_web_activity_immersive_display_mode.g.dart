@@ -26,11 +26,11 @@ class TrustedWebActivityImmersiveDisplayMode
     this.displayCutoutMode = LayoutInDisplayCutoutMode.DEFAULT,
     this.layoutInDisplayCutoutMode,
   }) {
-    this.displayCutoutMode = this.layoutInDisplayCutoutMode != null
+    displayCutoutMode = layoutInDisplayCutoutMode != null
         ? LayoutInDisplayCutoutMode.fromNativeValue(
             layoutInDisplayCutoutMode?.toNativeValue(),
           )!
-        : this.displayCutoutMode;
+        : displayCutoutMode;
   }
 
   ///Gets a possible [TrustedWebActivityImmersiveDisplayMode] instance from a [Map] value.

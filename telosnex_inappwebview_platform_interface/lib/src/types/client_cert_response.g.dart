@@ -50,8 +50,9 @@ class ClientCertResponse {
     this.selectedCertificate = -1,
     this.action = ClientCertResponseAction.CANCEL,
   }) {
-    if (action == ClientCertResponseAction.PROCEED && !Util.isWindows)
+    if (action == ClientCertResponseAction.PROCEED && !Util.isWindows) {
       assert(certificatePath.isNotEmpty);
+    }
     keyStoreType = keyStoreType ?? androidKeyStoreType;
     if (Util.isAndroid) assert(keyStoreType != null);
   }

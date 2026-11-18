@@ -86,6 +86,42 @@ class CreateWindowAction extends NavigationAction {
         enumMethod: enumMethod,
       )!,
       isForMainFrame: map['isForMainFrame'],
+      androidHasGesture: map['hasGesture'],
+      hasGesture: map['hasGesture'],
+      androidIsRedirect: map['isRedirect'],
+      isRedirect: map['isRedirect'],
+      iosWKNavigationType: switch (enumMethod ?? EnumMethod.nativeValue) {
+        EnumMethod.nativeValue => IOSWKNavigationType.fromNativeValue(
+          map['navigationType'],
+        ),
+        EnumMethod.value => IOSWKNavigationType.fromValue(
+          map['navigationType'],
+        ),
+        EnumMethod.name => IOSWKNavigationType.byName(map['navigationType']),
+      },
+      navigationType: switch (enumMethod ?? EnumMethod.nativeValue) {
+        EnumMethod.nativeValue => NavigationType.fromNativeValue(
+          map['navigationType'],
+        ),
+        EnumMethod.value => NavigationType.fromValue(map['navigationType']),
+        EnumMethod.name => NavigationType.byName(map['navigationType']),
+      },
+      iosSourceFrame: IOSWKFrameInfo.fromMap(
+        map['sourceFrame']?.cast<String, dynamic>(),
+        enumMethod: enumMethod,
+      ),
+      sourceFrame: FrameInfo.fromMap(
+        map['sourceFrame']?.cast<String, dynamic>(),
+        enumMethod: enumMethod,
+      ),
+      iosTargetFrame: IOSWKFrameInfo.fromMap(
+        map['targetFrame']?.cast<String, dynamic>(),
+        enumMethod: enumMethod,
+      ),
+      targetFrame: FrameInfo.fromMap(
+        map['targetFrame']?.cast<String, dynamic>(),
+        enumMethod: enumMethod,
+      ),
       androidIsDialog: map['isDialog'],
       iosWindowFeatures: IOSWKWindowFeatures.fromMap(
         map['windowFeatures']?.cast<String, dynamic>(),
@@ -97,41 +133,6 @@ class CreateWindowAction extends NavigationAction {
         enumMethod: enumMethod,
       ),
       windowId: map['windowId'],
-    );
-    instance.androidHasGesture = map['hasGesture'];
-    instance.hasGesture = map['hasGesture'];
-    instance.androidIsRedirect = map['isRedirect'];
-    instance.isRedirect = map['isRedirect'];
-    instance.iosWKNavigationType = switch (enumMethod ??
-        EnumMethod.nativeValue) {
-      EnumMethod.nativeValue => IOSWKNavigationType.fromNativeValue(
-        map['navigationType'],
-      ),
-      EnumMethod.value => IOSWKNavigationType.fromValue(map['navigationType']),
-      EnumMethod.name => IOSWKNavigationType.byName(map['navigationType']),
-    };
-    instance.navigationType = switch (enumMethod ?? EnumMethod.nativeValue) {
-      EnumMethod.nativeValue => NavigationType.fromNativeValue(
-        map['navigationType'],
-      ),
-      EnumMethod.value => NavigationType.fromValue(map['navigationType']),
-      EnumMethod.name => NavigationType.byName(map['navigationType']),
-    };
-    instance.iosSourceFrame = IOSWKFrameInfo.fromMap(
-      map['sourceFrame']?.cast<String, dynamic>(),
-      enumMethod: enumMethod,
-    );
-    instance.sourceFrame = FrameInfo.fromMap(
-      map['sourceFrame']?.cast<String, dynamic>(),
-      enumMethod: enumMethod,
-    );
-    instance.iosTargetFrame = IOSWKFrameInfo.fromMap(
-      map['targetFrame']?.cast<String, dynamic>(),
-      enumMethod: enumMethod,
-    );
-    instance.targetFrame = FrameInfo.fromMap(
-      map['targetFrame']?.cast<String, dynamic>(),
-      enumMethod: enumMethod,
     );
     instance.shouldPerformDownload = map['shouldPerformDownload'];
     return instance;

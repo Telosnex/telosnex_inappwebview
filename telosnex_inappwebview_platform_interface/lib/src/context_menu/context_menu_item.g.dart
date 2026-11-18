@@ -34,12 +34,12 @@ class ContextMenuItem {
     this.action,
   }) {
     if (Util.isAndroid) {
-      this.id = this.id ?? this.androidId;
-      assert(this.id is int);
+      id = id ?? androidId;
+      assert(id is int);
     } else if (Util.isIOS) {
-      this.id = this.id ?? this.iosId;
+      id = id ?? iosId;
     }
-    assert(this.id != null && (this.id is int || this.id is String));
+    assert(id != null && (id is int || id is String));
   }
 
   ///Gets a possible [ContextMenuItem] instance from a [Map] value.

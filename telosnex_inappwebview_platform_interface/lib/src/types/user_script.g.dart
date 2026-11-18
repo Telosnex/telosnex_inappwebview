@@ -71,13 +71,11 @@ class UserScript {
     Set<String>? allowedOriginRules,
     ContentWorld? contentWorld,
   }) {
-    this.allowedOriginRules = allowedOriginRules != null
-        ? allowedOriginRules
-        : Set.from(["*"]);
+    this.allowedOriginRules = allowedOriginRules ?? {"*"};
     this.contentWorld = contentWorld ?? ContentWorld.PAGE;
-    this.forMainFrameOnly = this.iosForMainFrameOnly != null
-        ? this.iosForMainFrameOnly!
-        : this.forMainFrameOnly;
+    forMainFrameOnly = iosForMainFrameOnly != null
+        ? iosForMainFrameOnly!
+        : forMainFrameOnly;
   }
 
   ///Gets a possible [UserScript] instance from a [Map] value.

@@ -18,7 +18,7 @@ class WebsiteDataType {
   ) => WebsiteDataType._internal(value, nativeValue());
 
   ///Returns a set of all available website data types.
-  static final ALL = [
+  static final ALL = {
     WebsiteDataType.WKWebsiteDataTypeFetchCache,
     WebsiteDataType.WKWebsiteDataTypeDiskCache,
     WebsiteDataType.WKWebsiteDataTypeMemoryCache,
@@ -29,7 +29,7 @@ class WebsiteDataType {
     WebsiteDataType.WKWebsiteDataTypeWebSQLDatabases,
     WebsiteDataType.WKWebsiteDataTypeIndexedDBDatabases,
     WebsiteDataType.WKWebsiteDataTypeServiceWorkerRegistrations,
-  ].toSet();
+  };
 
   ///Cookies.
   static const WKWebsiteDataTypeCookies = WebsiteDataType._internal(
@@ -236,7 +236,7 @@ class IOSWKWebsiteDataType {
   ) => IOSWKWebsiteDataType._internal(value, nativeValue());
 
   ///Returns a set of all available website data types.
-  static final ALL = [
+  static final ALL = {
     IOSWKWebsiteDataType.WKWebsiteDataTypeFetchCache,
     IOSWKWebsiteDataType.WKWebsiteDataTypeDiskCache,
     IOSWKWebsiteDataType.WKWebsiteDataTypeMemoryCache,
@@ -247,7 +247,7 @@ class IOSWKWebsiteDataType {
     IOSWKWebsiteDataType.WKWebsiteDataTypeWebSQLDatabases,
     IOSWKWebsiteDataType.WKWebsiteDataTypeIndexedDBDatabases,
     IOSWKWebsiteDataType.WKWebsiteDataTypeServiceWorkerRegistrations,
-  ].toSet();
+  };
 
   ///Cookies.
   static const WKWebsiteDataTypeCookies = IOSWKWebsiteDataType._internal(
