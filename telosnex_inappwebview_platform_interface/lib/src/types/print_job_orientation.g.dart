@@ -24,6 +24,7 @@ class PrintJobOrientation {
   ///- iOS WKWebView
   ///- macOS WKWebView
   ///- Windows WebView2
+  // ignore: non_constant_identifier_names
   static final LANDSCAPE = PrintJobOrientation._internalMultiPlatform(1, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -47,6 +48,7 @@ class PrintJobOrientation {
   ///- iOS WKWebView
   ///- macOS WKWebView
   ///- Windows WebView2
+  // ignore: non_constant_identifier_names
   static final PORTRAIT = PrintJobOrientation._internalMultiPlatform(0, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:

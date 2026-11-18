@@ -6,7 +6,7 @@ void hideAndShow() {
   skippableTest('hide and show', () async {
     var inAppBrowser = MyInAppBrowser();
     await inAppBrowser.openUrlRequest(
-      urlRequest: URLRequest(url: TEST_URL_1),
+      urlRequest: URLRequest(url: testUrl1),
       settings: InAppBrowserClassSettings(
         browserSettings: InAppBrowserSettings(hidden: true),
       ),

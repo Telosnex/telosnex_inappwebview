@@ -11,13 +11,13 @@ void trustedWebActivity() {
       expect(chromeSafariBrowser.isOpened(), false);
 
       await chromeSafariBrowser.open(
-        url: TEST_TWA_URL,
+        url: testTwaUrl,
         settings: ChromeSafariBrowserSettings(isTrustedWebActivity: true),
       );
       await chromeSafariBrowser.opened.future;
       expect(chromeSafariBrowser.isOpened(), true);
       expect(() async {
-        await chromeSafariBrowser.open(url: TEST_TWA_URL);
+        await chromeSafariBrowser.open(url: testTwaUrl);
       }, throwsAssertionError);
 
       await expectLater(chromeSafariBrowser.firstPageLoaded.future, completes);
@@ -31,7 +31,7 @@ void trustedWebActivity() {
       expect(chromeSafariBrowser.isOpened(), false);
 
       await chromeSafariBrowser.open(
-        url: TEST_TWA_URL,
+        url: testTwaUrl,
         settings: ChromeSafariBrowserSettings(
           isTrustedWebActivity: true,
           isSingleInstance: true,
@@ -40,7 +40,7 @@ void trustedWebActivity() {
       await chromeSafariBrowser.opened.future;
       expect(chromeSafariBrowser.isOpened(), true);
       expect(() async {
-        await chromeSafariBrowser.open(url: TEST_TWA_URL);
+        await chromeSafariBrowser.open(url: testTwaUrl);
       }, throwsAssertionError);
 
       await expectLater(chromeSafariBrowser.firstPageLoaded.future, completes);
@@ -62,7 +62,7 @@ void trustedWebActivity() {
         expect(
           await chromeSafariBrowser.validateRelationship(
             relation: CustomTabsRelationType.USE_AS_ORIGIN,
-            origin: TEST_TWA_URL,
+            origin: testTwaUrl,
           ),
           true,
         );
@@ -70,7 +70,7 @@ void trustedWebActivity() {
           await chromeSafariBrowser.relationshipValidationResult.future,
           true,
         );
-        await chromeSafariBrowser.launchUrl(url: TEST_TWA_URL);
+        await chromeSafariBrowser.launchUrl(url: testTwaUrl);
         await chromeSafariBrowser.opened.future;
         expect(chromeSafariBrowser.isOpened(), true);
         await expectLater(

@@ -9,7 +9,7 @@ void setGetSettings() {
     final Completer<void> pageLoaded = Completer<void>();
 
     var headlessWebView = HeadlessInAppWebView(
-      initialUrlRequest: URLRequest(url: TEST_CROSS_PLATFORM_URL_1),
+      initialUrlRequest: URLRequest(url: testCrossPlatformUrl1),
       initialSettings: InAppWebViewSettings(javaScriptEnabled: false),
       onWebViewCreated: (controller) {
         controllerCompleter.complete(controller);

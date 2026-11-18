@@ -19,7 +19,7 @@ void userScripts() {
             // Web: scripts run in the page with JavaScript, so it must be
             // same-origin.
             initialUrlRequest: URLRequest(
-              url: kIsWeb ? TEST_WEB_PLATFORM_URL_1 : TEST_CROSS_PLATFORM_URL_1,
+              url: kIsWeb ? testWebPlatformUrl1 : testCrossPlatformUrl1,
             ),
             initialUserScripts: UnmodifiableListView<UserScript>([
               UserScript(
@@ -110,7 +110,7 @@ void userScripts() {
             // Web: scripts run in the page with JavaScript, so it must be
             // same-origin.
             initialUrlRequest: URLRequest(
-              url: kIsWeb ? TEST_WEB_PLATFORM_URL_1 : TEST_CROSS_PLATFORM_URL_1,
+              url: kIsWeb ? testWebPlatformUrl1 : testCrossPlatformUrl1,
             ),
             onWebViewCreated: (controller) {
               controllerCompleter.complete(controller);

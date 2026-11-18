@@ -29,7 +29,7 @@ void setServiceWorkerClient() {
         textDirection: TextDirection.ltr,
         child: InAppWebView(
           key: GlobalKey(),
-          initialUrlRequest: URLRequest(url: TEST_SERVICE_WORKER_URL),
+          initialUrlRequest: URLRequest(url: testServiceWorkerUrl),
           onLoadStop: (controller, url) {
             pageLoaded.complete(url!.toString());
           },
@@ -38,6 +38,6 @@ void setServiceWorkerClient() {
     );
 
     final String url = await pageLoaded.future;
-    expect(url, TEST_SERVICE_WORKER_URL.toString());
+    expect(url, testServiceWorkerUrl.toString());
   }, skip: shouldSkip);
 }

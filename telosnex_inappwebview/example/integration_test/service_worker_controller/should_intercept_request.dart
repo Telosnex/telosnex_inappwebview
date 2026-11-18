@@ -38,7 +38,7 @@ void shouldInterceptRequest() {
         textDirection: TextDirection.ltr,
         child: InAppWebView(
           key: GlobalKey(),
-          initialUrlRequest: URLRequest(url: TEST_SERVICE_WORKER_URL),
+          initialUrlRequest: URLRequest(url: testServiceWorkerUrl),
         ),
       ),
     );

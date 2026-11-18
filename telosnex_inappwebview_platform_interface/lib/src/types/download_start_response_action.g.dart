@@ -22,6 +22,7 @@ class DownloadStartResponseAction {
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2
   ///- Linux WPE WebKit
+  // ignore: non_constant_identifier_names
   static final CANCEL = DownloadStartResponseAction._internalMultiPlatform(
     0,
     () {

@@ -10,7 +10,7 @@ void openAndClose() {
     expect(chromeSafariBrowser.isOpened(), false);
 
     await chromeSafariBrowser.open(
-      url: TEST_URL_1,
+      url: testUrl1,
       settings: ChromeSafariBrowserSettings(
         shareState: CustomTabsShareState.SHARE_STATE_OFF,
         startAnimations: [
@@ -46,7 +46,7 @@ void openAndClose() {
     await chromeSafariBrowser.opened.future;
     expect(chromeSafariBrowser.isOpened(), true);
     expect(() async {
-      await chromeSafariBrowser.open(url: TEST_CROSS_PLATFORM_URL_1);
+      await chromeSafariBrowser.open(url: testCrossPlatformUrl1);
     }, throwsAssertionError);
 
     await expectLater(chromeSafariBrowser.firstPageLoaded.future, completes);

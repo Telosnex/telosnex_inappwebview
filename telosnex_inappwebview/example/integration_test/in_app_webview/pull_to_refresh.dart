@@ -26,7 +26,7 @@ void pullToRefresh() {
         textDirection: TextDirection.ltr,
         child: InAppWebView(
           key: GlobalKey(),
-          initialUrlRequest: URLRequest(url: TEST_URL_1),
+          initialUrlRequest: URLRequest(url: testUrl1),
           pullToRefreshController: pullToRefreshController,
           onWebViewCreated: (controller) {
             controllerCompleter.complete(controller);
@@ -36,6 +36,6 @@ void pullToRefresh() {
     );
     final InAppWebViewController controller = await controllerCompleter.future;
     final String? currentUrl = (await controller.getUrl())?.toString();
-    expect(currentUrl, TEST_URL_1.toString());
+    expect(currentUrl, testUrl1.toString());
   }, skip: shouldSkip);
 }

@@ -10,11 +10,11 @@ void sfSafariViewController() {
       var chromeSafariBrowser = MyChromeSafariBrowser();
       expect(chromeSafariBrowser.isOpened(), false);
 
-      await chromeSafariBrowser.open(url: TEST_URL_1);
+      await chromeSafariBrowser.open(url: testUrl1);
       await expectLater(chromeSafariBrowser.opened.future, completes);
       expect(chromeSafariBrowser.isOpened(), true);
       expect(() async {
-        await chromeSafariBrowser.open(url: TEST_CROSS_PLATFORM_URL_1);
+        await chromeSafariBrowser.open(url: testCrossPlatformUrl1);
       }, throwsAssertionError);
 
       expect(await chromeSafariBrowser.firstPageLoaded.future, true);
@@ -30,7 +30,7 @@ void sfSafariViewController() {
 
     skippableTest('create and invalidate Prewarming Token', () async {
       final prewarmingToken = await ChromeSafariBrowser.prewarmConnections([
-        TEST_URL_1,
+        testUrl1,
       ]);
       expect(prewarmingToken, isNotNull);
       await expectLater(

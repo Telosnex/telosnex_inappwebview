@@ -21,6 +21,7 @@ class EnvironmentScrollbarStyle {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2
+  // ignore: non_constant_identifier_names
   static final DEFAULT = EnvironmentScrollbarStyle._internalMultiPlatform(
     0,
     () {
@@ -39,6 +40,7 @@ class EnvironmentScrollbarStyle {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2
+  // ignore: non_constant_identifier_names
   static final FLUENT_OVERLAY =
       EnvironmentScrollbarStyle._internalMultiPlatform(1, () {
         switch (defaultTargetPlatform) {

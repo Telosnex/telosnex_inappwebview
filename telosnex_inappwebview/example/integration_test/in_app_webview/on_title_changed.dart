@@ -5,7 +5,7 @@ void onTitleChanged() {
     PlatformWebViewCreationParamsProperty.onTitleChanged,
   );
 
-  var url = !kIsWeb ? TEST_URL_1 : TEST_WEB_PLATFORM_URL_1;
+  var url = !kIsWeb ? testUrl1 : testWebPlatformUrl1;
 
   skippableTestWidgets('onTitleChanged', (WidgetTester tester) async {
     final Completer<InAppWebViewController> controllerCompleter =

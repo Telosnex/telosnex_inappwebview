@@ -21,6 +21,7 @@ class FocusDirection {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Android WebView ([Official API - FOCUS_DOWN](https://developer.android.com/reference/android/view/View#FOCUS_DOWN))
+  // ignore: non_constant_identifier_names
   static final DOWN = FocusDirection._internalMultiPlatform('DOWN', () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -35,6 +36,7 @@ class FocusDirection {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Android WebView ([Official API - FOCUS_LEFT](https://developer.android.com/reference/android/view/View#FOCUS_LEFT))
+  // ignore: non_constant_identifier_names
   static final LEFT = FocusDirection._internalMultiPlatform('LEFT', () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -49,6 +51,7 @@ class FocusDirection {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Android WebView ([Official API - FOCUS_RIGHT](https://developer.android.com/reference/android/view/View#FOCUS_RIGHT))
+  // ignore: non_constant_identifier_names
   static final RIGHT = FocusDirection._internalMultiPlatform('RIGHT', () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -63,6 +66,7 @@ class FocusDirection {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Android WebView ([Official API - FOCUS_UP](https://developer.android.com/reference/android/view/View#FOCUS_UP))
+  // ignore: non_constant_identifier_names
   static final UP = FocusDirection._internalMultiPlatform('UP', () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:

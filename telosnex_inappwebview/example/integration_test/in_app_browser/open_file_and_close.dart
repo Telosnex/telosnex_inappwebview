@@ -17,7 +17,7 @@ void openFileAndClose() {
     expect(inAppBrowser.isOpened(), true);
     expect(() async {
       await inAppBrowser.openUrlRequest(
-        urlRequest: URLRequest(url: TEST_URL_1),
+        urlRequest: URLRequest(url: testUrl1),
       );
     }, throwsAssertionError);
 

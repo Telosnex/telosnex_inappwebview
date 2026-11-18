@@ -16,7 +16,7 @@ void loadFile() {
         textDirection: TextDirection.ltr,
         child: InAppWebView(
           key: GlobalKey(),
-          initialUrlRequest: URLRequest(url: TEST_URL_ABOUT_BLANK),
+          initialUrlRequest: URLRequest(url: testUrlAboutBlank),
           onWebViewCreated: (controller) {
             controllerCompleter.complete(controller);
           },

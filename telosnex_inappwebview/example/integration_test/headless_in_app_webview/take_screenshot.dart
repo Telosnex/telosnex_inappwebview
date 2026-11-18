@@ -11,7 +11,7 @@ void takeScreenshot() {
     final Completer<void> pageLoaded = Completer<void>();
 
     var headlessWebView = HeadlessInAppWebView(
-      initialUrlRequest: URLRequest(url: TEST_URL_1),
+      initialUrlRequest: URLRequest(url: testUrl1),
       onWebViewCreated: (controller) {
         controllerCompleter.complete(controller);
       },
@@ -29,7 +29,7 @@ void takeScreenshot() {
     await pageLoaded.future;
 
     final String? url = (await controller.getUrl())?.toString();
-    expect(url, TEST_URL_1.toString());
+    expect(url, testUrl1.toString());
 
     final Size? size = await headlessWebView.getSize();
     expect(size, isNotNull);

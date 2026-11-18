@@ -22,6 +22,7 @@ class SslErrorType {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_WEB_ERROR_STATUS_CERTIFICATE_COMMON_NAME_IS_INCORRECT](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2849.39#corewebview2_web_error_status))
+  // ignore: non_constant_identifier_names
   static final COMMON_NAME_IS_INCORRECT = SslErrorType._internalMultiPlatform(
     'COMMON_NAME_IS_INCORRECT',
     () {
@@ -39,6 +40,7 @@ class SslErrorType {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Android WebView ([Official API - SslError.DATE_INVALID](https://developer.android.com/reference/android/net/http/SslError#SSL_DATE_INVALID))
+  // ignore: non_constant_identifier_names
   static final DATE_INVALID = SslErrorType._internalMultiPlatform(
     'DATE_INVALID',
     () {
@@ -62,6 +64,7 @@ class SslErrorType {
   ///**Officially Supported Platforms/Implementations**:
   ///- iOS WKWebView ([Official API - SecTrustResultType.deny](https://developer.apple.com/documentation/security/sectrustresulttype/deny))
   ///- macOS WKWebView ([Official API - SecTrustResultType.deny](https://developer.apple.com/documentation/security/sectrustresulttype/deny))
+  // ignore: non_constant_identifier_names
   static final DENY = SslErrorType._internalMultiPlatform('DENY', () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.iOS:
@@ -80,6 +83,7 @@ class SslErrorType {
   ///- Android WebView ([Official API - SslError.SSL_EXPIRED](https://developer.android.com/reference/android/net/http/SslError#SSL_EXPIRED))
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_WEB_ERROR_STATUS_CERTIFICATE_EXPIRED](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2849.39#corewebview2_web_error_status))
   ///- Linux WPE WebKit
+  // ignore: non_constant_identifier_names
   static final EXPIRED = SslErrorType._internalMultiPlatform('EXPIRED', () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -104,6 +108,7 @@ class SslErrorType {
   ///**Officially Supported Platforms/Implementations**:
   ///- iOS WKWebView ([Official API - SecTrustResultType.fatalTrustFailure](https://developer.apple.com/documentation/security/sectrustresulttype/fataltrustfailure))
   ///- macOS WKWebView ([Official API - SecTrustResultType.fatalTrustFailure](https://developer.apple.com/documentation/security/sectrustresulttype/fataltrustfailure))
+  // ignore: non_constant_identifier_names
   static final FATAL_TRUST_FAILURE = SslErrorType._internalMultiPlatform(
     'FATAL_TRUST_FAILURE',
     () {
@@ -124,6 +129,7 @@ class SslErrorType {
   ///**Officially Supported Platforms/Implementations**:
   ///- Android WebView ([Official API - SslError.SSL_IDMISMATCH](https://developer.android.com/reference/android/net/http/SslError#SSL_IDMISMATCH))
   ///- Linux WPE WebKit
+  // ignore: non_constant_identifier_names
   static final IDMISMATCH = SslErrorType._internalMultiPlatform(
     'IDMISMATCH',
     () {
@@ -147,6 +153,7 @@ class SslErrorType {
   ///- macOS WKWebView ([Official API - SecTrustResultType.invalid](https://developer.apple.com/documentation/security/sectrustresulttype/invalid))
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_WEB_ERROR_STATUS_CERTIFICATE_IS_INVALID](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2849.39#corewebview2_web_error_status))
   ///- Linux WPE WebKit
+  // ignore: non_constant_identifier_names
   static final INVALID = SslErrorType._internalMultiPlatform('INVALID', () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -170,6 +177,7 @@ class SslErrorType {
   ///**Officially Supported Platforms/Implementations**:
   ///- Android WebView ([Official API - SslError.SSL_NOTYETVALID](https://developer.android.com/reference/android/net/http/SslError#SSL_NOTYETVALID))
   ///- Linux WPE WebKit
+  // ignore: non_constant_identifier_names
   static final NOT_YET_VALID = SslErrorType._internalMultiPlatform(
     'NOT_YET_VALID',
     () {
@@ -197,6 +205,7 @@ class SslErrorType {
   ///- macOS WKWebView ([Official API - SecTrustResultType.otherError](https://developer.apple.com/documentation/security/sectrustresulttype/othererror))
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_WEB_ERROR_STATUS_CLIENT_CERTIFICATE_CONTAINS_ERRORS](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2849.39#corewebview2_web_error_status))
   ///- Linux WPE WebKit
+  // ignore: non_constant_identifier_names
   static final OTHER_ERROR = SslErrorType._internalMultiPlatform(
     'OTHER_ERROR',
     () {
@@ -229,6 +238,7 @@ class SslErrorType {
   ///**Officially Supported Platforms/Implementations**:
   ///- iOS WKWebView ([Official API - SecTrustResultType.recoverableTrustFailure](https://developer.apple.com/documentation/security/sectrustresulttype/recoverabletrustfailure))
   ///- macOS WKWebView ([Official API - SecTrustResultType.recoverableTrustFailure](https://developer.apple.com/documentation/security/sectrustresulttype/recoverabletrustfailure))
+  // ignore: non_constant_identifier_names
   static final RECOVERABLE_TRUST_FAILURE = SslErrorType._internalMultiPlatform(
     'RECOVERABLE_TRUST_FAILURE',
     () {
@@ -249,6 +259,7 @@ class SslErrorType {
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_WEB_ERROR_STATUS_CERTIFICATE_REVOKED](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2849.39#corewebview2_web_error_status))
   ///- Linux WPE WebKit
+  // ignore: non_constant_identifier_names
   static final REVOKED = SslErrorType._internalMultiPlatform('REVOKED', () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.windows:
@@ -273,6 +284,7 @@ class SslErrorType {
   ///**Officially Supported Platforms/Implementations**:
   ///- iOS WKWebView ([Official API - SecTrustResultType.unspecified](https://developer.apple.com/documentation/security/sectrustresulttype/unspecified))
   ///- macOS WKWebView ([Official API - SecTrustResultType.unspecified](https://developer.apple.com/documentation/security/sectrustresulttype/unspecified))
+  // ignore: non_constant_identifier_names
   static final UNSPECIFIED = SslErrorType._internalMultiPlatform(
     'UNSPECIFIED',
     () {
@@ -293,6 +305,7 @@ class SslErrorType {
   ///**Officially Supported Platforms/Implementations**:
   ///- Android WebView ([Official API - SslError.SSL_UNTRUSTED](https://developer.android.com/reference/android/net/http/SslError#SSL_UNTRUSTED))
   ///- Linux WPE WebKit
+  // ignore: non_constant_identifier_names
   static final UNTRUSTED = SslErrorType._internalMultiPlatform('UNTRUSTED', () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:

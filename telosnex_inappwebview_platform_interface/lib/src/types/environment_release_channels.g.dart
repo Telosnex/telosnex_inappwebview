@@ -21,6 +21,7 @@ class EnvironmentReleaseChannels {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2
+  // ignore: non_constant_identifier_names
   static final BETA = EnvironmentReleaseChannels._internalMultiPlatform(2, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.windows:
@@ -35,6 +36,7 @@ class EnvironmentReleaseChannels {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2
+  // ignore: non_constant_identifier_names
   static final CANARY = EnvironmentReleaseChannels._internalMultiPlatform(
     8,
     () {
@@ -52,6 +54,7 @@ class EnvironmentReleaseChannels {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2
+  // ignore: non_constant_identifier_names
   static final DEV = EnvironmentReleaseChannels._internalMultiPlatform(4, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.windows:
@@ -66,6 +69,7 @@ class EnvironmentReleaseChannels {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2
+  // ignore: non_constant_identifier_names
   static final NONE = EnvironmentReleaseChannels._internalMultiPlatform(0, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.windows:
@@ -80,6 +84,7 @@ class EnvironmentReleaseChannels {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2
+  // ignore: non_constant_identifier_names
   static final STABLE = EnvironmentReleaseChannels._internalMultiPlatform(
     1,
     () {

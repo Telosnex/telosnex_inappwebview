@@ -14,7 +14,7 @@ void safeBrowsing() {
           child: InAppWebView(
             key: GlobalKey(),
             initialUrlRequest: URLRequest(
-              url: TEST_CHROME_SAFE_BROWSING_MALWARE,
+              url: testChromeSafeBrowsingMalware,
             ),
             initialSettings: InAppWebViewSettings(
               // if I set javaScriptEnabled to true, it will crash!
@@ -39,7 +39,7 @@ void safeBrowsing() {
       );
 
       final String url = await pageLoaded.future;
-      expect(url, TEST_CHROME_SAFE_BROWSING_MALWARE.toString());
+      expect(url, testChromeSafeBrowsingMalware.toString());
     });
 
     skippableTest('getSafeBrowsingPrivacyPolicyUrl', () async {

@@ -61,7 +61,7 @@ void customMenuItems() {
     );
 
     await inAppBrowser.openUrlRequest(
-      urlRequest: URLRequest(url: TEST_URL_1),
+      urlRequest: URLRequest(url: testUrl1),
       settings: InAppBrowserClassSettings(
         browserSettings: InAppBrowserSettings(hideDefaultMenuItems: true),
       ),

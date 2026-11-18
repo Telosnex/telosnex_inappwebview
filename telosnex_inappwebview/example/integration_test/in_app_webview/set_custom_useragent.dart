@@ -11,7 +11,7 @@ void setCustomUserAgent() {
       Directionality(
         textDirection: TextDirection.ltr,
         child: InAppWebView(
-          initialUrlRequest: URLRequest(url: TEST_URL_ABOUT_BLANK),
+          initialUrlRequest: URLRequest(url: testUrlAboutBlank),
           initialSettings: InAppWebViewSettings(
             javaScriptEnabled: true,
             userAgent: 'Custom_User_Agent1',

@@ -25,6 +25,7 @@ class CustomTabsPostMessageResultType {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Android WebView
+  // ignore: non_constant_identifier_names
   static final FAILURE_DISALLOWED =
       CustomTabsPostMessageResultType._internalMultiPlatform(-1, () {
         switch (defaultTargetPlatform) {
@@ -40,6 +41,7 @@ class CustomTabsPostMessageResultType {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Android WebView
+  // ignore: non_constant_identifier_names
   static final FAILURE_MESSAGING_ERROR =
       CustomTabsPostMessageResultType._internalMultiPlatform(-3, () {
         switch (defaultTargetPlatform) {
@@ -55,6 +57,7 @@ class CustomTabsPostMessageResultType {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Android WebView
+  // ignore: non_constant_identifier_names
   static final FAILURE_REMOTE_ERROR =
       CustomTabsPostMessageResultType._internalMultiPlatform(-2, () {
         switch (defaultTargetPlatform) {
@@ -70,6 +73,7 @@ class CustomTabsPostMessageResultType {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Android WebView
+  // ignore: non_constant_identifier_names
   static final SUCCESS = CustomTabsPostMessageResultType._internalMultiPlatform(
     0,
     () {

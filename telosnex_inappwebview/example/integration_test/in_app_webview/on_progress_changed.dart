@@ -12,7 +12,7 @@ void onProgressChanged() {
         textDirection: TextDirection.ltr,
         child: InAppWebView(
           key: GlobalKey(),
-          initialUrlRequest: URLRequest(url: TEST_URL_1),
+          initialUrlRequest: URLRequest(url: testUrl1),
           initialSettings: InAppWebViewSettings(clearCache: true),
           onProgressChanged: (controller, progress) {
             if (progress == 100 && !onProgressChangedCompleter.isCompleted) {

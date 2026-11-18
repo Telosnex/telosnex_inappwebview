@@ -28,14 +28,14 @@ void openDataAndClose() {
 """,
       encoding: 'utf-8',
       mimeType: 'text/html',
-      historyUrl: TEST_CROSS_PLATFORM_URL_1,
-      baseUrl: TEST_CROSS_PLATFORM_URL_1,
+      historyUrl: testCrossPlatformUrl1,
+      baseUrl: testCrossPlatformUrl1,
     );
     await inAppBrowser.browserCreated.future;
     expect(inAppBrowser.isOpened(), true);
     expect(() async {
       await inAppBrowser.openUrlRequest(
-        urlRequest: URLRequest(url: TEST_URL_1),
+        urlRequest: URLRequest(url: testUrl1),
       );
     }, throwsAssertionError);
 
@@ -44,7 +44,7 @@ void openDataAndClose() {
 
     expect(controller, isNotNull);
     final String? url = (await controller!.getUrl())?.toString();
-    expect(url, TEST_CROSS_PLATFORM_URL_1.toString());
+    expect(url, testCrossPlatformUrl1.toString());
 
     await inAppBrowser.close();
     await inAppBrowser.browserClosed.future;

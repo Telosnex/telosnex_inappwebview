@@ -25,6 +25,7 @@ class PrintJobDuplexMode {
   ///- iOS WKWebView
   ///- macOS WKWebView
   ///- Windows WebView2
+  // ignore: non_constant_identifier_names
   static final LONG_EDGE = PrintJobDuplexMode._internalMultiPlatform(
     'LONG_EDGE',
     () {
@@ -51,6 +52,7 @@ class PrintJobDuplexMode {
   ///- iOS WKWebView
   ///- macOS WKWebView
   ///- Windows WebView2
+  // ignore: non_constant_identifier_names
   static final NONE = PrintJobDuplexMode._internalMultiPlatform('NONE', () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -75,6 +77,7 @@ class PrintJobDuplexMode {
   ///- iOS WKWebView
   ///- macOS WKWebView
   ///- Windows WebView2
+  // ignore: non_constant_identifier_names
   static final SHORT_EDGE = PrintJobDuplexMode._internalMultiPlatform(
     'SHORT_EDGE',
     () {

@@ -23,6 +23,7 @@ class PrintJobColorMode {
   ///- Android WebView
   ///- macOS WKWebView
   ///- Windows WebView2
+  // ignore: non_constant_identifier_names
   static final COLOR = PrintJobColorMode._internalMultiPlatform(2, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -42,6 +43,7 @@ class PrintJobColorMode {
   ///**Officially Supported Platforms/Implementations**:
   ///- Android WebView
   ///- Windows WebView2
+  // ignore: non_constant_identifier_names
   static final DEFAULT = PrintJobColorMode._internalMultiPlatform(0, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -60,6 +62,7 @@ class PrintJobColorMode {
   ///- Android WebView
   ///- macOS WKWebView
   ///- Windows WebView2
+  // ignore: non_constant_identifier_names
   static final MONOCHROME = PrintJobColorMode._internalMultiPlatform(1, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:

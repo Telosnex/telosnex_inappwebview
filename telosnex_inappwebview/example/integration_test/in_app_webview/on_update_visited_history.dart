@@ -5,7 +5,7 @@ void onUpdateVisitedHistory() {
     PlatformWebViewCreationParamsProperty.onUpdateVisitedHistory,
   );
 
-  var url = !kIsWeb ? TEST_CROSS_PLATFORM_URL_1 : TEST_WEB_PLATFORM_URL_1;
+  var url = !kIsWeb ? testCrossPlatformUrl1 : testWebPlatformUrl1;
 
   skippableTestWidgets('onUpdateVisitedHistory', (WidgetTester tester) async {
     final Completer<InAppWebViewController> controllerCompleter =
@@ -59,13 +59,13 @@ setTimeout(function() {
     var firstPushUrl = await firstPushCompleter.future;
     expect(
       firstPushUrl,
-      '${!kIsWeb ? TEST_CROSS_PLATFORM_URL_1 : TEST_WEB_PLATFORM_BASE_URL}first-push',
+      '${!kIsWeb ? testCrossPlatformUrl1 : testWebPlatformBaseUrl}first-push',
     );
 
     var secondPushUrl = await secondPushCompleter.future;
     expect(
       secondPushUrl,
-      '${!kIsWeb ? TEST_CROSS_PLATFORM_URL_1 : TEST_WEB_PLATFORM_BASE_URL}second-push',
+      '${!kIsWeb ? testCrossPlatformUrl1 : testWebPlatformBaseUrl}second-push',
     );
   }, skip: shouldSkip);
 }

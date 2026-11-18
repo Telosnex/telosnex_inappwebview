@@ -5,7 +5,7 @@ void getFavicons() {
     PlatformInAppWebViewControllerMethod.getFavicons,
   );
 
-  var url = !kIsWeb ? TEST_CROSS_PLATFORM_URL_1 : TEST_WEB_PLATFORM_URL_1;
+  var url = !kIsWeb ? testCrossPlatformUrl1 : testWebPlatformUrl1;
 
   skippableTestWidgets('getFavicons', (WidgetTester tester) async {
     final Completer<InAppWebViewController> controllerCompleter =

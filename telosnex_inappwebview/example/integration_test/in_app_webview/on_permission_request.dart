@@ -18,7 +18,7 @@ void onPermissionRequest() {
         textDirection: TextDirection.ltr,
         child: InAppWebView(
           key: GlobalKey(),
-          initialUrlRequest: URLRequest(url: TEST_PERMISSION_SITE),
+          initialUrlRequest: URLRequest(url: testPermissionSite),
           onWebViewCreated: (controller) {
             controllerCompleter.complete(controller);
           },
@@ -85,7 +85,7 @@ void onPermissionRequest() {
         textDirection: TextDirection.ltr,
         child: InAppWebView(
           key: GlobalKey(),
-          initialUrlRequest: URLRequest(url: TEST_PERMISSION_SITE),
+          initialUrlRequest: URLRequest(url: testPermissionSite),
           onWebViewCreated: (controller) {
             controllerCompleter.complete(controller);
           },

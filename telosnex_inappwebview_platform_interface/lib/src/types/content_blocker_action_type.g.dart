@@ -24,6 +24,7 @@ class ContentBlockerActionType {
   ///- iOS WKWebView
   ///- macOS WKWebView
   ///- Linux WPE WebKit
+  // ignore: non_constant_identifier_names
   static final BLOCK = ContentBlockerActionType._internalMultiPlatform(
     'block',
     () {
@@ -51,6 +52,7 @@ class ContentBlockerActionType {
   ///- iOS WKWebView
   ///- macOS WKWebView
   ///- Linux WPE WebKit
+  // ignore: non_constant_identifier_names
   static final BLOCK_COOKIES = ContentBlockerActionType._internalMultiPlatform(
     'block-cookies',
     () {
@@ -79,6 +81,7 @@ class ContentBlockerActionType {
   ///- iOS WKWebView
   ///- macOS WKWebView
   ///- Linux WPE WebKit
+  // ignore: non_constant_identifier_names
   static final CSS_DISPLAY_NONE =
       ContentBlockerActionType._internalMultiPlatform('css-display-none', () {
         switch (defaultTargetPlatform) {
@@ -102,6 +105,7 @@ class ContentBlockerActionType {
   ///- iOS WKWebView
   ///- macOS WKWebView
   ///- Linux WPE WebKit
+  // ignore: non_constant_identifier_names
   static final IGNORE_PREVIOUS_RULES =
       ContentBlockerActionType._internalMultiPlatform(
         'ignore-previous-rules',
@@ -128,6 +132,7 @@ class ContentBlockerActionType {
   ///- iOS WKWebView
   ///- macOS WKWebView
   ///- Linux WPE WebKit
+  // ignore: non_constant_identifier_names
   static final MAKE_HTTPS = ContentBlockerActionType._internalMultiPlatform(
     'make-https',
     () {

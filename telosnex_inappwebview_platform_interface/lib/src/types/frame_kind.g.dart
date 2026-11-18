@@ -21,6 +21,7 @@ class FrameKind {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_FRAME_KIND_EMBED](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2849.39#corewebview2_frame_kind))
+  // ignore: non_constant_identifier_names
   static final EMBED = FrameKind._internalMultiPlatform('EMBED', () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.windows:
@@ -35,6 +36,7 @@ class FrameKind {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_FRAME_KIND_IFRAME](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2849.39#corewebview2_frame_kind))
+  // ignore: non_constant_identifier_names
   static final IFRAME = FrameKind._internalMultiPlatform('IFRAME', () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.windows:
@@ -49,6 +51,7 @@ class FrameKind {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_FRAME_KIND_MAIN_FRAME](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2849.39#corewebview2_frame_kind))
+  // ignore: non_constant_identifier_names
   static final MAIN_FRAME = FrameKind._internalMultiPlatform('MAIN_FRAME', () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.windows:
@@ -63,6 +66,7 @@ class FrameKind {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_FRAME_KIND_OBJECT](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2849.39#corewebview2_frame_kind))
+  // ignore: non_constant_identifier_names
   static final OBJECT = FrameKind._internalMultiPlatform('OBJECT', () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.windows:
@@ -77,6 +81,7 @@ class FrameKind {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_FRAME_KIND_UNKNOWN](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2849.39#corewebview2_frame_kind))
+  // ignore: non_constant_identifier_names
   static final UNKNOWN = FrameKind._internalMultiPlatform('UNKNOWN', () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.windows:

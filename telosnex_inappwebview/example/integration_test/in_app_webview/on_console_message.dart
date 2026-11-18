@@ -19,7 +19,7 @@ void onConsoleMessage() {
               ? "test_assets/in_app_webview_on_console_message_test.html"
               : null,
           initialUrlRequest: kIsWeb
-              ? URLRequest(url: TEST_WEB_PLATFORM_URL_1)
+              ? URLRequest(url: testWebPlatformUrl1)
               : null,
           onWebViewCreated: (controller) {
             controllerCompleter.complete(controller);

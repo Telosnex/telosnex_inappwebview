@@ -16,7 +16,7 @@ void loadData() {
         textDirection: TextDirection.ltr,
         child: InAppWebView(
           key: GlobalKey(),
-          initialUrlRequest: URLRequest(url: TEST_URL_ABOUT_BLANK),
+          initialUrlRequest: URLRequest(url: testUrlAboutBlank),
           onWebViewCreated: (controller) {
             controllerCompleter.complete(controller);
           },
@@ -53,15 +53,15 @@ void loadData() {
       data: data,
       encoding: 'utf-8',
       mimeType: mimeType,
-      historyUrl: TEST_CROSS_PLATFORM_URL_1,
-      baseUrl: TEST_CROSS_PLATFORM_URL_1,
+      historyUrl: testCrossPlatformUrl1,
+      baseUrl: testCrossPlatformUrl1,
     );
     await pageLoads.stream.first;
 
     final String? currentUrl = (await controller.getUrl())?.toString();
 
     if (!kIsWeb) {
-      expect(currentUrl, TEST_CROSS_PLATFORM_URL_1.toString());
+      expect(currentUrl, testCrossPlatformUrl1.toString());
     } else {
       expect(currentUrl, 'data:$mimeType,${Uri.encodeComponent(data)}');
     }

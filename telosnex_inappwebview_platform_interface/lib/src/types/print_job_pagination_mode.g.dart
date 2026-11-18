@@ -21,6 +21,7 @@ class PrintJobPaginationMode {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- macOS WKWebView
+  // ignore: non_constant_identifier_names
   static final AUTOMATIC = PrintJobPaginationMode._internalMultiPlatform(
     'AUTOMATIC',
     () {
@@ -38,6 +39,7 @@ class PrintJobPaginationMode {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- macOS WKWebView
+  // ignore: non_constant_identifier_names
   static final CLIP = PrintJobPaginationMode._internalMultiPlatform('CLIP', () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.macOS:
@@ -52,6 +54,7 @@ class PrintJobPaginationMode {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- macOS WKWebView
+  // ignore: non_constant_identifier_names
   static final FIT = PrintJobPaginationMode._internalMultiPlatform('FIT', () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.macOS:

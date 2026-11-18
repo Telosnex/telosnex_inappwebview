@@ -11,7 +11,7 @@ void convertToInAppWebView() {
     final Completer<void> pageLoaded = Completer<void>();
 
     var headlessWebView = HeadlessInAppWebView(
-      initialUrlRequest: URLRequest(url: TEST_CROSS_PLATFORM_URL_1),
+      initialUrlRequest: URLRequest(url: testCrossPlatformUrl1),
       onWebViewCreated: (controller) {
         controllerCompleter.complete(controller);
       },
@@ -28,7 +28,7 @@ void convertToInAppWebView() {
     await pageLoaded.future;
 
     final String? url = (await controller.getUrl())?.toString();
-    expect(url, TEST_CROSS_PLATFORM_URL_1.toString());
+    expect(url, testCrossPlatformUrl1.toString());
 
     final Completer<InAppWebViewController> widgetControllerCompleter =
         Completer<InAppWebViewController>();
@@ -46,7 +46,7 @@ void convertToInAppWebView() {
           onLoadStop: (controller, url) {
             // Host only: Bing can redirect to its page with tracking
             // parameters added.
-            if (url?.host == TEST_CROSS_PLATFORM_URL_2.host &&
+            if (url?.host == testCrossPlatformUrl2.host &&
                 !loadedUrl.isCompleted) {
               loadedUrl.complete(url.toString());
             }
@@ -62,15 +62,15 @@ void convertToInAppWebView() {
 
     expect(
       (await widgetController.getUrl())?.toString(),
-      TEST_CROSS_PLATFORM_URL_1.toString(),
+      testCrossPlatformUrl1.toString(),
     );
 
     await widgetController.loadUrl(
-      urlRequest: URLRequest(url: TEST_CROSS_PLATFORM_URL_2),
+      urlRequest: URLRequest(url: testCrossPlatformUrl2),
     );
     expect(
       Uri.parse(await loadedUrl.future).host,
-      TEST_CROSS_PLATFORM_URL_2.host,
+      testCrossPlatformUrl2.host,
     );
   }, skip: shouldSkip);
 }

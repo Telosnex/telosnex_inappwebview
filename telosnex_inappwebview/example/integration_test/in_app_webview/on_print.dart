@@ -5,7 +5,7 @@ void onPrint() {
     PlatformWebViewCreationParamsProperty.onPrintRequest,
   );
 
-  var url = !kIsWeb ? TEST_URL_1 : TEST_WEB_PLATFORM_URL_1;
+  var url = !kIsWeb ? testUrl1 : testWebPlatformUrl1;
 
   skippableTestWidgets('onPrint', (WidgetTester tester) async {
     final Completer<String> onPrintCompleter = Completer<String>();

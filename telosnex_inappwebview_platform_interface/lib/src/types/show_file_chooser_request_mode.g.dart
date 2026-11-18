@@ -21,6 +21,7 @@ class ShowFileChooserRequestMode {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Android WebView
+  // ignore: non_constant_identifier_names
   static final OPEN = ShowFileChooserRequestMode._internalMultiPlatform(0, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -37,6 +38,7 @@ class ShowFileChooserRequestMode {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Android WebView
+  // ignore: non_constant_identifier_names
   static final OPEN_FOLDER = ShowFileChooserRequestMode._internalMultiPlatform(
     2,
     () {
@@ -54,6 +56,7 @@ class ShowFileChooserRequestMode {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Android WebView
+  // ignore: non_constant_identifier_names
   static final OPEN_MULTIPLE =
       ShowFileChooserRequestMode._internalMultiPlatform(1, () {
         switch (defaultTargetPlatform) {
@@ -69,6 +72,7 @@ class ShowFileChooserRequestMode {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Android WebView
+  // ignore: non_constant_identifier_names
   static final SAVE = ShowFileChooserRequestMode._internalMultiPlatform(3, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:

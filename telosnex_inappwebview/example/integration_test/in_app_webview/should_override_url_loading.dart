@@ -30,7 +30,7 @@ void shouldOverrideUrlLoading() {
             },
             shouldOverrideUrlLoading: (controller, navigationAction) async {
               return (navigationAction.request.url!.host.contains(
-                    TEST_URL_4.host.replaceAll("www.", ""),
+                    testUrl4.host.replaceAll("www.", ""),
                   ))
                   ? NavigationActionPolicy.CANCEL
                   : NavigationActionPolicy.ALLOW;
@@ -46,12 +46,12 @@ void shouldOverrideUrlLoading() {
       final InAppWebViewController controller =
           await controllerCompleter.future;
       await controller.evaluateJavascript(
-        source: 'location.href = "$TEST_URL_EXAMPLE"',
+        source: 'location.href = "$testUrlExample"',
       );
 
       await pageLoads.stream.first; // Wait for the next page load.
       final String? currentUrl = (await controller.getUrl())?.toString();
-      expect(currentUrl, TEST_URL_EXAMPLE.toString());
+      expect(currentUrl, testUrlExample.toString());
 
       pageLoads.close();
     });
@@ -97,7 +97,7 @@ void shouldOverrideUrlLoading() {
         final InAppWebViewController controller =
             await controllerCompleter.future;
         await controller.evaluateJavascript(
-          source: 'location.href = "$TEST_URL_2"',
+          source: 'location.href = "$testUrl2"',
         );
 
         // There should never be any second page load, since our new URL is
@@ -109,7 +109,7 @@ void shouldOverrideUrlLoading() {
             .first
             .timeout(const Duration(milliseconds: 500), onTimeout: () => null);
         String? currentUrl = (await controller.getUrl())?.toString();
-        expect(currentUrl, isNot(TEST_URL_2.toString()));
+        expect(currentUrl, isNot(testUrl2.toString()));
 
         await controller.evaluateJavascript(
           source: 'document.querySelector("#link").click();',
@@ -139,7 +139,7 @@ void shouldOverrideUrlLoading() {
             },
             shouldOverrideUrlLoading: (controller, navigationAction) async {
               return (navigationAction.request.url!.host.contains(
-                    TEST_URL_4.host.replaceAll("www.", ""),
+                    testUrl4.host.replaceAll("www.", ""),
                   ))
                   ? NavigationActionPolicy.CANCEL
                   : NavigationActionPolicy.ALLOW;
@@ -155,7 +155,7 @@ void shouldOverrideUrlLoading() {
       final InAppWebViewController controller =
           await controllerCompleter.future;
       await controller.evaluateJavascript(
-        source: 'location.href = "$TEST_URL_4"',
+        source: 'location.href = "$testUrl4"',
       );
 
       // There should never be any second page load, since our new URL is
@@ -169,7 +169,7 @@ void shouldOverrideUrlLoading() {
       final String? currentUrl = (await controller.getUrl())?.toString();
       expect(
         currentUrl,
-        isNot(contains(TEST_URL_4.host.replaceAll("www.", ""))),
+        isNot(contains(testUrl4.host.replaceAll("www.", ""))),
       );
 
       pageLoads.close();
@@ -210,12 +210,12 @@ void shouldOverrideUrlLoading() {
       final InAppWebViewController controller =
           await controllerCompleter.future;
       await controller.evaluateJavascript(
-        source: 'location.href = "$TEST_URL_EXAMPLE"',
+        source: 'location.href = "$testUrlExample"',
       );
 
       await pageLoads.stream.first; // Wait for second page to load.
       final String? currentUrl = (await controller.getUrl())?.toString();
-      expect(currentUrl, TEST_URL_EXAMPLE.toString());
+      expect(currentUrl, testUrlExample.toString());
 
       pageLoads.close();
     });

@@ -1,46 +1,46 @@
 import 'package:telosnex_inappwebview/telosnex_inappwebview.dart';
 
-final TEST_URL_ABOUT_BLANK = WebUri('about:blank');
+final testUrlAboutBlank = WebUri('about:blank');
 // No video: flutter.dev's .mp4 files fail where the WebView has no H.264
 // (AOSP), and then onLoadStop never comes.
-final TEST_CROSS_PLATFORM_URL_1 = WebUri('https://www.example.com/');
-final TEST_CROSS_PLATFORM_URL_2 = WebUri('https://www.bing.com/');
-final TEST_URL_1 = WebUri('https://github.com/flutter');
-final TEST_URL_2 = WebUri('https://www.google.com/');
-final TEST_URL_3 = WebUri(
+final testCrossPlatformUrl1 = WebUri('https://www.example.com/');
+final testCrossPlatformUrl2 = WebUri('https://www.bing.com/');
+final testUrl1 = WebUri('https://github.com/flutter');
+final testUrl2 = WebUri('https://www.google.com/');
+final testUrl3 = WebUri(
   'https://github.com/pichillilorenzo/flutter_inappwebview',
 );
-final TEST_URL_4 = WebUri('https://www.youtube.com/');
-final TEST_URL_EXAMPLE = WebUri('https://www.example.com/');
-final TEST_URL_HTTP_EXAMPLE = WebUri('http://www.example.com/');
-final TEST_URL_404 = WebUri('https://google.com/404');
-final TEST_WEB_PLATFORM_BASE_URL = WebUri(
+final testUrl4 = WebUri('https://www.youtube.com/');
+final testUrlExample = WebUri('https://www.example.com/');
+final testUrlHttpExample = WebUri('http://www.example.com/');
+final testUrl404 = WebUri('https://google.com/404');
+final testWebPlatformBaseUrl = WebUri(
   Uri.base.toString().replaceFirst("/#/", "/"),
 );
-final TEST_WEB_PLATFORM_URL_1 = WebUri(
-  '${TEST_WEB_PLATFORM_BASE_URL}page.html',
+final testWebPlatformUrl1 = WebUri(
+  '${testWebPlatformBaseUrl}page.html',
 );
-final TEST_WEB_PLATFORM_URL_2 = WebUri(
-  '${TEST_WEB_PLATFORM_BASE_URL}page-2.html',
+final testWebPlatformUrl2 = WebUri(
+  '${testWebPlatformBaseUrl}page-2.html',
 );
-final TEST_WEB_PLATFORM_URL_3 = WebUri(
-  '${TEST_WEB_PLATFORM_BASE_URL}heavy-page.html',
+final testWebPlatformUrl3 = WebUri(
+  '${testWebPlatformBaseUrl}heavy-page.html',
 );
-final TEST_NOT_A_WEBSITE_URL = WebUri('https://www.notawebsite..com/');
-final TEST_CHROME_SAFE_BROWSING_MALWARE = WebUri(
+final testNotAWebsiteUrl = WebUri('https://www.notawebsite..com/');
+final testChromeSafeBrowsingMalware = WebUri(
   'chrome://safe-browsing/match?type=malware',
 );
-final TEST_PERMISSION_SITE = WebUri('https://permission.site/');
-final TEST_SERVICE_WORKER_URL = WebUri(
+final testPermissionSite = WebUri('https://permission.site/');
+final testServiceWorkerUrl = WebUri(
   'https://mdn.github.io/dom-examples/service-worker/simple-service-worker/',
 );
-final TEST_WEBVIEW_ASSET_LOADER_DOMAIN = 'my.custom.domain.com';
-final TEST_WEBVIEW_ASSET_LOADER_URL = WebUri(
-  'https://$TEST_WEBVIEW_ASSET_LOADER_DOMAIN/assets/flutter_assets/test_assets/website/index.html',
+const testWebviewAssetLoaderDomain = 'my.custom.domain.com';
+final testWebviewAssetLoaderUrl = WebUri(
+  'https://$testWebviewAssetLoaderDomain/assets/flutter_assets/test_assets/website/index.html',
 );
-final TEST_TWA_URL = WebUri(
+final testTwaUrl = WebUri(
   'https://inappwebview.dev/test-twa-postmessage.html',
 );
-final TEST_CUSTOM_TABS_POST_MESSAGE_URL = WebUri(
+final testCustomTabsPostMessageUrl = WebUri(
   'https://inappwebview.dev/test-twa-postmessage.html',
 );

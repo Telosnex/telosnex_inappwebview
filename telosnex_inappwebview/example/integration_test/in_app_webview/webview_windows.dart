@@ -253,7 +253,7 @@ void webViewWindows() {
               onWebViewCreated: (controller) {
                 controllerCompleter.complete(controller);
               },
-              initialUrlRequest: URLRequest(url: TEST_URL_ABOUT_BLANK),
+              initialUrlRequest: URLRequest(url: testUrlAboutBlank),
               initialSettings: InAppWebViewSettings(
                 javaScriptEnabled: true,
                 javaScriptCanOpenWindowsAutomatically: true,
@@ -269,11 +269,11 @@ void webViewWindows() {
             await controllerCompleter.future;
 
         await controller.evaluateJavascript(
-          source: 'window.open("$TEST_URL_ABOUT_BLANK", "_blank");',
+          source: 'window.open("$testUrlAboutBlank", "_blank");',
         );
         await pageLoads.stream.first;
         final String? currentUrl = (await controller.getUrl())?.toString();
-        expect(currentUrl, TEST_URL_ABOUT_BLANK.toString());
+        expect(currentUrl, testUrlAboutBlank.toString());
 
         pageLoads.close();
       },
@@ -296,7 +296,7 @@ void webViewWindows() {
           textDirection: TextDirection.ltr,
           child: InAppWebView(
             key: GlobalKey(),
-            initialUrlRequest: URLRequest(url: TEST_CROSS_PLATFORM_URL_1),
+            initialUrlRequest: URLRequest(url: testCrossPlatformUrl1),
             onWebViewCreated: (controller) {
               controllerCompleter.complete(controller);
             },
@@ -326,18 +326,18 @@ void webViewWindows() {
       }
 
       // Wait for initial page load
-      await waitForUrl(TEST_CROSS_PLATFORM_URL_1.toString());
+      await waitForUrl(testCrossPlatformUrl1.toString());
       await controller.evaluateJavascript(
-        source: 'window.open("$TEST_URL_1", "_blank");',
+        source: 'window.open("$testUrl1", "_blank");',
       );
-      final currentUrl = await waitForUrl(TEST_URL_1.toString());
-      expect(currentUrl, contains(TEST_URL_1.host));
+      final currentUrl = await waitForUrl(testUrl1.toString());
+      expect(currentUrl, contains(testUrl1.host));
 
       await controller.goBack();
       final urlAfterGoBack = await waitForUrl(
-        TEST_CROSS_PLATFORM_URL_1.toString(),
+        testCrossPlatformUrl1.toString(),
       );
-      expect(urlAfterGoBack, contains(TEST_CROSS_PLATFORM_URL_1.host));
+      expect(urlAfterGoBack, contains(testCrossPlatformUrl1.host));
 
       pageLoads.close();
     }, skip: shouldSkipTest4);
@@ -438,7 +438,7 @@ void webViewWindows() {
           textDirection: TextDirection.ltr,
           child: InAppWebView(
             key: GlobalKey(),
-            initialUrlRequest: URLRequest(url: TEST_WEB_PLATFORM_URL_1),
+            initialUrlRequest: URLRequest(url: testWebPlatformUrl1),
             initialSettings: InAppWebViewSettings(
               clearCache: true,
               javaScriptCanOpenWindowsAutomatically: true,
@@ -459,11 +459,11 @@ void webViewWindows() {
       final InAppWebViewController controller =
           await controllerCompleter.future;
       await controller.evaluateJavascript(
-        source: "window.open('$TEST_CROSS_PLATFORM_URL_1');",
+        source: "window.open('$testCrossPlatformUrl1');",
       );
 
       var url = await onCreateWindowCalled.future;
-      expect(url, TEST_CROSS_PLATFORM_URL_1.toString());
+      expect(url, testCrossPlatformUrl1.toString());
     }, skip: shouldSkipTest6);
   }, skip: shouldSkip);
 }

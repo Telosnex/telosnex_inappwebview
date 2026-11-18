@@ -21,6 +21,7 @@ class WindowStyleMask {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- macOS WKWebView ([Official API - NSWindow.StyleMask.borderless](https://developer.apple.com/documentation/appkit/nswindow/stylemask/1644698-borderless))
+  // ignore: non_constant_identifier_names
   static final BORDERLESS = WindowStyleMask._internalMultiPlatform(0, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.macOS:
@@ -35,6 +36,7 @@ class WindowStyleMask {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- macOS WKWebView ([Official API - NSWindow.StyleMask.closable](https://developer.apple.com/documentation/appkit/nswindow/stylemask/1644610-closable))
+  // ignore: non_constant_identifier_names
   static final CLOSABLE = WindowStyleMask._internalMultiPlatform(2, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.macOS:
@@ -49,6 +51,7 @@ class WindowStyleMask {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- macOS WKWebView ([Official API - NSWindow.StyleMask.docModalWindow](https://developer.apple.com/documentation/appkit/nswindow/stylemask/1644253-docmodalwindow))
+  // ignore: non_constant_identifier_names
   static final DOC_MODAL_WINDOW = WindowStyleMask._internalMultiPlatform(
     64,
     () {
@@ -66,6 +69,7 @@ class WindowStyleMask {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- macOS WKWebView ([Official API - NSWindow.StyleMask.fullScreen](https://developer.apple.com/documentation/appkit/nswindow/stylemask/1644530-fullscreen))
+  // ignore: non_constant_identifier_names
   static final FULLSCREEN = WindowStyleMask._internalMultiPlatform(16384, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.macOS:
@@ -82,6 +86,7 @@ class WindowStyleMask {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- macOS WKWebView ([Official API - NSWindow.StyleMask.fullSizeContentView](https://developer.apple.com/documentation/appkit/nswindow/stylemask/1644646-fullsizecontentview))
+  // ignore: non_constant_identifier_names
   static final FULL_SIZE_CONTENT_VIEW = WindowStyleMask._internalMultiPlatform(
     32768,
     () {
@@ -99,6 +104,7 @@ class WindowStyleMask {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- macOS WKWebView ([Official API - NSWindow.StyleMask.hudWindow](https://developer.apple.com/documentation/appkit/nswindow/stylemask/1644653-hudwindow))
+  // ignore: non_constant_identifier_names
   static final HUD_WINDOW = WindowStyleMask._internalMultiPlatform(8192, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.macOS:
@@ -113,6 +119,7 @@ class WindowStyleMask {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- macOS WKWebView ([Official API - NSWindow.StyleMask.miniaturizable](https://developer.apple.com/documentation/appkit/nswindow/stylemask/1644650-miniaturizable))
+  // ignore: non_constant_identifier_names
   static final MINIATURIZABLE = WindowStyleMask._internalMultiPlatform(4, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.macOS:
@@ -127,6 +134,7 @@ class WindowStyleMask {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- macOS WKWebView ([Official API - NSWindow.StyleMask.nonactivatingPanel](https://developer.apple.com/documentation/appkit/nswindow/stylemask/1644696-nonactivatingpanel))
+  // ignore: non_constant_identifier_names
   static final NONACTIVATING_PANEL = WindowStyleMask._internalMultiPlatform(
     128,
     () {
@@ -144,6 +152,7 @@ class WindowStyleMask {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- macOS WKWebView ([Official API - NSWindow.StyleMask.miniaturizable](https://developer.apple.com/documentation/appkit/nswindow/stylemask/1644717-resizable))
+  // ignore: non_constant_identifier_names
   static final RESIZABLE = WindowStyleMask._internalMultiPlatform(8, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.macOS:
@@ -158,6 +167,7 @@ class WindowStyleMask {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- macOS WKWebView ([Official API - NSWindow.StyleMask.titled](https://developer.apple.com/documentation/appkit/nswindow/stylemask/1644724-titled))
+  // ignore: non_constant_identifier_names
   static final TITLED = WindowStyleMask._internalMultiPlatform(1, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.macOS:
@@ -172,6 +182,7 @@ class WindowStyleMask {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- macOS WKWebView ([Official API - NSWindow.StyleMask.utilityWindow](https://developer.apple.com/documentation/appkit/nswindow/stylemask/1644672-utilitywindow))
+  // ignore: non_constant_identifier_names
   static final UTILITY_WINDOW = WindowStyleMask._internalMultiPlatform(16, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.macOS:

@@ -25,6 +25,7 @@ class HttpAuthResponseAction {
   ///- macOS WKWebView
   ///- Windows WebView2
   ///- Linux WPE WebKit
+  // ignore: non_constant_identifier_names
   static final CANCEL = HttpAuthResponseAction._internalMultiPlatform(0, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -51,6 +52,7 @@ class HttpAuthResponseAction {
   ///- macOS WKWebView
   ///- Windows WebView2
   ///- Linux WPE WebKit
+  // ignore: non_constant_identifier_names
   static final PROCEED = HttpAuthResponseAction._internalMultiPlatform(1, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -76,6 +78,7 @@ class HttpAuthResponseAction {
   ///- iOS WKWebView
   ///- macOS WKWebView
   ///- Linux WPE WebKit
+  // ignore: non_constant_identifier_names
   static final USE_SAVED_HTTP_AUTH_CREDENTIALS =
       HttpAuthResponseAction._internalMultiPlatform(2, () {
         switch (defaultTargetPlatform) {

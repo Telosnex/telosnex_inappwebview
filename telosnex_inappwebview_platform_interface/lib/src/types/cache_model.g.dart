@@ -22,6 +22,7 @@ class CacheModel {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Linux WPE WebKit ([Official API - WEBKIT_CACHE_MODEL_DOCUMENT_BROWSER](https://wpewebkit.org/reference/stable/wpe-webkit-2.0/enum.CacheModel.html))
+  // ignore: non_constant_identifier_names
   static final DOCUMENT_BROWSER = CacheModel._internalMultiPlatform(2, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.linux:
@@ -39,6 +40,7 @@ class CacheModel {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Linux WPE WebKit ([Official API - WEBKIT_CACHE_MODEL_DOCUMENT_VIEWER](https://wpewebkit.org/reference/stable/wpe-webkit-2.0/enum.CacheModel.html))
+  // ignore: non_constant_identifier_names
   static final DOCUMENT_VIEWER = CacheModel._internalMultiPlatform(0, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.linux:
@@ -54,6 +56,7 @@ class CacheModel {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Linux WPE WebKit ([Official API - WEBKIT_CACHE_MODEL_WEB_BROWSER](https://wpewebkit.org/reference/stable/wpe-webkit-2.0/enum.CacheModel.html))
+  // ignore: non_constant_identifier_names
   static final WEB_BROWSER = CacheModel._internalMultiPlatform(1, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.linux:

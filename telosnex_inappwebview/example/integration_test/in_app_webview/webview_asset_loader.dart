@@ -15,14 +15,14 @@ void webViewAssetLoader() {
         textDirection: TextDirection.ltr,
         child: InAppWebView(
           key: GlobalKey(),
-          initialUrlRequest: URLRequest(url: TEST_WEBVIEW_ASSET_LOADER_URL),
+          initialUrlRequest: URLRequest(url: testWebviewAssetLoaderUrl),
           initialSettings: InAppWebViewSettings(
             allowFileAccessFromFileURLs: false,
             allowUniversalAccessFromFileURLs: false,
             allowFileAccess: false,
             allowContentAccess: false,
             webViewAssetLoader: WebViewAssetLoader(
-              domain: TEST_WEBVIEW_ASSET_LOADER_DOMAIN,
+              domain: testWebviewAssetLoaderDomain,
               pathHandlers: [AssetsPathHandler(path: '/assets/')],
             ),
           ),
@@ -39,7 +39,7 @@ void webViewAssetLoader() {
     final InAppWebViewController controller = await controllerCompleter.future;
     final url = await pageLoaded.future;
 
-    expect(url, TEST_WEBVIEW_ASSET_LOADER_URL.toString());
+    expect(url, testWebviewAssetLoaderUrl.toString());
 
     expect(
       await controller.evaluateJavascript(

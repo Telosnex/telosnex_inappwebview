@@ -16,7 +16,7 @@ void onReceivedError() {
           textDirection: TextDirection.ltr,
           child: InAppWebView(
             key: GlobalKey(),
-            initialUrlRequest: URLRequest(url: TEST_NOT_A_WEBSITE_URL),
+            initialUrlRequest: URLRequest(url: testNotAWebsiteUrl),
             onReceivedError: (controller, request, error) {
               errorUrlCompleter.complete(request.url.toString());
               errorCodeCompleter.complete(error.type);
@@ -29,7 +29,7 @@ void onReceivedError() {
       final WebResourceErrorType errorType = await errorCodeCompleter.future;
 
       expect(errorType, WebResourceErrorType.HOST_LOOKUP);
-      expect(url, TEST_NOT_A_WEBSITE_URL.toString());
+      expect(url, testNotAWebsiteUrl.toString());
     });
 
     skippableTestWidgets('event is not called with valid url', (

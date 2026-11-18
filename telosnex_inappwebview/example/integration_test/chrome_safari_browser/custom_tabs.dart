@@ -11,14 +11,14 @@ void customTabs() {
       expect(chromeSafariBrowser.isOpened(), false);
 
       await chromeSafariBrowser.open(
-        url: TEST_URL_1,
+        url: testUrl1,
         referrer: WebUri("android-app://custom-referrer"),
         settings: ChromeSafariBrowserSettings(isSingleInstance: true),
       );
       await expectLater(chromeSafariBrowser.opened.future, completes);
       expect(chromeSafariBrowser.isOpened(), true);
       expect(() async {
-        await chromeSafariBrowser.open(url: TEST_CROSS_PLATFORM_URL_1);
+        await chromeSafariBrowser.open(url: testCrossPlatformUrl1);
       }, throwsAssertionError);
 
       await expectLater(chromeSafariBrowser.firstPageLoaded.future, completes);
@@ -32,13 +32,13 @@ void customTabs() {
       expect(chromeSafariBrowser.isOpened(), false);
 
       await chromeSafariBrowser.open(
-        url: TEST_URL_1,
+        url: testUrl1,
         settings: ChromeSafariBrowserSettings(isSingleInstance: true),
       );
       await expectLater(chromeSafariBrowser.opened.future, completes);
       expect(chromeSafariBrowser.isOpened(), true);
       expect(() async {
-        await chromeSafariBrowser.open(url: TEST_CROSS_PLATFORM_URL_1);
+        await chromeSafariBrowser.open(url: testCrossPlatformUrl1);
       }, throwsAssertionError);
 
       await expectLater(chromeSafariBrowser.firstPageLoaded.future, completes);
@@ -65,11 +65,11 @@ void customTabs() {
       );
       expect(chromeSafariBrowser.isOpened(), false);
 
-      await chromeSafariBrowser.open(url: TEST_URL_1);
+      await chromeSafariBrowser.open(url: testUrl1);
       await chromeSafariBrowser.opened.future;
       expect(chromeSafariBrowser.isOpened(), true);
       expect(() async {
-        await chromeSafariBrowser.open(url: TEST_CROSS_PLATFORM_URL_1);
+        await chromeSafariBrowser.open(url: testCrossPlatformUrl1);
       }, throwsAssertionError);
 
       await expectLater(chromeSafariBrowser.firstPageLoaded.future, completes);
@@ -91,15 +91,15 @@ void customTabs() {
       expect(chromeSafariBrowser.isOpened(), true);
       expect(
         await chromeSafariBrowser.mayLaunchUrl(
-          url: TEST_URL_1,
-          otherLikelyURLs: [TEST_CROSS_PLATFORM_URL_1],
+          url: testUrl1,
+          otherLikelyURLs: [testCrossPlatformUrl1],
         ),
         true,
       );
       await chromeSafariBrowser.launchUrl(
-        url: TEST_URL_1,
+        url: testUrl1,
         headers: {'accept-language': 'it-IT'},
-        otherLikelyURLs: [TEST_CROSS_PLATFORM_URL_1],
+        otherLikelyURLs: [testCrossPlatformUrl1],
       );
       await expectLater(chromeSafariBrowser.opened.future, completes);
       await expectLater(chromeSafariBrowser.firstPageLoaded.future, completes);
@@ -112,7 +112,7 @@ void customTabs() {
       var chromeSafariBrowser = MyChromeSafariBrowser();
       expect(chromeSafariBrowser.isOpened(), false);
 
-      await chromeSafariBrowser.open(url: TEST_URL_1);
+      await chromeSafariBrowser.open(url: testUrl1);
       await expectLater(chromeSafariBrowser.opened.future, completes);
       expect(chromeSafariBrowser.isOpened(), true);
       await expectLater(chromeSafariBrowser.firstPageLoaded.future, completes);
@@ -137,6 +137,7 @@ void customTabs() {
                 defPackage: "com.telosnex.telosnex_inappwebviewexample",
               ),
               onClick: (WebUri? url) {
+                // ignore: avoid_print
                 print("Button 1 with $url");
               },
             ),
@@ -146,6 +147,7 @@ void customTabs() {
                 defPackage: "com.telosnex.telosnex_inappwebviewexample",
               ),
               onClick: (WebUri? url) {
+                // ignore: avoid_print
                 print("Button 2 with $url");
               },
             ),
@@ -154,7 +156,7 @@ void customTabs() {
       );
       expect(chromeSafariBrowser.isOpened(), false);
 
-      await chromeSafariBrowser.open(url: TEST_URL_1);
+      await chromeSafariBrowser.open(url: testUrl1);
       await chromeSafariBrowser.opened.future;
       expect(chromeSafariBrowser.isOpened(), true);
 
@@ -172,6 +174,7 @@ void customTabs() {
                 defPackage: "com.telosnex.telosnex_inappwebviewexample",
               ),
               onClick: (WebUri? url) {
+                // ignore: avoid_print
                 print("Button 3 with $url");
               },
             ),
@@ -190,7 +193,7 @@ void customTabs() {
         expect(chromeSafariBrowser.isOpened(), false);
 
         await chromeSafariBrowser.open(
-          url: TEST_CUSTOM_TABS_POST_MESSAGE_URL,
+          url: testCustomTabsPostMessageUrl,
           settings: ChromeSafariBrowserSettings(isSingleInstance: true),
         );
         await expectLater(chromeSafariBrowser.opened.future, completes);
@@ -202,7 +205,7 @@ void customTabs() {
         );
         expect(
           await chromeSafariBrowser.requestPostMessageChannel(
-            sourceOrigin: WebUri(TEST_CUSTOM_TABS_POST_MESSAGE_URL.origin),
+            sourceOrigin: WebUri(testCustomTabsPostMessageUrl.origin),
           ),
           true,
         );
@@ -242,7 +245,7 @@ void customTabs() {
       expect(chromeSafariBrowser.isOpened(), false);
 
       await chromeSafariBrowser.open(
-        url: TEST_URL_1,
+        url: testUrl1,
         settings: ChromeSafariBrowserSettings(isSingleInstance: true),
       );
       await expectLater(chromeSafariBrowser.opened.future, completes);

@@ -5,7 +5,7 @@ void loadUrl() {
     PlatformInAppWebViewControllerMethod.loadUrl,
   );
 
-  var initialUrl = !kIsWeb ? TEST_URL_1 : TEST_WEB_PLATFORM_URL_1;
+  var initialUrl = !kIsWeb ? testUrl1 : testWebPlatformUrl1;
 
   skippableTestWidgets('loadUrl', (WidgetTester tester) async {
     final Completer<InAppWebViewController> controllerCompleter =
@@ -26,7 +26,7 @@ void loadUrl() {
             if (url.toString() == initialUrl.toString() &&
                 !firstUrlLoad.isCompleted) {
               firstUrlLoad.complete(url.toString());
-            } else if (url.toString() == TEST_CROSS_PLATFORM_URL_1.toString() &&
+            } else if (url.toString() == testCrossPlatformUrl1.toString() &&
                 !loadedUrl.isCompleted) {
               loadedUrl.complete(url.toString());
             }
@@ -39,9 +39,9 @@ void loadUrl() {
     expect(await firstUrlLoad.future, initialUrl.toString());
 
     await controller.loadUrl(
-      urlRequest: URLRequest(url: TEST_CROSS_PLATFORM_URL_1),
+      urlRequest: URLRequest(url: testCrossPlatformUrl1),
     );
-    expect(await loadedUrl.future, TEST_CROSS_PLATFORM_URL_1.toString());
+    expect(await loadedUrl.future, testCrossPlatformUrl1.toString());
   }, skip: shouldSkip1);
 
   final shouldSkip2 = !InAppWebViewController.isMethodSupported(
@@ -67,7 +67,7 @@ void loadUrl() {
             if (url.toString() == initialUrl.toString() &&
                 !firstUrlLoad.isCompleted) {
               firstUrlLoad.complete(url.toString());
-            } else if (url.toString() == TEST_CROSS_PLATFORM_URL_1.toString() &&
+            } else if (url.toString() == testCrossPlatformUrl1.toString() &&
                 !loadedUrl.isCompleted) {
               loadedUrl.complete(url.toString());
             }
@@ -80,10 +80,10 @@ void loadUrl() {
 
     final htmlCode = "<h1>Hello</h1>";
     await controller.loadSimulatedRequest(
-      urlRequest: URLRequest(url: TEST_CROSS_PLATFORM_URL_1),
+      urlRequest: URLRequest(url: testCrossPlatformUrl1),
       data: Uint8List.fromList(utf8.encode(htmlCode)),
     );
-    expect(await loadedUrl.future, TEST_CROSS_PLATFORM_URL_1.toString());
+    expect(await loadedUrl.future, testCrossPlatformUrl1.toString());
     expect(
       (await controller.evaluateJavascript(
         source: "document.body.innerHTML",

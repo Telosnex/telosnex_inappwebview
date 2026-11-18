@@ -22,6 +22,7 @@ class EnvironmentChannelSearchKind {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2
+  // ignore: non_constant_identifier_names
   static final LEAST_STABLE =
       EnvironmentChannelSearchKind._internalMultiPlatform(1, () {
         switch (defaultTargetPlatform) {
@@ -37,6 +38,7 @@ class EnvironmentChannelSearchKind {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2
+  // ignore: non_constant_identifier_names
   static final MOST_STABLE =
       EnvironmentChannelSearchKind._internalMultiPlatform(0, () {
         switch (defaultTargetPlatform) {

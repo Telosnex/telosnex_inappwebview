@@ -21,6 +21,7 @@ class BrowserProcessKind {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2
+  // ignore: non_constant_identifier_names
   static final BROWSER = BrowserProcessKind._internalMultiPlatform(0, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.windows:
@@ -35,6 +36,7 @@ class BrowserProcessKind {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2
+  // ignore: non_constant_identifier_names
   static final GPU = BrowserProcessKind._internalMultiPlatform(4, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.windows:
@@ -49,6 +51,7 @@ class BrowserProcessKind {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2
+  // ignore: non_constant_identifier_names
   static final PPAPI_BROKER = BrowserProcessKind._internalMultiPlatform(6, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.windows:
@@ -63,6 +66,7 @@ class BrowserProcessKind {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2
+  // ignore: non_constant_identifier_names
   static final PPAPI_PLUGIN = BrowserProcessKind._internalMultiPlatform(5, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.windows:
@@ -77,6 +81,7 @@ class BrowserProcessKind {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2
+  // ignore: non_constant_identifier_names
   static final RENDERER = BrowserProcessKind._internalMultiPlatform(1, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.windows:
@@ -91,6 +96,7 @@ class BrowserProcessKind {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2
+  // ignore: non_constant_identifier_names
   static final SANDBOX_HELPER = BrowserProcessKind._internalMultiPlatform(
     3,
     () {
@@ -108,6 +114,7 @@ class BrowserProcessKind {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2
+  // ignore: non_constant_identifier_names
   static final UTILITY = BrowserProcessKind._internalMultiPlatform(2, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.windows:

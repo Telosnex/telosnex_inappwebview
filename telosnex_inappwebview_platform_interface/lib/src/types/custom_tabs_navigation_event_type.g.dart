@@ -21,6 +21,7 @@ class CustomTabsNavigationEventType {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Android WebView
+  // ignore: non_constant_identifier_names
   static final ABORTED = CustomTabsNavigationEventType._internalMultiPlatform(
     4,
     () {
@@ -38,6 +39,7 @@ class CustomTabsNavigationEventType {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Android WebView
+  // ignore: non_constant_identifier_names
   static final FAILED = CustomTabsNavigationEventType._internalMultiPlatform(
     3,
     () {
@@ -55,6 +57,7 @@ class CustomTabsNavigationEventType {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Android WebView
+  // ignore: non_constant_identifier_names
   static final FINISHED = CustomTabsNavigationEventType._internalMultiPlatform(
     2,
     () {
@@ -72,6 +75,7 @@ class CustomTabsNavigationEventType {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Android WebView
+  // ignore: non_constant_identifier_names
   static final STARTED = CustomTabsNavigationEventType._internalMultiPlatform(
     1,
     () {
@@ -89,6 +93,7 @@ class CustomTabsNavigationEventType {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Android WebView
+  // ignore: non_constant_identifier_names
   static final TAB_HIDDEN =
       CustomTabsNavigationEventType._internalMultiPlatform(6, () {
         switch (defaultTargetPlatform) {
@@ -104,6 +109,7 @@ class CustomTabsNavigationEventType {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Android WebView
+  // ignore: non_constant_identifier_names
   static final TAB_SHOWN = CustomTabsNavigationEventType._internalMultiPlatform(
     5,
     () {

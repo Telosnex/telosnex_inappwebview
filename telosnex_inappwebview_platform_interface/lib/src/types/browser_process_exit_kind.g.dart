@@ -23,6 +23,7 @@ class BrowserProcessExitKind {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2
+  // ignore: non_constant_identifier_names
   static final FAILED = BrowserProcessExitKind._internalMultiPlatform(1, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.windows:
@@ -37,6 +38,7 @@ class BrowserProcessExitKind {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2
+  // ignore: non_constant_identifier_names
   static final NORMAL = BrowserProcessExitKind._internalMultiPlatform(0, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.windows:

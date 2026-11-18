@@ -18,7 +18,7 @@ void onNavigationResponse() {
           textDirection: TextDirection.ltr,
           child: InAppWebView(
             key: GlobalKey(),
-            initialUrlRequest: URLRequest(url: TEST_URL_1),
+            initialUrlRequest: URLRequest(url: testUrl1),
             onWebViewCreated: (controller) {
               controllerCompleter.complete(controller);
             },
@@ -37,7 +37,7 @@ void onNavigationResponse() {
 
       await pageLoaded.future;
       final String url = await onNavigationResponseCompleter.future;
-      expect(url, TEST_URL_1.toString());
+      expect(url, testUrl1.toString());
     });
 
     skippableTestWidgets('cancel navigation', (WidgetTester tester) async {
@@ -52,7 +52,7 @@ void onNavigationResponse() {
           textDirection: TextDirection.ltr,
           child: InAppWebView(
             key: GlobalKey(),
-            initialUrlRequest: URLRequest(url: TEST_URL_1),
+            initialUrlRequest: URLRequest(url: testUrl1),
             onWebViewCreated: (controller) {
               controllerCompleter.complete(controller);
             },
@@ -70,7 +70,7 @@ void onNavigationResponse() {
       );
 
       final String url = await onNavigationResponseCompleter.future;
-      expect(url, TEST_URL_1.toString());
+      expect(url, testUrl1.toString());
       expect(pageLoaded.future, doesNotComplete);
     });
   }, skip: shouldSkip);

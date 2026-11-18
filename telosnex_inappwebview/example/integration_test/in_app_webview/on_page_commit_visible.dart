@@ -15,7 +15,7 @@ void onPageCommitVisible() {
         textDirection: TextDirection.ltr,
         child: InAppWebView(
           key: GlobalKey(),
-          initialUrlRequest: URLRequest(url: TEST_URL_1),
+          initialUrlRequest: URLRequest(url: testUrl1),
           onWebViewCreated: (controller) {
             controllerCompleter.complete(controller);
           },
@@ -27,6 +27,6 @@ void onPageCommitVisible() {
     );
 
     final String url = await onPageCommitVisibleCompleter.future;
-    expect(url, TEST_URL_1.toString());
+    expect(url, testUrl1.toString());
   }, skip: shouldSkip);
 }

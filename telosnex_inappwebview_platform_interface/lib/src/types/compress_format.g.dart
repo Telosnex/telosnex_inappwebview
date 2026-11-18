@@ -26,6 +26,7 @@ class CompressFormat {
   ///- iOS WKWebView
   ///- macOS WKWebView
   ///- Windows WebView2
+  // ignore: non_constant_identifier_names
   static final JPEG = CompressFormat._internalMultiPlatform('JPEG', () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -50,6 +51,7 @@ class CompressFormat {
   ///- iOS WKWebView
   ///- macOS WKWebView
   ///- Windows WebView2
+  // ignore: non_constant_identifier_names
   static final PNG = CompressFormat._internalMultiPlatform('PNG', () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -73,6 +75,7 @@ class CompressFormat {
   ///**Officially Supported Platforms/Implementations**:
   ///- Android WebView
   ///- Windows WebView2
+  // ignore: non_constant_identifier_names
   static final WEBP = CompressFormat._internalMultiPlatform('WEBP', () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -92,6 +95,7 @@ class CompressFormat {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Android WebView 30+
+  // ignore: non_constant_identifier_names
   static final WEBP_LOSSLESS = CompressFormat._internalMultiPlatform(
     'WEBP_LOSSLESS',
     () {
@@ -111,6 +115,7 @@ class CompressFormat {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Android WebView 30+
+  // ignore: non_constant_identifier_names
   static final WEBP_LOSSY = CompressFormat._internalMultiPlatform(
     'WEBP_LOSSY',
     () {

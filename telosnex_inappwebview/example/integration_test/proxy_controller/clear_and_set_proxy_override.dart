@@ -35,7 +35,7 @@ void clearAndSetProxyOverride() {
         textDirection: TextDirection.ltr,
         child: InAppWebView(
           key: GlobalKey(),
-          initialUrlRequest: URLRequest(url: TEST_URL_HTTP_EXAMPLE),
+          initialUrlRequest: URLRequest(url: testUrlHttpExample),
           onWebViewCreated: (controller) {
             controllerCompleter.complete(controller);
           },
@@ -51,7 +51,7 @@ void clearAndSetProxyOverride() {
     await tester.pump();
 
     final String url = await pageLoaded.future;
-    expect(url, TEST_URL_HTTP_EXAMPLE.toString());
+    expect(url, testUrlHttpExample.toString());
 
     // The proxy server's req.url returns different values by platform:
     // - Android: full URL (http://www.example.com/)
@@ -59,7 +59,7 @@ void clearAndSetProxyOverride() {
     final proxyUrl = await controller.evaluateJavascript(
       source: "document.getElementById('url').innerHTML;",
     );
-    expect(proxyUrl, anyOf("/", TEST_URL_HTTP_EXAMPLE.toString()));
+    expect(proxyUrl, anyOf("/", testUrlHttpExample.toString()));
     expect(
       await controller.evaluateJavascript(
         source: "document.getElementById('method').innerHTML;",

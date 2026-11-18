@@ -25,6 +25,7 @@ class PermissionResourceType {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_PERMISSION_KIND_AUTOPLAY](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2792.45#corewebview2_permission_kind))
+  // ignore: non_constant_identifier_names
   static final AUTOPLAY = PermissionResourceType._internalMultiPlatform(
     'AUTOPLAY',
     () {
@@ -46,6 +47,7 @@ class PermissionResourceType {
   ///- macOS WKWebView 12.0+ ([Official API - WKMediaCaptureType.camera](https://developer.apple.com/documentation/webkit/wkmediacapturetype/camera))
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_PERMISSION_KIND_CAMERA](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2792.45#corewebview2_permission_kind))
   ///- Linux WPE WebKit
+  // ignore: non_constant_identifier_names
   static final CAMERA = PermissionResourceType._internalMultiPlatform(
     'CAMERA',
     () {
@@ -73,6 +75,7 @@ class PermissionResourceType {
   ///- iOS WKWebView 15.0+ ([Official API - WKMediaCaptureType.cameraAndMicrophone](https://developer.apple.com/documentation/webkit/wkmediacapturetype/cameraandmicrophone))
   ///- macOS WKWebView 12.0+ ([Official API - WKMediaCaptureType.cameraAndMicrophone](https://developer.apple.com/documentation/webkit/wkmediacapturetype/cameraandmicrophone))
   ///- Linux WPE WebKit
+  // ignore: non_constant_identifier_names
   static final CAMERA_AND_MICROPHONE =
       PermissionResourceType._internalMultiPlatform(
         'CAMERA_AND_MICROPHONE',
@@ -95,6 +98,7 @@ class PermissionResourceType {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_PERMISSION_KIND_CLIPBOARD_READ](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2792.45#corewebview2_permission_kind))
+  // ignore: non_constant_identifier_names
   static final CLIPBOARD_READ = PermissionResourceType._internalMultiPlatform(
     'CLIPBOARD_READ',
     () {
@@ -113,6 +117,7 @@ class PermissionResourceType {
   ///**Officially Supported Platforms/Implementations**:
   ///- iOS WKWebView 15.0+
   ///- macOS WKWebView 12.0+
+  // ignore: non_constant_identifier_names
   static final DEVICE_ORIENTATION_AND_MOTION =
       PermissionResourceType._internalMultiPlatform(
         'DEVICE_ORIENTATION_AND_MOTION',
@@ -136,6 +141,7 @@ class PermissionResourceType {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_PERMISSION_KIND_FILE_READ_WRITE](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2792.45#corewebview2_permission_kind))
+  // ignore: non_constant_identifier_names
   static final FILE_READ_WRITE = PermissionResourceType._internalMultiPlatform(
     'FILE_READ_WRITE',
     () {
@@ -154,6 +160,7 @@ class PermissionResourceType {
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_PERMISSION_KIND_GEOLOCATION](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2792.45#corewebview2_permission_kind))
   ///- Linux WPE WebKit
+  // ignore: non_constant_identifier_names
   static final GEOLOCATION = PermissionResourceType._internalMultiPlatform(
     'GEOLOCATION',
     () {
@@ -175,6 +182,7 @@ class PermissionResourceType {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_PERMISSION_KIND_LOCAL_FONTS](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2792.45#corewebview2_permission_kind))
+  // ignore: non_constant_identifier_names
   static final LOCAL_FONTS = PermissionResourceType._internalMultiPlatform(
     'LOCAL_FONTS',
     () {
@@ -196,6 +204,7 @@ class PermissionResourceType {
   ///- macOS WKWebView 12.0+ ([Official API - WKMediaCaptureType.microphone](https://developer.apple.com/documentation/webkit/wkmediacapturetype/microphone))
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_PERMISSION_KIND_MICROPHONE](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2792.45#corewebview2_permission_kind))
   ///- Linux WPE WebKit
+  // ignore: non_constant_identifier_names
   static final MICROPHONE = PermissionResourceType._internalMultiPlatform(
     'MICROPHONE',
     () {
@@ -224,6 +233,7 @@ class PermissionResourceType {
   ///**Officially Supported Platforms/Implementations**:
   ///- Android WebView ([Official API - PermissionRequest.RESOURCE_MIDI_SYSEX](https://developer.android.com/reference/android/webkit/PermissionRequest#RESOURCE_MIDI_SYSEX))
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_PERMISSION_KIND_MIDI_SYSTEM_EXCLUSIVE_MESSAGES](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2792.45#corewebview2_permission_kind))
+  // ignore: non_constant_identifier_names
   static final MIDI_SYSEX = PermissionResourceType._internalMultiPlatform(
     'MIDI_SYSEX',
     () {
@@ -244,6 +254,7 @@ class PermissionResourceType {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_PERMISSION_KIND_MULTIPLE_AUTOMATIC_DOWNLOADS](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2792.45#corewebview2_permission_kind))
+  // ignore: non_constant_identifier_names
   static final MULTIPLE_AUTOMATIC_DOWNLOADS =
       PermissionResourceType._internalMultiPlatform(
         'MULTIPLE_AUTOMATIC_DOWNLOADS',
@@ -263,6 +274,7 @@ class PermissionResourceType {
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_PERMISSION_KIND_NOTIFICATIONS](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2792.45#corewebview2_permission_kind))
   ///- Linux WPE WebKit
+  // ignore: non_constant_identifier_names
   static final NOTIFICATIONS = PermissionResourceType._internalMultiPlatform(
     'NOTIFICATIONS',
     () {
@@ -282,6 +294,7 @@ class PermissionResourceType {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_PERMISSION_KIND_OTHER_SENSORS](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2792.45#corewebview2_permission_kind))
+  // ignore: non_constant_identifier_names
   static final OTHER_SENSORS = PermissionResourceType._internalMultiPlatform(
     'OTHER_SENSORS',
     () {
@@ -300,6 +313,7 @@ class PermissionResourceType {
   ///**Officially Supported Platforms/Implementations**:
   ///- Android WebView ([Official API - PermissionRequest.RESOURCE_PROTECTED_MEDIA_ID](https://developer.android.com/reference/android/webkit/PermissionRequest#RESOURCE_PROTECTED_MEDIA_ID))
   ///- Linux WPE WebKit ([Official API - WebKitMediaKeySystemPermissionRequest](https://wpewebkit.org/reference/stable/wpe-webkit-2.0/class.MediaKeySystemPermissionRequest.html))
+  // ignore: non_constant_identifier_names
   static final PROTECTED_MEDIA_ID =
       PermissionResourceType._internalMultiPlatform('PROTECTED_MEDIA_ID', () {
         switch (defaultTargetPlatform) {
@@ -318,6 +332,7 @@ class PermissionResourceType {
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_PERMISSION_KIND_UNKNOWN_PERMISSION](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2792.45#corewebview2_permission_kind))
   ///- Linux WPE WebKit
+  // ignore: non_constant_identifier_names
   static final UNKNOWN = PermissionResourceType._internalMultiPlatform(
     'UNKNOWN',
     () {
@@ -339,6 +354,7 @@ class PermissionResourceType {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_PERMISSION_KIND_WINDOW_MANAGEMENT](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2792.45#corewebview2_permission_kind))
+  // ignore: non_constant_identifier_names
   static final WINDOW_MANAGEMENT =
       PermissionResourceType._internalMultiPlatform('WINDOW_MANAGEMENT', () {
         switch (defaultTargetPlatform) {

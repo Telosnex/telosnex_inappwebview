@@ -35,7 +35,7 @@ void startAndStop() {
         textDirection: TextDirection.ltr,
         child: InAppWebView(
           key: GlobalKey(),
-          initialUrlRequest: URLRequest(url: TEST_CROSS_PLATFORM_URL_1),
+          initialUrlRequest: URLRequest(url: testCrossPlatformUrl1),
           onLoadStop: (controller, url) {
             if (!pageLoaded.isCompleted) {
               pageLoaded.complete();

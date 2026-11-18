@@ -6,8 +6,8 @@ void keepAlive() {
   );
 
   final initialUrl = !kIsWeb
-      ? TEST_CROSS_PLATFORM_URL_1
-      : TEST_WEB_PLATFORM_URL_1;
+      ? testCrossPlatformUrl1
+      : testWebPlatformUrl1;
 
   skippableTestWidgets('Keep Alive', (WidgetTester tester) async {
     final keepAlive = InAppWebViewKeepAlive();
@@ -37,7 +37,7 @@ void keepAlive() {
             // Host only: Bing can redirect to its page with tracking
             // parameters added.
             if (!pageLoaded2.isCompleted &&
-                url?.host == TEST_CROSS_PLATFORM_URL_2.host) {
+                url?.host == testCrossPlatformUrl2.host) {
               pageLoaded2.complete();
             }
           },
@@ -49,7 +49,7 @@ void keepAlive() {
     await pageLoaded.future;
 
     await controller.loadUrl(
-      urlRequest: URLRequest(url: TEST_CROSS_PLATFORM_URL_2),
+      urlRequest: URLRequest(url: testCrossPlatformUrl2),
     );
     await pageLoaded2.future;
 
@@ -69,7 +69,7 @@ void keepAlive() {
         await controllerCompleter2.future;
 
     final String? currentUrl = (await controller2.getUrl())?.toString();
-    expect(Uri.parse(currentUrl ?? '').host, TEST_CROSS_PLATFORM_URL_2.host);
+    expect(Uri.parse(currentUrl ?? '').host, testCrossPlatformUrl2.host);
 
     await expectLater(
       InAppWebViewController.disposeKeepAlive(keepAlive),

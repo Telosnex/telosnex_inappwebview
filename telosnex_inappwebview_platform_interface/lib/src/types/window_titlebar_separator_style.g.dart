@@ -21,6 +21,7 @@ class WindowTitlebarSeparatorStyle {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- macOS WKWebView
+  // ignore: non_constant_identifier_names
   static final AUTOMATIC = WindowTitlebarSeparatorStyle._internalMultiPlatform(
     0,
     () {
@@ -38,6 +39,7 @@ class WindowTitlebarSeparatorStyle {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- macOS WKWebView
+  // ignore: non_constant_identifier_names
   static final LINE = WindowTitlebarSeparatorStyle._internalMultiPlatform(
     2,
     () {
@@ -55,6 +57,7 @@ class WindowTitlebarSeparatorStyle {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- macOS WKWebView
+  // ignore: non_constant_identifier_names
   static final NONE = WindowTitlebarSeparatorStyle._internalMultiPlatform(
     1,
     () {
@@ -72,6 +75,7 @@ class WindowTitlebarSeparatorStyle {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- macOS WKWebView
+  // ignore: non_constant_identifier_names
   static final SHADOW = WindowTitlebarSeparatorStyle._internalMultiPlatform(
     3,
     () {

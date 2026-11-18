@@ -25,7 +25,7 @@ void initialUrlRequest() {
               height: 300,
               child: InAppWebView(
                 key: GlobalKey(),
-                initialUrlRequest: URLRequest(url: TEST_URL_1),
+                initialUrlRequest: URLRequest(url: testUrl1),
                 initialSettings: InAppWebViewSettings(
                   allowsBackForwardNavigationGestures: true,
                 ),
@@ -43,7 +43,7 @@ void initialUrlRequest() {
         final InAppWebViewController controller =
             await controllerCompleter.future;
         final String? currentUrl = (await controller.getUrl())?.toString();
-        expect(currentUrl, TEST_URL_1.toString());
+        expect(currentUrl, testUrl1.toString());
       },
       skip: shouldSkipTest2,
     );
@@ -62,7 +62,7 @@ void initialUrlRequest() {
           textDirection: TextDirection.ltr,
           child: InAppWebView(
             key: GlobalKey(),
-            initialUrlRequest: URLRequest(url: TEST_CROSS_PLATFORM_URL_1),
+            initialUrlRequest: URLRequest(url: testCrossPlatformUrl1),
             onWebViewCreated: (controller) {
               controllerCompleter.complete(controller);
             },
@@ -80,7 +80,7 @@ void initialUrlRequest() {
           await controllerCompleter.future;
       final String? currentUrl = (await controller.getUrl())?.toString();
 
-      expect(currentUrl, TEST_CROSS_PLATFORM_URL_1.toString());
+      expect(currentUrl, testCrossPlatformUrl1.toString());
     }, skip: shouldSkipTest1);
   }, skip: shouldSkip);
 }

@@ -20,7 +20,7 @@ void webArchive() {
           textDirection: TextDirection.ltr,
           child: InAppWebView(
             key: GlobalKey(),
-            initialUrlRequest: URLRequest(url: TEST_CROSS_PLATFORM_URL_1),
+            initialUrlRequest: URLRequest(url: testCrossPlatformUrl1),
             onWebViewCreated: (controller) {
               controllerCompleter.complete(controller);
             },
@@ -48,7 +48,7 @@ void webArchive() {
           textDirection: TextDirection.ltr,
           child: InAppWebView(
             key: GlobalKey(),
-            initialUrlRequest: URLRequest(url: TEST_URL_1),
+            initialUrlRequest: URLRequest(url: testUrl1),
             onWebViewCreated: (controller) {
               controllerCompleter.complete(controller);
             },

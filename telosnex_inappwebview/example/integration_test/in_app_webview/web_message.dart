@@ -221,7 +221,7 @@ void webMessage() {
                       (message, sourceOrigin, isMainFrame, replyProxy) {
                         if (isMainFrame &&
                             ('$sourceOrigin/') ==
-                                TEST_URL_EXAMPLE.toString()) {
+                                testUrlExample.toString()) {
                           replyProxy.postMessage(
                             WebMessage(data: message!.data + " and back"),
                           );
@@ -237,7 +237,7 @@ void webMessage() {
               webMessageCompleter.complete(consoleMessage.message);
             },
             onLoadStop: (controller, url) async {
-              if (url.toString() == TEST_URL_EXAMPLE.toString()) {
+              if (url.toString() == testUrlExample.toString()) {
                 pageLoaded.complete();
               }
             },
@@ -245,7 +245,7 @@ void webMessage() {
         ),
       );
       final controller = await controllerCompleter.future;
-      await controller.loadUrl(urlRequest: URLRequest(url: TEST_URL_EXAMPLE));
+      await controller.loadUrl(urlRequest: URLRequest(url: testUrlExample));
       await pageLoaded.future;
 
       await controller.evaluateJavascript(
@@ -282,7 +282,7 @@ void webMessage() {
                       (message, sourceOrigin, isMainFrame, replyProxy) {
                         if (isMainFrame &&
                             ('$sourceOrigin/') ==
-                                TEST_URL_EXAMPLE.toString()) {
+                                testUrlExample.toString()) {
                           replyProxy.postMessage(
                             WebMessage(
                               data: utf8.encode(
@@ -308,7 +308,7 @@ void webMessage() {
               webMessageCompleter.complete(consoleMessage.message);
             },
             onLoadStop: (controller, url) async {
-              if (url.toString() == TEST_URL_EXAMPLE.toString()) {
+              if (url.toString() == testUrlExample.toString()) {
                 pageLoaded.complete();
               }
             },
@@ -316,7 +316,7 @@ void webMessage() {
         ),
       );
       final controller = await controllerCompleter.future;
-      await controller.loadUrl(urlRequest: URLRequest(url: TEST_URL_EXAMPLE));
+      await controller.loadUrl(urlRequest: URLRequest(url: testUrlExample));
       await pageLoaded.future;
 
       await controller.evaluateJavascript(

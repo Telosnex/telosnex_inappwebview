@@ -19,7 +19,7 @@ void getTitle() {
 
   var url = !kIsWeb
       ? WebUri('data:text/html;charset=utf-8;base64,$getTitleTestBase64')
-      : TEST_WEB_PLATFORM_URL_1;
+      : testWebPlatformUrl1;
   var expectedValue = !kIsWeb ? 'Some title' : 'page';
 
   skippableTestWidgets('getTitle', (WidgetTester tester) async {

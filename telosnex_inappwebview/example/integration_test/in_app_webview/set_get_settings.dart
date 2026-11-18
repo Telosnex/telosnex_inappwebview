@@ -5,7 +5,7 @@ void setGetSettings() {
     PlatformInAppWebViewControllerMethod.getSettings,
   );
 
-  final url = !kIsWeb ? TEST_CROSS_PLATFORM_URL_1 : TEST_WEB_PLATFORM_URL_1;
+  final url = !kIsWeb ? testCrossPlatformUrl1 : testWebPlatformUrl1;
 
   skippableTestWidgets('set/get settings', (WidgetTester tester) async {
     final Completer<InAppWebViewController> controllerCompleter =

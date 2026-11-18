@@ -17,7 +17,7 @@ void setGetDelete() {
           // Web: cookies are read and written with JavaScript in the page,
           // so it must be same-origin.
           initialUrlRequest: URLRequest(
-            url: kIsWeb ? TEST_WEB_PLATFORM_URL_1 : TEST_CROSS_PLATFORM_URL_1,
+            url: kIsWeb ? testWebPlatformUrl1 : testCrossPlatformUrl1,
           ),
           onWebViewCreated: (controller) {
             controllerCompleter.complete(controller);

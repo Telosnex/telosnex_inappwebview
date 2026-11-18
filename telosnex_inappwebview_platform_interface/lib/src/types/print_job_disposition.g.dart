@@ -21,6 +21,7 @@ class PrintJobDisposition {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- macOS WKWebView
+  // ignore: non_constant_identifier_names
   static final CANCEL = PrintJobDisposition._internalMultiPlatform(
     'CANCEL',
     () {
@@ -38,6 +39,7 @@ class PrintJobDisposition {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- macOS WKWebView
+  // ignore: non_constant_identifier_names
   static final PREVIEW = PrintJobDisposition._internalMultiPlatform(
     'PREVIEW',
     () {
@@ -55,6 +57,7 @@ class PrintJobDisposition {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- macOS WKWebView
+  // ignore: non_constant_identifier_names
   static final SAVE = PrintJobDisposition._internalMultiPlatform('SAVE', () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.macOS:
@@ -69,6 +72,7 @@ class PrintJobDisposition {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- macOS WKWebView
+  // ignore: non_constant_identifier_names
   static final SPOOL = PrintJobDisposition._internalMultiPlatform('SPOOL', () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.macOS:

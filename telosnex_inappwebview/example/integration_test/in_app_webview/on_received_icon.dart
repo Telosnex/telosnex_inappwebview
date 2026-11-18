@@ -16,7 +16,7 @@ void onReceivedIcon() {
         textDirection: TextDirection.ltr,
         child: InAppWebView(
           key: GlobalKey(),
-          initialUrlRequest: URLRequest(url: TEST_URL_1),
+          initialUrlRequest: URLRequest(url: testUrl1),
           onWebViewCreated: (controller) {
             controllerCompleter.complete(controller);
           },

@@ -21,6 +21,7 @@ class CustomTabsRelationType {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Android WebView
+  // ignore: non_constant_identifier_names
   static final HANDLE_ALL_URLS = CustomTabsRelationType._internalMultiPlatform(
     2,
     () {
@@ -38,6 +39,7 @@ class CustomTabsRelationType {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Android WebView
+  // ignore: non_constant_identifier_names
   static final USE_AS_ORIGIN = CustomTabsRelationType._internalMultiPlatform(
     1,
     () {

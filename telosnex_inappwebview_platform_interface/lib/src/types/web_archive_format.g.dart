@@ -22,6 +22,7 @@ class WebArchiveFormat {
   ///**Officially Supported Platforms/Implementations**:
   ///- Android WebView
   ///- Linux WPE WebKit
+  // ignore: non_constant_identifier_names
   static final MHT = WebArchiveFormat._internalMultiPlatform('mht', () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -39,6 +40,7 @@ class WebArchiveFormat {
   ///**Officially Supported Platforms/Implementations**:
   ///- iOS WKWebView
   ///- macOS WKWebView
+  // ignore: non_constant_identifier_names
   static final WEBARCHIVE = WebArchiveFormat._internalMultiPlatform(
     'webarchive',
     () {

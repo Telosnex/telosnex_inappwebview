@@ -22,6 +22,7 @@ class ProcessFailedKind {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_PROCESS_FAILED_KIND_BROWSER_PROCESS_EXITED](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2849.39#corewebview2_process_failed_kind))
+  // ignore: non_constant_identifier_names
   static final BROWSER_PROCESS_EXITED =
       ProcessFailedKind._internalMultiPlatform('BROWSER_PROCESS_EXITED', () {
         switch (defaultTargetPlatform) {
@@ -39,6 +40,7 @@ class ProcessFailedKind {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_PROCESS_FAILED_KIND_FRAME_RENDER_PROCESS_EXITED](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2849.39#corewebview2_process_failed_kind))
+  // ignore: non_constant_identifier_names
   static final FRAME_RENDER_PROCESS_EXITED =
       ProcessFailedKind._internalMultiPlatform(
         'FRAME_RENDER_PROCESS_EXITED',
@@ -59,6 +61,7 @@ class ProcessFailedKind {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_PROCESS_FAILED_KIND_GPU_PROCESS_EXITED](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2849.39#corewebview2_process_failed_kind))
+  // ignore: non_constant_identifier_names
   static final GPU_PROCESS_EXITED = ProcessFailedKind._internalMultiPlatform(
     'GPU_PROCESS_EXITED',
     () {
@@ -78,6 +81,7 @@ class ProcessFailedKind {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_PROCESS_FAILED_KIND_PPAPI_BROKER_PROCESS_EXITED](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2849.39#corewebview2_process_failed_kind))
+  // ignore: non_constant_identifier_names
   static final PPAPI_BROKER_PROCESS_EXITED =
       ProcessFailedKind._internalMultiPlatform(
         'PPAPI_BROKER_PROCESS_EXITED',
@@ -98,6 +102,7 @@ class ProcessFailedKind {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_PROCESS_FAILED_KIND_PPAPI_PLUGIN_PROCESS_EXITED](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2849.39#corewebview2_process_failed_kind))
+  // ignore: non_constant_identifier_names
   static final PPAPI_PLUGIN_PROCESS_EXITED =
       ProcessFailedKind._internalMultiPlatform(
         'PPAPI_PLUGIN_PROCESS_EXITED',
@@ -118,6 +123,7 @@ class ProcessFailedKind {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_PROCESS_FAILED_KIND_RENDER_PROCESS_EXITED](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2849.39#corewebview2_process_failed_kind))
+  // ignore: non_constant_identifier_names
   static final RENDER_PROCESS_EXITED = ProcessFailedKind._internalMultiPlatform(
     'RENDER_PROCESS_EXITED',
     () {
@@ -147,6 +153,7 @@ class ProcessFailedKind {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_PROCESS_FAILED_KIND_RENDER_PROCESS_UNRESPONSIVE](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2849.39#corewebview2_process_failed_kind))
+  // ignore: non_constant_identifier_names
   static final RENDER_PROCESS_UNRESPONSIVE =
       ProcessFailedKind._internalMultiPlatform(
         'RENDER_PROCESS_UNRESPONSIVE',
@@ -167,6 +174,7 @@ class ProcessFailedKind {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_PROCESS_FAILED_KIND_SANDBOX_HELPER_PROCESS_EXITED](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2849.39#corewebview2_process_failed_kind))
+  // ignore: non_constant_identifier_names
   static final SANDBOX_HELPER_PROCESS_EXITED =
       ProcessFailedKind._internalMultiPlatform(
         'SANDBOX_HELPER_PROCESS_EXITED',
@@ -185,6 +193,7 @@ class ProcessFailedKind {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_PROCESS_FAILED_KIND_UNKNOWN_PROCESS_EXITED](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2849.39#corewebview2_process_failed_kind))
+  // ignore: non_constant_identifier_names
   static final UNKNOWN_PROCESS_EXITED =
       ProcessFailedKind._internalMultiPlatform('UNKNOWN_PROCESS_EXITED', () {
         switch (defaultTargetPlatform) {
@@ -202,6 +211,7 @@ class ProcessFailedKind {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_PROCESS_FAILED_KIND_UTILITY_PROCESS_EXITED](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2849.39#corewebview2_process_failed_kind))
+  // ignore: non_constant_identifier_names
   static final UTILITY_PROCESS_EXITED =
       ProcessFailedKind._internalMultiPlatform('UTILITY_PROCESS_EXITED', () {
         switch (defaultTargetPlatform) {

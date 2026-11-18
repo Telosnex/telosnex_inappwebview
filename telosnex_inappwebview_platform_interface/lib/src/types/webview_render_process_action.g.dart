@@ -22,6 +22,7 @@ class WebViewRenderProcessAction {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Android WebView
+  // ignore: non_constant_identifier_names
   static final TERMINATE = WebViewRenderProcessAction._internalMultiPlatform(
     0,
     () {

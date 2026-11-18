@@ -11,7 +11,7 @@ void runAndDispose() {
     final Completer<void> pageLoaded = Completer<void>();
 
     var headlessWebView = HeadlessInAppWebView(
-      initialUrlRequest: URLRequest(url: TEST_CROSS_PLATFORM_URL_1),
+      initialUrlRequest: URLRequest(url: testCrossPlatformUrl1),
       onWebViewCreated: (controller) {
         controllerCompleter.complete(controller);
       },
@@ -27,7 +27,7 @@ void runAndDispose() {
     await pageLoaded.future;
 
     final String? url = (await controller.getUrl())?.toString();
-    expect(url, TEST_CROSS_PLATFORM_URL_1.toString());
+    expect(url, testCrossPlatformUrl1.toString());
 
     await headlessWebView.dispose();
 

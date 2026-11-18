@@ -5,7 +5,7 @@ void injectJavascriptFile() {
     PlatformInAppWebViewControllerMethod.injectJavascriptFileFromUrl,
   );
 
-  var url = !kIsWeb ? TEST_URL_ABOUT_BLANK : TEST_WEB_PLATFORM_URL_1;
+  var url = !kIsWeb ? testUrlAboutBlank : testWebPlatformUrl1;
 
   skippableGroup('inject javascript file', () {
     skippableTestWidgets('from url', (WidgetTester tester) async {

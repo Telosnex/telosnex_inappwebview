@@ -21,6 +21,7 @@ class ProcessFailedReason {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_PROCESS_FAILED_REASON_CRASHED](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2849.39#corewebview2_process_failed_reason))
+  // ignore: non_constant_identifier_names
   static final CRASHED = ProcessFailedReason._internalMultiPlatform(
     'CRASHED',
     () {
@@ -38,6 +39,7 @@ class ProcessFailedReason {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_PROCESS_FAILED_REASON_LAUNCH_FAILED](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2849.39#corewebview2_process_failed_reason))
+  // ignore: non_constant_identifier_names
   static final LAUNCH_FAILED = ProcessFailedReason._internalMultiPlatform(
     'LAUNCH_FAILED',
     () {
@@ -55,6 +57,7 @@ class ProcessFailedReason {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_PROCESS_FAILED_REASON_OUT_OF_MEMORY](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2849.39#corewebview2_process_failed_reason))
+  // ignore: non_constant_identifier_names
   static final OUT_OF_MEMORY = ProcessFailedReason._internalMultiPlatform(
     'OUT_OF_MEMORY',
     () {
@@ -72,6 +75,7 @@ class ProcessFailedReason {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_PROCESS_FAILED_REASON_TERMINATED](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2849.39#corewebview2_process_failed_reason))
+  // ignore: non_constant_identifier_names
   static final TERMINATED = ProcessFailedReason._internalMultiPlatform(
     'TERMINATED',
     () {
@@ -89,6 +93,7 @@ class ProcessFailedReason {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_PROCESS_FAILED_REASON_UNEXPECTED](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2849.39#corewebview2_process_failed_reason))
+  // ignore: non_constant_identifier_names
   static final UNEXPECTED = ProcessFailedReason._internalMultiPlatform(
     'UNEXPECTED',
     () {
@@ -106,6 +111,7 @@ class ProcessFailedReason {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Windows WebView2 ([Official API - COREWEBVIEW2_PROCESS_FAILED_REASON_UNRESPONSIVE](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.2849.39#corewebview2_process_failed_reason))
+  // ignore: non_constant_identifier_names
   static final UNRESPONSIVE = ProcessFailedReason._internalMultiPlatform(
     'UNRESPONSIVE',
     () {

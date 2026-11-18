@@ -17,11 +17,11 @@ void customMenuItem() {
     );
     expect(chromeSafariBrowser.isOpened(), false);
 
-    await chromeSafariBrowser.open(url: TEST_URL_1);
+    await chromeSafariBrowser.open(url: testUrl1);
     await chromeSafariBrowser.opened.future;
     expect(chromeSafariBrowser.isOpened(), true);
     expect(() async {
-      await chromeSafariBrowser.open(url: TEST_CROSS_PLATFORM_URL_1);
+      await chromeSafariBrowser.open(url: testCrossPlatformUrl1);
     }, throwsAssertionError);
 
     await expectLater(chromeSafariBrowser.firstPageLoaded.future, completes);

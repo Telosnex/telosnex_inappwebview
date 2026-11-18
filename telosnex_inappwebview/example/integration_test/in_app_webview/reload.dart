@@ -5,7 +5,7 @@ void reload() {
     PlatformInAppWebViewControllerMethod.reload,
   );
 
-  var url = !kIsWeb ? TEST_URL_1 : TEST_WEB_PLATFORM_URL_1;
+  var url = !kIsWeb ? testUrl1 : testWebPlatformUrl1;
 
   skippableGroup('reload', () {
     final shouldSkipTest1 = !InAppWebViewController.isMethodSupported(
@@ -22,7 +22,7 @@ void reload() {
           textDirection: TextDirection.ltr,
           child: InAppWebView(
             key: GlobalKey(),
-            initialUrlRequest: URLRequest(url: TEST_CROSS_PLATFORM_URL_1),
+            initialUrlRequest: URLRequest(url: testCrossPlatformUrl1),
             onWebViewCreated: (controller) {
               controllerCompleter.complete(controller);
             },

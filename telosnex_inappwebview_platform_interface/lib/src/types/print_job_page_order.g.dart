@@ -21,6 +21,7 @@ class PrintJobPageOrder {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- macOS WKWebView
+  // ignore: non_constant_identifier_names
   static final ASCENDING = PrintJobPageOrder._internalMultiPlatform(1, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.macOS:
@@ -35,6 +36,7 @@ class PrintJobPageOrder {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- macOS WKWebView
+  // ignore: non_constant_identifier_names
   static final DESCENDING = PrintJobPageOrder._internalMultiPlatform(-1, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.macOS:
@@ -49,6 +51,7 @@ class PrintJobPageOrder {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- macOS WKWebView
+  // ignore: non_constant_identifier_names
   static final SPECIAL = PrintJobPageOrder._internalMultiPlatform(0, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.macOS:
@@ -63,6 +66,7 @@ class PrintJobPageOrder {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- macOS WKWebView
+  // ignore: non_constant_identifier_names
   static final UNKNOWN = PrintJobPageOrder._internalMultiPlatform(2, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.macOS:

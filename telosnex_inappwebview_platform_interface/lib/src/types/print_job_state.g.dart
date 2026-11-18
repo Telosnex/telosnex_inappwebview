@@ -23,6 +23,7 @@ class PrintJobState {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Android WebView ([Official API - PrintJobInfo.STATE_BLOCKED](https://developer.android.com/reference/android/print/PrintJobInfo#STATE_BLOCKED))
+  // ignore: non_constant_identifier_names
   static final BLOCKED = PrintJobState._internalMultiPlatform(4, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -41,6 +42,7 @@ class PrintJobState {
   ///- Android WebView ([Official API - PrintJobInfo.STATE_CANCELED](https://developer.android.com/reference/android/print/PrintJobInfo#STATE_CANCELED))
   ///- iOS WKWebView
   ///- macOS WKWebView
+  // ignore: non_constant_identifier_names
   static final CANCELED = PrintJobState._internalMultiPlatform(7, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -63,6 +65,7 @@ class PrintJobState {
   ///- Android WebView ([Official API - PrintJobInfo.STATE_COMPLETED](https://developer.android.com/reference/android/print/PrintJobInfo#STATE_COMPLETED))
   ///- iOS WKWebView
   ///- macOS WKWebView
+  // ignore: non_constant_identifier_names
   static final COMPLETED = PrintJobState._internalMultiPlatform(5, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -85,6 +88,7 @@ class PrintJobState {
   ///- Android WebView ([Official API - PrintJobInfo.STATE_CREATED](https://developer.android.com/reference/android/print/PrintJobInfo#STATE_CREATED))
   ///- iOS WKWebView
   ///- macOS WKWebView
+  // ignore: non_constant_identifier_names
   static final CREATED = PrintJobState._internalMultiPlatform(1, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -106,6 +110,7 @@ class PrintJobState {
   ///**Officially Supported Platforms/Implementations**:
   ///- Android WebView ([Official API - PrintJobInfo.STATE_FAILED](https://developer.android.com/reference/android/print/PrintJobInfo#STATE_FAILED))
   ///- iOS WKWebView
+  // ignore: non_constant_identifier_names
   static final FAILED = PrintJobState._internalMultiPlatform(6, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -124,6 +129,7 @@ class PrintJobState {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- Android WebView ([Official API - PrintJobInfo.STATE_QUEUED](https://developer.android.com/reference/android/print/PrintJobInfo#STATE_QUEUED))
+  // ignore: non_constant_identifier_names
   static final QUEUED = PrintJobState._internalMultiPlatform(2, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -142,6 +148,7 @@ class PrintJobState {
   ///- Android WebView ([Official API - PrintJobInfo.STATE_STARTED](https://developer.android.com/reference/android/print/PrintJobInfo#STATE_STARTED))
   ///- iOS WKWebView
   ///- macOS WKWebView
+  // ignore: non_constant_identifier_names
   static final STARTED = PrintJobState._internalMultiPlatform(3, () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:

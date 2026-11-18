@@ -22,6 +22,7 @@ class WindowType {
   ///**Officially Supported Platforms/Implementations**:
   ///- macOS WKWebView
   ///- Windows WebView2
+  // ignore: non_constant_identifier_names
   static final CHILD = WindowType._internalMultiPlatform('CHILD', () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.macOS:
@@ -38,6 +39,7 @@ class WindowType {
   ///
   ///**Officially Supported Platforms/Implementations**:
   ///- macOS WKWebView 10.12++
+  // ignore: non_constant_identifier_names
   static final TABBED = WindowType._internalMultiPlatform('TABBED', () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.macOS:
@@ -53,6 +55,7 @@ class WindowType {
   ///**Officially Supported Platforms/Implementations**:
   ///- macOS WKWebView
   ///- Windows WebView2
+  // ignore: non_constant_identifier_names
   static final WINDOW = WindowType._internalMultiPlatform('WINDOW', () {
     switch (defaultTargetPlatform) {
       case TargetPlatform.macOS:
