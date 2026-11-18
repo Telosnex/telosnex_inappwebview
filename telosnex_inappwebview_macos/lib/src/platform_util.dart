@@ -19,7 +19,9 @@ class PlatformUtil {
       try {
         return await _handleMethod(call);
       } on Error catch (e) {
+        // ignore: avoid_print
         print(e);
+        // ignore: avoid_print
         print(e.stackTrace);
       }
     });

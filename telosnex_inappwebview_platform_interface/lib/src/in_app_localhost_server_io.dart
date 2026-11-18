@@ -122,6 +122,7 @@ class DefaultInAppLocalhostServer extends PlatformInAppLocalhostServer {
             }
 
             request.response.headers.contentType = contentType;
+            // ignore: avoid_print
             print(request.response.headers);
             request.response.add(body);
             request.response.close();

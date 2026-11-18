@@ -27,6 +27,7 @@ void skippableGroup(
   if (!skip) {
     group(description.toString(), body, skip: skip);
   } else {
+    // ignore: avoid_print
     print(
       'SKIPPING GROUP "$description" for platform ${defaultTargetPlatform.toString()}',
     );
@@ -64,6 +65,7 @@ void skippableTest(
       retry: retry,
     );
   } else {
+    // ignore: avoid_print
     print(
       'SKIPPING TEST "$description" for platform ${defaultTargetPlatform.toString()}',
     );
@@ -104,6 +106,7 @@ void skippableTestWidgets(
       tags: tags,
     );
   } else {
+    // ignore: avoid_print
     print(
       'SKIPPING TEST WIDGET "$description" for platform ${defaultTargetPlatform.toString()}',
     );

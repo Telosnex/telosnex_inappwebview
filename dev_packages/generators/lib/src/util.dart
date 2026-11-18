@@ -23,6 +23,14 @@ abstract class Util {
   static String publicNames(String code) =>
       code.replaceAllMapped(_specName, (match) => match[1]!);
 
+  static final _legacyConstantName = RegExp(r'^[A-Z][A-Z0-9_]*$');
+
+  static void writeLegacyFieldNameIgnore(StringBuffer buffer, String name) {
+    if (_legacyConstantName.hasMatch(name)) {
+      buffer.writeln('// ignore: non_constant_identifier_names');
+    }
+  }
+
   static bool typeIsNullable(DartType type) {
     return type.nullabilitySuffix != NullabilitySuffix.none ||
         type.toString() == 'dynamic';

@@ -587,6 +587,7 @@ void debugLog({
     if (!debugLoggingSettings.usePrint) {
       developer.log(message, name: className);
     } else {
+      // ignore: avoid_print
       print('[$className] $message');
     }
   }
@@ -648,7 +649,9 @@ extension InternalChannelController on ChannelController {
       try {
         return await handler!(call);
       } on Error catch (e) {
+        // ignore: avoid_print
         print(e);
+        // ignore: avoid_print
         print(e.stackTrace);
       }
     });

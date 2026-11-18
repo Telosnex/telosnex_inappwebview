@@ -50,7 +50,9 @@ class WebUri implements Uri {
       _uri = Uri.parse(_rawValue);
       _isValidUri = true;
     } catch (e, stacktrace) {
+      // ignore: avoid_print
       print(e);
+      // ignore: avoid_print
       print(stacktrace);
     }
   }

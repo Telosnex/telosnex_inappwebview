@@ -3571,8 +3571,9 @@ class InAppWebViewGroupOptions {
     options.addAll(crossPlatform.toMap());
     if (Util.isAndroid) {
       options.addAll(android.toMap());
-    } else if (Util.isIOS)
+    } else if (Util.isIOS) {
       options.addAll(ios.toMap());
+    }
 
     return options;
   }
@@ -3588,8 +3589,9 @@ class InAppWebViewGroupOptions {
       inAppWebViewGroupOptions.android = AndroidInAppWebViewOptions.fromMap(
         options,
       );
-    } else if (Util.isIOS)
+    } else if (Util.isIOS) {
       inAppWebViewGroupOptions.ios = IOSInAppWebViewOptions.fromMap(options);
+    }
 
     return inAppWebViewGroupOptions;
   }

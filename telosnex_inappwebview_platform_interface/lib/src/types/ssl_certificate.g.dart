@@ -41,9 +41,13 @@ class SslCertificate {
     X509Certificate? x509Certificate;
     try {
       x509Certificate = X509Certificate.fromData(data: map["x509Certificate"]);
-    } catch (e, stacktrace) {
-      print(e);
-      print(stacktrace);
+    } catch (error, stackTrace) {
+      developer.log(
+        'Could not parse the X.509 certificate',
+        name: 'telosnex_inappwebview',
+        error: error,
+        stackTrace: stackTrace,
+      );
     }
     SslCertificateDName? issuedBy = SslCertificateDName.fromMap(
       map["issuedBy"]?.cast<String, dynamic>(),

@@ -42,6 +42,38 @@ final _coreCheckerSupportedPlatforms = TypeChecker.typeNamedLiterally(
 
 class ExchangeableObjectGenerator
     extends GeneratorForAnnotation<ExchangeableObject> {
+  bool _hasInstanceMethod(
+    InterfaceType type,
+    String name,
+    String annotationFlag,
+  ) {
+    final element = type.element;
+    final annotation = _coreChecker.firstAnnotationOfExact(element);
+    final isGenerated = annotation != null;
+
+    // A Spec may have no Dart declaration for a method its generated class has.
+    if (isGenerated &&
+        ConstantReader(annotation).read(annotationFlag).boolValue) {
+      return true;
+    }
+    if (element.methods.any(
+      (method) =>
+          method.name == name &&
+          !method.isStatic &&
+          (!isGenerated || !Util.methodHasIgnore(method)),
+    )) {
+      return true;
+    }
+    final parents = [
+      if (type.superclass case final parent?) parent,
+      if (!isGenerated) ...type.mixins,
+      ...type.interfaces,
+    ];
+    return parents.any(
+      (parent) => _hasInstanceMethod(parent, name, annotationFlag),
+    );
+  }
+
   @override
   String generateForAnnotatedElement(
     Element element,
@@ -177,6 +209,11 @@ class ExchangeableObjectGenerator
           "@Deprecated('${_coreCheckerDeprecated.firstAnnotationOfExact(fieldElement)?.getField("message")?.toStringValue()}')",
         );
       }
+      if (fieldElement.isStatic &&
+          fieldElement.isFinal &&
+          !fieldElement.isConst) {
+        Util.writeLegacyFieldNameIgnore(classBuffer, fieldName);
+      }
       if (fieldElement.isStatic) {
         classBuffer.write("static ");
       }
@@ -217,8 +254,12 @@ class ExchangeableObjectGenerator
         final defaultValueCode = defaultValue == null
             ? null
             : Util.publicNames(defaultValue);
+        final useSuperParameter = !hasCustomConstructor && parameter.isNamed;
+        final parameterDeclaration = useSuperParameter
+            ? 'super.$parameterName'
+            : '${Util.publicNames(parameterType.toString())} $parameterName';
         var constructorField =
-            '${!isNullable && defaultValueCode == null ? 'required ' : ''}${Util.publicNames(parameterType.toString())} $parameterName${defaultValueCode != null ? ' = $defaultValueCode' : ''}';
+            '${!isNullable && defaultValueCode == null ? 'required ' : ''}$parameterDeclaration${defaultValueCode != null ? ' = $defaultValueCode' : ''}';
         if (parameter.metadata.hasDeprecated) {
           deprecatedFields.add(parameter);
           constructorField =
@@ -226,7 +267,9 @@ class ExchangeableObjectGenerator
               constructorField;
         }
         constructorFields.add(constructorField);
-        superConstructorFields.add("$parameterName: $parameterName");
+        if (!useSuperParameter) {
+          superConstructorFields.add("$parameterName: $parameterName");
+        }
       }
     }
 
@@ -285,13 +328,16 @@ class ExchangeableObjectGenerator
     }
 
     // Add initializer list (super + field initializers)
+    final needsExplicitSuperCall =
+        superClass != null &&
+        (hasCustomConstructor || superConstructorFields.isNotEmpty);
     final hasInitializers =
-        superClass != null || initializerAssignments.isNotEmpty;
+        needsExplicitSuperCall || initializerAssignments.isNotEmpty;
     if (hasInitializers) {
       classBuffer.write(' : ');
       final initializers = <String>[];
 
-      if (superClass != null) {
+      if (needsExplicitSuperCall) {
         initializers.add('super(${superConstructorFields.join(", ")})');
       }
 
@@ -587,10 +633,20 @@ class ExchangeableObjectGenerator
       }
     }
 
+    void writeOverrideIfInherited(String name, String annotationFlag) {
+      final parents = [if (superClass != null) superClass, ...interfaces];
+      if (parents.any(
+        (parent) => _hasInstanceMethod(parent, name, annotationFlag),
+      )) {
+        classBuffer.writeln('@override');
+      }
+    }
+
     if (annotation.read("toMapMethod").boolValue &&
         (!visitor.methods.containsKey("toMap") ||
             Util.methodHasIgnore(visitor.methods['toMap']!))) {
       classBuffer.writeln('///Converts instance to a map.');
+      writeOverrideIfInherited('toMap', 'toMapMethod');
       classBuffer.writeln(
         'Map<String, dynamic> toMap({EnumMethod? enumMethod}) {',
       );
@@ -674,6 +730,7 @@ class ExchangeableObjectGenerator
         (!visitor.methods.containsKey("toJson") ||
             Util.methodHasIgnore(visitor.methods['toJson']!))) {
       classBuffer.writeln('///Converts instance to a map.');
+      writeOverrideIfInherited('toJson', 'toJsonMethod');
       classBuffer.writeln('Map<String, dynamic> toJson() {');
       classBuffer.writeln('return toMap();');
       classBuffer.writeln('}');
@@ -683,6 +740,7 @@ class ExchangeableObjectGenerator
         (!visitor.methods.containsKey("copy") ||
             Util.methodHasIgnore(visitor.methods['copy']!))) {
       classBuffer.writeln('///Returns a copy of $extClassName.');
+      writeOverrideIfInherited('copy', 'copyMethod');
       classBuffer.writeln('$extClassName copy() {');
       classBuffer.writeln(
         'return $extClassName.fromMap(toMap()) ?? $extClassName();',

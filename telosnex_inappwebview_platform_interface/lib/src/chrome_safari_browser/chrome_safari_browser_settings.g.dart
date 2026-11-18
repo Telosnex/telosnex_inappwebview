@@ -388,6 +388,7 @@ class ChromeSafariBrowserSettings implements ChromeSafariBrowserOptions {
   );
 
   ///Converts instance to a map.
+  @override
   Map<String, dynamic> toMap({EnumMethod? enumMethod}) {
     return {
       "activityButton": activityButton?.toMap(enumMethod: enumMethod),
@@ -446,11 +447,13 @@ class ChromeSafariBrowserSettings implements ChromeSafariBrowserOptions {
   }
 
   ///Converts instance to a map.
+  @override
   Map<String, dynamic> toJson() {
     return toMap();
   }
 
   ///Returns a copy of ChromeSafariBrowserSettings.
+  @override
   ChromeSafariBrowserSettings copy() {
     return ChromeSafariBrowserSettings.fromMap(toMap()) ??
         ChromeSafariBrowserSettings();

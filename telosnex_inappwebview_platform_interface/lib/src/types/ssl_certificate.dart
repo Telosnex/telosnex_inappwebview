@@ -1,3 +1,5 @@
+import 'dart:developer' as developer;
+
 import 'package:flutter_inappwebview_internal_annotations/flutter_inappwebview_internal_annotations.dart';
 
 import '../x509_certificate/x509_certificate.dart';
@@ -46,9 +48,13 @@ class SslCertificateSpec {
     X509Certificate? x509Certificate;
     try {
       x509Certificate = X509Certificate.fromData(data: map["x509Certificate"]);
-    } catch (e, stacktrace) {
-      print(e);
-      print(stacktrace);
+    } catch (error, stackTrace) {
+      developer.log(
+        'Could not parse the X.509 certificate',
+        name: 'telosnex_inappwebview',
+        error: error,
+        stackTrace: stackTrace,
+      );
     }
 
     // Try to get issuedBy from map, otherwise fall back to x509Certificate

@@ -38,35 +38,20 @@ class CreateWindowAction extends NavigationAction {
     this.isDialog,
     this.windowFeatures,
     required this.windowId,
-    required URLRequest request,
-    required bool isForMainFrame,
-    @Deprecated('Use hasGesture instead') bool? androidHasGesture,
-    bool? hasGesture,
-    @Deprecated('Use isRedirect instead') bool? androidIsRedirect,
-    bool? isRedirect,
-    @Deprecated('Use navigationType instead')
-    IOSWKNavigationType? iosWKNavigationType,
-    NavigationType? navigationType,
-    @Deprecated('Use sourceFrame instead') IOSWKFrameInfo? iosSourceFrame,
-    FrameInfo? sourceFrame,
-    @Deprecated('Use targetFrame instead') IOSWKFrameInfo? iosTargetFrame,
-    FrameInfo? targetFrame,
-    bool? shouldPerformDownload,
-  }) : super(
-         request: request,
-         isForMainFrame: isForMainFrame,
-         androidHasGesture: androidHasGesture,
-         hasGesture: hasGesture,
-         androidIsRedirect: androidIsRedirect,
-         isRedirect: isRedirect,
-         iosWKNavigationType: iosWKNavigationType,
-         navigationType: navigationType,
-         iosSourceFrame: iosSourceFrame,
-         sourceFrame: sourceFrame,
-         iosTargetFrame: iosTargetFrame,
-         targetFrame: targetFrame,
-         shouldPerformDownload: shouldPerformDownload,
-       ) {
+    required super.request,
+    required super.isForMainFrame,
+    @Deprecated('Use hasGesture instead') super.androidHasGesture,
+    super.hasGesture,
+    @Deprecated('Use isRedirect instead') super.androidIsRedirect,
+    super.isRedirect,
+    @Deprecated('Use navigationType instead') super.iosWKNavigationType,
+    super.navigationType,
+    @Deprecated('Use sourceFrame instead') super.iosSourceFrame,
+    super.sourceFrame,
+    @Deprecated('Use targetFrame instead') super.iosTargetFrame,
+    super.targetFrame,
+    super.shouldPerformDownload,
+  }) {
     isDialog = isDialog ?? androidIsDialog;
     windowFeatures =
         windowFeatures ?? WindowFeatures.fromMap(iosWindowFeatures?.toMap());
@@ -139,6 +124,7 @@ class CreateWindowAction extends NavigationAction {
   }
 
   ///Converts instance to a map.
+  @override
   Map<String, dynamic> toMap({EnumMethod? enumMethod}) {
     return {
       "request": request.toMap(enumMethod: enumMethod),
@@ -160,6 +146,7 @@ class CreateWindowAction extends NavigationAction {
   }
 
   ///Converts instance to a map.
+  @override
   Map<String, dynamic> toJson() {
     return toMap();
   }

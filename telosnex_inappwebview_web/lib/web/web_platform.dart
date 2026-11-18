@@ -103,6 +103,7 @@ Future<String?> _dartNativeAsyncCommunication(
       return result != null ? jsonEncode(result) : null;
     } catch (e, stacktrace) {
       if (e is! UnimplementedError && kDebugMode) {
+        // ignore: avoid_print
         print("$e\n$stacktrace");
       }
       rethrow;
@@ -196,6 +197,7 @@ String? _dartNativeSyncCommunication(
       }
     } catch (e, stacktrace) {
       if (e is! UnimplementedError && kDebugMode) {
+        // ignore: avoid_print
         print("$e\n$stacktrace");
       }
       rethrow;

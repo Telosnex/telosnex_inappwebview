@@ -129,6 +129,11 @@ class ExchangeableEnumGenerator
           if (docs != null) {
             classBuffer.writeln(docs);
           }
+          if (fieldElement.isStatic &&
+              fieldElement.isFinal &&
+              !fieldElement.isConst) {
+            Util.writeLegacyFieldNameIgnore(classBuffer, fieldName);
+          }
           if (fieldElement.isStatic) {
             classBuffer.write("static ");
           }
@@ -214,10 +219,7 @@ class ExchangeableEnumGenerator
           nativeValueBody += "return $defaultValue;";
           nativeValueBody += "}";
 
-          // Preserve the spelling of published enum values.
-          if (RegExp(r'^[A-Z][A-Z0-9_]*$').hasMatch(fieldName)) {
-            classBuffer.writeln('// ignore: non_constant_identifier_names');
-          }
+          Util.writeLegacyFieldNameIgnore(classBuffer, fieldName);
           classBuffer.writeln(
             "static final $fieldName = $extClassName._internalMultiPlatform($constantValue, $nativeValueBody);",
           );

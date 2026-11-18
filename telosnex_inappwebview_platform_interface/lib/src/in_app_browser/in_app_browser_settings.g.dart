@@ -375,6 +375,7 @@ class InAppBrowserSettings
   );
 
   ///Converts instance to a map.
+  @override
   Map<String, dynamic> toMap({EnumMethod? enumMethod}) {
     return {
       "allowGoBackWithBackButton": allowGoBackWithBackButton,
@@ -431,11 +432,13 @@ class InAppBrowserSettings
   }
 
   ///Converts instance to a map.
+  @override
   Map<String, dynamic> toJson() {
     return toMap();
   }
 
   ///Returns a copy of InAppBrowserSettings.
+  @override
   InAppBrowserSettings copy() {
     return InAppBrowserSettings.fromMap(toMap()) ?? InAppBrowserSettings();
   }

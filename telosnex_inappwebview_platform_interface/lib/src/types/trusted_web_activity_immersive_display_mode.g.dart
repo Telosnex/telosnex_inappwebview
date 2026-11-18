@@ -79,6 +79,7 @@ class TrustedWebActivityImmersiveDisplayMode
   }
 
   ///Converts instance to a map.
+  @override
   Map<String, dynamic> toMap({EnumMethod? enumMethod}) {
     return {
       "displayCutoutMode": switch (enumMethod ?? EnumMethod.nativeValue) {
@@ -92,6 +93,7 @@ class TrustedWebActivityImmersiveDisplayMode
   }
 
   ///Converts instance to a map.
+  @override
   Map<String, dynamic> toJson() {
     return toMap();
   }

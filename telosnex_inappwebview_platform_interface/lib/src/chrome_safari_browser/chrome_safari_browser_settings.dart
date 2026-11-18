@@ -320,8 +320,9 @@ class ChromeSafariBrowserClassOptions {
     Map<String, dynamic> options = {};
     if (Util.isAndroid) {
       options.addAll(android?.toMap() ?? {});
-    } else if (Util.isIOS)
+    } else if (Util.isIOS) {
       options.addAll(ios?.toMap() ?? {});
+    }
 
     return options;
   }

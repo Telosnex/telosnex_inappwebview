@@ -46,8 +46,8 @@ class HttpAuthenticationChallenge extends URLAuthenticationChallenge {
     @Deprecated('Use failureResponse instead') this.iosFailureResponse,
     required this.previousFailureCount,
     this.proposedCredential,
-    required URLProtectionSpace protectionSpace,
-  }) : super(protectionSpace: protectionSpace) {
+    required super.protectionSpace,
+  }) {
     error = error ?? iosError;
     failureResponse =
         failureResponse ?? URLResponse.fromMap(iosFailureResponse?.toMap());
@@ -86,6 +86,7 @@ class HttpAuthenticationChallenge extends URLAuthenticationChallenge {
   }
 
   ///Converts instance to a map.
+  @override
   Map<String, dynamic> toMap({EnumMethod? enumMethod}) {
     return {
       "protectionSpace": protectionSpace.toMap(enumMethod: enumMethod),
@@ -97,6 +98,7 @@ class HttpAuthenticationChallenge extends URLAuthenticationChallenge {
   }
 
   ///Converts instance to a map.
+  @override
   Map<String, dynamic> toJson() {
     return toMap();
   }

@@ -2012,14 +2012,16 @@ class WindowsInAppWebViewController extends PlatformInAppWebViewController
           case "onWindowFocus":
             if (webviewParams != null && webviewParams!.onWindowFocus != null) {
               webviewParams!.onWindowFocus!(_controllerFromPlatform);
-            } else if (_inAppBrowserEventHandler != null)
+            } else if (_inAppBrowserEventHandler != null) {
               _inAppBrowserEventHandler!.onWindowFocus();
+            }
             return null;
           case "onWindowBlur":
             if (webviewParams != null && webviewParams!.onWindowBlur != null) {
               webviewParams!.onWindowBlur!(_controllerFromPlatform);
-            } else if (_inAppBrowserEventHandler != null)
+            } else if (_inAppBrowserEventHandler != null) {
               _inAppBrowserEventHandler!.onWindowBlur();
+            }
             return null;
           case "onInjectedScriptLoaded":
             String id = handlerData.args[0];

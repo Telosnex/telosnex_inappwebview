@@ -18,6 +18,7 @@ class WebsiteDataType {
   ) => WebsiteDataType._internal(value, nativeValue());
 
   ///Returns a set of all available website data types.
+  // ignore: non_constant_identifier_names
   static final ALL = {
     WebsiteDataType.WKWebsiteDataTypeFetchCache,
     WebsiteDataType.WKWebsiteDataTypeDiskCache,
@@ -236,6 +237,7 @@ class IOSWKWebsiteDataType {
   ) => IOSWKWebsiteDataType._internal(value, nativeValue());
 
   ///Returns a set of all available website data types.
+  // ignore: non_constant_identifier_names
   static final ALL = {
     IOSWKWebsiteDataType.WKWebsiteDataTypeFetchCache,
     IOSWKWebsiteDataType.WKWebsiteDataTypeDiskCache,
