@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:telosnex_inappwebview/telosnex_inappwebview.dart';
 import 'package:flutter_test/flutter_test.dart';
