@@ -194,7 +194,7 @@ class EnvironmentReleaseChannels {
   int get hashCode => _value.hashCode;
 
   @override
-  bool operator ==(value) => value == _value;
+  bool operator ==(other) => other == _value;
 
   EnvironmentReleaseChannels operator |(EnvironmentReleaseChannels value) =>
       EnvironmentReleaseChannels._internal(

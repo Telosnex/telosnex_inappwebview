@@ -180,7 +180,7 @@ class PdfToolbarItems {
   int get hashCode => _value.hashCode;
 
   @override
-  bool operator ==(value) => value == _value;
+  bool operator ==(other) => other == _value;
 
   PdfToolbarItems operator |(PdfToolbarItems value) =>
       PdfToolbarItems._internal(

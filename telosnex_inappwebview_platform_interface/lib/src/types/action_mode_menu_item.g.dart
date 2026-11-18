@@ -121,7 +121,7 @@ class ActionModeMenuItem {
   int get hashCode => _value.hashCode;
 
   @override
-  bool operator ==(value) => value == _value;
+  bool operator ==(other) => other == _value;
 
   ActionModeMenuItem operator |(ActionModeMenuItem value) =>
       ActionModeMenuItem._internal(
@@ -266,7 +266,7 @@ class AndroidActionModeMenuItem {
   int get hashCode => _value.hashCode;
 
   @override
-  bool operator ==(value) => value == _value;
+  bool operator ==(other) => other == _value;
 
   AndroidActionModeMenuItem operator |(AndroidActionModeMenuItem value) =>
       AndroidActionModeMenuItem._internal(

@@ -305,7 +305,7 @@ class WindowStyleMask {
   int get hashCode => _value.hashCode;
 
   @override
-  bool operator ==(value) => value == _value;
+  bool operator ==(other) => other == _value;
 
   WindowStyleMask operator |(WindowStyleMask value) =>
       WindowStyleMask._internal(

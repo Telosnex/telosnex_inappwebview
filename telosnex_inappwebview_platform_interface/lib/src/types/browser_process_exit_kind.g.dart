@@ -135,7 +135,7 @@ class BrowserProcessExitKind {
   int get hashCode => _value.hashCode;
 
   @override
-  bool operator ==(value) => value == _value;
+  bool operator ==(other) => other == _value;
 
   BrowserProcessExitKind operator |(BrowserProcessExitKind value) =>
       BrowserProcessExitKind._internal(
