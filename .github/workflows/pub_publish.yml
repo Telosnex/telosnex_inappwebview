@@ -1,0 +1,29 @@
+name: Pub publish
+
+on:
+  push:
+    branches: [ci/pub-publish-dry-run]
+    tags:
+      - 'pub-telosnex_inappwebview-v[0-9]+.[0-9]+.[0-9]+*'
+      - 'pub-telosnex_inappwebview_*-v[0-9]+.[0-9]+.[0-9]+*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag to validate (pub-<package>-v<version>)'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    uses: Telosnex/telosnex_ci_tools/.github/workflows/pub_publish.yml@d807dca8c92f4b85be742a04601a47654f0e41a0 # v0.5.23
+    permissions:
+      contents: write
+      id-token: write
+    with:
+      dry-run: ${{ github.ref_type != 'tag' || github.event_name == 'workflow_dispatch' }}
+      tag: ${{ inputs.tag || (github.ref_type == 'branch' && 'pub-telosnex_inappwebview_platform_interface-v1.0.0') || '' }}
+      environment: pub.dev
+      test: 'if [[ -d test ]]; then flutter test --no-pub; fi'
