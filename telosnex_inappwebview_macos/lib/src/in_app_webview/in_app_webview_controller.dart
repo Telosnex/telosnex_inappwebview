@@ -207,7 +207,8 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
   Future<dynamic> _handleMethod(MethodCall call) async {
     if (call.method == "_onMouseDown") {
       // Workaround for https://github.com/pichillilorenzo/flutter_inappwebview/issues/2380
-      // TODO: remove when Flutter fixes this
+      // Clear Flutter focus so Cmd+C can copy selected WebView text after
+      // a Flutter text field had focus.
       FocusManager.instance.primaryFocus?.unfocus();
       return;
     }
