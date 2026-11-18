@@ -350,15 +350,6 @@ class WebPlatformInAppWebViewPlatform extends InAppWebViewPlatform {
     return _PlatformCustomPathHandler.static();
   }
 
-  /// Creates a new empty [PlatformInAppLocalhostServer] to access static methods.
-  ///
-  /// This function should only be called by the app-facing package.
-  /// Look at using [InAppLocalhostServer] in `telosnex_inappwebview` instead.
-  @override
-  PlatformInAppLocalhostServer createPlatformInAppLocalhostServerStatic() {
-    return _PlatformInAppLocalhostServer.static();
-  }
-
   /// Creates a new empty [PlatformWebViewFeature] to access static methods.
   ///
   /// This function should only be called by the app-facing package.
@@ -720,17 +711,4 @@ class _PlatformCustomPathHandler extends PlatformCustomPathHandler {
 
   @override
   Map<String, dynamic> toJson() => toMap();
-}
-
-class _PlatformInAppLocalhostServer extends PlatformInAppLocalhostServer {
-  _PlatformInAppLocalhostServer(
-    PlatformInAppLocalhostServerCreationParams params,
-  ) : super.implementation(params);
-
-  static final _PlatformInAppLocalhostServer _staticValue =
-      _PlatformInAppLocalhostServer(
-        const PlatformInAppLocalhostServerCreationParams(),
-      );
-
-  factory _PlatformInAppLocalhostServer.static() => _staticValue;
 }

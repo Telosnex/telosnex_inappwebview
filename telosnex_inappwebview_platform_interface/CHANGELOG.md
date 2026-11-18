@@ -1,3 +1,8 @@
+## Unreleased
+
+- Load the localhost server implementation only on native platforms. On Web,
+  starting the server reports that it is unsupported.
+
 ## 1.0.0
 
 First release of `telosnex_inappwebview_platform_interface`. It is a fork of `flutter_inappwebview_platform_interface` 1.4.0-beta.3 by Lorenzo Pichilli.

@@ -1,3 +1,7 @@
+## Unreleased
+
+- Keep the native localhost server out of WebAssembly builds.
+
 ## 1.0.0
 
 First release of `telosnex_inappwebview_web`. It is a fork of `flutter_inappwebview_web` 1.2.0-beta.3 by Lorenzo Pichilli.

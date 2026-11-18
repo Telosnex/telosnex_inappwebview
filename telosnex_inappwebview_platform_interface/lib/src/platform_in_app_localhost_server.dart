@@ -1,12 +1,19 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_inappwebview_internal_annotations/flutter_inappwebview_internal_annotations.dart';
 import 'package:telosnex_inappwebview_platform_interface/telosnex_inappwebview_platform_interface.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
+import 'dart:io'
+    if (dart.library.js_interop) 'localhost_server_request_stub.dart'
+    show HttpRequest;
+
 part 'platform_in_app_localhost_server.g.dart';
+
+/// The native HTTP request passed to a localhost server callback.
+/// On Web, where the server cannot run, this type has no values.
+typedef LocalhostServerRequest = HttpRequest;
 
 ///{@template telosnex_inappwebview_platform_interface.PlatformInAppLocalhostServerCreationParams}
 /// Object specifying creation parameters for creating a [PlatformInAppLocalhostServer].
@@ -49,7 +56,7 @@ class PlatformInAppLocalhostServerCreationParams {
   final bool shared;
 
   ///{@macro telosnex_inappwebview_platform_interface.PlatformInAppLocalhostServer.onData}
-  final Future<bool> Function(HttpRequest request)? onData;
+  final Future<bool> Function(LocalhostServerRequest request)? onData;
 
   ///{@template telosnex_inappwebview_platform_interface.PlatformInAppLocalhostServerCreationParams.isClassSupported}
   ///Check if the current class is supported by the [defaultTargetPlatform] or a specific [platform].
@@ -157,7 +164,8 @@ abstract class PlatformInAppLocalhostServer extends PlatformInterface {
   ///If this callback returns `true`, it means that the request has been handled by this callback.
   ///Otherwise, if this callback returns `false`, the server will continue to process the request using the default implementation.
   ///{@endtemplate}
-  Future<bool> Function(HttpRequest request)? get onData => params.onData;
+  Future<bool> Function(LocalhostServerRequest request)? get onData =>
+      params.onData;
 
   ///{@template telosnex_inappwebview_platform_interface.PlatformInAppLocalhostServer.start}
   ///Starts the server on `http://localhost:[port]/`.

@@ -54,6 +54,9 @@ jobs:
       - name: Example widget tests
         working-directory: telosnex_inappwebview/example
         run: flutter test --no-pub
+      - name: Localhost server WebAssembly test
+        working-directory: telosnex_inappwebview/example
+        run: flutter test --no-pub --platform chrome --wasm test/localhost_server_web_test.dart
       - name: Platform interface unit tests
         working-directory: telosnex_inappwebview_platform_interface
         run: flutter test --no-pub

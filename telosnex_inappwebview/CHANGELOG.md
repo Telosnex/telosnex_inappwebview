@@ -1,3 +1,8 @@
+## Unreleased
+
+- The plugin can be used in WebAssembly builds without importing the native
+  localhost server. On native platforms, `onData` still receives an `HttpRequest`.
+
 ## 1.0.0
 
 First release of `telosnex_inappwebview`. It is a fork of `flutter_inappwebview` 6.2.0-beta.3 by Lorenzo Pichilli.
