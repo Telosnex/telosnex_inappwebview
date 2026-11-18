@@ -144,14 +144,14 @@ class NavigationType {
   });
 
   ///Set of all values of [NavigationType].
-  static final Set<NavigationType> values = [
+  static final Set<NavigationType> values = {
     NavigationType.BACK_FORWARD,
     NavigationType.FORM_RESUBMITTED,
     NavigationType.FORM_SUBMITTED,
     NavigationType.LINK_ACTIVATED,
     NavigationType.OTHER,
     NavigationType.RELOAD,
-  ].toSet();
+  };
 
   ///Gets a possible [NavigationType] instance from [String] value.
   static NavigationType? fromValue(String? value) {
@@ -285,14 +285,14 @@ class IOSWKNavigationType {
   static const RELOAD = IOSWKNavigationType._internal(3, 3);
 
   ///Set of all values of [IOSWKNavigationType].
-  static final Set<IOSWKNavigationType> values = [
+  static final Set<IOSWKNavigationType> values = {
     IOSWKNavigationType.BACK_FORWARD,
     IOSWKNavigationType.FORM_RESUBMITTED,
     IOSWKNavigationType.FORM_SUBMITTED,
     IOSWKNavigationType.LINK_ACTIVATED,
     IOSWKNavigationType.OTHER,
     IOSWKNavigationType.RELOAD,
-  ].toSet();
+  };
 
   ///Gets a possible [IOSWKNavigationType] instance from [int] value.
   static IOSWKNavigationType? fromValue(int? value) {

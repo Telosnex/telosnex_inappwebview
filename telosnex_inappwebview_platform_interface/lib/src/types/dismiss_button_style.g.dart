@@ -27,11 +27,11 @@ class DismissButtonStyle {
   static const DONE = DismissButtonStyle._internal(0, 0);
 
   ///Set of all values of [DismissButtonStyle].
-  static final Set<DismissButtonStyle> values = [
+  static final Set<DismissButtonStyle> values = {
     DismissButtonStyle.CANCEL,
     DismissButtonStyle.CLOSE,
     DismissButtonStyle.DONE,
-  ].toSet();
+  };
 
   ///Gets a possible [DismissButtonStyle] instance from [int] value.
   static DismissButtonStyle? fromValue(int? value) {
@@ -154,11 +154,11 @@ class IOSSafariDismissButtonStyle {
   static const DONE = IOSSafariDismissButtonStyle._internal(0, 0);
 
   ///Set of all values of [IOSSafariDismissButtonStyle].
-  static final Set<IOSSafariDismissButtonStyle> values = [
+  static final Set<IOSSafariDismissButtonStyle> values = {
     IOSSafariDismissButtonStyle.CANCEL,
     IOSSafariDismissButtonStyle.CLOSE,
     IOSSafariDismissButtonStyle.DONE,
-  ].toSet();
+  };
 
   ///Gets a possible [IOSSafariDismissButtonStyle] instance from [int] value.
   static IOSSafariDismissButtonStyle? fromValue(int? value) {

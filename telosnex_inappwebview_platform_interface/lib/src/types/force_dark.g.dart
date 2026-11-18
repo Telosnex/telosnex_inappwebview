@@ -26,11 +26,11 @@ class ForceDark {
   static const ON = ForceDark._internal(2, 2);
 
   ///Set of all values of [ForceDark].
-  static final Set<ForceDark> values = [
+  static final Set<ForceDark> values = {
     ForceDark.AUTO,
     ForceDark.OFF,
     ForceDark.ON,
-  ].toSet();
+  };
 
   ///Gets a possible [ForceDark] instance from [int] value.
   static ForceDark? fromValue(int? value) {
@@ -151,11 +151,11 @@ class AndroidForceDark {
   static const FORCE_DARK_ON = AndroidForceDark._internal(2, 2);
 
   ///Set of all values of [AndroidForceDark].
-  static final Set<AndroidForceDark> values = [
+  static final Set<AndroidForceDark> values = {
     AndroidForceDark.FORCE_DARK_AUTO,
     AndroidForceDark.FORCE_DARK_OFF,
     AndroidForceDark.FORCE_DARK_ON,
-  ].toSet();
+  };
 
   ///Gets a possible [AndroidForceDark] instance from [int] value.
   static AndroidForceDark? fromValue(int? value) {

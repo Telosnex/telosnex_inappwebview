@@ -36,11 +36,11 @@ class VerticalScrollbarPosition {
   );
 
   ///Set of all values of [VerticalScrollbarPosition].
-  static final Set<VerticalScrollbarPosition> values = [
+  static final Set<VerticalScrollbarPosition> values = {
     VerticalScrollbarPosition.SCROLLBAR_POSITION_DEFAULT,
     VerticalScrollbarPosition.SCROLLBAR_POSITION_LEFT,
     VerticalScrollbarPosition.SCROLLBAR_POSITION_RIGHT,
-  ].toSet();
+  };
 
   ///Gets a possible [VerticalScrollbarPosition] instance from [int] value.
   static VerticalScrollbarPosition? fromValue(int? value) {
@@ -167,11 +167,11 @@ class AndroidVerticalScrollbarPosition {
       AndroidVerticalScrollbarPosition._internal(2, 2);
 
   ///Set of all values of [AndroidVerticalScrollbarPosition].
-  static final Set<AndroidVerticalScrollbarPosition> values = [
+  static final Set<AndroidVerticalScrollbarPosition> values = {
     AndroidVerticalScrollbarPosition.SCROLLBAR_POSITION_DEFAULT,
     AndroidVerticalScrollbarPosition.SCROLLBAR_POSITION_LEFT,
     AndroidVerticalScrollbarPosition.SCROLLBAR_POSITION_RIGHT,
-  ].toSet();
+  };
 
   ///Gets a possible [AndroidVerticalScrollbarPosition] instance from [int] value.
   static AndroidVerticalScrollbarPosition? fromValue(int? value) {

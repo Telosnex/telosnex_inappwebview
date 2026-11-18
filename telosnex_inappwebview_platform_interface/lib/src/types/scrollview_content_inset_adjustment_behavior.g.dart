@@ -40,12 +40,12 @@ class ScrollViewContentInsetAdjustmentBehavior {
       ScrollViewContentInsetAdjustmentBehavior._internal(1, 1);
 
   ///Set of all values of [ScrollViewContentInsetAdjustmentBehavior].
-  static final Set<ScrollViewContentInsetAdjustmentBehavior> values = [
+  static final Set<ScrollViewContentInsetAdjustmentBehavior> values = {
     ScrollViewContentInsetAdjustmentBehavior.ALWAYS,
     ScrollViewContentInsetAdjustmentBehavior.AUTOMATIC,
     ScrollViewContentInsetAdjustmentBehavior.NEVER,
     ScrollViewContentInsetAdjustmentBehavior.SCROLLABLE_AXES,
-  ].toSet();
+  };
 
   ///Gets a possible [ScrollViewContentInsetAdjustmentBehavior] instance from [int] value.
   static ScrollViewContentInsetAdjustmentBehavior? fromValue(int? value) {
@@ -188,12 +188,12 @@ class IOSUIScrollViewContentInsetAdjustmentBehavior {
       IOSUIScrollViewContentInsetAdjustmentBehavior._internal(1, 1);
 
   ///Set of all values of [IOSUIScrollViewContentInsetAdjustmentBehavior].
-  static final Set<IOSUIScrollViewContentInsetAdjustmentBehavior> values = [
+  static final Set<IOSUIScrollViewContentInsetAdjustmentBehavior> values = {
     IOSUIScrollViewContentInsetAdjustmentBehavior.ALWAYS,
     IOSUIScrollViewContentInsetAdjustmentBehavior.AUTOMATIC,
     IOSUIScrollViewContentInsetAdjustmentBehavior.NEVER,
     IOSUIScrollViewContentInsetAdjustmentBehavior.SCROLLABLE_AXES,
-  ].toSet();
+  };
 
   ///Gets a possible [IOSUIScrollViewContentInsetAdjustmentBehavior] instance from [int] value.
   static IOSUIScrollViewContentInsetAdjustmentBehavior? fromValue(int? value) {

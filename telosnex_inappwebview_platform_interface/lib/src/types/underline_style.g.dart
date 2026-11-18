@@ -45,7 +45,7 @@ class UnderlineStyle {
   static const THICK = UnderlineStyle._internal(2, 2);
 
   ///Set of all values of [UnderlineStyle].
-  static final Set<UnderlineStyle> values = [
+  static final Set<UnderlineStyle> values = {
     UnderlineStyle.BY_WORD,
     UnderlineStyle.DOUBLE,
     UnderlineStyle.PATTERN_DASH,
@@ -55,7 +55,7 @@ class UnderlineStyle {
     UnderlineStyle.SINGLE,
     UnderlineStyle.STYLE_NONE,
     UnderlineStyle.THICK,
-  ].toSet();
+  };
 
   ///Gets a possible [UnderlineStyle] instance from [int] value.
   static UnderlineStyle? fromValue(int? value) {
@@ -204,7 +204,7 @@ class IOSNSUnderlineStyle {
   static const THICK = IOSNSUnderlineStyle._internal(2, 2);
 
   ///Set of all values of [IOSNSUnderlineStyle].
-  static final Set<IOSNSUnderlineStyle> values = [
+  static final Set<IOSNSUnderlineStyle> values = {
     IOSNSUnderlineStyle.BY_WORD,
     IOSNSUnderlineStyle.DOUBLE,
     IOSNSUnderlineStyle.PATTERN_DASH,
@@ -214,7 +214,7 @@ class IOSNSUnderlineStyle {
     IOSNSUnderlineStyle.SINGLE,
     IOSNSUnderlineStyle.STYLE_NONE,
     IOSNSUnderlineStyle.THICK,
-  ].toSet();
+  };
 
   ///Gets a possible [IOSNSUnderlineStyle] instance from [int] value.
   static IOSNSUnderlineStyle? fromValue(int? value) {

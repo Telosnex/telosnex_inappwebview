@@ -49,7 +49,7 @@ class URLRequestNetworkServiceType {
   static const VOICE = URLRequestNetworkServiceType._internal(4, 4);
 
   ///Set of all values of [URLRequestNetworkServiceType].
-  static final Set<URLRequestNetworkServiceType> values = [
+  static final Set<URLRequestNetworkServiceType> values = {
     URLRequestNetworkServiceType.AV_STREAMING,
     URLRequestNetworkServiceType.BACKGROUND,
     URLRequestNetworkServiceType.CALL_SIGNALING,
@@ -58,7 +58,7 @@ class URLRequestNetworkServiceType {
     URLRequestNetworkServiceType.RESPONSIVE_DATA,
     URLRequestNetworkServiceType.VIDEO,
     URLRequestNetworkServiceType.VOICE,
-  ].toSet();
+  };
 
   ///Gets a possible [URLRequestNetworkServiceType] instance from [int] value.
   static URLRequestNetworkServiceType? fromValue(int? value) {
@@ -220,7 +220,7 @@ class IOSURLRequestNetworkServiceType {
   static const VOICE = IOSURLRequestNetworkServiceType._internal(4, 4);
 
   ///Set of all values of [IOSURLRequestNetworkServiceType].
-  static final Set<IOSURLRequestNetworkServiceType> values = [
+  static final Set<IOSURLRequestNetworkServiceType> values = {
     IOSURLRequestNetworkServiceType.AV_STREAMING,
     IOSURLRequestNetworkServiceType.BACKGROUND,
     IOSURLRequestNetworkServiceType.CALL_SIGNALING,
@@ -229,7 +229,7 @@ class IOSURLRequestNetworkServiceType {
     IOSURLRequestNetworkServiceType.RESPONSIVE_DATA,
     IOSURLRequestNetworkServiceType.VIDEO,
     IOSURLRequestNetworkServiceType.VOICE,
-  ].toSet();
+  };
 
   ///Gets a possible [IOSURLRequestNetworkServiceType] instance from [int] value.
   static IOSURLRequestNetworkServiceType? fromValue(int? value) {

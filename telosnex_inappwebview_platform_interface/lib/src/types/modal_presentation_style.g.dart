@@ -50,7 +50,7 @@ class ModalPresentationStyle {
   static const POPOVER = ModalPresentationStyle._internal(7, 7);
 
   ///Set of all values of [ModalPresentationStyle].
-  static final Set<ModalPresentationStyle> values = [
+  static final Set<ModalPresentationStyle> values = {
     ModalPresentationStyle.AUTOMATIC,
     ModalPresentationStyle.CURRENT_CONTEXT,
     ModalPresentationStyle.CUSTOM,
@@ -61,7 +61,7 @@ class ModalPresentationStyle {
     ModalPresentationStyle.OVER_FULL_SCREEN,
     ModalPresentationStyle.PAGE_SHEET,
     ModalPresentationStyle.POPOVER,
-  ].toSet();
+  };
 
   ///Gets a possible [ModalPresentationStyle] instance from [int] value.
   static ModalPresentationStyle? fromValue(int? value) {
@@ -221,7 +221,7 @@ class IOSUIModalPresentationStyle {
   static const POPOVER = IOSUIModalPresentationStyle._internal(7, 7);
 
   ///Set of all values of [IOSUIModalPresentationStyle].
-  static final Set<IOSUIModalPresentationStyle> values = [
+  static final Set<IOSUIModalPresentationStyle> values = {
     IOSUIModalPresentationStyle.AUTOMATIC,
     IOSUIModalPresentationStyle.CURRENT_CONTEXT,
     IOSUIModalPresentationStyle.CUSTOM,
@@ -232,7 +232,7 @@ class IOSUIModalPresentationStyle {
     IOSUIModalPresentationStyle.OVER_FULL_SCREEN,
     IOSUIModalPresentationStyle.PAGE_SHEET,
     IOSUIModalPresentationStyle.POPOVER,
-  ].toSet();
+  };
 
   ///Gets a possible [IOSUIModalPresentationStyle] instance from [int] value.
   static IOSUIModalPresentationStyle? fromValue(int? value) {

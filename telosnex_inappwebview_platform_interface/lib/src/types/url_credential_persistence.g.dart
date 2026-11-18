@@ -31,12 +31,12 @@ class URLCredentialPersistence {
   static const SYNCHRONIZABLE = URLCredentialPersistence._internal(3, 3);
 
   ///Set of all values of [URLCredentialPersistence].
-  static final Set<URLCredentialPersistence> values = [
+  static final Set<URLCredentialPersistence> values = {
     URLCredentialPersistence.FOR_SESSION,
     URLCredentialPersistence.NONE,
     URLCredentialPersistence.PERMANENT,
     URLCredentialPersistence.SYNCHRONIZABLE,
-  ].toSet();
+  };
 
   ///Gets a possible [URLCredentialPersistence] instance from [int] value.
   static URLCredentialPersistence? fromValue(int? value) {
@@ -163,12 +163,12 @@ class IOSURLCredentialPersistence {
   static const SYNCHRONIZABLE = IOSURLCredentialPersistence._internal(3, 3);
 
   ///Set of all values of [IOSURLCredentialPersistence].
-  static final Set<IOSURLCredentialPersistence> values = [
+  static final Set<IOSURLCredentialPersistence> values = {
     IOSURLCredentialPersistence.FOR_SESSION,
     IOSURLCredentialPersistence.NONE,
     IOSURLCredentialPersistence.PERMANENT,
     IOSURLCredentialPersistence.SYNCHRONIZABLE,
-  ].toSet();
+  };
 
   ///Gets a possible [IOSURLCredentialPersistence] instance from [int] value.
   static IOSURLCredentialPersistence? fromValue(int? value) {

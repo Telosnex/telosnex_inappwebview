@@ -30,11 +30,11 @@ class NavigationResponseAction {
   static const DOWNLOAD = NavigationResponseAction._internal(2, 2);
 
   ///Set of all values of [NavigationResponseAction].
-  static final Set<NavigationResponseAction> values = [
+  static final Set<NavigationResponseAction> values = {
     NavigationResponseAction.ALLOW,
     NavigationResponseAction.CANCEL,
     NavigationResponseAction.DOWNLOAD,
-  ].toSet();
+  };
 
   ///Gets a possible [NavigationResponseAction] instance from [int] value.
   static NavigationResponseAction? fromValue(int? value) {
@@ -153,10 +153,10 @@ class IOSNavigationResponseAction {
   static const CANCEL = IOSNavigationResponseAction._internal(0, 0);
 
   ///Set of all values of [IOSNavigationResponseAction].
-  static final Set<IOSNavigationResponseAction> values = [
+  static final Set<IOSNavigationResponseAction> values = {
     IOSNavigationResponseAction.ALLOW,
     IOSNavigationResponseAction.CANCEL,
-  ].toSet();
+  };
 
   ///Gets a possible [IOSNavigationResponseAction] instance from [int] value.
   static IOSNavigationResponseAction? fromValue(int? value) {

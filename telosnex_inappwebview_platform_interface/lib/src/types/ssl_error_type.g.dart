@@ -306,7 +306,7 @@ class SslErrorType {
   });
 
   ///Set of all values of [SslErrorType].
-  static final Set<SslErrorType> values = [
+  static final Set<SslErrorType> values = {
     SslErrorType.COMMON_NAME_IS_INCORRECT,
     SslErrorType.DATE_INVALID,
     SslErrorType.DENY,
@@ -320,7 +320,7 @@ class SslErrorType {
     SslErrorType.REVOKED,
     SslErrorType.UNSPECIFIED,
     SslErrorType.UNTRUSTED,
-  ].toSet();
+  };
 
   ///Gets a possible [SslErrorType] instance from [String] value.
   static SslErrorType? fromValue(String? value) {
@@ -469,14 +469,14 @@ class AndroidSslError {
   static const SSL_UNTRUSTED = AndroidSslError._internal(3, 3);
 
   ///Set of all values of [AndroidSslError].
-  static final Set<AndroidSslError> values = [
+  static final Set<AndroidSslError> values = {
     AndroidSslError.SSL_DATE_INVALID,
     AndroidSslError.SSL_EXPIRED,
     AndroidSslError.SSL_IDMISMATCH,
     AndroidSslError.SSL_INVALID,
     AndroidSslError.SSL_NOTYETVALID,
     AndroidSslError.SSL_UNTRUSTED,
-  ].toSet();
+  };
 
   ///Gets a possible [AndroidSslError] instance from [int] value.
   static AndroidSslError? fromValue(int? value) {
@@ -609,14 +609,14 @@ class IOSSslError {
   static const UNSPECIFIED = IOSSslError._internal(4, 4);
 
   ///Set of all values of [IOSSslError].
-  static final Set<IOSSslError> values = [
+  static final Set<IOSSslError> values = {
     IOSSslError.DENY,
     IOSSslError.FATAL_TRUST_FAILURE,
     IOSSslError.INVALID,
     IOSSslError.OTHER_ERROR,
     IOSSslError.RECOVERABLE_TRUST_FAILURE,
     IOSSslError.UNSPECIFIED,
-  ].toSet();
+  };
 
   ///Gets a possible [IOSSslError] instance from [int] value.
   static IOSSslError? fromValue(int? value) {

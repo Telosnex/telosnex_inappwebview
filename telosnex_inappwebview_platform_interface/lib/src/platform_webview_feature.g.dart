@@ -330,7 +330,7 @@ class WebViewFeature {
   );
 
   ///Set of all values of [WebViewFeature].
-  static final Set<WebViewFeature> values = [
+  static final Set<WebViewFeature> values = {
     WebViewFeature.ALGORITHMIC_DARKENING,
     WebViewFeature.CREATE_WEB_MESSAGE_CHANNEL,
     WebViewFeature.DISABLED_ACTION_MODE_MENU_ITEMS,
@@ -382,7 +382,7 @@ class WebViewFeature {
     WebViewFeature.WEB_RESOURCE_REQUEST_IS_REDIRECT,
     WebViewFeature.WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE,
     WebViewFeature.WEB_VIEW_RENDERER_TERMINATE,
-  ].toSet();
+  };
 
   ///Gets a possible [WebViewFeature] instance from [String] value.
   static WebViewFeature? fromValue(String? value) {
@@ -886,7 +886,7 @@ class AndroidWebViewFeature {
   );
 
   ///Set of all values of [AndroidWebViewFeature].
-  static final Set<AndroidWebViewFeature> values = [
+  static final Set<AndroidWebViewFeature> values = {
     AndroidWebViewFeature.ALGORITHMIC_DARKENING,
     AndroidWebViewFeature.CREATE_WEB_MESSAGE_CHANNEL,
     AndroidWebViewFeature.DISABLED_ACTION_MODE_MENU_ITEMS,
@@ -933,7 +933,7 @@ class AndroidWebViewFeature {
     AndroidWebViewFeature.WEB_RESOURCE_REQUEST_IS_REDIRECT,
     AndroidWebViewFeature.WEB_VIEW_RENDERER_CLIENT_BASIC_USAGE,
     AndroidWebViewFeature.WEB_VIEW_RENDERER_TERMINATE,
-  ].toSet();
+  };
 
   ///Gets a possible [AndroidWebViewFeature] instance from [String] value.
   static AndroidWebViewFeature? fromValue(String? value) {

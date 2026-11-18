@@ -36,12 +36,12 @@ class ModalTransitionStyle {
   static const PARTIAL_CURL = ModalTransitionStyle._internal(3, 3);
 
   ///Set of all values of [ModalTransitionStyle].
-  static final Set<ModalTransitionStyle> values = [
+  static final Set<ModalTransitionStyle> values = {
     ModalTransitionStyle.COVER_VERTICAL,
     ModalTransitionStyle.CROSS_DISSOLVE,
     ModalTransitionStyle.FLIP_HORIZONTAL,
     ModalTransitionStyle.PARTIAL_CURL,
-  ].toSet();
+  };
 
   ///Gets a possible [ModalTransitionStyle] instance from [int] value.
   static ModalTransitionStyle? fromValue(int? value) {
@@ -172,12 +172,12 @@ class IOSUIModalTransitionStyle {
   static const PARTIAL_CURL = IOSUIModalTransitionStyle._internal(3, 3);
 
   ///Set of all values of [IOSUIModalTransitionStyle].
-  static final Set<IOSUIModalTransitionStyle> values = [
+  static final Set<IOSUIModalTransitionStyle> values = {
     IOSUIModalTransitionStyle.COVER_VERTICAL,
     IOSUIModalTransitionStyle.CROSS_DISSOLVE,
     IOSUIModalTransitionStyle.FLIP_HORIZONTAL,
     IOSUIModalTransitionStyle.PARTIAL_CURL,
-  ].toSet();
+  };
 
   ///Gets a possible [IOSUIModalTransitionStyle] instance from [int] value.
   static IOSUIModalTransitionStyle? fromValue(int? value) {

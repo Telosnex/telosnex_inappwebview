@@ -62,14 +62,14 @@ class URLRequestCachePolicy {
   );
 
   ///Set of all values of [URLRequestCachePolicy].
-  static final Set<URLRequestCachePolicy> values = [
+  static final Set<URLRequestCachePolicy> values = {
     URLRequestCachePolicy.RELOAD_IGNORING_LOCAL_AND_REMOTE_CACHE_DATA,
     URLRequestCachePolicy.RELOAD_IGNORING_LOCAL_CACHE_DATA,
     URLRequestCachePolicy.RELOAD_REVALIDATING_CACHE_DATA,
     URLRequestCachePolicy.RETURN_CACHE_DATA_DONT_LOAD,
     URLRequestCachePolicy.RETURN_CACHE_DATA_ELSE_LOAD,
     URLRequestCachePolicy.USE_PROTOCOL_CACHE_POLICY,
-  ].toSet();
+  };
 
   ///Gets a possible [URLRequestCachePolicy] instance from [int] value.
   static URLRequestCachePolicy? fromValue(int? value) {
@@ -228,14 +228,14 @@ class IOSURLRequestCachePolicy {
   );
 
   ///Set of all values of [IOSURLRequestCachePolicy].
-  static final Set<IOSURLRequestCachePolicy> values = [
+  static final Set<IOSURLRequestCachePolicy> values = {
     IOSURLRequestCachePolicy.RELOAD_IGNORING_LOCAL_AND_REMOTE_CACHE_DATA,
     IOSURLRequestCachePolicy.RELOAD_IGNORING_LOCAL_CACHE_DATA,
     IOSURLRequestCachePolicy.RELOAD_REVALIDATING_CACHE_DATA,
     IOSURLRequestCachePolicy.RETURN_CACHE_DATA_DONT_LOAD,
     IOSURLRequestCachePolicy.RETURN_CACHE_DATA_ELSE_LOAD,
     IOSURLRequestCachePolicy.USE_PROTOCOL_CACHE_POLICY,
-  ].toSet();
+  };
 
   ///Gets a possible [IOSURLRequestCachePolicy] instance from [int] value.
   static IOSURLRequestCachePolicy? fromValue(int? value) {

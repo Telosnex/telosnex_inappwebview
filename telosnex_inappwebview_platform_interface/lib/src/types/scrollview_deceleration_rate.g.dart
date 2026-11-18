@@ -27,10 +27,10 @@ class ScrollViewDecelerationRate {
   );
 
   ///Set of all values of [ScrollViewDecelerationRate].
-  static final Set<ScrollViewDecelerationRate> values = [
+  static final Set<ScrollViewDecelerationRate> values = {
     ScrollViewDecelerationRate.FAST,
     ScrollViewDecelerationRate.NORMAL,
-  ].toSet();
+  };
 
   ///Gets a possible [ScrollViewDecelerationRate] instance from [String] value.
   static ScrollViewDecelerationRate? fromValue(String? value) {
@@ -152,10 +152,10 @@ class IOSUIScrollViewDecelerationRate {
   );
 
   ///Set of all values of [IOSUIScrollViewDecelerationRate].
-  static final Set<IOSUIScrollViewDecelerationRate> values = [
+  static final Set<IOSUIScrollViewDecelerationRate> values = {
     IOSUIScrollViewDecelerationRate.FAST,
     IOSUIScrollViewDecelerationRate.NORMAL,
-  ].toSet();
+  };
 
   ///Gets a possible [IOSUIScrollViewDecelerationRate] instance from [String] value.
   static IOSUIScrollViewDecelerationRate? fromValue(String? value) {

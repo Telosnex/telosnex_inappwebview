@@ -24,10 +24,10 @@ class SelectionGranularity {
   static const DYNAMIC = SelectionGranularity._internal(0, 0);
 
   ///Set of all values of [SelectionGranularity].
-  static final Set<SelectionGranularity> values = [
+  static final Set<SelectionGranularity> values = {
     SelectionGranularity.CHARACTER,
     SelectionGranularity.DYNAMIC,
-  ].toSet();
+  };
 
   ///Gets a possible [SelectionGranularity] instance from [int] value.
   static SelectionGranularity? fromValue(int? value) {
@@ -142,10 +142,10 @@ class IOSWKSelectionGranularity {
   static const DYNAMIC = IOSWKSelectionGranularity._internal(0, 0);
 
   ///Set of all values of [IOSWKSelectionGranularity].
-  static final Set<IOSWKSelectionGranularity> values = [
+  static final Set<IOSWKSelectionGranularity> values = {
     IOSWKSelectionGranularity.CHARACTER,
     IOSWKSelectionGranularity.DYNAMIC,
-  ].toSet();
+  };
 
   ///Gets a possible [IOSWKSelectionGranularity] instance from [int] value.
   static IOSWKSelectionGranularity? fromValue(int? value) {

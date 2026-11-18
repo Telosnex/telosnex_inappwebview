@@ -98,7 +98,7 @@ class WebsiteDataType {
   );
 
   ///Set of all values of [WebsiteDataType].
-  static final Set<WebsiteDataType> values = [
+  static final Set<WebsiteDataType> values = {
     WebsiteDataType.WKWebsiteDataTypeCookies,
     WebsiteDataType.WKWebsiteDataTypeDiskCache,
     WebsiteDataType.WKWebsiteDataTypeFetchCache,
@@ -109,7 +109,7 @@ class WebsiteDataType {
     WebsiteDataType.WKWebsiteDataTypeServiceWorkerRegistrations,
     WebsiteDataType.WKWebsiteDataTypeSessionStorage,
     WebsiteDataType.WKWebsiteDataTypeWebSQLDatabases,
-  ].toSet();
+  };
 
   ///Gets a possible [WebsiteDataType] instance from [String] value.
   static WebsiteDataType? fromValue(String? value) {
@@ -318,7 +318,7 @@ class IOSWKWebsiteDataType {
       );
 
   ///Set of all values of [IOSWKWebsiteDataType].
-  static final Set<IOSWKWebsiteDataType> values = [
+  static final Set<IOSWKWebsiteDataType> values = {
     IOSWKWebsiteDataType.WKWebsiteDataTypeCookies,
     IOSWKWebsiteDataType.WKWebsiteDataTypeDiskCache,
     IOSWKWebsiteDataType.WKWebsiteDataTypeFetchCache,
@@ -329,7 +329,7 @@ class IOSWKWebsiteDataType {
     IOSWKWebsiteDataType.WKWebsiteDataTypeServiceWorkerRegistrations,
     IOSWKWebsiteDataType.WKWebsiteDataTypeSessionStorage,
     IOSWKWebsiteDataType.WKWebsiteDataTypeWebSQLDatabases,
-  ].toSet();
+  };
 
   ///Gets a possible [IOSWKWebsiteDataType] instance from [String] value.
   static IOSWKWebsiteDataType? fromValue(String? value) {
