@@ -1,17 +1,17 @@
 {
   "schema": 1,
-  "key": "10a353e388dc678c1d80e557d7c698223f81be43ef6dc678d5b6092d4fa594e8",
-  "tag": "wpe-sdk-10a353e388dc678c",
+  "key": "6eca53b1d7e6f91d7737cc1fdc8eeae53d92303ad823f29986ce28c60d5c833e",
+  "tag": "wpe-sdk-6eca53b1d7e6f91d",
   "targets": {
     "debian-13-arm64": {
       "target": "debian-13-arm64",
       "archive": "wpe-sdk-debian-13-arm64.tar.zst",
-      "sha256": "04917200a7f123cc1731ec2501926ba2be20ffa4cda0342540c8f690436bf838",
-      "bytes": 45971814,
+      "sha256": "4cf26083678877703ddfd4327f71a3048098f22140372eddc6b124ac79062197",
+      "bytes": 46060766,
       "buildPrefix": "/opt/wpe-sdk",
       "libwpe": "1.16.3",
       "wpebackendFdo": "1.16.1",
-      "wpewebkit": "2.54.2",
+      "wpewebkit": "2.54.3",
       "compiler": "cc (Debian 14.2.0-19) 14.2.0",
       "glibc": "2.41",
       "runtimePackages": [
@@ -108,17 +108,17 @@
         "xdg-dbus-proxy",
         "zlib1g"
       ],
-      "url": "https://github.com/Telosnex/telosnex_inappwebview/releases/download/wpe-sdk-10a353e388dc678c/wpe-sdk-debian-13-arm64.tar.zst"
+      "url": "https://github.com/Telosnex/telosnex_inappwebview/releases/download/wpe-sdk-6eca53b1d7e6f91d/wpe-sdk-debian-13-arm64.tar.zst"
     },
     "ubuntu-26.04-arm64": {
       "target": "ubuntu-26.04-arm64",
       "archive": "wpe-sdk-ubuntu-26.04-arm64.tar.zst",
-      "sha256": "432097b6e4991fd6cb06bd6e14c80670442e1f31d67548505eab58da94c6487f",
-      "bytes": 48735788,
+      "sha256": "aa3085da4f4ceb6bd0797dfa71905693dfe39fc33e7cb19c165cf40966000240",
+      "bytes": 48806517,
       "buildPrefix": "/opt/wpe-sdk",
       "libwpe": "1.16.3",
       "wpebackendFdo": "1.16.1",
-      "wpewebkit": "2.54.2",
+      "wpewebkit": "2.54.3",
       "compiler": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
       "glibc": "2.43",
       "runtimePackages": [
@@ -211,17 +211,17 @@
         "xdg-dbus-proxy",
         "zlib1g"
       ],
-      "url": "https://github.com/Telosnex/telosnex_inappwebview/releases/download/wpe-sdk-10a353e388dc678c/wpe-sdk-ubuntu-26.04-arm64.tar.zst"
+      "url": "https://github.com/Telosnex/telosnex_inappwebview/releases/download/wpe-sdk-6eca53b1d7e6f91d/wpe-sdk-ubuntu-26.04-arm64.tar.zst"
     },
     "ubuntu-26.04-x64": {
       "target": "ubuntu-26.04-x64",
       "archive": "wpe-sdk-ubuntu-26.04-x64.tar.zst",
-      "sha256": "b05204f7ce589a13ca3245d9b2bb1d618c250139c5fe5a0a8545aba433c04325",
-      "bytes": 48509982,
+      "sha256": "0c84d6fd58c2517074e73e15b17f4aae21387db3b497c82ed29643e4fbe59cb7",
+      "bytes": 48526400,
       "buildPrefix": "/opt/wpe-sdk",
       "libwpe": "1.16.3",
       "wpebackendFdo": "1.16.1",
-      "wpewebkit": "2.54.2",
+      "wpewebkit": "2.54.3",
       "compiler": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
       "glibc": "2.43",
       "runtimePackages": [
@@ -314,7 +314,7 @@
         "xdg-dbus-proxy",
         "zlib1g"
       ],
-      "url": "https://github.com/Telosnex/telosnex_inappwebview/releases/download/wpe-sdk-10a353e388dc678c/wpe-sdk-ubuntu-26.04-x64.tar.zst"
+      "url": "https://github.com/Telosnex/telosnex_inappwebview/releases/download/wpe-sdk-6eca53b1d7e6f91d/wpe-sdk-ubuntu-26.04-x64.tar.zst"
     }
   }
 }
