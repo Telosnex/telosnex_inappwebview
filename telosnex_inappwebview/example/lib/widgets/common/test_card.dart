@@ -4,16 +4,14 @@ import 'package:telosnex_inappwebview_example/models/test_case.dart';
 /// Test status enum
 enum TestStatus { none, running, passed, failed }
 
-/// Widget displaying a test case with run button, status indicator, and expandable details
+/// Displays a test case with a status indicator and expandable details.
 class TestCard extends StatefulWidget {
   final TestCase testCase;
-  final VoidCallback onRun;
   final TestStatus status;
 
   const TestCard({
     super.key,
     required this.testCase,
-    required this.onRun,
     this.status = TestStatus.none,
   });
 
@@ -65,11 +63,6 @@ class _TestCardState extends State<TestCard> {
                   ),
                   const SizedBox(width: 8),
                   _buildStatusIndicator(),
-                  IconButton(
-                    icon: const Icon(Icons.play_arrow),
-                    onPressed: widget.onRun,
-                    color: Theme.of(context).primaryColor,
-                  ),
                 ],
               ),
               if (_isExpanded) ...[const Divider(), _buildDetails()],

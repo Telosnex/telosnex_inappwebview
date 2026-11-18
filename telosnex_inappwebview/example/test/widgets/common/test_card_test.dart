@@ -20,14 +20,12 @@ void main() {
       );
     });
 
-    testWidgets('should render title, description, and run button', (
+    testWidgets('shows title and description without a run button', (
       tester,
     ) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: TestCard(testCase: testCase, onRun: () {}),
-          ),
+          home: Scaffold(body: TestCard(testCase: testCase)),
         ),
       );
 
@@ -35,40 +33,13 @@ void main() {
 
       expect(find.text('Test Title'), findsOneWidget);
       expect(find.text('Test Description'), findsOneWidget);
-      expect(find.byIcon(Icons.play_arrow), findsOneWidget);
-    });
-
-    testWidgets('should call onRun when run button is tapped', (tester) async {
-      bool runCalled = false;
-
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: TestCard(
-              testCase: testCase,
-              onRun: () {
-                runCalled = true;
-              },
-            ),
-          ),
-        ),
-      );
-
-      await tester.pumpAndSettle();
-
-      // Tap the run button
-      await tester.tap(find.byIcon(Icons.play_arrow));
-      await tester.pumpAndSettle();
-
-      expect(runCalled, true);
+      expect(find.byIcon(Icons.play_arrow), findsNothing);
     });
 
     testWidgets('should expand and collapse details on tap', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: TestCard(testCase: testCase, onRun: () {}),
-          ),
+          home: Scaffold(body: TestCard(testCase: testCase)),
         ),
       );
 
@@ -99,11 +70,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: TestCard(
-              testCase: testCase,
-              onRun: () {},
-              status: TestStatus.passed,
-            ),
+            body: TestCard(testCase: testCase, status: TestStatus.passed),
           ),
         ),
       );
@@ -118,11 +85,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: TestCard(
-              testCase: testCase,
-              onRun: () {},
-              status: TestStatus.failed,
-            ),
+            body: TestCard(testCase: testCase, status: TestStatus.failed),
           ),
         ),
       );
@@ -137,11 +100,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: TestCard(
-              testCase: testCase,
-              onRun: () {},
-              status: TestStatus.running,
-            ),
+            body: TestCard(testCase: testCase, status: TestStatus.running),
           ),
         ),
       );

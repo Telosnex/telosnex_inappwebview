@@ -86,12 +86,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 12.0),
-                        child: TestCard(
-                          testCase: filteredTests[index],
-                          onRun: () {
-                            // TODO: Execute test in Phase 3
-                          },
-                        ),
+                        child: TestCard(testCase: filteredTests[index]),
                       );
                     },
                   ),
