@@ -1,7 +1,9 @@
-## Unreleased
+## 1.1.0
 
 - Load the localhost server implementation only on native platforms. On Web,
   starting the server reports that it is unsupported.
+- Fix analyzer lints in the source and the generated code.
+- `SslCertificate` reports an X.509 parse failure with `dart:developer` `log` instead of `print`.
 
 ## 1.0.0
 

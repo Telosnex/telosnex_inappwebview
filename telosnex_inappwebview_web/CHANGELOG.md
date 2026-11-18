@@ -1,6 +1,8 @@
-## Unreleased
+## 1.0.1
 
 - Keep the native localhost server out of WebAssembly builds.
+- Requires `telosnex_inappwebview_platform_interface` 1.1.0.
+- Fix analyzer lints. No behavior changes.
 
 ## 1.0.0
 

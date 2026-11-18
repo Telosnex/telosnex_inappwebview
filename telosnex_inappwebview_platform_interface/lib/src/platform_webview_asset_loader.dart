@@ -45,6 +45,10 @@ class WebViewAssetLoaderSpec {
   WebViewAssetLoaderSpec({this.domain, this.httpAllowed, this.pathHandlers});
 }
 
+// Keep the old name available to platform interface consumers.
+// ignore: camel_case_types
+typedef WebViewAssetLoader_ = WebViewAssetLoaderSpec;
+
 ///{@template telosnex_inappwebview_platform_interface.PlatformPathHandlerCreationParams}
 /// Object specifying creation parameters for creating a [PlatformPathHandler].
 ///

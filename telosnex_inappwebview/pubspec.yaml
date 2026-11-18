@@ -1,6 +1,6 @@
 name: telosnex_inappwebview
 description: A Flutter plugin for an inline webview, a headless webview, and an in-app browser. A maintained fork of flutter_inappwebview, with a WPE WebKit Linux backend.
-version: 1.0.0
+version: 1.1.0
 homepage: https://github.com/Telosnex/telosnex_inappwebview
 repository: https://github.com/Telosnex/telosnex_inappwebview/tree/master/telosnex_inappwebview
 issue_tracker: https://github.com/Telosnex/telosnex_inappwebview/issues
@@ -18,19 +18,19 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  telosnex_inappwebview_platform_interface: ^1.0.0
+  telosnex_inappwebview_platform_interface: ^1.1.0
     # path: ../telosnex_inappwebview_platform_interface
-  telosnex_inappwebview_android: ^1.0.0
+  telosnex_inappwebview_android: ^1.0.1
     # path: ../telosnex_inappwebview_android
-  telosnex_inappwebview_ios: ^1.0.0
+  telosnex_inappwebview_ios: ^1.0.1
     # path: ../telosnex_inappwebview_ios
-  telosnex_inappwebview_macos: ^1.0.0
+  telosnex_inappwebview_macos: ^1.0.1
     # path: ../telosnex_inappwebview_macos
-  telosnex_inappwebview_web: ^1.0.0
+  telosnex_inappwebview_web: ^1.0.1
     # path: ../telosnex_inappwebview_web
-  telosnex_inappwebview_windows: ^1.0.0
+  telosnex_inappwebview_windows: ^1.0.1
     # path: ../telosnex_inappwebview_windows
-  telosnex_inappwebview_linux: ^1.0.0
+  telosnex_inappwebview_linux: ^1.0.1
     # path: ../telosnex_inappwebview_linux
 
 dev_dependencies:

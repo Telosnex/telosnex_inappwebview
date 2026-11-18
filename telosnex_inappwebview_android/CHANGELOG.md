@@ -1,3 +1,8 @@
+## 1.0.1
+
+- Requires `telosnex_inappwebview_platform_interface` 1.1.0.
+- Fix analyzer lints. No behavior changes.
+
 ## 1.0.0
 
 First release of `telosnex_inappwebview_android`. It is a fork of `flutter_inappwebview_android` 1.2.0-beta.3 by Lorenzo Pichilli.

@@ -1,7 +1,9 @@
-## Unreleased
+## 1.1.0
 
 - The plugin can be used in WebAssembly builds without importing the native
   localhost server. On native platforms, `onData` still receives an `HttpRequest`.
+- Requires `telosnex_inappwebview_platform_interface` 1.1.0.
+- Fix analyzer lints. No behavior changes.
 
 ## 1.0.0
 
