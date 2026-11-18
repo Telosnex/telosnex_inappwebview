@@ -119,7 +119,7 @@ String? _dartNativeSyncCommunication(
   if (InAppWebViewManager.webViews.containsKey(viewId)) {
     var webViewHtmlElement =
         InAppWebViewManager.webViews[viewId] as InAppWebViewWebElement;
-    Object result;
+    Object? result;
 
     try {
       switch (method) {
@@ -201,7 +201,7 @@ String? _dartNativeSyncCommunication(
       rethrow;
     }
 
-    return jsonEncode(result);
+    return result != null ? jsonEncode(result) : null;
   }
   return null;
 }

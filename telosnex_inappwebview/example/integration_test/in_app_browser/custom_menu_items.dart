@@ -34,7 +34,7 @@ void customMenuItems() {
       ),
     );
 
-    Object icon;
+    Object? icon;
     if ([
       TargetPlatform.iOS,
       TargetPlatform.macOS,

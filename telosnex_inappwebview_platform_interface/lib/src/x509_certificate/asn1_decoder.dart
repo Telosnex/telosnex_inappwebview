@@ -95,11 +95,11 @@ class ASN1DERDecoder {
               var subIterator = contentData.iterator;
               asn1obj.sub = parse(iterator: subIterator);
             } catch (e) {
-              String str;
+              String? str;
               try {
                 str = utf8.decode(contentData);
               } catch (e) {}
-              asn1obj.value = str;
+              asn1obj.value = str ?? contentData;
             }
           } else {
             // print("unsupported tag: ${asn1obj.identifier.tagNumber()}");
@@ -110,11 +110,11 @@ class ASN1DERDecoder {
 
           var contentData = loadSubContent(iterator: iterator);
 
-          String str;
+          String? str;
           try {
             str = utf8.decode(contentData);
           } catch (e) {}
-          asn1obj.value = str;
+          asn1obj.value = str ?? contentData;
         }
       }
       result.add(asn1obj);

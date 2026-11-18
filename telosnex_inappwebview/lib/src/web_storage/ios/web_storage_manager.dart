@@ -30,7 +30,8 @@ class IOSWebStorageManager {
         .fetchDataRecords(dataTypes: dataTypesList);
 
     for (var record in records) {
-      Set<WebsiteDataType> dataTypesString = record.dataTypes ?? <dynamic>{};
+      Set<WebsiteDataType> dataTypesString =
+          record.dataTypes ?? <WebsiteDataType>{};
       Set<IOSWKWebsiteDataType> dataTypes = {};
       for (var dataTypeValue in dataTypesString) {
         var dataType = IOSWKWebsiteDataType.fromNativeValue(

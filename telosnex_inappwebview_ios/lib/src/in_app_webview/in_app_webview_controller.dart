@@ -1887,7 +1887,7 @@ class IOSInAppWebViewController extends PlatformInAppWebViewController
     if (html == null || html.isEmpty) {
       return favicons;
     }
-    String assetPathBase;
+    String? assetPathBase;
 
     if (webviewUrl.isScheme("file")) {
       var assetPathSplit = webviewUrl.toString().split("/flutter_assets/");
