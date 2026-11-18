@@ -129,10 +129,7 @@ class MyInAppBrowser extends InAppBrowser {
   final Completer<void> firstPageLoaded = Completer<void>();
   final Completer<void> browserClosed = Completer<void>();
 
-  MyInAppBrowser({
-    super.windowId,
-    super.initialUserScripts,
-  });
+  MyInAppBrowser({super.windowId, super.initialUserScripts});
 
   @override
   Future onBrowserCreated() async {

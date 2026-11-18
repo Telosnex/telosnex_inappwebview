@@ -362,8 +362,7 @@ class WebPlatformInAppWebViewPlatform extends InAppWebViewPlatform {
 }
 
 class _PlatformInAppBrowser extends PlatformInAppBrowser {
-  _PlatformInAppBrowser(super.params)
-    : super.implementation();
+  _PlatformInAppBrowser(super.params) : super.implementation();
   static final _PlatformInAppBrowser _staticValue = _PlatformInAppBrowser(
     const PlatformInAppBrowserCreationParams(),
   );
@@ -372,8 +371,7 @@ class _PlatformInAppBrowser extends PlatformInAppBrowser {
 }
 
 class _PlatformChromeSafariBrowser extends PlatformChromeSafariBrowser {
-  _PlatformChromeSafariBrowser(super.params)
-    : super.implementation();
+  _PlatformChromeSafariBrowser(super.params) : super.implementation();
   static final _PlatformChromeSafariBrowser _staticValue =
       _PlatformChromeSafariBrowser(
         const PlatformChromeSafariBrowserCreationParams(),
@@ -384,9 +382,7 @@ class _PlatformChromeSafariBrowser extends PlatformChromeSafariBrowser {
 
 class _PlatformHttpAuthCredentialDatabase
     extends PlatformHttpAuthCredentialDatabase {
-  _PlatformHttpAuthCredentialDatabase(
-    super.params,
-  ) : super.implementation();
+  _PlatformHttpAuthCredentialDatabase(super.params) : super.implementation();
   static final _PlatformHttpAuthCredentialDatabase _staticValue =
       _PlatformHttpAuthCredentialDatabase(
         const PlatformHttpAuthCredentialDatabaseCreationParams(),
@@ -396,8 +392,7 @@ class _PlatformHttpAuthCredentialDatabase
 }
 
 class _PlatformProcessGlobalConfig extends PlatformProcessGlobalConfig {
-  _PlatformProcessGlobalConfig(super.params)
-    : super.implementation();
+  _PlatformProcessGlobalConfig(super.params) : super.implementation();
   static final _PlatformProcessGlobalConfig _staticValue =
       _PlatformProcessGlobalConfig(
         const PlatformProcessGlobalConfigCreationParams(),
@@ -407,8 +402,7 @@ class _PlatformProcessGlobalConfig extends PlatformProcessGlobalConfig {
 }
 
 class _PlatformProxyController extends PlatformProxyController {
-  _PlatformProxyController(super.params)
-    : super.implementation();
+  _PlatformProxyController(super.params) : super.implementation();
   static final _PlatformProxyController _staticValue = _PlatformProxyController(
     const PlatformProxyControllerCreationParams(),
   );
@@ -417,9 +411,7 @@ class _PlatformProxyController extends PlatformProxyController {
 }
 
 class _PlatformServiceWorkerController extends PlatformServiceWorkerController {
-  _PlatformServiceWorkerController(
-    super.params,
-  ) : super.implementation();
+  _PlatformServiceWorkerController(super.params) : super.implementation();
   static final _PlatformServiceWorkerController _staticValue =
       _PlatformServiceWorkerController(
         const PlatformServiceWorkerControllerCreationParams(),
@@ -432,8 +424,7 @@ class _PlatformServiceWorkerController extends PlatformServiceWorkerController {
 }
 
 class _PlatformTracingController extends PlatformTracingController {
-  _PlatformTracingController(super.params)
-    : super.implementation();
+  _PlatformTracingController(super.params) : super.implementation();
   static final _PlatformTracingController _staticValue =
       _PlatformTracingController(
         const PlatformTracingControllerCreationParams(),
@@ -444,9 +435,7 @@ class _PlatformTracingController extends PlatformTracingController {
 
 class _PlatformFindInteractionController
     extends PlatformFindInteractionController {
-  _PlatformFindInteractionController(
-    super.params,
-  ) : super.implementation();
+  _PlatformFindInteractionController(super.params) : super.implementation();
   static final _PlatformFindInteractionController _staticValue =
       _PlatformFindInteractionController(
         const PlatformFindInteractionControllerCreationParams(),
@@ -456,8 +445,7 @@ class _PlatformFindInteractionController
 }
 
 class _PlatformPrintJobController extends PlatformPrintJobController {
-  _PlatformPrintJobController(super.params)
-    : super.implementation();
+  _PlatformPrintJobController(super.params) : super.implementation();
 
   static final _PlatformPrintJobController _staticValue =
       _PlatformPrintJobController(
@@ -468,9 +456,7 @@ class _PlatformPrintJobController extends PlatformPrintJobController {
 }
 
 class _PlatformPullToRefreshController extends PlatformPullToRefreshController {
-  _PlatformPullToRefreshController(
-    super.params,
-  ) : super.implementation();
+  _PlatformPullToRefreshController(super.params) : super.implementation();
 
   static final _PlatformPullToRefreshController _staticValue =
       _PlatformPullToRefreshController(
@@ -482,9 +468,7 @@ class _PlatformPullToRefreshController extends PlatformPullToRefreshController {
 
 class _PlatformWebAuthenticationSession
     extends PlatformWebAuthenticationSession {
-  _PlatformWebAuthenticationSession(
-    super.params,
-  ) : super.implementation();
+  _PlatformWebAuthenticationSession(super.params) : super.implementation();
 
   static final _PlatformWebAuthenticationSession _staticValue =
       _PlatformWebAuthenticationSession(
@@ -495,8 +479,7 @@ class _PlatformWebAuthenticationSession
 }
 
 class _PlatformWebMessageChannel extends PlatformWebMessageChannel {
-  _PlatformWebMessageChannel(super.params)
-    : super.implementation();
+  _PlatformWebMessageChannel(super.params) : super.implementation();
 
   static final _PlatformWebMessageChannel _staticValue =
       _PlatformWebMessageChannel(
@@ -515,8 +498,7 @@ class _PlatformWebMessageChannel extends PlatformWebMessageChannel {
 }
 
 class _PlatformWebMessageListener extends PlatformWebMessageListener {
-  _PlatformWebMessageListener(super.params)
-    : super.implementation();
+  _PlatformWebMessageListener(super.params) : super.implementation();
 
   static final _PlatformWebMessageListener _staticValue =
       _PlatformWebMessageListener(
@@ -527,8 +509,7 @@ class _PlatformWebMessageListener extends PlatformWebMessageListener {
 }
 
 class _PlatformWebMessagePort extends PlatformWebMessagePort {
-  _PlatformWebMessagePort(super.params)
-    : super.implementation();
+  _PlatformWebMessagePort(super.params) : super.implementation();
 
   @override
   Future<void> close() {
@@ -557,8 +538,7 @@ class _PlatformWebMessagePort extends PlatformWebMessagePort {
 }
 
 class _PlatformWebStorageManager extends PlatformWebStorageManager {
-  _PlatformWebStorageManager(super.params)
-    : super.implementation();
+  _PlatformWebStorageManager(super.params) : super.implementation();
 
   static final _PlatformWebStorageManager _staticValue =
       _PlatformWebStorageManager(
@@ -569,8 +549,7 @@ class _PlatformWebStorageManager extends PlatformWebStorageManager {
 }
 
 class _PlatformWebViewEnvironment extends PlatformWebViewEnvironment {
-  _PlatformWebViewEnvironment(super.params)
-    : super.implementation();
+  _PlatformWebViewEnvironment(super.params) : super.implementation();
   static final _PlatformWebViewEnvironment _staticValue =
       _PlatformWebViewEnvironment(
         const PlatformWebViewEnvironmentCreationParams(),
@@ -581,9 +560,7 @@ class _PlatformWebViewEnvironment extends PlatformWebViewEnvironment {
 
 class _PlatformWebNotificationController
     extends PlatformWebNotificationController {
-  _PlatformWebNotificationController(
-    super.params,
-  ) : super.implementation();
+  _PlatformWebNotificationController(super.params) : super.implementation();
 
   static final _PlatformWebNotificationController _staticValue =
       _PlatformWebNotificationController(
@@ -597,8 +574,7 @@ class _PlatformWebNotificationController
 }
 
 class _PlatformWebViewFeature extends PlatformWebViewFeature {
-  _PlatformWebViewFeature(super.params)
-    : super.implementation();
+  _PlatformWebViewFeature(super.params) : super.implementation();
 
   static final _PlatformWebViewFeature _staticValue = _PlatformWebViewFeature(
     PlatformWebViewFeatureCreationParams(),
@@ -607,8 +583,7 @@ class _PlatformWebViewFeature extends PlatformWebViewFeature {
 }
 
 class _PlatformAssetsPathHandler extends PlatformAssetsPathHandler {
-  _PlatformAssetsPathHandler(super.params)
-    : super.implementation();
+  _PlatformAssetsPathHandler(super.params) : super.implementation();
 
   static final _PlatformAssetsPathHandler _staticValue =
       _PlatformAssetsPathHandler(
@@ -633,9 +608,7 @@ class _PlatformAssetsPathHandler extends PlatformAssetsPathHandler {
 }
 
 class _PlatformResourcesPathHandler extends PlatformResourcesPathHandler {
-  _PlatformResourcesPathHandler(
-    super.params,
-  ) : super.implementation();
+  _PlatformResourcesPathHandler(super.params) : super.implementation();
 
   static final _PlatformResourcesPathHandler _staticValue =
       _PlatformResourcesPathHandler(
@@ -661,9 +634,7 @@ class _PlatformResourcesPathHandler extends PlatformResourcesPathHandler {
 
 class _PlatformInternalStoragePathHandler
     extends PlatformInternalStoragePathHandler {
-  _PlatformInternalStoragePathHandler(
-    super.params,
-  ) : super.implementation();
+  _PlatformInternalStoragePathHandler(super.params) : super.implementation();
 
   static final _PlatformInternalStoragePathHandler _staticValue =
       _PlatformInternalStoragePathHandler(
@@ -689,8 +660,7 @@ class _PlatformInternalStoragePathHandler
 }
 
 class _PlatformCustomPathHandler extends PlatformCustomPathHandler {
-  _PlatformCustomPathHandler(super.params)
-    : super.implementation();
+  _PlatformCustomPathHandler(super.params) : super.implementation();
 
   static final _PlatformCustomPathHandler _staticValue =
       _PlatformCustomPathHandler(

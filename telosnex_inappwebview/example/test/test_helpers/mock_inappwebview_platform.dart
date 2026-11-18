@@ -804,7 +804,6 @@ class MockPlatformInAppBrowser extends PlatformInAppBrowser
 
   @override
   bool isOpened() => true;
-
 }
 
 class MockPlatformChromeSafariBrowser extends PlatformChromeSafariBrowser

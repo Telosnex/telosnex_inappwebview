@@ -41,10 +41,7 @@ class ASN1DistinguishedNames {
   @override
   String toString() => "($_oid, $_representation)";
 
-  static const COMMON_NAME = ASN1DistinguishedNames._internal(
-    "2.5.4.3",
-    "CN",
-  );
+  static const COMMON_NAME = ASN1DistinguishedNames._internal("2.5.4.3", "CN");
   static const DN_QUALIFIER = ASN1DistinguishedNames._internal(
     "2.5.4.46",
     "DNQ",
@@ -57,12 +54,11 @@ class ASN1DistinguishedNames {
     "2.5.4.42",
     "GIVENNAME",
   );
-  static const SURNAME = ASN1DistinguishedNames._internal(
-    "2.5.4.4",
-    "SURNAME",
+  static const SURNAME = ASN1DistinguishedNames._internal("2.5.4.4", "SURNAME");
+  static const ORGANIZATIONAL_UNIT_NAME = ASN1DistinguishedNames._internal(
+    "2.5.4.11",
+    "OU",
   );
-  static const ORGANIZATIONAL_UNIT_NAME =
-      ASN1DistinguishedNames._internal("2.5.4.11", "OU");
   static const ORGANIZATION_NAME = ASN1DistinguishedNames._internal(
     "2.5.4.10",
     "O",
@@ -71,18 +67,12 @@ class ASN1DistinguishedNames {
     "2.5.4.9",
     "STREET",
   );
-  static const LOCALITY_NAME = ASN1DistinguishedNames._internal(
-    "2.5.4.7",
-    "L",
-  );
+  static const LOCALITY_NAME = ASN1DistinguishedNames._internal("2.5.4.7", "L");
   static const STATE_OR_PROVINCE_NAME = ASN1DistinguishedNames._internal(
     "2.5.4.8",
     "ST",
   );
-  static const COUNTRY_NAME = ASN1DistinguishedNames._internal(
-    "2.5.4.6",
-    "C",
-  );
+  static const COUNTRY_NAME = ASN1DistinguishedNames._internal("2.5.4.6", "C");
   static const EMAIL = ASN1DistinguishedNames._internal(
     "1.2.840.113549.1.9.1",
     "E",

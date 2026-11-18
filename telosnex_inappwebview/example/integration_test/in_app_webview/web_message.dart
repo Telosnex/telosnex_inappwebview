@@ -220,8 +220,7 @@ void webMessage() {
                   onPostMessage:
                       (message, sourceOrigin, isMainFrame, replyProxy) {
                         if (isMainFrame &&
-                            ('$sourceOrigin/') ==
-                                testUrlExample.toString()) {
+                            ('$sourceOrigin/') == testUrlExample.toString()) {
                           replyProxy.postMessage(
                             WebMessage(data: message!.data + " and back"),
                           );
@@ -281,8 +280,7 @@ void webMessage() {
                   onPostMessage:
                       (message, sourceOrigin, isMainFrame, replyProxy) {
                         if (isMainFrame &&
-                            ('$sourceOrigin/') ==
-                                testUrlExample.toString()) {
+                            ('$sourceOrigin/') == testUrlExample.toString()) {
                           replyProxy.postMessage(
                             WebMessage(
                               data: utf8.encode(

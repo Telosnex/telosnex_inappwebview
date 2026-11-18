@@ -15,7 +15,9 @@ import 'webview_environment/webview_environment.dart';
 class WindowsCookieManagerCreationParams
     extends PlatformCookieManagerCreationParams {
   /// Creates a new [WindowsCookieManagerCreationParams] instance.
-  const WindowsCookieManagerCreationParams({WindowsWebViewEnvironment? super.webViewEnvironment});
+  const WindowsCookieManagerCreationParams({
+    WindowsWebViewEnvironment? super.webViewEnvironment,
+  });
 
   /// Creates a [WindowsCookieManagerCreationParams] instance based on [PlatformCookieManagerCreationParams].
   factory WindowsCookieManagerCreationParams.fromPlatformCookieManagerCreationParams(
@@ -30,7 +32,8 @@ class WindowsCookieManagerCreationParams
   }
 
   @override
-  WindowsWebViewEnvironment? get webViewEnvironment => super.webViewEnvironment as WindowsWebViewEnvironment?;
+  WindowsWebViewEnvironment? get webViewEnvironment =>
+      super.webViewEnvironment as WindowsWebViewEnvironment?;
 }
 
 ///{@macro telosnex_inappwebview_platform_interface.PlatformCookieManager}

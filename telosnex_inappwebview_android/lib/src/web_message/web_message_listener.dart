@@ -87,10 +87,8 @@ class AndroidWebMessageListener extends PlatformWebMessageListener
     switch (call.method) {
       case "onPostMessage":
         _replyProxy ??= AndroidJavaScriptReplyProxy(
-            PlatformJavaScriptReplyProxyCreationParams(
-              webMessageListener: this,
-            ),
-          );
+          PlatformJavaScriptReplyProxyCreationParams(webMessageListener: this),
+        );
         if (onPostMessage != null) {
           WebMessage? message = call.arguments["message"] != null
               ? WebMessage.fromMap(

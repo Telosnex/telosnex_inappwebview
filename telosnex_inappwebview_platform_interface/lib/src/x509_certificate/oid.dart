@@ -120,8 +120,7 @@ class OID {
 
   String toValue() => _value;
 
-  String name() =>
-      _oidMapName.containsKey(_value) ? _oidMapName[_value]! : "";
+  String name() => _oidMapName.containsKey(_value) ? _oidMapName[_value]! : "";
 
   @override
   String toString() => "($_value, ${name()})";
@@ -135,31 +134,17 @@ class OID {
   static const ecdsaWithSHA256 = OID._internal("1.2.840.10045.4.3.2");
   static const ecdsaWithSHA512 = OID._internal("1.2.840.10045.4.3.4");
   static const rsaEncryption = OID._internal("1.2.840.113549.1.1.1");
-  static const md2WithRSAEncryption = OID._internal(
-    "1.2.840.113549.1.1.2",
-  );
-  static const md4WithRSAEncryption = OID._internal(
-    "1.2.840.113549.1.1.3",
-  );
-  static const md5WithRSAEncryption = OID._internal(
-    "1.2.840.113549.1.1.4",
-  );
-  static const sha1WithRSAEncryption = OID._internal(
-    "1.2.840.113549.1.1.5",
-  );
+  static const md2WithRSAEncryption = OID._internal("1.2.840.113549.1.1.2");
+  static const md4WithRSAEncryption = OID._internal("1.2.840.113549.1.1.3");
+  static const md5WithRSAEncryption = OID._internal("1.2.840.113549.1.1.4");
+  static const sha1WithRSAEncryption = OID._internal("1.2.840.113549.1.1.5");
   static const RSAES_OAEP = OID._internal("1.2.840.113549.1.1.7");
   static const mgf1 = OID._internal(".2.840.113549.1.1.8");
   static const pSpecified = OID._internal(".2.840.113549.1.1.9");
   static const RSASSA_PSS = OID._internal(".2.840.113549.1.1.10");
-  static const sha256WithRSAEncryption = OID._internal(
-    "1.2.840.113549.1.1.11",
-  );
-  static const sha384WithRSAEncryption = OID._internal(
-    "1.2.840.113549.1.1.12",
-  );
-  static const sha512WithRSAEncryption = OID._internal(
-    "1.2.840.113549.1.1.13",
-  );
+  static const sha256WithRSAEncryption = OID._internal("1.2.840.113549.1.1.11");
+  static const sha384WithRSAEncryption = OID._internal("1.2.840.113549.1.1.12");
+  static const sha512WithRSAEncryption = OID._internal("1.2.840.113549.1.1.13");
   static const pkcs7data = OID._internal("1.2.840.113549.1.7.1");
   static const pkcs7signedData = OID._internal("1.2.840.113549.1.7.2");
   static const pkcs7envelopedData = OID._internal("1.2.840.113549.1.7.3");
@@ -171,9 +156,7 @@ class OID {
   static const messageDigest = OID._internal("1.2.840.113549.1.9.4");
   static const signingTime = OID._internal("1.2.840.113549.1.9.5");
   static const dsaWithSha1 = OID._internal("1.2.840.10040.4.3");
-  static const certificateExtension = OID._internal(
-    "1.3.6.1.4.1.11129.2.4.2",
-  );
+  static const certificateExtension = OID._internal("1.3.6.1.4.1.11129.2.4.2");
   static const jurisdictionOfIncorporationSP = OID._internal(
     "1.3.6.1.4.1.311.60.2.1.2",
   );
@@ -200,9 +183,7 @@ class OID {
   static const sha256 = OID._internal("2.16.840.1.101.3.4.2.1");
   static const sha384 = OID._internal("2.16.840.1.101.3.4.2.2");
   static const sha512 = OID._internal("2.16.840.1.101.3.4.2.3");
-  static const VeriSignEVpolicy = OID._internal(
-    "2.16.840.1.113733.1.7.23.6",
-  );
+  static const VeriSignEVpolicy = OID._internal("2.16.840.1.113733.1.7.23.6");
   static const extendedValidation = OID._internal("2.23.140.1.1");
   static const organizationValidated = OID._internal("2.23.140.1.2.2");
   static const subjectKeyIdentifier = OID._internal("2.5.29.14");

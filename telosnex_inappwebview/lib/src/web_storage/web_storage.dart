@@ -226,7 +226,8 @@ class SessionStorage extends Storage {
 
   /// Implementation of [PlatformSessionStorage] for the current platform.
   @override
-  PlatformSessionStorage get platform => super.platform as PlatformSessionStorage;
+  PlatformSessionStorage get platform =>
+      super.platform as PlatformSessionStorage;
 
   ///Check if the current class is supported by the [defaultTargetPlatform] or a specific [platform].
   static bool isClassSupported({TargetPlatform? platform}) =>

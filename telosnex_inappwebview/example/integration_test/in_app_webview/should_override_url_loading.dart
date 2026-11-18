@@ -167,10 +167,7 @@ void shouldOverrideUrlLoading() {
           .first
           .timeout(const Duration(milliseconds: 500), onTimeout: () => null);
       final String? currentUrl = (await controller.getUrl())?.toString();
-      expect(
-        currentUrl,
-        isNot(contains(testUrl4.host.replaceAll("www.", ""))),
-      );
+      expect(currentUrl, isNot(contains(testUrl4.host.replaceAll("www.", ""))));
 
       pageLoads.close();
     });

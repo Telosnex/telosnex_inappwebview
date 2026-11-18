@@ -44,10 +44,12 @@ class LinuxInAppBrowserCreationParams
   }
 
   @override
-  LinuxFindInteractionController? get findInteractionController => super.findInteractionController as LinuxFindInteractionController?;
+  LinuxFindInteractionController? get findInteractionController =>
+      super.findInteractionController as LinuxFindInteractionController?;
 
   @override
-  LinuxWebViewEnvironment? get webViewEnvironment => super.webViewEnvironment as LinuxWebViewEnvironment?;
+  LinuxWebViewEnvironment? get webViewEnvironment =>
+      super.webViewEnvironment as LinuxWebViewEnvironment?;
 }
 
 ///{@macro telosnex_inappwebview_platform_interface.PlatformInAppBrowser}

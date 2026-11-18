@@ -13,9 +13,7 @@ void safeBrowsing() {
           textDirection: TextDirection.ltr,
           child: InAppWebView(
             key: GlobalKey(),
-            initialUrlRequest: URLRequest(
-              url: testChromeSafeBrowsingMalware,
-            ),
+            initialUrlRequest: URLRequest(url: testChromeSafeBrowsingMalware),
             initialSettings: InAppWebViewSettings(
               // if I set javaScriptEnabled to true, it will crash!
               javaScriptEnabled: false,

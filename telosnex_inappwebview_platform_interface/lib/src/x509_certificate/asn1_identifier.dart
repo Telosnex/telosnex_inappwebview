@@ -110,12 +110,8 @@ class ASN1IdentifierTagNumber {
   static const BIT_STRING = ASN1IdentifierTagNumber._internal(0x03);
   static const OCTET_STRING = ASN1IdentifierTagNumber._internal(0x04);
   static const NULL = ASN1IdentifierTagNumber._internal(0x05);
-  static const OBJECT_IDENTIFIER = ASN1IdentifierTagNumber._internal(
-    0x06,
-  );
-  static const OBJECT_DESCRIPTOR = ASN1IdentifierTagNumber._internal(
-    0x07,
-  );
+  static const OBJECT_IDENTIFIER = ASN1IdentifierTagNumber._internal(0x06);
+  static const OBJECT_DESCRIPTOR = ASN1IdentifierTagNumber._internal(0x07);
   static const EXTERNAL = ASN1IdentifierTagNumber._internal(0x08);
   static const READ = ASN1IdentifierTagNumber._internal(0x09);
   static const ENUMERATED = ASN1IdentifierTagNumber._internal(0x0A);

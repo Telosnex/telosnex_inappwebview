@@ -251,7 +251,8 @@ class MacOSInAppWebViewWidgetCreationParams
       );
 
   @override
-  MacOSFindInteractionController? get findInteractionController => super.findInteractionController as MacOSFindInteractionController?;
+  MacOSFindInteractionController? get findInteractionController =>
+      super.findInteractionController as MacOSFindInteractionController?;
 }
 
 ///{@macro telosnex_inappwebview_platform_interface.PlatformInAppWebViewWidget}

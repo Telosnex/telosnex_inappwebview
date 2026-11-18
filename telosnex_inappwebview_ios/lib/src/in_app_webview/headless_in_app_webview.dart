@@ -244,10 +244,12 @@ class IOSHeadlessInAppWebViewCreationParams
       );
 
   @override
-  IOSFindInteractionController? get findInteractionController => super.findInteractionController as IOSFindInteractionController?;
+  IOSFindInteractionController? get findInteractionController =>
+      super.findInteractionController as IOSFindInteractionController?;
 
   @override
-  IOSPullToRefreshController? get pullToRefreshController => super.pullToRefreshController as IOSPullToRefreshController?;
+  IOSPullToRefreshController? get pullToRefreshController =>
+      super.pullToRefreshController as IOSPullToRefreshController?;
 }
 
 ///{@macro telosnex_inappwebview_platform_interface.PlatformHeadlessInAppWebView}

@@ -263,10 +263,12 @@ class WindowsHeadlessInAppWebViewCreationParams
       );
 
   @override
-  WindowsFindInteractionController? get findInteractionController => super.findInteractionController as WindowsFindInteractionController?;
+  WindowsFindInteractionController? get findInteractionController =>
+      super.findInteractionController as WindowsFindInteractionController?;
 
   @override
-  WindowsWebViewEnvironment? get webViewEnvironment => super.webViewEnvironment as WindowsWebViewEnvironment?;
+  WindowsWebViewEnvironment? get webViewEnvironment =>
+      super.webViewEnvironment as WindowsWebViewEnvironment?;
 }
 
 ///{@macro telosnex_inappwebview_platform_interface.PlatformHeadlessInAppWebView}

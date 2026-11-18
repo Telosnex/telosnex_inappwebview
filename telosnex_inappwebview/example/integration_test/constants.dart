@@ -17,15 +17,9 @@ final testUrl404 = WebUri('https://google.com/404');
 final testWebPlatformBaseUrl = WebUri(
   Uri.base.toString().replaceFirst("/#/", "/"),
 );
-final testWebPlatformUrl1 = WebUri(
-  '${testWebPlatformBaseUrl}page.html',
-);
-final testWebPlatformUrl2 = WebUri(
-  '${testWebPlatformBaseUrl}page-2.html',
-);
-final testWebPlatformUrl3 = WebUri(
-  '${testWebPlatformBaseUrl}heavy-page.html',
-);
+final testWebPlatformUrl1 = WebUri('${testWebPlatformBaseUrl}page.html');
+final testWebPlatformUrl2 = WebUri('${testWebPlatformBaseUrl}page-2.html');
+final testWebPlatformUrl3 = WebUri('${testWebPlatformBaseUrl}heavy-page.html');
 final testNotAWebsiteUrl = WebUri('https://www.notawebsite..com/');
 final testChromeSafeBrowsingMalware = WebUri(
   'chrome://safe-browsing/match?type=malware',
@@ -38,9 +32,7 @@ const testWebviewAssetLoaderDomain = 'my.custom.domain.com';
 final testWebviewAssetLoaderUrl = WebUri(
   'https://$testWebviewAssetLoaderDomain/assets/flutter_assets/test_assets/website/index.html',
 );
-final testTwaUrl = WebUri(
-  'https://inappwebview.dev/test-twa-postmessage.html',
-);
+final testTwaUrl = WebUri('https://inappwebview.dev/test-twa-postmessage.html');
 final testCustomTabsPostMessageUrl = WebUri(
   'https://inappwebview.dev/test-twa-postmessage.html',
 );

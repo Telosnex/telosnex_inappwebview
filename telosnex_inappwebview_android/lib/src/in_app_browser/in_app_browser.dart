@@ -43,10 +43,12 @@ class AndroidInAppBrowserCreationParams
   }
 
   @override
-  AndroidFindInteractionController? get findInteractionController => super.findInteractionController as AndroidFindInteractionController?;
+  AndroidFindInteractionController? get findInteractionController =>
+      super.findInteractionController as AndroidFindInteractionController?;
 
   @override
-  AndroidPullToRefreshController? get pullToRefreshController => super.pullToRefreshController as AndroidPullToRefreshController?;
+  AndroidPullToRefreshController? get pullToRefreshController =>
+      super.pullToRefreshController as AndroidPullToRefreshController?;
 }
 
 ///{@macro telosnex_inappwebview_platform_interface.PlatformInAppBrowser}

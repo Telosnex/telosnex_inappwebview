@@ -51,7 +51,8 @@ class WebPlatformInAppWebViewController extends PlatformInAppWebViewController
     UserScriptInjectionTime.AT_DOCUMENT_START: <UserScript>[],
     UserScriptInjectionTime.AT_DOCUMENT_END: <UserScript>[],
   };
-  final Map<String, Function> _javaScriptHandlersMap = HashMap<String, Function>();
+  final Map<String, Function> _javaScriptHandlersMap =
+      HashMap<String, Function>();
   final Map<String, ScriptHtmlTagAttributes> _injectedScriptsFromURL = {};
 
   dynamic _controllerFromPlatform;

@@ -113,8 +113,7 @@ class AndroidChromeCustomTabsOptions
   }
 
   static AndroidChromeCustomTabsOptions fromMap(Map<String, dynamic> map) {
-    AndroidChromeCustomTabsOptions options =
-        AndroidChromeCustomTabsOptions();
+    AndroidChromeCustomTabsOptions options = AndroidChromeCustomTabsOptions();
     // ignore: deprecated_member_use_from_same_package
     options.addDefaultShareMenuItem = map["addDefaultShareMenuItem"];
     options.shareState = map["shareState"];

@@ -242,7 +242,8 @@ class WindowsInAppWebViewController extends PlatformInAppWebViewController
             _inAppBrowserEventHandler != null) {
           String? url = call.arguments["url"];
           WebUri? uri = url != null ? WebUri(url) : null;
-          if (webviewParams != null && webviewParams!.onContentLoading != null) {
+          if (webviewParams != null &&
+              webviewParams!.onContentLoading != null) {
             webviewParams!.onContentLoading!(_controllerFromPlatform, uri);
           } else {
             _inAppBrowserEventHandler!.onContentLoading(uri);
@@ -355,7 +356,8 @@ class WindowsInAppWebViewController extends PlatformInAppWebViewController
                 webviewParams!.onProgressChanged != null) ||
             _inAppBrowserEventHandler != null) {
           int progress = call.arguments["progress"];
-          if (webviewParams != null && webviewParams!.onProgressChanged != null) {
+          if (webviewParams != null &&
+              webviewParams!.onProgressChanged != null) {
             webviewParams!.onProgressChanged!(
               _controllerFromPlatform,
               progress,
@@ -415,7 +417,8 @@ class WindowsInAppWebViewController extends PlatformInAppWebViewController
           Map<String, dynamic> arguments = call.arguments
               .cast<String, dynamic>();
           ConsoleMessage consoleMessage = ConsoleMessage.fromMap(arguments)!;
-          if (webviewParams != null && webviewParams!.onConsoleMessage != null) {
+          if (webviewParams != null &&
+              webviewParams!.onConsoleMessage != null) {
             webviewParams!.onConsoleMessage!(
               _controllerFromPlatform,
               consoleMessage,
@@ -843,7 +846,8 @@ class WindowsInAppWebViewController extends PlatformInAppWebViewController
             arguments,
           )!;
 
-          if (webviewParams != null && webviewParams!.onFaviconChanged != null) {
+          if (webviewParams != null &&
+              webviewParams!.onFaviconChanged != null) {
             webviewParams!.onFaviconChanged!(_controllerFromPlatform, request);
           } else {
             _inAppBrowserEventHandler!.onFaviconChanged(request);
@@ -1798,7 +1802,8 @@ class WindowsInAppWebViewController extends PlatformInAppWebViewController
               .cast<String, dynamic>();
           final request = SaveAsUIShowingRequest.fromMap(arguments)!;
 
-          if (webviewParams != null && webviewParams!.onSaveAsUIShowing != null) {
+          if (webviewParams != null &&
+              webviewParams!.onSaveAsUIShowing != null) {
             return (await webviewParams!.onSaveAsUIShowing!(
               _controllerFromPlatform,
               request,
@@ -2286,8 +2291,7 @@ class WindowsInAppWebViewController extends PlatformInAppWebViewController
     // try to get /favicon.ico
     try {
       HttpClient client = HttpClient();
-      var faviconUrl =
-          "${webviewUrl.scheme}://${webviewUrl.host}/favicon.ico";
+      var faviconUrl = "${webviewUrl.scheme}://${webviewUrl.host}/favicon.ico";
       var faviconUri = WebUri(faviconUrl);
       var headRequest = await client.headUrl(faviconUri);
       var headResponse = await headRequest.close();

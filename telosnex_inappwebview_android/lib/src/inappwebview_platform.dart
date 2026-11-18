@@ -613,9 +613,7 @@ class AndroidInAppWebViewPlatform extends InAppWebViewPlatform {
 
 class _PlatformWebAuthenticationSession
     extends PlatformWebAuthenticationSession {
-  _PlatformWebAuthenticationSession(
-    super.params,
-  ) : super.implementation();
+  _PlatformWebAuthenticationSession(super.params) : super.implementation();
 
   static final _PlatformWebAuthenticationSession _staticValue =
       _PlatformWebAuthenticationSession(
@@ -626,8 +624,7 @@ class _PlatformWebAuthenticationSession
 }
 
 class _PlatformWebViewEnvironment extends PlatformWebViewEnvironment {
-  _PlatformWebViewEnvironment(super.params)
-    : super.implementation();
+  _PlatformWebViewEnvironment(super.params) : super.implementation();
   static final _PlatformWebViewEnvironment _staticValue =
       _PlatformWebViewEnvironment(
         const PlatformWebViewEnvironmentCreationParams(),
@@ -638,9 +635,7 @@ class _PlatformWebViewEnvironment extends PlatformWebViewEnvironment {
 
 class _PlatformWebNotificationController
     extends PlatformWebNotificationController {
-  _PlatformWebNotificationController(
-    super.params,
-  ) : super.implementation();
+  _PlatformWebNotificationController(super.params) : super.implementation();
 
   static final _PlatformWebNotificationController _staticValue =
       _PlatformWebNotificationController(

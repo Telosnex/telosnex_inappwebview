@@ -336,7 +336,8 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
                 webviewParams!.onProgressChanged != null) ||
             _inAppBrowserEventHandler != null) {
           int progress = call.arguments["progress"];
-          if (webviewParams != null && webviewParams!.onProgressChanged != null) {
+          if (webviewParams != null &&
+              webviewParams!.onProgressChanged != null) {
             webviewParams!.onProgressChanged!(
               _controllerFromPlatform,
               progress,
@@ -375,7 +376,8 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
           Map<String, dynamic> arguments = call.arguments
               .cast<String, dynamic>();
           ConsoleMessage consoleMessage = ConsoleMessage.fromMap(arguments)!;
-          if (webviewParams != null && webviewParams!.onConsoleMessage != null) {
+          if (webviewParams != null &&
+              webviewParams!.onConsoleMessage != null) {
             webviewParams!.onConsoleMessage!(
               _controllerFromPlatform,
               consoleMessage,
@@ -419,8 +421,7 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
                 _controllerFromPlatform,
                 downloadStartRequest,
               );
-            }
-            else {
+            } else {
               webviewParams!.onDownloadStart!(
                 _controllerFromPlatform,
                 downloadStartRequest.url,
@@ -1976,8 +1977,7 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
     // try to get /favicon.ico
     try {
       HttpClient client = HttpClient();
-      var faviconUrl =
-          "${webviewUrl.scheme}://${webviewUrl.host}/favicon.ico";
+      var faviconUrl = "${webviewUrl.scheme}://${webviewUrl.host}/favicon.ico";
       var faviconUri = WebUri(faviconUrl);
       var headRequest = await client.headUrl(faviconUri);
       var headResponse = await headRequest.close();

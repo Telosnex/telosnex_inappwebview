@@ -2,8 +2,7 @@ import 'platform_in_app_localhost_server.dart';
 
 /// The default server on platforms that cannot open a listening socket.
 class DefaultInAppLocalhostServer extends PlatformInAppLocalhostServer {
-  DefaultInAppLocalhostServer(super.params)
-    : super.implementation();
+  DefaultInAppLocalhostServer(super.params) : super.implementation();
 
   static final _staticValue = DefaultInAppLocalhostServer(
     const PlatformInAppLocalhostServerCreationParams(),

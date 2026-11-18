@@ -24,8 +24,7 @@ class ContentWorld {
   ContentWorld.world({required this.name}) {
     // WINDOW-ID- is used internally by the plugin!
     assert(
-      !name.startsWith("WINDOW-ID-") &&
-          !name.contains(_contentWorldNameRegExp),
+      !name.startsWith("WINDOW-ID-") && !name.contains(_contentWorldNameRegExp),
     );
   }
 

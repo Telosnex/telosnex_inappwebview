@@ -198,13 +198,11 @@ class PlatformInfoScreen extends StatelessWidget {
   Map<String, bool> _getControllerFeatures() {
     try {
       return {
-        '$PullToRefreshController':
-            PullToRefreshController.isClassSupported(),
+        '$PullToRefreshController': PullToRefreshController.isClassSupported(),
         '$FindInteractionController':
             FindInteractionController.isClassSupported(),
         '$PrintJobController': PrintJobController.isClassSupported(),
-        '$ServiceWorkerController':
-            ServiceWorkerController.isClassSupported(),
+        '$ServiceWorkerController': ServiceWorkerController.isClassSupported(),
         '$ProxyController': ProxyController.isClassSupported(),
         '$TracingController': TracingController.isClassSupported(),
       };

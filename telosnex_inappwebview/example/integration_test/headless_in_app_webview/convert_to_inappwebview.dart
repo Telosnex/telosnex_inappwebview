@@ -68,9 +68,6 @@ void convertToInAppWebView() {
     await widgetController.loadUrl(
       urlRequest: URLRequest(url: testCrossPlatformUrl2),
     );
-    expect(
-      Uri.parse(await loadedUrl.future).host,
-      testCrossPlatformUrl2.host,
-    );
+    expect(Uri.parse(await loadedUrl.future).host, testCrossPlatformUrl2.host);
   }, skip: shouldSkip);
 }

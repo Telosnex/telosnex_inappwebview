@@ -195,7 +195,8 @@ class LinuxInAppWebViewWidgetCreationParams
       );
 
   @override
-  LinuxWebViewEnvironment? get webViewEnvironment => super.webViewEnvironment as LinuxWebViewEnvironment?;
+  LinuxWebViewEnvironment? get webViewEnvironment =>
+      super.webViewEnvironment as LinuxWebViewEnvironment?;
 }
 
 ///{@macro telosnex_inappwebview_platform_interface.PlatformInAppWebViewWidget}

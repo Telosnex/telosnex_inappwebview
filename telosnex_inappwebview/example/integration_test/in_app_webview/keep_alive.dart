@@ -5,9 +5,7 @@ void keepAlive() {
     PlatformInAppWebViewWidgetCreationParamsProperty.keepAlive,
   );
 
-  final initialUrl = !kIsWeb
-      ? testCrossPlatformUrl1
-      : testWebPlatformUrl1;
+  final initialUrl = !kIsWeb ? testCrossPlatformUrl1 : testWebPlatformUrl1;
 
   skippableTestWidgets('Keep Alive', (WidgetTester tester) async {
     final keepAlive = InAppWebViewKeepAlive();

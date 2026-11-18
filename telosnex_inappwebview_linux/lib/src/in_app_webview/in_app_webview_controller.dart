@@ -254,7 +254,8 @@ class LinuxInAppWebViewController extends PlatformInAppWebViewController
                 webviewParams!.onProgressChanged != null) ||
             _inAppBrowserEventHandler != null) {
           int progress = call.arguments["progress"];
-          if (webviewParams != null && webviewParams!.onProgressChanged != null) {
+          if (webviewParams != null &&
+              webviewParams!.onProgressChanged != null) {
             webviewParams!.onProgressChanged!(
               _controllerFromPlatform,
               progress,
@@ -271,7 +272,8 @@ class LinuxInAppWebViewController extends PlatformInAppWebViewController
           Map<String, dynamic> arguments = call.arguments
               .cast<String, dynamic>();
           ConsoleMessage consoleMessage = ConsoleMessage.fromMap(arguments)!;
-          if (webviewParams != null && webviewParams!.onConsoleMessage != null) {
+          if (webviewParams != null &&
+              webviewParams!.onConsoleMessage != null) {
             webviewParams!.onConsoleMessage!(
               _controllerFromPlatform,
               consoleMessage,
@@ -580,7 +582,8 @@ class LinuxInAppWebViewController extends PlatformInAppWebViewController
           JsBeforeUnloadRequest jsBeforeUnloadRequest =
               JsBeforeUnloadRequest.fromMap(arguments)!;
 
-          if (webviewParams != null && webviewParams!.onJsBeforeUnload != null) {
+          if (webviewParams != null &&
+              webviewParams!.onJsBeforeUnload != null) {
             return (await webviewParams!.onJsBeforeUnload!(
               _controllerFromPlatform,
               jsBeforeUnloadRequest,
@@ -747,7 +750,8 @@ class LinuxInAppWebViewController extends PlatformInAppWebViewController
           if (faviconUrl != null) {
             // Create a placeholder Uint8List since we don't have the actual icon
             // The favicon URL could be used to download the icon if needed
-            if (webviewParams != null && webviewParams!.onReceivedIcon != null) {
+            if (webviewParams != null &&
+                webviewParams!.onReceivedIcon != null) {
               webviewParams!.onReceivedIcon!(
                 _controllerFromPlatform,
                 Uint8List(0),
@@ -963,7 +967,8 @@ class LinuxInAppWebViewController extends PlatformInAppWebViewController
             arguments,
           )!;
 
-          if (webviewParams != null && webviewParams!.onShowFileChooser != null) {
+          if (webviewParams != null &&
+              webviewParams!.onShowFileChooser != null) {
             return (await webviewParams!.onShowFileChooser!(
               _controllerFromPlatform,
               request,
@@ -1161,7 +1166,7 @@ class LinuxInAppWebViewController extends PlatformInAppWebViewController
               webviewParams!.onWindowBlur!(_controllerFromPlatform);
             } else if (_inAppBrowserEventHandler != null) {
               _inAppBrowserEventHandler!.onWindowBlur();
-        }
+            }
             return null;
           case "onInjectedScriptLoaded":
             String id = handlerData.args[0];
@@ -2110,8 +2115,7 @@ class LinuxInAppWebViewController extends PlatformInAppWebViewController
     // try to get /favicon.ico
     try {
       HttpClient client = HttpClient();
-      var faviconUrl =
-          "${webviewUrl.scheme}://${webviewUrl.host}/favicon.ico";
+      var faviconUrl = "${webviewUrl.scheme}://${webviewUrl.host}/favicon.ico";
       var faviconUri = WebUri(faviconUrl);
       var headRequest = await client.headUrl(faviconUri);
       var headResponse = await headRequest.close();

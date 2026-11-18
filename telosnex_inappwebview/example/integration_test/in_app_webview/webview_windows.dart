@@ -334,9 +334,7 @@ void webViewWindows() {
       expect(currentUrl, contains(testUrl1.host));
 
       await controller.goBack();
-      final urlAfterGoBack = await waitForUrl(
-        testCrossPlatformUrl1.toString(),
-      );
+      final urlAfterGoBack = await waitForUrl(testCrossPlatformUrl1.toString());
       expect(urlAfterGoBack, contains(testCrossPlatformUrl1.host));
 
       pageLoads.close();

@@ -30,9 +30,8 @@ class KeyUsage {
 
   int toValue() => _value;
 
-  String name() => _KeyUsageMapName.containsKey(_value)
-      ? _KeyUsageMapName[_value]!
-      : "";
+  String name() =>
+      _KeyUsageMapName.containsKey(_value) ? _KeyUsageMapName[_value]! : "";
 
   @override
   String toString() => "($_value, ${name()})";

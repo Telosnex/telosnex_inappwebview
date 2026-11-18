@@ -246,10 +246,12 @@ class LinuxHeadlessInAppWebViewCreationParams
       );
 
   @override
-  LinuxWebViewEnvironment? get webViewEnvironment => super.webViewEnvironment as LinuxWebViewEnvironment?;
+  LinuxWebViewEnvironment? get webViewEnvironment =>
+      super.webViewEnvironment as LinuxWebViewEnvironment?;
 
   @override
-  LinuxFindInteractionController? get findInteractionController => super.findInteractionController as LinuxFindInteractionController?;
+  LinuxFindInteractionController? get findInteractionController =>
+      super.findInteractionController as LinuxFindInteractionController?;
 }
 
 ///{@macro telosnex_inappwebview_platform_interface.PlatformHeadlessInAppWebView}

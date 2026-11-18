@@ -282,7 +282,8 @@ class CustomPlatformView extends StatefulWidget {
 
   final Function(int id)? onPlatformViewCreated;
 
-  const CustomPlatformView({super.key, 
+  const CustomPlatformView({
+    super.key,
     this.creationParams,
     this.onPlatformViewCreated,
     this.scaleFactor,
