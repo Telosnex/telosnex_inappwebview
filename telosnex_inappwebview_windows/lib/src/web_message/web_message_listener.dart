@@ -12,7 +12,7 @@ class WindowsWebMessageListenerCreationParams
     extends PlatformWebMessageListenerCreationParams {
   /// Creates a new [WindowsWebMessageListenerCreationParams] instance.
   const WindowsWebMessageListenerCreationParams({
-    required this.allowedOriginRules,
+    required Set<String> super.allowedOriginRules,
     required super.jsObjectName,
     super.onPostMessage,
   });
@@ -29,7 +29,7 @@ class WindowsWebMessageListenerCreationParams
   }
 
   @override
-  final Set<String> allowedOriginRules;
+  Set<String> get allowedOriginRules => super.allowedOriginRules as Set<String>;
 
   @override
   String toString() {

@@ -209,9 +209,7 @@ class ExchangeableObjectGenerator
           "@Deprecated('${_coreCheckerDeprecated.firstAnnotationOfExact(fieldElement)?.getField("message")?.toStringValue()}')",
         );
       }
-      if (fieldElement.isStatic &&
-          fieldElement.isFinal &&
-          !fieldElement.isConst) {
+      if (!fieldElement.isConst) {
         Util.writeLegacyFieldNameIgnore(classBuffer, fieldName);
       }
       if (fieldElement.isStatic) {
@@ -428,12 +426,8 @@ class ExchangeableObjectGenerator
                 Util.publicNames(fieldTypeElement.name!) +
                     '.fromValue($deprecatedFieldName${deprecatedIsNullable ? '?' : ''}.toValue())${!isNullable ? '!' : ''}',
               );
-            } else if (deprecatedField.type.getDisplayString(
-                      withNullability: false,
-                    ) ==
-                    "Uri" &&
-                newFieldElement.type.getDisplayString(withNullability: false) ==
-                    "WebUri") {
+            } else if (deprecatedField.type.element?.name == "Uri" &&
+                newFieldElement.type.element?.name == "WebUri") {
               if (deprecatedIsNullable) {
                 classBuffer.write(
                   "($deprecatedFieldName != null ? WebUri.uri($deprecatedFieldName!) : ${isNullable ? "null" : "WebUri('')"})",
@@ -794,7 +788,7 @@ class ExchangeableObjectGenerator
         ? null
         : Util.publicNames(fieldTypeName);
     final isNullable = Util.typeIsNullable(elementType);
-    final displayString = elementType.getDisplayString(withNullability: false);
+    final displayString = fieldTypeElement?.name ?? '';
     if (displayString == "Uri") {
       if (!isNullable) {
         return "(Uri.tryParse($value) ?? Uri())";
@@ -925,7 +919,7 @@ class ExchangeableObjectGenerator
   String getToMapValue(String fieldName, DartType elementType) {
     final fieldTypeElement = elementType.element;
     final isNullable = Util.typeIsNullable(elementType);
-    final displayString = elementType.getDisplayString(withNullability: false);
+    final displayString = fieldTypeElement?.name ?? '';
     if (displayString == "Uri") {
       return fieldName + (isNullable ? '?' : '') + '.toString()';
     } else if (displayString == "WebUri") {

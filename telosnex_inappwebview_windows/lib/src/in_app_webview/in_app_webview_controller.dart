@@ -2086,7 +2086,7 @@ class WindowsInAppWebViewController extends PlatformInAppWebViewController
         if (_javaScriptHandlersMap.containsKey(handlerName)) {
           // convert result to json
           try {
-            var jsHandlerResult;
+            dynamic jsHandlerResult;
             if (_javaScriptHandlersMap[handlerName]
                 is JavaScriptHandlerCallback) {
               jsHandlerResult =
@@ -2181,7 +2181,9 @@ class WindowsInAppWebViewController extends PlatformInAppWebViewController
       try {
         var bytes = await rootBundle.load(assetPath);
         html = utf8.decode(bytes.buffer.asUint8List());
-      } catch (e) {}
+      } catch (_) {
+        // Leave the HTML unset if the asset cannot be loaded or decoded.
+      }
     } else {
       try {
         HttpClient client = HttpClient();
@@ -2598,7 +2600,9 @@ class WindowsInAppWebViewController extends PlatformInAppWebViewController
         // try to json decode the data coming from JavaScript
         // otherwise return it as it is.
         data = json.decode(data);
-      } catch (e) {}
+      } catch (_) {
+        // Keep the original value if it cannot be decoded as JSON.
+      }
     }
     return data;
   }

@@ -20,7 +20,7 @@ class LinuxHeadlessInAppWebViewCreationParams
     super.controllerFromPlatform,
     super.initialSize,
     super.windowId,
-    this.webViewEnvironment,
+    LinuxWebViewEnvironment? super.webViewEnvironment,
     super.onWebViewCreated,
     super.onLoadStart,
     super.onLoadStop,
@@ -129,7 +129,7 @@ class LinuxHeadlessInAppWebViewCreationParams
     super.contextMenu,
     super.initialUserScripts,
     super.pullToRefreshController,
-    this.findInteractionController,
+    LinuxFindInteractionController? super.findInteractionController,
   });
 
   /// Creates a [LinuxHeadlessInAppWebViewCreationParams] instance based on [PlatformHeadlessInAppWebViewCreationParams].
@@ -246,10 +246,10 @@ class LinuxHeadlessInAppWebViewCreationParams
       );
 
   @override
-  final LinuxWebViewEnvironment? webViewEnvironment;
+  LinuxWebViewEnvironment? get webViewEnvironment => super.webViewEnvironment as LinuxWebViewEnvironment?;
 
   @override
-  final LinuxFindInteractionController? findInteractionController;
+  LinuxFindInteractionController? get findInteractionController => super.findInteractionController as LinuxFindInteractionController?;
 }
 
 ///{@macro telosnex_inappwebview_platform_interface.PlatformHeadlessInAppWebView}

@@ -295,14 +295,11 @@ class InAppWebViewWebElement implements Disposable {
       iframe.role = settings!.iframeRole ?? iframe.role;
       iframe.ariaHidden = settings!.iframeAriaHidden ?? iframe.ariaHidden;
 
-      if (settings!.iframeSandbox != null &&
-          settings!.iframeSandbox != Sandbox.ALLOW_ALL) {
+      if (settings!.iframeSandbox != null) {
         iframe.setAttribute(
           "sandbox",
           settings!.iframeSandbox!.map((e) => e.toNativeValue()).join(" "),
         );
-      } else if (settings!.iframeSandbox == Sandbox.ALLOW_ALL) {
-        iframe.removeAttribute("sandbox");
       } else if (sandbox != Sandbox.values) {
         iframe.setAttribute(
           "sandbox",
@@ -609,13 +606,11 @@ class InAppWebViewWebElement implements Disposable {
 
     if (settings!.iframeSandbox != newSettings.iframeSandbox) {
       var sandbox = newSettings.iframeSandbox;
-      if (sandbox != null && sandbox != Sandbox.ALLOW_ALL) {
+      if (sandbox != null) {
         iframe.setAttribute(
           "sandbox",
           sandbox.map((e) => e.toNativeValue()).join(" "),
         );
-      } else if (sandbox == Sandbox.ALLOW_ALL) {
-        iframe.removeAttribute("sandbox");
       }
     } else if (sandbox != Sandbox.values) {
       iframe.setAttribute(

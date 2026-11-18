@@ -575,12 +575,8 @@ void debugLog({
     }
     var maxLogMessageLength = debugLoggingSettings.maxLogMessageLength;
     String message =
-        "(${Util.isWeb ? 'Web' : defaultTargetPlatform.name}) ${name ?? className}" +
-        (id != null ? ' ID $id' : '') +
-        ' calling "' +
-        method.toString() +
-        '" using ' +
-        args.toString();
+        "(${Util.isWeb ? 'Web' : defaultTargetPlatform.name}) ${name ?? className}"
+        '${id != null ? " ID $id" : ""} calling "$method" using $args';
     if (maxLogMessageLength >= 0 && message.length > maxLogMessageLength) {
       message = '${message.substring(0, maxLogMessageLength)}...';
     }

@@ -23,10 +23,10 @@ abstract class Util {
   static String publicNames(String code) =>
       code.replaceAllMapped(_specName, (match) => match[1]!);
 
-  static final _legacyConstantName = RegExp(r'^[A-Z][A-Z0-9_]*$');
+  static final _legacyFieldName = RegExp(r'^[A-Z]');
 
   static void writeLegacyFieldNameIgnore(StringBuffer buffer, String name) {
-    if (_legacyConstantName.hasMatch(name)) {
+    if (_legacyFieldName.hasMatch(name)) {
       buffer.writeln('// ignore: non_constant_identifier_names');
     }
   }

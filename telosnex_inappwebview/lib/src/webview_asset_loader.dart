@@ -67,12 +67,12 @@ class AssetsPathHandler extends PathHandler {
   }) : this.fromPlatform(platform: PlatformAssetsPathHandler(params));
 
   /// Constructs a [AssetsPathHandler] from a specific platform implementation.
-  AssetsPathHandler.fromPlatform({required this.platform})
-    : super.fromPlatform(platform: platform);
+  AssetsPathHandler.fromPlatform({required PlatformAssetsPathHandler super.platform})
+    : super.fromPlatform();
 
   /// Implementation of [PlatformAssetsPathHandler] for the current platform.
   @override
-  final PlatformAssetsPathHandler platform;
+  PlatformAssetsPathHandler get platform => super.platform as PlatformAssetsPathHandler;
 
   /// Returns whether this class is supported on the current platform.
   ///
@@ -106,12 +106,12 @@ class ResourcesPathHandler extends PathHandler {
   }) : this.fromPlatform(platform: PlatformResourcesPathHandler(params));
 
   /// Constructs a [ResourcesPathHandler] from a specific platform implementation.
-  ResourcesPathHandler.fromPlatform({required this.platform})
-    : super.fromPlatform(platform: platform);
+  ResourcesPathHandler.fromPlatform({required PlatformResourcesPathHandler super.platform})
+    : super.fromPlatform();
 
   /// Implementation of [PlatformResourcesPathHandler] for the current platform.
   @override
-  final PlatformResourcesPathHandler platform;
+  PlatformResourcesPathHandler get platform => super.platform as PlatformResourcesPathHandler;
 
   /// Returns whether this class is supported on the current platform.
   ///
@@ -146,12 +146,12 @@ class InternalStoragePathHandler extends PathHandler {
   }) : this.fromPlatform(platform: PlatformInternalStoragePathHandler(params));
 
   /// Constructs a [InternalStoragePathHandler] from a specific platform implementation.
-  InternalStoragePathHandler.fromPlatform({required this.platform})
-    : super.fromPlatform(platform: platform);
+  InternalStoragePathHandler.fromPlatform({required PlatformInternalStoragePathHandler super.platform})
+    : super.fromPlatform();
 
   /// Implementation of [PlatformInternalStoragePathHandler] for the current platform.
   @override
-  final PlatformInternalStoragePathHandler platform;
+  PlatformInternalStoragePathHandler get platform => super.platform as PlatformInternalStoragePathHandler;
 
   String get directory => platform.directory;
 
@@ -187,12 +187,12 @@ abstract class CustomPathHandler extends PathHandler {
   }) : this.fromPlatform(platform: PlatformCustomPathHandler(params));
 
   /// Constructs a [CustomPathHandler] from a specific platform implementation.
-  CustomPathHandler.fromPlatform({required this.platform})
-    : super.fromPlatform(platform: platform);
+  CustomPathHandler.fromPlatform({required PlatformCustomPathHandler super.platform})
+    : super.fromPlatform();
 
   /// Implementation of [PlatformCustomPathHandler] for the current platform.
   @override
-  final PlatformCustomPathHandler platform;
+  PlatformCustomPathHandler get platform => super.platform as PlatformCustomPathHandler;
 
   /// Returns whether this class is supported on the current platform.
   ///

@@ -22,7 +22,7 @@ class LinuxInAppWebViewWidgetCreationParams
     super.keepAlive,
     super.preventGestureDelay,
     super.windowId,
-    this.webViewEnvironment,
+    LinuxWebViewEnvironment? super.webViewEnvironment,
     super.onWebViewCreated,
     super.onLoadStart,
     super.onLoadStop,
@@ -195,7 +195,7 @@ class LinuxInAppWebViewWidgetCreationParams
       );
 
   @override
-  final LinuxWebViewEnvironment? webViewEnvironment;
+  LinuxWebViewEnvironment? get webViewEnvironment => super.webViewEnvironment as LinuxWebViewEnvironment?;
 }
 
 ///{@macro telosnex_inappwebview_platform_interface.PlatformInAppWebViewWidget}

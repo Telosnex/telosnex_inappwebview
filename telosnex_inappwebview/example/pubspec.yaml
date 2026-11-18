@@ -51,6 +51,13 @@ dev_dependencies:
 #      url: https://github.com/flutter/plugins.git
 #      path: packages/integration_test
   flutter_lints: ^6.0.0
+  plugin_platform_interface: ^2.1.8
+  telosnex_inappwebview_android: ^1.0.0
+  telosnex_inappwebview_ios: ^1.0.0
+  telosnex_inappwebview_linux: ^1.0.0
+  telosnex_inappwebview_macos: ^1.0.0
+  telosnex_inappwebview_platform_interface: ^1.0.0
+  telosnex_inappwebview_windows: ^1.0.0
   telosnex_inappwebview_web: ^1.0.0
   # The web driver and the console and result reporting of the web tests.
   telosnex_web_test:

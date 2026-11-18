@@ -9,15 +9,19 @@ part of 'ssl_certificate_dname.dart';
 ///Distinguished name helper class. Used by [SslCertificate].
 class SslCertificateDName {
   ///Common-name (CN) component of the name
+  // ignore: non_constant_identifier_names
   String? CName;
 
   ///Distinguished name (normally includes CN, O, and OU names)
+  // ignore: non_constant_identifier_names
   String? DName;
 
   ///Organization (O) component of the name
+  // ignore: non_constant_identifier_names
   String? OName;
 
   ///Organizational Unit (OU) component of the name
+  // ignore: non_constant_identifier_names
   String? UName;
   SslCertificateDName({
     this.CName = "",

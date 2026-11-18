@@ -299,7 +299,7 @@ class ProfileSelectorCard extends StatelessWidget {
       title: 'Delete Settings Profile',
       message: 'Delete "${profile.name}"?',
     );
-    if (shouldDelete) {
+    if (shouldDelete && context.mounted) {
       await context.read<SettingsManager>().deleteProfile(profile.id);
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -318,7 +318,7 @@ class ProfileSelectorCard extends StatelessWidget {
       title: 'Delete Environment Profile',
       message: 'Delete "${profile.name}"?',
     );
-    if (shouldDelete) {
+    if (shouldDelete && context.mounted) {
       await context.read<SettingsManager>().deleteEnvironmentProfile(
         profile.id,
       );

@@ -19,7 +19,7 @@ class MacOSInAppBrowserCreationParams
   const MacOSInAppBrowserCreationParams({
     super.contextMenu,
     super.pullToRefreshController,
-    this.findInteractionController,
+    MacOSFindInteractionController? super.findInteractionController,
     super.initialUserScripts,
     super.windowId,
   });
@@ -41,7 +41,7 @@ class MacOSInAppBrowserCreationParams
   }
 
   @override
-  final MacOSFindInteractionController? findInteractionController;
+  MacOSFindInteractionController? get findInteractionController => super.findInteractionController as MacOSFindInteractionController?;
 }
 
 ///{@macro telosnex_inappwebview_platform_interface.PlatformInAppBrowser}

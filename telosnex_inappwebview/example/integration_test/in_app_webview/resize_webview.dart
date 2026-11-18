@@ -49,7 +49,7 @@ void resizeWebView() {
             // Windows sizes the view once after it is created, while the
             // page loads: only the test's own resize counts.
             if (listenForResize && !resizeCompleter.isCompleted) {
-              resizeCompleter.complete(true);
+              resizeCompleter.complete();
             }
           },
         );

@@ -25,11 +25,11 @@ class FetchRequestFederatedCredentialSpec extends FetchRequestCredentialSpec {
   WebUri? iconURL;
 
   FetchRequestFederatedCredentialSpec({
-    type,
+    super.type,
     this.id,
     this.name,
     this.protocol,
     this.provider,
     this.iconURL,
-  }) : super(type: type);
+  });
 }

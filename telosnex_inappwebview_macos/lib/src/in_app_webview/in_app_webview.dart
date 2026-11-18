@@ -130,7 +130,7 @@ class MacOSInAppWebViewWidgetCreationParams
     super.contextMenu,
     super.initialUserScripts,
     super.pullToRefreshController,
-    this.findInteractionController,
+    MacOSFindInteractionController? super.findInteractionController,
   });
 
   /// Constructs a [MacOSInAppWebViewWidgetCreationParams] using a
@@ -251,7 +251,7 @@ class MacOSInAppWebViewWidgetCreationParams
       );
 
   @override
-  final MacOSFindInteractionController? findInteractionController;
+  MacOSFindInteractionController? get findInteractionController => super.findInteractionController as MacOSFindInteractionController?;
 }
 
 ///{@macro telosnex_inappwebview_platform_interface.PlatformInAppWebViewWidget}

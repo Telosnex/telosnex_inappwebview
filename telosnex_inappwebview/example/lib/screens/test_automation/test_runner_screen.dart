@@ -44,11 +44,12 @@ class _TestRunnerScreenState extends State<TestRunnerScreen> {
   }
 
   Future<void> _loadLastConfiguration() async {
-    if (_configLoaded) return;
+    if (!mounted || _configLoaded) return;
     _configLoaded = true;
 
-    final prefs = await SharedPreferences.getInstance();
     final configManager = context.read<TestConfigurationManager>();
+    final runner = context.read<TestRunner>();
+    final prefs = await SharedPreferences.getInstance();
     if (!_configManagerInitialized) {
       await configManager.init();
       _configManagerInitialized = true;
@@ -56,7 +57,7 @@ class _TestRunnerScreenState extends State<TestRunnerScreen> {
     final lastConfigJson = prefs.getString(_lastConfigKey);
     final lastWebViewType = prefs.getString(_lastWebViewTypeKey);
 
-    final runner = context.read<TestRunner>();
+    if (!mounted) return;
 
     if (lastWebViewType != null) {
       final webViewType = TestWebViewType.values.firstWhere(
@@ -106,8 +107,9 @@ class _TestRunnerScreenState extends State<TestRunnerScreen> {
   }
 
   Future<void> _saveLastConfiguration() async {
-    final prefs = await SharedPreferences.getInstance();
+    if (!mounted) return;
     final runner = context.read<TestRunner>();
+    final prefs = await SharedPreferences.getInstance();
     final config = _currentConfiguration;
     if (config == null || config.id == 'default_config') {
       await prefs.remove(_lastConfigKey);

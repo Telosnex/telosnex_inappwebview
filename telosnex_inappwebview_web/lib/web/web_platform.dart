@@ -44,7 +44,7 @@ class TelosnexInAppWebViewPlugin {
     // ignore: unused_local_variable
     final headlessManager = HeadlessInAppWebViewManager(messenger: registrar);
     if (flutterInAppWebView != null) {
-      if (!Object_isFrozen(flutterInAppWebView!).toDart) {
+      if (!objectIsFrozen(flutterInAppWebView!).toDart) {
         flutterInAppWebView!.nativeAsyncCommunication =
             ((JSString method, JSAny viewId, [JSArray? args]) {
               return _dartNativeAsyncCommunication(
@@ -61,7 +61,7 @@ class TelosnexInAppWebViewPlugin {
                       args?.toDart,
                     )?.toJS)
                 .toJS;
-        Object_freeze(flutterInAppWebView!);
+        objectFreeze(flutterInAppWebView!);
       }
     } else {
       if (kDebugMode) {
@@ -79,7 +79,7 @@ Future<String?> _dartNativeAsyncCommunication(
   if (InAppWebViewManager.webViews.containsKey(viewId)) {
     var webViewHtmlElement =
         InAppWebViewManager.webViews[viewId] as InAppWebViewWebElement;
-    var result;
+    dynamic result;
     try {
       switch (method) {
         case 'onCreateWindow':

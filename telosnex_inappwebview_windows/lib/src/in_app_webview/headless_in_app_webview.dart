@@ -19,7 +19,7 @@ class WindowsHeadlessInAppWebViewCreationParams
   const WindowsHeadlessInAppWebViewCreationParams({
     super.controllerFromPlatform,
     super.initialSize,
-    this.webViewEnvironment,
+    WindowsWebViewEnvironment? super.webViewEnvironment,
     super.windowId,
     super.onWebViewCreated,
     super.onLoadStart,
@@ -137,7 +137,7 @@ class WindowsHeadlessInAppWebViewCreationParams
     super.contextMenu,
     super.initialUserScripts,
     super.pullToRefreshController,
-    this.findInteractionController,
+    WindowsFindInteractionController? super.findInteractionController,
   });
 
   /// Creates a [WindowsHeadlessInAppWebViewCreationParams] instance based on [PlatformHeadlessInAppWebViewCreationParams].
@@ -263,10 +263,10 @@ class WindowsHeadlessInAppWebViewCreationParams
       );
 
   @override
-  final WindowsFindInteractionController? findInteractionController;
+  WindowsFindInteractionController? get findInteractionController => super.findInteractionController as WindowsFindInteractionController?;
 
   @override
-  final WindowsWebViewEnvironment? webViewEnvironment;
+  WindowsWebViewEnvironment? get webViewEnvironment => super.webViewEnvironment as WindowsWebViewEnvironment?;
 }
 
 ///{@macro telosnex_inappwebview_platform_interface.PlatformHeadlessInAppWebView}

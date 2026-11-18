@@ -22,10 +22,10 @@ class FetchRequestPasswordCredentialSpec extends FetchRequestCredentialSpec {
   WebUri? iconURL;
 
   FetchRequestPasswordCredentialSpec({
-    type,
+    super.type,
     this.id,
     this.name,
     this.password,
     this.iconURL,
-  }) : super(type: type);
+  });
 }

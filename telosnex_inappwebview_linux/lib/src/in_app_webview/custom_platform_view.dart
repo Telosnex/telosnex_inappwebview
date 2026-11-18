@@ -353,7 +353,7 @@ class CustomPlatformView extends StatefulWidget {
   });
 
   @override
-  _CustomPlatformViewState createState() => _CustomPlatformViewState();
+  State<CustomPlatformView> createState() => _CustomPlatformViewState();
 }
 
 class _CustomPlatformViewState extends State<CustomPlatformView> {

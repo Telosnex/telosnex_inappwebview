@@ -20,10 +20,10 @@ class WindowsInAppBrowserCreationParams
   const WindowsInAppBrowserCreationParams({
     super.contextMenu,
     super.pullToRefreshController,
-    this.findInteractionController,
+    WindowsFindInteractionController? super.findInteractionController,
     super.initialUserScripts,
     super.windowId,
-    this.webViewEnvironment,
+    WindowsWebViewEnvironment? super.webViewEnvironment,
   });
 
   /// Creates a [WindowsInAppBrowserCreationParams] instance based on [PlatformInAppBrowserCreationParams].
@@ -45,10 +45,10 @@ class WindowsInAppBrowserCreationParams
   }
 
   @override
-  final WindowsFindInteractionController? findInteractionController;
+  WindowsFindInteractionController? get findInteractionController => super.findInteractionController as WindowsFindInteractionController?;
 
   @override
-  final WindowsWebViewEnvironment? webViewEnvironment;
+  WindowsWebViewEnvironment? get webViewEnvironment => super.webViewEnvironment as WindowsWebViewEnvironment?;
 }
 
 ///{@macro telosnex_inappwebview_platform_interface.PlatformInAppBrowser}

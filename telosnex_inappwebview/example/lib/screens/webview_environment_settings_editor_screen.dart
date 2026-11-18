@@ -989,7 +989,7 @@ class _WebViewEnvironmentSettingsEditorScreenState
                 }
                 await settingsManager.saveCurrentEnvironmentSettings(name);
                 _modifiedKeys.clear();
-                if (mounted) {
+                if (mounted && context.mounted) {
                   Navigator.pop(context);
                   ScaffoldMessenger.of(this.context).showSnackBar(
                     SnackBar(content: Text('Profile "$name" saved')),
@@ -1059,7 +1059,7 @@ class _WebViewEnvironmentSettingsEditorScreenState
                     onTap: () async {
                       await settingsManager.loadEnvironmentProfile(profile.id);
                       _loadCurrentSettings();
-                      if (mounted) {
+                      if (mounted && dialogContext.mounted) {
                         Navigator.pop(dialogContext);
                         ScaffoldMessenger.of(this.context).showSnackBar(
                           SnackBar(
@@ -1104,7 +1104,7 @@ class _WebViewEnvironmentSettingsEditorScreenState
               await context.read<SettingsManager>().deleteEnvironmentProfile(
                 profile.id,
               );
-              if (mounted) {
+              if (mounted && dialogContext.mounted) {
                 Navigator.pop(dialogContext);
                 onDeleted?.call();
                 ScaffoldMessenger.of(context).showSnackBar(

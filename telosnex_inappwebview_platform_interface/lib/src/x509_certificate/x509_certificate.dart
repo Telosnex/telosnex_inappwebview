@@ -67,7 +67,7 @@ class X509Certificate {
   }
 
   ///Read possible PEM encoding
-  static Uint8List? decodeToDER({required pemData}) {
+  static Uint8List? decodeToDER({required List<int> pemData}) {
     var pem = String.fromCharCodes(pemData);
     if (pem.contains(X509Certificate.beginPemBlock)) {
       var lines = pem.split("\n");
@@ -88,7 +88,9 @@ class X509Certificate {
       Uint8List? derDataDecoded;
       try {
         derDataDecoded = Uint8List.fromList(base64Decode(base64buffer));
-      } catch (e) {}
+      } catch (_) {
+        // Leave the decoded data unset if the PEM is invalid.
+      }
       if (derDataDecoded != null) {
         return derDataDecoded;
       }
@@ -453,7 +455,9 @@ dynamic firstLeafValue({required ASN1Object block}) {
     ASN1Object? subFirst;
     try {
       subFirst = sub.first;
-    } catch (e) {}
+    } catch (_) {
+      // Use the fallback if the expected ASN.1 field cannot be read.
+    }
     if (subFirst != null) {
       return firstLeafValue(block: subFirst);
     }

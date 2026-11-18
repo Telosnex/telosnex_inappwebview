@@ -20,10 +20,10 @@ class LinuxInAppBrowserCreationParams
   const LinuxInAppBrowserCreationParams({
     super.contextMenu,
     super.pullToRefreshController,
-    this.findInteractionController,
+    LinuxFindInteractionController? super.findInteractionController,
     super.initialUserScripts,
     super.windowId,
-    this.webViewEnvironment,
+    LinuxWebViewEnvironment? super.webViewEnvironment,
   });
 
   /// Creates a [LinuxInAppBrowserCreationParams] instance based on [PlatformInAppBrowserCreationParams].
@@ -44,10 +44,10 @@ class LinuxInAppBrowserCreationParams
   }
 
   @override
-  final LinuxFindInteractionController? findInteractionController;
+  LinuxFindInteractionController? get findInteractionController => super.findInteractionController as LinuxFindInteractionController?;
 
   @override
-  final LinuxWebViewEnvironment? webViewEnvironment;
+  LinuxWebViewEnvironment? get webViewEnvironment => super.webViewEnvironment as LinuxWebViewEnvironment?;
 }
 
 ///{@macro telosnex_inappwebview_platform_interface.PlatformInAppBrowser}

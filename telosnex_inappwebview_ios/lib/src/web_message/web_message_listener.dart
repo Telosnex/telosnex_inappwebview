@@ -12,7 +12,7 @@ class IOSWebMessageListenerCreationParams
     extends PlatformWebMessageListenerCreationParams {
   /// Creates a new [IOSWebMessageListenerCreationParams] instance.
   const IOSWebMessageListenerCreationParams({
-    required this.allowedOriginRules,
+    required Set<String> super.allowedOriginRules,
     required super.jsObjectName,
     super.onPostMessage,
   });
@@ -31,7 +31,7 @@ class IOSWebMessageListenerCreationParams
   }
 
   @override
-  final Set<String> allowedOriginRules;
+  Set<String> get allowedOriginRules => super.allowedOriginRules as Set<String>;
 
   @override
   String toString() {

@@ -1159,8 +1159,9 @@ class LinuxInAppWebViewController extends PlatformInAppWebViewController
           case "onWindowBlur":
             if (webviewParams != null && webviewParams!.onWindowBlur != null) {
               webviewParams!.onWindowBlur!(_controllerFromPlatform);
-            } else if (_inAppBrowserEventHandler != null)
+            } else if (_inAppBrowserEventHandler != null) {
               _inAppBrowserEventHandler!.onWindowBlur();
+        }
             return null;
           case "onInjectedScriptLoaded":
             String id = handlerData.args[0];
@@ -1229,7 +1230,7 @@ class LinuxInAppWebViewController extends PlatformInAppWebViewController
         if (_javaScriptHandlersMap.containsKey(handlerName)) {
           // convert result to json
           try {
-            var jsHandlerResult;
+            dynamic jsHandlerResult;
             if (_javaScriptHandlersMap[handlerName]
                 is JavaScriptHandlerCallback) {
               jsHandlerResult =
@@ -1396,7 +1397,9 @@ class LinuxInAppWebViewController extends PlatformInAppWebViewController
     if (result != null && result is String) {
       try {
         result = jsonDecode(result);
-      } catch (e) {}
+      } catch (_) {
+        // Keep the original value if it cannot be decoded as JSON.
+      }
     }
     return result;
   }
