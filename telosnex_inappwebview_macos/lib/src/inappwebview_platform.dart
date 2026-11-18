@@ -397,6 +397,7 @@ class MacOSInAppWebViewPlatform extends InAppWebViewPlatform {
   ///
   /// This function should only be called by the app-facing package.
   /// Look at using [ChromeSafariBrowser] in `telosnex_inappwebview` instead.
+  @override
   PlatformChromeSafariBrowser createPlatformChromeSafariBrowserStatic() {
     return _PlatformChromeSafariBrowser.static();
   }
@@ -507,8 +508,8 @@ class MacOSInAppWebViewPlatform extends InAppWebViewPlatform {
 }
 
 class _PlatformChromeSafariBrowser extends PlatformChromeSafariBrowser {
-  _PlatformChromeSafariBrowser(PlatformChromeSafariBrowserCreationParams params)
-    : super.implementation(params);
+  _PlatformChromeSafariBrowser(super.params)
+    : super.implementation();
   static final _PlatformChromeSafariBrowser _staticValue =
       _PlatformChromeSafariBrowser(
         const PlatformChromeSafariBrowserCreationParams(),
@@ -518,8 +519,8 @@ class _PlatformChromeSafariBrowser extends PlatformChromeSafariBrowser {
 }
 
 class _PlatformProcessGlobalConfig extends PlatformProcessGlobalConfig {
-  _PlatformProcessGlobalConfig(PlatformProcessGlobalConfigCreationParams params)
-    : super.implementation(params);
+  _PlatformProcessGlobalConfig(super.params)
+    : super.implementation();
   static final _PlatformProcessGlobalConfig _staticValue =
       _PlatformProcessGlobalConfig(
         const PlatformProcessGlobalConfigCreationParams(),
@@ -530,8 +531,8 @@ class _PlatformProcessGlobalConfig extends PlatformProcessGlobalConfig {
 
 class _PlatformServiceWorkerController extends PlatformServiceWorkerController {
   _PlatformServiceWorkerController(
-    PlatformServiceWorkerControllerCreationParams params,
-  ) : super.implementation(params);
+    super.params,
+  ) : super.implementation();
   static final _PlatformServiceWorkerController _staticValue =
       _PlatformServiceWorkerController(
         const PlatformServiceWorkerControllerCreationParams(),
@@ -544,8 +545,8 @@ class _PlatformServiceWorkerController extends PlatformServiceWorkerController {
 }
 
 class _PlatformTracingController extends PlatformTracingController {
-  _PlatformTracingController(PlatformTracingControllerCreationParams params)
-    : super.implementation(params);
+  _PlatformTracingController(super.params)
+    : super.implementation();
   static final _PlatformTracingController _staticValue =
       _PlatformTracingController(
         const PlatformTracingControllerCreationParams(),
@@ -556,8 +557,8 @@ class _PlatformTracingController extends PlatformTracingController {
 
 class _PlatformPullToRefreshController extends PlatformPullToRefreshController {
   _PlatformPullToRefreshController(
-    PlatformPullToRefreshControllerCreationParams params,
-  ) : super.implementation(params);
+    super.params,
+  ) : super.implementation();
 
   static final _PlatformPullToRefreshController _staticValue =
       _PlatformPullToRefreshController(
@@ -568,8 +569,8 @@ class _PlatformPullToRefreshController extends PlatformPullToRefreshController {
 }
 
 class _PlatformWebViewEnvironment extends PlatformWebViewEnvironment {
-  _PlatformWebViewEnvironment(PlatformWebViewEnvironmentCreationParams params)
-    : super.implementation(params);
+  _PlatformWebViewEnvironment(super.params)
+    : super.implementation();
   static final _PlatformWebViewEnvironment _staticValue =
       _PlatformWebViewEnvironment(
         const PlatformWebViewEnvironmentCreationParams(),
@@ -581,8 +582,8 @@ class _PlatformWebViewEnvironment extends PlatformWebViewEnvironment {
 class _PlatformWebNotificationController
     extends PlatformWebNotificationController {
   _PlatformWebNotificationController(
-    PlatformWebNotificationControllerCreationParams params,
-  ) : super.implementation(params);
+    super.params,
+  ) : super.implementation();
 
   static final _PlatformWebNotificationController _staticValue =
       _PlatformWebNotificationController(
@@ -596,8 +597,8 @@ class _PlatformWebNotificationController
 }
 
 class _PlatformWebViewFeature extends PlatformWebViewFeature {
-  _PlatformWebViewFeature(PlatformWebViewFeatureCreationParams params)
-    : super.implementation(params);
+  _PlatformWebViewFeature(super.params)
+    : super.implementation();
 
   static final _PlatformWebViewFeature _staticValue = _PlatformWebViewFeature(
     PlatformWebViewFeatureCreationParams(),
@@ -606,8 +607,8 @@ class _PlatformWebViewFeature extends PlatformWebViewFeature {
 }
 
 class _PlatformAssetsPathHandler extends PlatformAssetsPathHandler {
-  _PlatformAssetsPathHandler(PlatformAssetsPathHandlerCreationParams params)
-    : super.implementation(params);
+  _PlatformAssetsPathHandler(super.params)
+    : super.implementation();
 
   static final _PlatformAssetsPathHandler _staticValue =
       _PlatformAssetsPathHandler(
@@ -633,8 +634,8 @@ class _PlatformAssetsPathHandler extends PlatformAssetsPathHandler {
 
 class _PlatformResourcesPathHandler extends PlatformResourcesPathHandler {
   _PlatformResourcesPathHandler(
-    PlatformResourcesPathHandlerCreationParams params,
-  ) : super.implementation(params);
+    super.params,
+  ) : super.implementation();
 
   static final _PlatformResourcesPathHandler _staticValue =
       _PlatformResourcesPathHandler(
@@ -661,8 +662,8 @@ class _PlatformResourcesPathHandler extends PlatformResourcesPathHandler {
 class _PlatformInternalStoragePathHandler
     extends PlatformInternalStoragePathHandler {
   _PlatformInternalStoragePathHandler(
-    PlatformInternalStoragePathHandlerCreationParams params,
-  ) : super.implementation(params);
+    super.params,
+  ) : super.implementation();
 
   static final _PlatformInternalStoragePathHandler _staticValue =
       _PlatformInternalStoragePathHandler(
@@ -688,8 +689,8 @@ class _PlatformInternalStoragePathHandler
 }
 
 class _PlatformCustomPathHandler extends PlatformCustomPathHandler {
-  _PlatformCustomPathHandler(PlatformCustomPathHandlerCreationParams params)
-    : super.implementation(params);
+  _PlatformCustomPathHandler(super.params)
+    : super.implementation();
 
   static final _PlatformCustomPathHandler _staticValue =
       _PlatformCustomPathHandler(

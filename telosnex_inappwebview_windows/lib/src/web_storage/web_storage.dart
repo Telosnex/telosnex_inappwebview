@@ -11,7 +11,7 @@ import '../in_app_webview/in_app_webview_controller.dart';
 /// more information.
 class WindowsWebStorageCreationParams extends PlatformWebStorageCreationParams {
   /// Creates a new [WindowsWebStorageCreationParams] instance.
-  WindowsWebStorageCreationParams({
+  const WindowsWebStorageCreationParams({
     required super.localStorage,
     required super.sessionStorage,
   });
@@ -61,7 +61,7 @@ class WindowsWebStorage extends PlatformWebStorage {
 /// more information.
 class WindowsStorageCreationParams extends PlatformStorageCreationParams {
   /// Creates a new [WindowsStorageCreationParams] instance.
-  WindowsStorageCreationParams({
+  const WindowsStorageCreationParams({
     required super.controller,
     required super.webStorageType,
   });

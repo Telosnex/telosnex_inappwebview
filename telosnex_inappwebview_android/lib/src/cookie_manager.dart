@@ -124,7 +124,7 @@ class AndroidCookieManager extends PlatformCookieManager
         await channel?.invokeMethod<List>('getCookies', args) ?? [];
     cookieListMap = cookieListMap.cast<Map<dynamic, dynamic>>();
 
-    cookieListMap.forEach((cookieMap) {
+    for (var cookieMap in cookieListMap) {
       cookies.add(
         Cookie(
           name: cookieMap["name"],
@@ -140,7 +140,7 @@ class AndroidCookieManager extends PlatformCookieManager
           path: cookieMap["path"],
         ),
       );
-    });
+    }
     return cookies;
   }
 
@@ -162,7 +162,7 @@ class AndroidCookieManager extends PlatformCookieManager
     cookies = cookies.cast<Map<dynamic, dynamic>>();
     for (var i = 0; i < cookies.length; i++) {
       cookies[i] = cookies[i].cast<String, dynamic>();
-      if (cookies[i]["name"] == name)
+      if (cookies[i]["name"] == name) {
         return Cookie(
           name: cookies[i]["name"],
           value: cookies[i]["value"],
@@ -176,6 +176,7 @@ class AndroidCookieManager extends PlatformCookieManager
           isHttpOnly: cookies[i]["isHttpOnly"],
           path: cookies[i]["path"],
         );
+      }
     }
     return null;
   }
@@ -245,5 +246,5 @@ class AndroidCookieManager extends PlatformCookieManager
 }
 
 extension InternalCookieManager on AndroidCookieManager {
-  get handleMethod => _handleMethod;
+  Future<dynamic> Function(MethodCall call) get handleMethod => _handleMethod;
 }

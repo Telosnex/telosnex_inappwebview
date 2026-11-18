@@ -36,12 +36,11 @@ void onLoadResourceWithCustomScheme() {
           onLoadResourceWithCustomScheme: (controller, request) async {
             if (request.url.scheme == "my-special-custom-scheme") {
               var bytes = await rootBundle.load(
-                "test_assets/" +
-                    request.url.toString().replaceFirst(
+                "test_assets/${request.url.toString().replaceFirst(
                       "my-special-custom-scheme://",
                       "",
                       0,
-                    ),
+                    )}",
               );
               var response = CustomSchemeResponse(
                 data: bytes.buffer.asUint8List(),

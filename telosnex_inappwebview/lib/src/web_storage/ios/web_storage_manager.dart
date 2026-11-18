@@ -19,7 +19,7 @@ class IOSWebStorageManager {
     required Set<IOSWKWebsiteDataType> dataTypes,
   }) async {
     List<IOSWKWebsiteDataRecord> recordList = [];
-    Set<WebsiteDataType> dataTypesList = Set();
+    Set<WebsiteDataType> dataTypesList = {};
     for (var dataType in dataTypes) {
       dataTypesList.add(
         WebsiteDataType.fromNativeValue(dataType.toNativeValue())!,
@@ -30,8 +30,8 @@ class IOSWebStorageManager {
         .fetchDataRecords(dataTypes: dataTypesList);
 
     for (var record in records) {
-      Set<WebsiteDataType> dataTypesString = record.dataTypes ?? Set();
-      Set<IOSWKWebsiteDataType> dataTypes = Set();
+      Set<WebsiteDataType> dataTypesString = record.dataTypes ?? <dynamic>{};
+      Set<IOSWKWebsiteDataType> dataTypes = {};
       for (var dataTypeValue in dataTypesString) {
         var dataType = IOSWKWebsiteDataType.fromNativeValue(
           dataTypeValue.toNativeValue(),
@@ -59,7 +59,7 @@ class IOSWebStorageManager {
     required Set<IOSWKWebsiteDataType> dataTypes,
     required List<IOSWKWebsiteDataRecord> dataRecords,
   }) async {
-    Set<WebsiteDataType> dataTypesList = Set();
+    Set<WebsiteDataType> dataTypesList = {};
     for (var dataType in dataTypes) {
       dataTypesList.add(
         WebsiteDataType.fromNativeValue(dataType.toNativeValue())!,
@@ -86,7 +86,7 @@ class IOSWebStorageManager {
     required Set<IOSWKWebsiteDataType> dataTypes,
     required DateTime date,
   }) async {
-    Set<WebsiteDataType> dataTypesList = Set();
+    Set<WebsiteDataType> dataTypesList = {};
     for (var dataType in dataTypes) {
       dataTypesList.add(
         WebsiteDataType.fromNativeValue(dataType.toNativeValue())!,

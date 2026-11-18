@@ -19,7 +19,7 @@
  *
 */
 
-library telosnex_inappwebview;
+library;
 
 export 'package:telosnex_inappwebview_platform_interface/telosnex_inappwebview_platform_interface.dart'
     hide

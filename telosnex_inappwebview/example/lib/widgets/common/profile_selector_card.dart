@@ -120,7 +120,7 @@ class ProfileSelectorCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '${InAppWebView} Settings',
+          '$InAppWebView Settings',
           style: TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: titleFontSize,

@@ -46,7 +46,7 @@ Future<dynamic> _runInPage(WidgetTester tester, String js) async {
         key: GlobalKey(),
         initialUrlRequest: URLRequest(url: _pageUrl),
         onWebViewCreated: controller.complete,
-        onLoadStop: (_, __) {
+        onLoadStop: (_, _) {
           if (!loaded.isCompleted) loaded.complete();
         },
       ),

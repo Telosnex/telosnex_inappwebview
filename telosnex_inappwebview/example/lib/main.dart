@@ -103,7 +103,7 @@ class _MyAppState extends State<MyApp> {
 
   Widget _buildMaterialApp() {
     return MaterialApp(
-      title: '${InAppWebView} Test Suite',
+      title: '$InAppWebView Test Suite',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         appBarTheme: AppBarTheme(

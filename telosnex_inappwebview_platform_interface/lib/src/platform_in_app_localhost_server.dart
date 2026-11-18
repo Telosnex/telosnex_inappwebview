@@ -40,7 +40,7 @@ class PlatformInAppLocalhostServerCreationParams {
     this.directoryIndex = 'index.html',
     this.documentRoot = './',
     this.shared = false,
-    this.onData = null,
+    this.onData,
   });
 
   ///{@macro telosnex_inappwebview_platform_interface.PlatformInAppLocalhostServer.port}

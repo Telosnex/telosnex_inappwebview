@@ -1,3 +1,3 @@
-library telosnex_inappwebview_android;
+library;
 
 export 'src/main.dart';

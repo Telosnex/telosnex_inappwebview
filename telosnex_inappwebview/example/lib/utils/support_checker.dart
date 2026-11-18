@@ -706,7 +706,7 @@ class SupportChecker {
     final className = classNameOf(InAppWebViewController);
     return ApiClassDefinition(
       className: className,
-      description: 'Controls an ${InAppWebView} instance.',
+      description: 'Controls an $InAppWebView instance.',
       isClassSupported: () => InAppWebViewController.isClassSupported(),
       methods: [
         // Navigation methods
@@ -881,7 +881,7 @@ class SupportChecker {
         ApiMethodDefinition(
           name: PlatformInAppWebViewControllerMethod.getHitTestResult.name,
           signature:
-              'Future<${InAppWebViewHitTestResult}?> ${PlatformInAppWebViewControllerMethod.getHitTestResult.name}()',
+              'Future<$InAppWebViewHitTestResult?> ${PlatformInAppWebViewControllerMethod.getHitTestResult.name}()',
           description: 'Gets a hit test result for the last tap.',
           className: className,
           category: 'Page Info',
@@ -1154,7 +1154,7 @@ class SupportChecker {
         ApiMethodDefinition(
           name: PlatformInAppWebViewControllerMethod.setSettings.name,
           signature:
-              'Future<void> ${PlatformInAppWebViewControllerMethod.setSettings.name}({required ${InAppWebViewSettings} settings})',
+              'Future<void> ${PlatformInAppWebViewControllerMethod.setSettings.name}({required $InAppWebViewSettings settings})',
           description: 'Updates the WebView settings.',
           className: className,
           category: 'Settings',
@@ -1162,7 +1162,7 @@ class SupportChecker {
         ApiMethodDefinition(
           name: PlatformInAppWebViewControllerMethod.getSettings.name,
           signature:
-              'Future<${InAppWebViewSettings}?> ${PlatformInAppWebViewControllerMethod.getSettings.name}()',
+              'Future<$InAppWebViewSettings?> ${PlatformInAppWebViewControllerMethod.getSettings.name}()',
           description: 'Gets the current WebView settings.',
           className: className,
           category: 'Settings',
@@ -1201,7 +1201,7 @@ class SupportChecker {
         ApiMethodDefinition(
           name: PlatformInAppWebViewControllerMethod.printCurrentPage.name,
           signature:
-              'Future<${PrintJobController}?> ${PlatformInAppWebViewControllerMethod.printCurrentPage.name}({${PrintJobSettings}? settings})',
+              'Future<$PrintJobController?> ${PlatformInAppWebViewControllerMethod.printCurrentPage.name}({$PrintJobSettings? settings})',
           description: 'Prints the current page.',
           className: className,
           category: 'Screenshot',
@@ -1273,7 +1273,7 @@ class SupportChecker {
           name:
               PlatformInAppWebViewControllerMethod.createWebMessageChannel.name,
           signature:
-              'Future<${WebMessageChannel}?> ${PlatformInAppWebViewControllerMethod.createWebMessageChannel.name}()',
+              'Future<$WebMessageChannel?> ${PlatformInAppWebViewControllerMethod.createWebMessageChannel.name}()',
           description: 'Creates a message channel for communication.',
           className: className,
           category: 'Web Messaging',
@@ -1281,7 +1281,7 @@ class SupportChecker {
         ApiMethodDefinition(
           name: PlatformInAppWebViewControllerMethod.postWebMessage.name,
           signature:
-              'Future<void> ${PlatformInAppWebViewControllerMethod.postWebMessage.name}({required ${WebMessage} message, ...})',
+              'Future<void> ${PlatformInAppWebViewControllerMethod.postWebMessage.name}({required $WebMessage message, ...})',
           description: 'Posts a message to the WebView.',
           className: className,
           category: 'Web Messaging',
@@ -1289,7 +1289,7 @@ class SupportChecker {
         ApiMethodDefinition(
           name: PlatformInAppWebViewControllerMethod.addWebMessageListener.name,
           signature:
-              'Future<void> ${PlatformInAppWebViewControllerMethod.addWebMessageListener.name}(${WebMessageListener} webMessageListener)',
+              'Future<void> ${PlatformInAppWebViewControllerMethod.addWebMessageListener.name}($WebMessageListener webMessageListener)',
           description: 'Adds a listener for web messages.',
           className: className,
           category: 'Web Messaging',
@@ -1643,7 +1643,7 @@ class SupportChecker {
         ApiMethodDefinition(
           name: PlatformInAppWebViewControllerMethod.disposeKeepAlive.name,
           signature:
-              'static Future<void> disposeKeepAlive(${InAppWebViewKeepAlive} keepAlive)',
+              'static Future<void> disposeKeepAlive($InAppWebViewKeepAlive keepAlive)',
           description: 'Disposes a keep-alive instance.',
           className: className,
           isStatic: true,
@@ -1695,7 +1695,7 @@ class SupportChecker {
     final className = eventClassNameOf(InAppWebView);
     return ApiClassDefinition(
       className: className,
-      description: 'Events fired by ${InAppWebView}.',
+      description: 'Events fired by $InAppWebView.',
       events: [
         // Core events
         ApiEventDefinition(
@@ -2238,14 +2238,14 @@ class SupportChecker {
         ApiMethodDefinition(
           name: PlatformInAppBrowserMethod.setSettings.name,
           signature:
-              'Future<void> ${PlatformInAppBrowserMethod.setSettings.name}({required ${InAppBrowserClassSettings} settings})',
+              'Future<void> ${PlatformInAppBrowserMethod.setSettings.name}({required $InAppBrowserClassSettings settings})',
           description: 'Sets the browser settings.',
           className: className,
         ),
         ApiMethodDefinition(
           name: PlatformInAppBrowserMethod.getSettings.name,
           signature:
-              'Future<${InAppBrowserClassSettings}?> ${PlatformInAppBrowserMethod.getSettings.name}()',
+              'Future<$InAppBrowserClassSettings?> ${PlatformInAppBrowserMethod.getSettings.name}()',
           description: 'Gets the browser settings.',
           className: className,
         ),
@@ -2370,7 +2370,7 @@ class SupportChecker {
         ApiMethodDefinition(
           name: PlatformChromeSafariBrowserMethod.setActionButton.name,
           signature:
-              'Future<void> ${PlatformChromeSafariBrowserMethod.setActionButton.name}(${ChromeSafariBrowserActionButton} actionButton)',
+              'Future<void> ${PlatformChromeSafariBrowserMethod.setActionButton.name}($ChromeSafariBrowserActionButton actionButton)',
           description: 'Sets an action button.',
           className: className,
         ),
@@ -2384,14 +2384,14 @@ class SupportChecker {
         ApiMethodDefinition(
           name: PlatformChromeSafariBrowserMethod.setSecondaryToolbar.name,
           signature:
-              'Future<void> ${PlatformChromeSafariBrowserMethod.setSecondaryToolbar.name}(${ChromeSafariBrowserSecondaryToolbar} secondaryToolbar)',
+              'Future<void> ${PlatformChromeSafariBrowserMethod.setSecondaryToolbar.name}($ChromeSafariBrowserSecondaryToolbar secondaryToolbar)',
           description: 'Sets a secondary toolbar.',
           className: className,
         ),
         ApiMethodDefinition(
           name: PlatformChromeSafariBrowserMethod.updateSecondaryToolbar.name,
           signature:
-              'Future<void> ${PlatformChromeSafariBrowserMethod.updateSecondaryToolbar.name}(${ChromeSafariBrowserSecondaryToolbar} secondaryToolbar)',
+              'Future<void> ${PlatformChromeSafariBrowserMethod.updateSecondaryToolbar.name}($ChromeSafariBrowserSecondaryToolbar secondaryToolbar)',
           description: 'Updates the secondary toolbar.',
           className: className,
         ),
@@ -2575,7 +2575,7 @@ class SupportChecker {
     final className = classNameOf(WebStorage);
     return ApiClassDefinition(
       className: className,
-      description: 'Manages ${LocalStorage} and ${SessionStorage}.',
+      description: 'Manages $LocalStorage and $SessionStorage.',
       isClassSupported: () => WebStorage.isClassSupported(),
       methods: [
         ApiMethodDefinition(
@@ -2606,7 +2606,7 @@ class SupportChecker {
         ApiMethodDefinition(
           name: PlatformLocalStorageMethod.getItems.name,
           signature:
-              'Future<List<${WebStorageItem}>> ${PlatformLocalStorageMethod.getItems.name}()',
+              'Future<List<$WebStorageItem>> ${PlatformLocalStorageMethod.getItems.name}()',
           description: 'Gets all items.',
           className: className,
         ),
@@ -2861,7 +2861,7 @@ class SupportChecker {
         ApiMethodDefinition(
           name: PlatformWebAuthenticationSessionMethod.create.name,
           signature:
-              'static Future<${WebAuthenticationSession}> ${PlatformWebAuthenticationSessionMethod.create.name}({...})',
+              'static Future<$WebAuthenticationSession> ${PlatformWebAuthenticationSessionMethod.create.name}({...})',
           description: 'Creates a new authentication session.',
           className: className,
           isStatic: true,
@@ -3096,7 +3096,7 @@ class SupportChecker {
         ApiMethodDefinition(
           name: PlatformWebViewEnvironmentMethod.create.name,
           signature:
-              'static Future<${WebViewEnvironment}> ${PlatformWebViewEnvironmentMethod.create.name}({...})',
+              'static Future<$WebViewEnvironment> ${PlatformWebViewEnvironmentMethod.create.name}({...})',
           description: 'Creates a WebView environment.',
           className: className,
           isStatic: true,
@@ -3161,7 +3161,7 @@ class SupportChecker {
         ApiMethodDefinition(
           name: PlatformProcessGlobalConfigMethod.apply.name,
           signature:
-              'Future<void> ${PlatformProcessGlobalConfigMethod.apply.name}({required ${ProcessGlobalConfigSettings} settings})',
+              'Future<void> ${PlatformProcessGlobalConfigMethod.apply.name}({required $ProcessGlobalConfigSettings settings})',
           description: 'Applies global configuration settings.',
           className: className,
         ),

@@ -11,19 +11,19 @@ class ScrollViewContentInsetAdjustmentBehavior_ {
 
   ///Automatically adjust the scroll view insets.
   static const AUTOMATIC =
-      const ScrollViewContentInsetAdjustmentBehavior_._internal(0);
+      ScrollViewContentInsetAdjustmentBehavior_._internal(0);
 
   ///Adjust the insets only in the scrollable directions.
   static const SCROLLABLE_AXES =
-      const ScrollViewContentInsetAdjustmentBehavior_._internal(1);
+      ScrollViewContentInsetAdjustmentBehavior_._internal(1);
 
   ///Do not adjust the scroll view insets.
   static const NEVER =
-      const ScrollViewContentInsetAdjustmentBehavior_._internal(2);
+      ScrollViewContentInsetAdjustmentBehavior_._internal(2);
 
   ///Always include the safe area insets in the content adjustment.
   static const ALWAYS =
-      const ScrollViewContentInsetAdjustmentBehavior_._internal(3);
+      ScrollViewContentInsetAdjustmentBehavior_._internal(3);
 }
 
 ///An iOS-specific class used to configure how safe area insets are added to the adjusted content inset.
@@ -40,17 +40,17 @@ class IOSUIScrollViewContentInsetAdjustmentBehavior_ {
 
   ///Automatically adjust the scroll view insets.
   static const AUTOMATIC =
-      const IOSUIScrollViewContentInsetAdjustmentBehavior_._internal(0);
+      IOSUIScrollViewContentInsetAdjustmentBehavior_._internal(0);
 
   ///Adjust the insets only in the scrollable directions.
   static const SCROLLABLE_AXES =
-      const IOSUIScrollViewContentInsetAdjustmentBehavior_._internal(1);
+      IOSUIScrollViewContentInsetAdjustmentBehavior_._internal(1);
 
   ///Do not adjust the scroll view insets.
   static const NEVER =
-      const IOSUIScrollViewContentInsetAdjustmentBehavior_._internal(2);
+      IOSUIScrollViewContentInsetAdjustmentBehavior_._internal(2);
 
   ///Always include the safe area insets in the content adjustment.
   static const ALWAYS =
-      const IOSUIScrollViewContentInsetAdjustmentBehavior_._internal(3);
+      IOSUIScrollViewContentInsetAdjustmentBehavior_._internal(3);
 }

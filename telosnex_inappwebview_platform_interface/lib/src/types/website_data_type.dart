@@ -12,60 +12,60 @@ class WebsiteDataType_ {
   ///On-disk Fetch caches.
   ///
   ///**NOTE**: available on iOS 11.3+.
-  static const WKWebsiteDataTypeFetchCache = const WebsiteDataType_._internal(
+  static const WKWebsiteDataTypeFetchCache = WebsiteDataType_._internal(
     "WKWebsiteDataTypeFetchCache",
   );
 
   ///On-disk caches.
-  static const WKWebsiteDataTypeDiskCache = const WebsiteDataType_._internal(
+  static const WKWebsiteDataTypeDiskCache = WebsiteDataType_._internal(
     "WKWebsiteDataTypeDiskCache",
   );
 
   ///In-memory caches.
-  static const WKWebsiteDataTypeMemoryCache = const WebsiteDataType_._internal(
+  static const WKWebsiteDataTypeMemoryCache = WebsiteDataType_._internal(
     "WKWebsiteDataTypeMemoryCache",
   );
 
   ///HTML offline web application caches.
   static const WKWebsiteDataTypeOfflineWebApplicationCache =
-      const WebsiteDataType_._internal(
+      WebsiteDataType_._internal(
         "WKWebsiteDataTypeOfflineWebApplicationCache",
       );
 
   ///Cookies.
-  static const WKWebsiteDataTypeCookies = const WebsiteDataType_._internal(
+  static const WKWebsiteDataTypeCookies = WebsiteDataType_._internal(
     "WKWebsiteDataTypeCookies",
   );
 
   ///HTML session storage.
   static const WKWebsiteDataTypeSessionStorage =
-      const WebsiteDataType_._internal("WKWebsiteDataTypeSessionStorage");
+      WebsiteDataType_._internal("WKWebsiteDataTypeSessionStorage");
 
   ///HTML local storage.
-  static const WKWebsiteDataTypeLocalStorage = const WebsiteDataType_._internal(
+  static const WKWebsiteDataTypeLocalStorage = WebsiteDataType_._internal(
     "WKWebsiteDataTypeLocalStorage",
   );
 
   ///WebSQL databases.
   static const WKWebsiteDataTypeWebSQLDatabases =
-      const WebsiteDataType_._internal("WKWebsiteDataTypeWebSQLDatabases");
+      WebsiteDataType_._internal("WKWebsiteDataTypeWebSQLDatabases");
 
   ///IndexedDB databases.
   static const WKWebsiteDataTypeIndexedDBDatabases =
-      const WebsiteDataType_._internal("WKWebsiteDataTypeIndexedDBDatabases");
+      WebsiteDataType_._internal("WKWebsiteDataTypeIndexedDBDatabases");
 
   ///Service worker registrations.
   ///
   ///**NOTE**: available on iOS 11.3+.
   static const WKWebsiteDataTypeServiceWorkerRegistrations =
-      const WebsiteDataType_._internal(
+      WebsiteDataType_._internal(
         "WKWebsiteDataTypeServiceWorkerRegistrations",
       );
 
   ///Returns a set of all available website data types.
   @ExchangeableEnumCustomValue()
   // ignore: non_constant_identifier_names
-  static final Set<WebsiteDataType_> ALL = [
+  static final Set<WebsiteDataType_> ALL = {
     WebsiteDataType_.WKWebsiteDataTypeFetchCache,
     WebsiteDataType_.WKWebsiteDataTypeDiskCache,
     WebsiteDataType_.WKWebsiteDataTypeMemoryCache,
@@ -76,7 +76,7 @@ class WebsiteDataType_ {
     WebsiteDataType_.WKWebsiteDataTypeWebSQLDatabases,
     WebsiteDataType_.WKWebsiteDataTypeIndexedDBDatabases,
     WebsiteDataType_.WKWebsiteDataTypeServiceWorkerRegistrations,
-  ].toSet();
+  };
 }
 
 ///Class that represents a website data type.
@@ -95,42 +95,42 @@ class IOSWKWebsiteDataType_ {
   ///
   ///**NOTE**: available on iOS 11.3+.
   static const WKWebsiteDataTypeFetchCache =
-      const IOSWKWebsiteDataType_._internal("WKWebsiteDataTypeFetchCache");
+      IOSWKWebsiteDataType_._internal("WKWebsiteDataTypeFetchCache");
 
   ///On-disk caches.
   static const WKWebsiteDataTypeDiskCache =
-      const IOSWKWebsiteDataType_._internal("WKWebsiteDataTypeDiskCache");
+      IOSWKWebsiteDataType_._internal("WKWebsiteDataTypeDiskCache");
 
   ///In-memory caches.
   static const WKWebsiteDataTypeMemoryCache =
-      const IOSWKWebsiteDataType_._internal("WKWebsiteDataTypeMemoryCache");
+      IOSWKWebsiteDataType_._internal("WKWebsiteDataTypeMemoryCache");
 
   ///HTML offline web application caches.
   static const WKWebsiteDataTypeOfflineWebApplicationCache =
-      const IOSWKWebsiteDataType_._internal(
+      IOSWKWebsiteDataType_._internal(
         "WKWebsiteDataTypeOfflineWebApplicationCache",
       );
 
   ///Cookies.
-  static const WKWebsiteDataTypeCookies = const IOSWKWebsiteDataType_._internal(
+  static const WKWebsiteDataTypeCookies = IOSWKWebsiteDataType_._internal(
     "WKWebsiteDataTypeCookies",
   );
 
   ///HTML session storage.
   static const WKWebsiteDataTypeSessionStorage =
-      const IOSWKWebsiteDataType_._internal("WKWebsiteDataTypeSessionStorage");
+      IOSWKWebsiteDataType_._internal("WKWebsiteDataTypeSessionStorage");
 
   ///HTML local storage.
   static const WKWebsiteDataTypeLocalStorage =
-      const IOSWKWebsiteDataType_._internal("WKWebsiteDataTypeLocalStorage");
+      IOSWKWebsiteDataType_._internal("WKWebsiteDataTypeLocalStorage");
 
   ///WebSQL databases.
   static const WKWebsiteDataTypeWebSQLDatabases =
-      const IOSWKWebsiteDataType_._internal("WKWebsiteDataTypeWebSQLDatabases");
+      IOSWKWebsiteDataType_._internal("WKWebsiteDataTypeWebSQLDatabases");
 
   ///IndexedDB databases.
   static const WKWebsiteDataTypeIndexedDBDatabases =
-      const IOSWKWebsiteDataType_._internal(
+      IOSWKWebsiteDataType_._internal(
         "WKWebsiteDataTypeIndexedDBDatabases",
       );
 
@@ -138,14 +138,14 @@ class IOSWKWebsiteDataType_ {
   ///
   ///**NOTE**: available on iOS 11.3+.
   static const WKWebsiteDataTypeServiceWorkerRegistrations =
-      const IOSWKWebsiteDataType_._internal(
+      IOSWKWebsiteDataType_._internal(
         "WKWebsiteDataTypeServiceWorkerRegistrations",
       );
 
   ///Returns a set of all available website data types.
   @ExchangeableEnumCustomValue()
   // ignore: non_constant_identifier_names
-  static final Set<IOSWKWebsiteDataType_> ALL = [
+  static final Set<IOSWKWebsiteDataType_> ALL = {
     IOSWKWebsiteDataType_.WKWebsiteDataTypeFetchCache,
     IOSWKWebsiteDataType_.WKWebsiteDataTypeDiskCache,
     IOSWKWebsiteDataType_.WKWebsiteDataTypeMemoryCache,
@@ -156,5 +156,5 @@ class IOSWKWebsiteDataType_ {
     IOSWKWebsiteDataType_.WKWebsiteDataTypeWebSQLDatabases,
     IOSWKWebsiteDataType_.WKWebsiteDataTypeIndexedDBDatabases,
     IOSWKWebsiteDataType_.WKWebsiteDataTypeServiceWorkerRegistrations,
-  ].toSet();
+  };
 }

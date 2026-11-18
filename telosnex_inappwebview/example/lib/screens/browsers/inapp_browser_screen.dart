@@ -19,8 +19,7 @@ import 'package:telosnex_inappwebview_example/widgets/common/profile_selector_ca
 class TestInAppBrowser extends InAppBrowser {
   final void Function(String event, Map<String, dynamic>? data)? onEvent;
 
-  TestInAppBrowser({this.onEvent, WebViewEnvironment? webViewEnvironment})
-    : super(webViewEnvironment: webViewEnvironment);
+  TestInAppBrowser({this.onEvent, super.webViewEnvironment});
 
   @override
   void onBrowserCreated() {
@@ -295,7 +294,7 @@ class _InAppBrowserScreenState extends State<InAppBrowserScreen> {
       title: PlatformInAppBrowserMethod.openData.name,
       parameters: {
         'data':
-            '<html><body><h1>Hello ${InAppBrowser}!</h1><p>This is HTML data.</p></body></html>',
+            '<html><body><h1>Hello $InAppBrowser!</h1><p>This is HTML data.</p></body></html>',
         'mimeType': 'text/html',
         'encoding': 'utf8',
         'toolbarTopBackgroundColor': Colors.purple,

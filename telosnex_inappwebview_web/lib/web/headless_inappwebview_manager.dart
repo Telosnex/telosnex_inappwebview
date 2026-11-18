@@ -14,7 +14,7 @@ class HeadlessInAppWebViewManager extends ChannelController {
   late BinaryMessenger _messenger;
 
   HeadlessInAppWebViewManager({required BinaryMessenger messenger}) {
-    this._messenger = messenger;
+    _messenger = messenger;
     channel = MethodChannel(
       'com.telosnex/flutter_headless_inappwebview',
       const StandardMethodCodec(),
@@ -57,9 +57,9 @@ class HeadlessInAppWebViewManager extends ChannelController {
     Map<String, num>? initialSize = params["initialSize"]?.cast<String, num>();
     if (initialSize != null) {
       webView.iframeContainer.style.width =
-          initialSize["width"].toString() + 'px';
+          '${initialSize["width"]}px';
       webView.iframeContainer.style.height =
-          initialSize["height"].toString() + 'px';
+          '${initialSize["height"]}px';
     }
     Map<String, dynamic> initialSettings = params["initialSettings"]
         .cast<String, dynamic>();

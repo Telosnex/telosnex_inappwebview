@@ -324,7 +324,7 @@ void interceptFetchRequest() {
 
               var body = fetchRequest.body.cast<int>();
               var bodyString = String.fromCharCodes(body);
-              assert(bodyString.indexOf("WebKitFormBoundary") >= 0);
+              assert(bodyString.contains("WebKitFormBoundary"));
 
               fetchRequest.body = utf8.encode(
                 bodyString

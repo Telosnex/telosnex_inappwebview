@@ -16,7 +16,7 @@ import 'in_app_webview_controller.dart';
 class LinuxHeadlessInAppWebViewCreationParams
     extends PlatformHeadlessInAppWebViewCreationParams {
   /// Creates a new [LinuxHeadlessInAppWebViewCreationParams] instance.
-  LinuxHeadlessInAppWebViewCreationParams({
+  const LinuxHeadlessInAppWebViewCreationParams({
     super.controllerFromPlatform,
     super.initialSize,
     super.windowId,
@@ -263,7 +263,7 @@ class LinuxHeadlessInAppWebView extends PlatformHeadlessInAppWebView
   Future<void>? _runFuture;
   Future<void>? _disposeFuture;
 
-  static const MethodChannel _sharedChannel = const MethodChannel(
+  static const MethodChannel _sharedChannel = MethodChannel(
     'com.telosnex/flutter_headless_inappwebview',
   );
 
@@ -389,9 +389,7 @@ class LinuxHeadlessInAppWebView extends PlatformHeadlessInAppWebView
     if ((params.shouldInterceptAjaxRequest != null ||
         params.onAjaxProgress != null ||
         params.onAjaxReadyStateChange != null)) {
-      if (settings.useShouldInterceptAjaxRequest == null) {
-        settings.useShouldInterceptAjaxRequest = true;
-      }
+      settings.useShouldInterceptAjaxRequest ??= true;
       if (params.onAjaxReadyStateChange != null &&
           settings.useOnAjaxReadyStateChange == null) {
         settings.useOnAjaxReadyStateChange = true;

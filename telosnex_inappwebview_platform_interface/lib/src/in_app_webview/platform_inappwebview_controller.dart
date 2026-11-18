@@ -4735,6 +4735,7 @@ abstract class PlatformInAppWebViewController extends PlatformInterface
   ///{@endtemplate}
   ///
   ///{@macro telosnex_inappwebview_platform_interface.PlatformInAppWebViewController.dispose.supported_platforms}
+  @override
   @SupportedPlatforms(
     platforms: [
       AndroidPlatform(),

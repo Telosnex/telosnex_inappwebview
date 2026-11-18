@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:collection';
 
 import 'package:flutter/foundation.dart';
 import 'package:telosnex_inappwebview/telosnex_inappwebview.dart';
@@ -118,7 +117,7 @@ class Foo {
   Foo({this.bar, this.baz});
 
   Map<String, dynamic> toJson() {
-    return {'bar': this.bar, 'baz': this.baz};
+    return {'bar': bar, 'baz': baz};
   }
 }
 
@@ -128,9 +127,9 @@ class MyInAppBrowser extends InAppBrowser {
   final Completer<void> browserClosed = Completer<void>();
 
   MyInAppBrowser({
-    int? windowId,
-    UnmodifiableListView<UserScript>? initialUserScripts,
-  }) : super(windowId: windowId, initialUserScripts: initialUserScripts);
+    super.windowId,
+    super.initialUserScripts,
+  });
 
   @override
   Future onBrowserCreated() async {

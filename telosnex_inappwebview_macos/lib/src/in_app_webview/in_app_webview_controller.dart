@@ -57,10 +57,10 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
     UserScriptInjectionTime.AT_DOCUMENT_START: <UserScript>[],
     UserScriptInjectionTime.AT_DOCUMENT_END: <UserScript>[],
   };
-  Set<String> _webMessageListenerObjNames = Set();
+  Set<String> _webMessageListenerObjNames = {};
   Map<String, ScriptHtmlTagAttributes> _injectedScriptsFromURL = {};
-  Set<MacOSWebMessageChannel> _webMessageChannels = Set();
-  Set<MacOSWebMessageListener> _webMessageListeners = Set();
+  Set<MacOSWebMessageChannel> _webMessageChannels = {};
+  Set<MacOSWebMessageListener> _webMessageListeners = {};
 
   // static map that contains the properties to be saved and restored for keep alive feature
   static final Map<InAppWebViewKeepAlive, InAppWebViewControllerKeepAliveProps?>
@@ -94,18 +94,18 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
       for (final userScript in initialUserScripts) {
         if (userScript.injectionTime ==
             UserScriptInjectionTime.AT_DOCUMENT_START) {
-          this._userScripts[UserScriptInjectionTime.AT_DOCUMENT_START]?.add(
+          _userScripts[UserScriptInjectionTime.AT_DOCUMENT_START]?.add(
             userScript,
           );
         } else {
-          this._userScripts[UserScriptInjectionTime.AT_DOCUMENT_END]?.add(
+          _userScripts[UserScriptInjectionTime.AT_DOCUMENT_END]?.add(
             userScript,
           );
         }
       }
     }
 
-    this._init(params);
+    _init(params);
   }
 
   static final MacOSInAppWebViewController _staticValue =
@@ -130,23 +130,23 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
               ),
       ) {
     this.channel = channel;
-    this._inAppBrowser = inAppBrowser;
+    _inAppBrowser = inAppBrowser;
 
     if (initialUserScripts != null) {
       for (final userScript in initialUserScripts) {
         if (userScript.injectionTime ==
             UserScriptInjectionTime.AT_DOCUMENT_START) {
-          this._userScripts[UserScriptInjectionTime.AT_DOCUMENT_START]?.add(
+          _userScripts[UserScriptInjectionTime.AT_DOCUMENT_START]?.add(
             userScript,
           );
         } else {
-          this._userScripts[UserScriptInjectionTime.AT_DOCUMENT_END]?.add(
+          _userScripts[UserScriptInjectionTime.AT_DOCUMENT_END]?.add(
             userScript,
           );
         }
       }
     }
-    this._init(params);
+    _init(params);
   }
 
   void _init(PlatformInAppWebViewControllerCreationParams params) {
@@ -191,9 +191,9 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
     }
   }
 
-  _debugLog(String method, dynamic args) {
+  void _debugLog(String method, dynamic args) {
     debugLog(
-      className: this.runtimeType.toString(),
+      className: runtimeType.toString(),
       name: _inAppBrowser == null
           ? "WebView"
           : _inAppBrowser.runtimeType.toString(),
@@ -224,10 +224,11 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
             _inAppBrowserEventHandler != null) {
           String? url = call.arguments["url"];
           WebUri? uri = url != null ? WebUri(url) : null;
-          if (webviewParams != null && webviewParams!.onLoadStart != null)
+          if (webviewParams != null && webviewParams!.onLoadStart != null) {
             webviewParams!.onLoadStart!(_controllerFromPlatform, uri);
-          else
+          } else {
             _inAppBrowserEventHandler!.onLoadStart(uri);
+          }
         }
         break;
       case "onLoadStop":
@@ -235,10 +236,11 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
             _inAppBrowserEventHandler != null) {
           String? url = call.arguments["url"];
           WebUri? uri = url != null ? WebUri(url) : null;
-          if (webviewParams != null && webviewParams!.onLoadStop != null)
+          if (webviewParams != null && webviewParams!.onLoadStop != null) {
             webviewParams!.onLoadStop!(_controllerFromPlatform, uri);
-          else
+          } else {
             _inAppBrowserEventHandler!.onLoadStop(uri);
+          }
         }
         break;
       case "onReceivedError":
@@ -256,13 +258,13 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
           var isForMainFrame = request.isForMainFrame ?? false;
 
           if (webviewParams != null) {
-            if (webviewParams!.onReceivedError != null)
+            if (webviewParams!.onReceivedError != null) {
               webviewParams!.onReceivedError!(
                 _controllerFromPlatform,
                 request,
                 error,
               );
-            else if (isForMainFrame) {
+            } else if (isForMainFrame) {
               // ignore: deprecated_member_use_from_same_package
               webviewParams!.onLoadError!(
                 _controllerFromPlatform,
@@ -298,13 +300,13 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
           var isForMainFrame = request.isForMainFrame ?? false;
 
           if (webviewParams != null) {
-            if (webviewParams!.onReceivedHttpError != null)
+            if (webviewParams!.onReceivedHttpError != null) {
               webviewParams!.onReceivedHttpError!(
                 _controllerFromPlatform,
                 request,
                 errorResponse,
               );
-            else if (isForMainFrame) {
+            } else if (isForMainFrame) {
               // ignore: deprecated_member_use_from_same_package
               webviewParams!.onLoadHttpError!(
                 _controllerFromPlatform,
@@ -333,13 +335,14 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
                 webviewParams!.onProgressChanged != null) ||
             _inAppBrowserEventHandler != null) {
           int progress = call.arguments["progress"];
-          if (webviewParams != null && webviewParams!.onProgressChanged != null)
+          if (webviewParams != null && webviewParams!.onProgressChanged != null) {
             webviewParams!.onProgressChanged!(
               _controllerFromPlatform,
               progress,
             );
-          else
+          } else {
             _inAppBrowserEventHandler!.onProgressChanged(progress);
+          }
         }
         break;
       case "shouldOverrideUrlLoading":
@@ -353,11 +356,12 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
           )!;
 
           if (webviewParams != null &&
-              webviewParams!.shouldOverrideUrlLoading != null)
+              webviewParams!.shouldOverrideUrlLoading != null) {
             return (await webviewParams!.shouldOverrideUrlLoading!(
               _controllerFromPlatform,
               navigationAction,
             ))?.toNativeValue();
+          }
           return (await _inAppBrowserEventHandler!.shouldOverrideUrlLoading(
             navigationAction,
           ))?.toNativeValue();
@@ -370,13 +374,14 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
           Map<String, dynamic> arguments = call.arguments
               .cast<String, dynamic>();
           ConsoleMessage consoleMessage = ConsoleMessage.fromMap(arguments)!;
-          if (webviewParams != null && webviewParams!.onConsoleMessage != null)
+          if (webviewParams != null && webviewParams!.onConsoleMessage != null) {
             webviewParams!.onConsoleMessage!(
               _controllerFromPlatform,
               consoleMessage,
             );
-          else
+          } else {
             _inAppBrowserEventHandler!.onConsoleMessage(consoleMessage);
+          }
         }
         break;
       case "onScrollChanged":
@@ -384,10 +389,11 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
             _inAppBrowserEventHandler != null) {
           int x = call.arguments["x"];
           int y = call.arguments["y"];
-          if (webviewParams != null && webviewParams!.onScrollChanged != null)
+          if (webviewParams != null && webviewParams!.onScrollChanged != null) {
             webviewParams!.onScrollChanged!(_controllerFromPlatform, x, y);
-          else
+          } else {
             _inAppBrowserEventHandler!.onScrollChanged(x, y);
+          }
         }
         break;
       case "onDownloadStarting":
@@ -402,12 +408,12 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
               DownloadStartRequest.fromMap(arguments)!;
 
           if (webviewParams != null) {
-            if (webviewParams!.onDownloadStarting != null)
+            if (webviewParams!.onDownloadStarting != null) {
               return (await webviewParams!.onDownloadStarting!(
                 _controllerFromPlatform,
                 downloadStartRequest,
               ))?.toMap();
-            else if (webviewParams!.onDownloadStartRequest != null)
+            } else if (webviewParams!.onDownloadStartRequest != null)
               webviewParams!.onDownloadStartRequest!(
                 _controllerFromPlatform,
                 downloadStartRequest,
@@ -442,12 +448,12 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
           WebResourceRequest request = WebResourceRequest.fromMap(requestMap)!;
 
           if (webviewParams != null) {
-            if (webviewParams!.onLoadResourceWithCustomScheme != null)
+            if (webviewParams!.onLoadResourceWithCustomScheme != null) {
               return (await webviewParams!.onLoadResourceWithCustomScheme!(
                 _controllerFromPlatform,
                 request,
               ))?.toMap();
-            else {
+            } else {
               return (await params
                       .webviewParams!
                       // ignore: deprecated_member_use_from_same_package
@@ -475,31 +481,33 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
             arguments,
           )!;
 
-          if (webviewParams != null && webviewParams!.onCreateWindow != null)
+          if (webviewParams != null && webviewParams!.onCreateWindow != null) {
             return await webviewParams!.onCreateWindow!(
               _controllerFromPlatform,
               createWindowAction,
             );
-          else
+          } else {
             return await _inAppBrowserEventHandler!.onCreateWindow(
               createWindowAction,
             );
+          }
         }
         break;
       case "onCloseWindow":
-        if (webviewParams != null && webviewParams!.onCloseWindow != null)
+        if (webviewParams != null && webviewParams!.onCloseWindow != null) {
           webviewParams!.onCloseWindow!(_controllerFromPlatform);
-        else if (_inAppBrowserEventHandler != null)
+        } else if (_inAppBrowserEventHandler != null)
           _inAppBrowserEventHandler!.onCloseWindow();
         break;
       case "onTitleChanged":
         if ((webviewParams != null && webviewParams!.onTitleChanged != null) ||
             _inAppBrowserEventHandler != null) {
           String? title = call.arguments["title"];
-          if (webviewParams != null && webviewParams!.onTitleChanged != null)
+          if (webviewParams != null && webviewParams!.onTitleChanged != null) {
             webviewParams!.onTitleChanged!(_controllerFromPlatform, title);
-          else
+          } else {
             _inAppBrowserEventHandler!.onTitleChanged(title);
+          }
         }
         break;
       case "onGeolocationPermissionsShowPrompt":
@@ -512,12 +520,12 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
           String origin = call.arguments["origin"];
 
           if (webviewParams != null) {
-            if (webviewParams!.onGeolocationPermissionsShowPrompt != null)
+            if (webviewParams!.onGeolocationPermissionsShowPrompt != null) {
               return (await webviewParams!.onGeolocationPermissionsShowPrompt!(
                 _controllerFromPlatform,
                 origin,
               ))?.toMap();
-            else {
+            } else {
               return (await params
                       .webviewParams!
                       // ignore: deprecated_member_use_from_same_package
@@ -542,11 +550,11 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
                 // ignore: deprecated_member_use_from_same_package
                 webviewParams!.androidOnGeolocationPermissionsHidePrompt !=
                     null)) {
-          if (webviewParams!.onGeolocationPermissionsHidePrompt != null)
+          if (webviewParams!.onGeolocationPermissionsHidePrompt != null) {
             webviewParams!.onGeolocationPermissionsHidePrompt!(
               _controllerFromPlatform,
             );
-          else {
+          } else {
             // ignore: deprecated_member_use_from_same_package
             webviewParams!.androidOnGeolocationPermissionsHidePrompt!(
               _controllerFromPlatform,
@@ -570,12 +578,12 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
           WebResourceRequest request = WebResourceRequest.fromMap(arguments)!;
 
           if (webviewParams != null) {
-            if (webviewParams!.shouldInterceptRequest != null)
+            if (webviewParams!.shouldInterceptRequest != null) {
               return (await webviewParams!.shouldInterceptRequest!(
                 _controllerFromPlatform,
                 request,
               ))?.toMap();
-            else {
+            } else {
               // ignore: deprecated_member_use_from_same_package
               return (await webviewParams!.androidShouldInterceptRequest!(
                 _controllerFromPlatform,
@@ -603,12 +611,12 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
           WebUri? uri = url != null ? WebUri(url) : null;
 
           if (webviewParams != null) {
-            if (webviewParams!.onRenderProcessUnresponsive != null)
+            if (webviewParams!.onRenderProcessUnresponsive != null) {
               return (await webviewParams!.onRenderProcessUnresponsive!(
                 _controllerFromPlatform,
                 uri,
               ))?.toNativeValue();
-            else {
+            } else {
               // ignore: deprecated_member_use_from_same_package
               return (await webviewParams!.androidOnRenderProcessUnresponsive!(
                 _controllerFromPlatform,
@@ -634,12 +642,12 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
           WebUri? uri = url != null ? WebUri(url) : null;
 
           if (webviewParams != null) {
-            if (webviewParams!.onRenderProcessResponsive != null)
+            if (webviewParams!.onRenderProcessResponsive != null) {
               return (await webviewParams!.onRenderProcessResponsive!(
                 _controllerFromPlatform,
                 uri,
               ))?.toNativeValue();
-            else {
+            } else {
               // ignore: deprecated_member_use_from_same_package
               return (await webviewParams!.androidOnRenderProcessResponsive!(
                 _controllerFromPlatform,
@@ -669,12 +677,12 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
           )!;
 
           if (webviewParams != null) {
-            if (webviewParams!.onRenderProcessGone != null)
+            if (webviewParams!.onRenderProcessGone != null) {
               webviewParams!.onRenderProcessGone!(
                 _controllerFromPlatform,
                 detail,
               );
-            else {
+            } else {
               // ignore: deprecated_member_use_from_same_package
               webviewParams!.androidOnRenderProcessGone!(
                 _controllerFromPlatform,
@@ -698,12 +706,12 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
           WebUri? uri = url != null ? WebUri(url) : null;
 
           if (webviewParams != null) {
-            if (webviewParams!.onFormResubmission != null)
+            if (webviewParams!.onFormResubmission != null) {
               return (await webviewParams!.onFormResubmission!(
                 _controllerFromPlatform,
                 uri,
               ))?.toNativeValue();
-            else {
+            } else {
               // ignore: deprecated_member_use_from_same_package
               return (await webviewParams!.androidOnFormResubmission!(
                 _controllerFromPlatform,
@@ -732,13 +740,13 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
           double newScale = call.arguments["newScale"];
 
           if (webviewParams != null) {
-            if (webviewParams!.onZoomScaleChanged != null)
+            if (webviewParams!.onZoomScaleChanged != null) {
               webviewParams!.onZoomScaleChanged!(
                 _controllerFromPlatform,
                 oldScale,
                 newScale,
               );
-            else {
+            } else {
               // ignore: deprecated_member_use_from_same_package
               webviewParams!.androidOnScaleChanged!(
                 _controllerFromPlatform,
@@ -767,9 +775,9 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
           );
 
           if (webviewParams != null) {
-            if (webviewParams!.onReceivedIcon != null)
+            if (webviewParams!.onReceivedIcon != null) {
               webviewParams!.onReceivedIcon!(_controllerFromPlatform, icon);
-            else {
+            } else {
               // ignore: deprecated_member_use_from_same_package
               webviewParams!.androidOnReceivedIcon!(
                 _controllerFromPlatform,
@@ -794,13 +802,13 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
           WebUri uri = WebUri(url);
 
           if (webviewParams != null) {
-            if (webviewParams!.onReceivedTouchIconUrl != null)
+            if (webviewParams!.onReceivedTouchIconUrl != null) {
               webviewParams!.onReceivedTouchIconUrl!(
                 _controllerFromPlatform,
                 uri,
                 precomposed,
               );
-            else {
+            } else {
               // ignore: deprecated_member_use_from_same_package
               webviewParams!.androidOnReceivedTouchIconUrl!(
                 _controllerFromPlatform,
@@ -825,15 +833,16 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
               .cast<String, dynamic>();
           JsAlertRequest jsAlertRequest = JsAlertRequest.fromMap(arguments)!;
 
-          if (webviewParams != null && webviewParams!.onJsAlert != null)
+          if (webviewParams != null && webviewParams!.onJsAlert != null) {
             return (await webviewParams!.onJsAlert!(
               _controllerFromPlatform,
               jsAlertRequest,
             ))?.toMap();
-          else
+          } else {
             return (await _inAppBrowserEventHandler!.onJsAlert(
               jsAlertRequest,
             ))?.toMap();
+          }
         }
         break;
       case "onJsConfirm":
@@ -845,15 +854,16 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
             arguments,
           )!;
 
-          if (webviewParams != null && webviewParams!.onJsConfirm != null)
+          if (webviewParams != null && webviewParams!.onJsConfirm != null) {
             return (await webviewParams!.onJsConfirm!(
               _controllerFromPlatform,
               jsConfirmRequest,
             ))?.toMap();
-          else
+          } else {
             return (await _inAppBrowserEventHandler!.onJsConfirm(
               jsConfirmRequest,
             ))?.toMap();
+          }
         }
         break;
       case "onJsPrompt":
@@ -863,15 +873,16 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
               .cast<String, dynamic>();
           JsPromptRequest jsPromptRequest = JsPromptRequest.fromMap(arguments)!;
 
-          if (webviewParams != null && webviewParams!.onJsPrompt != null)
+          if (webviewParams != null && webviewParams!.onJsPrompt != null) {
             return (await webviewParams!.onJsPrompt!(
               _controllerFromPlatform,
               jsPromptRequest,
             ))?.toMap();
-          else
+          } else {
             return (await _inAppBrowserEventHandler!.onJsPrompt(
               jsPromptRequest,
             ))?.toMap();
+          }
         }
         break;
       case "onJsBeforeUnload":
@@ -886,12 +897,12 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
               JsBeforeUnloadRequest.fromMap(arguments)!;
 
           if (webviewParams != null) {
-            if (webviewParams!.onJsBeforeUnload != null)
+            if (webviewParams!.onJsBeforeUnload != null) {
               return (await webviewParams!.onJsBeforeUnload!(
                 _controllerFromPlatform,
                 jsBeforeUnloadRequest,
               ))?.toMap();
-            else {
+            } else {
               // ignore: deprecated_member_use_from_same_package
               return (await webviewParams!.androidOnJsBeforeUnload!(
                 _controllerFromPlatform,
@@ -922,13 +933,13 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
           WebUri uri = WebUri(url);
 
           if (webviewParams != null) {
-            if (webviewParams!.onSafeBrowsingHit != null)
+            if (webviewParams!.onSafeBrowsingHit != null) {
               return (await webviewParams!.onSafeBrowsingHit!(
                 _controllerFromPlatform,
                 uri,
                 threatType,
               ))?.toMap();
-            else {
+            } else {
               // ignore: deprecated_member_use_from_same_package
               return (await webviewParams!.androidOnSafeBrowsingHit!(
                 _controllerFromPlatform,
@@ -960,12 +971,12 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
           LoginRequest loginRequest = LoginRequest.fromMap(arguments)!;
 
           if (webviewParams != null) {
-            if (webviewParams!.onReceivedLoginRequest != null)
+            if (webviewParams!.onReceivedLoginRequest != null) {
               webviewParams!.onReceivedLoginRequest!(
                 _controllerFromPlatform,
                 loginRequest,
               );
-            else {
+            } else {
               // ignore: deprecated_member_use_from_same_package
               webviewParams!.androidOnReceivedLoginRequest!(
                 _controllerFromPlatform,
@@ -992,24 +1003,26 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
           )!;
 
           if (webviewParams != null &&
-              webviewParams!.onPermissionRequestCanceled != null)
+              webviewParams!.onPermissionRequestCanceled != null) {
             webviewParams!.onPermissionRequestCanceled!(
               _controllerFromPlatform,
               permissionRequest,
             );
-          else
+          } else {
             _inAppBrowserEventHandler!.onPermissionRequestCanceled(
               permissionRequest,
             );
+          }
         }
         break;
       case "onRequestFocus":
         if ((webviewParams != null && webviewParams!.onRequestFocus != null) ||
             _inAppBrowserEventHandler != null) {
-          if (webviewParams != null && webviewParams!.onRequestFocus != null)
+          if (webviewParams != null && webviewParams!.onRequestFocus != null) {
             webviewParams!.onRequestFocus!(_controllerFromPlatform);
-          else
+          } else {
             _inAppBrowserEventHandler!.onRequestFocus();
+          }
         }
         break;
       case "onReceivedHttpAuthRequest":
@@ -1022,15 +1035,16 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
               HttpAuthenticationChallenge.fromMap(arguments)!;
 
           if (webviewParams != null &&
-              webviewParams!.onReceivedHttpAuthRequest != null)
+              webviewParams!.onReceivedHttpAuthRequest != null) {
             return (await webviewParams!.onReceivedHttpAuthRequest!(
               _controllerFromPlatform,
               challenge,
             ))?.toMap();
-          else
+          } else {
             return (await _inAppBrowserEventHandler!.onReceivedHttpAuthRequest(
               challenge,
             ))?.toMap();
+          }
         }
         break;
       case "onReceivedServerTrustAuthRequest":
@@ -1044,15 +1058,16 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
           )!;
 
           if (webviewParams != null &&
-              webviewParams!.onReceivedServerTrustAuthRequest != null)
+              webviewParams!.onReceivedServerTrustAuthRequest != null) {
             return (await webviewParams!.onReceivedServerTrustAuthRequest!(
               _controllerFromPlatform,
               challenge,
             ))?.toMap();
-          else
+          } else {
             return (await _inAppBrowserEventHandler!
                     .onReceivedServerTrustAuthRequest(challenge))
                 ?.toMap();
+          }
         }
         break;
       case "onReceivedClientCertRequest":
@@ -1066,15 +1081,16 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
           )!;
 
           if (webviewParams != null &&
-              webviewParams!.onReceivedClientCertRequest != null)
+              webviewParams!.onReceivedClientCertRequest != null) {
             return (await webviewParams!.onReceivedClientCertRequest!(
               _controllerFromPlatform,
               challenge,
             ))?.toMap();
-          else
+          } else {
             return (await _inAppBrowserEventHandler!
                     .onReceivedClientCertRequest(challenge))
                 ?.toMap();
+          }
         }
         break;
       case "onFindResultReceived":
@@ -1096,7 +1112,7 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
                         .findInteractionController!
                         .params
                         .onFindResultReceived !=
-                    null)
+                    null) {
               webviewParams!
                   .findInteractionController!
                   .params
@@ -1106,31 +1122,33 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
                 numberOfMatches,
                 isDoneCounting,
               );
-            else
+            } else {
               webviewParams!.onFindResultReceived!(
                 _controllerFromPlatform,
                 activeMatchOrdinal,
                 numberOfMatches,
                 isDoneCounting,
               );
+            }
           } else {
             if (_inAppBrowser!.findInteractionController != null &&
                 _inAppBrowser!
                         .findInteractionController!
                         .onFindResultReceived !=
-                    null)
+                    null) {
               _inAppBrowser!.findInteractionController!.onFindResultReceived!(
                 webviewParams!.findInteractionController!,
                 activeMatchOrdinal,
                 numberOfMatches,
                 isDoneCounting,
               );
-            else
+            } else {
               _inAppBrowserEventHandler!.onFindResultReceived(
                 activeMatchOrdinal,
                 numberOfMatches,
                 isDoneCounting,
               );
+            }
           }
         }
         break;
@@ -1150,12 +1168,12 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
           )!;
 
           if (webviewParams != null) {
-            if (webviewParams!.onPermissionRequest != null)
+            if (webviewParams!.onPermissionRequest != null) {
               return (await webviewParams!.onPermissionRequest!(
                 _controllerFromPlatform,
                 permissionRequest,
               ))?.toMap();
-            else {
+            } else {
               return (await webviewParams!.androidOnPermissionRequest!(
                 _controllerFromPlatform,
                 origin,
@@ -1181,14 +1199,15 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
           bool? isReload = call.arguments["isReload"];
           WebUri? uri = url != null ? WebUri(url) : null;
           if (webviewParams != null &&
-              webviewParams!.onUpdateVisitedHistory != null)
+              webviewParams!.onUpdateVisitedHistory != null) {
             webviewParams!.onUpdateVisitedHistory!(
               _controllerFromPlatform,
               uri,
               isReload,
             );
-          else
+          } else {
             _inAppBrowserEventHandler!.onUpdateVisitedHistory(uri, isReload);
+          }
         }
         break;
       case "onWebContentProcessDidTerminate":
@@ -1196,11 +1215,11 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
             (webviewParams!.onWebContentProcessDidTerminate != null ||
                 // ignore: deprecated_member_use_from_same_package
                 webviewParams!.iosOnWebContentProcessDidTerminate != null)) {
-          if (webviewParams!.onWebContentProcessDidTerminate != null)
+          if (webviewParams!.onWebContentProcessDidTerminate != null) {
             webviewParams!.onWebContentProcessDidTerminate!(
               _controllerFromPlatform,
             );
-          else {
+          } else {
             // ignore: deprecated_member_use_from_same_package
             webviewParams!.iosOnWebContentProcessDidTerminate!(
               _controllerFromPlatform,
@@ -1219,10 +1238,11 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
           String? url = call.arguments["url"];
           WebUri? uri = url != null ? WebUri(url) : null;
           if (webviewParams != null &&
-              webviewParams!.onPageCommitVisible != null)
+              webviewParams!.onPageCommitVisible != null) {
             webviewParams!.onPageCommitVisible!(_controllerFromPlatform, uri);
-          else
+          } else {
             _inAppBrowserEventHandler!.onPageCommitVisible(uri);
+          }
         }
         break;
       case "onDidReceiveServerRedirectForProvisionalNavigation":
@@ -1237,11 +1257,11 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
                     null)) {
           if (webviewParams!
                   .onDidReceiveServerRedirectForProvisionalNavigation !=
-              null)
+              null) {
             webviewParams!.onDidReceiveServerRedirectForProvisionalNavigation!(
               _controllerFromPlatform,
             );
-          else {
+          } else {
             params
                 .webviewParams!
                 // ignore: deprecated_member_use_from_same_package
@@ -1274,12 +1294,12 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
           )!;
 
           if (webviewParams != null) {
-            if (webviewParams!.onNavigationResponse != null)
+            if (webviewParams!.onNavigationResponse != null) {
               return (await webviewParams!.onNavigationResponse!(
                 _controllerFromPlatform,
                 navigationResponse,
               ))?.toNativeValue();
-            else {
+            } else {
               // ignore: deprecated_member_use_from_same_package
               return (await webviewParams!.iosOnNavigationResponse!(
                 _controllerFromPlatform,
@@ -1308,12 +1328,12 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
               URLAuthenticationChallenge.fromMap(arguments)!;
 
           if (webviewParams != null) {
-            if (webviewParams!.shouldAllowDeprecatedTLS != null)
+            if (webviewParams!.shouldAllowDeprecatedTLS != null) {
               return (await webviewParams!.shouldAllowDeprecatedTLS!(
                 _controllerFromPlatform,
                 challenge,
               ))?.toNativeValue();
-            else {
+            } else {
               // ignore: deprecated_member_use_from_same_package
               return (await webviewParams!.iosShouldAllowDeprecatedTLS!(
                 _controllerFromPlatform,
@@ -1341,13 +1361,14 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
               InAppWebViewHitTestResult.fromMap(arguments)!;
 
           if (webviewParams != null &&
-              webviewParams!.onLongPressHitTestResult != null)
+              webviewParams!.onLongPressHitTestResult != null) {
             webviewParams!.onLongPressHitTestResult!(
               _controllerFromPlatform,
               hitTestResult,
             );
-          else
+          } else {
             _inAppBrowserEventHandler!.onLongPressHitTestResult(hitTestResult);
+          }
         }
         break;
       case "onCreateContextMenu":
@@ -1422,15 +1443,15 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
         }
         break;
       case "onEnterFullscreen":
-        if (webviewParams != null && webviewParams!.onEnterFullscreen != null)
+        if (webviewParams != null && webviewParams!.onEnterFullscreen != null) {
           webviewParams!.onEnterFullscreen!(_controllerFromPlatform);
-        else if (_inAppBrowserEventHandler != null)
+        } else if (_inAppBrowserEventHandler != null)
           _inAppBrowserEventHandler!.onEnterFullscreen();
         break;
       case "onExitFullscreen":
-        if (webviewParams != null && webviewParams!.onExitFullscreen != null)
+        if (webviewParams != null && webviewParams!.onExitFullscreen != null) {
           webviewParams!.onExitFullscreen!(_controllerFromPlatform);
-        else if (_inAppBrowserEventHandler != null)
+        } else if (_inAppBrowserEventHandler != null)
           _inAppBrowserEventHandler!.onExitFullscreen();
         break;
       case "onOverScrolled":
@@ -1441,7 +1462,7 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
           bool clampedX = call.arguments["clampedX"];
           bool clampedY = call.arguments["clampedY"];
 
-          if (webviewParams != null && webviewParams!.onOverScrolled != null)
+          if (webviewParams != null && webviewParams!.onOverScrolled != null) {
             webviewParams!.onOverScrolled!(
               _controllerFromPlatform,
               x,
@@ -1449,20 +1470,21 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
               clampedX,
               clampedY,
             );
-          else
+          } else {
             _inAppBrowserEventHandler!.onOverScrolled(x, y, clampedX, clampedY);
+          }
         }
         break;
       case "onWindowFocus":
-        if (webviewParams != null && webviewParams!.onWindowFocus != null)
+        if (webviewParams != null && webviewParams!.onWindowFocus != null) {
           webviewParams!.onWindowFocus!(_controllerFromPlatform);
-        else if (_inAppBrowserEventHandler != null)
+        } else if (_inAppBrowserEventHandler != null)
           _inAppBrowserEventHandler!.onWindowFocus();
         break;
       case "onWindowBlur":
-        if (webviewParams != null && webviewParams!.onWindowBlur != null)
+        if (webviewParams != null && webviewParams!.onWindowBlur != null) {
           webviewParams!.onWindowBlur!(_controllerFromPlatform);
-        else if (_inAppBrowserEventHandler != null)
+        } else if (_inAppBrowserEventHandler != null)
           _inAppBrowserEventHandler!.onWindowBlur();
         break;
       case "onPrintRequest":
@@ -1481,13 +1503,13 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
               : null;
 
           if (webviewParams != null) {
-            if (webviewParams!.onPrintRequest != null)
+            if (webviewParams!.onPrintRequest != null) {
               return await webviewParams!.onPrintRequest!(
                 _controllerFromPlatform,
                 uri,
                 printJob,
               );
-            else {
+            } else {
               // ignore: deprecated_member_use_from_same_package
               webviewParams!.onPrint!(_controllerFromPlatform, uri);
               return false;
@@ -1530,17 +1552,18 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
           );
 
           if (webviewParams != null &&
-              webviewParams!.onCameraCaptureStateChanged != null)
+              webviewParams!.onCameraCaptureStateChanged != null) {
             webviewParams!.onCameraCaptureStateChanged!(
               _controllerFromPlatform,
               oldState,
               newState,
             );
-          else
+          } else {
             _inAppBrowserEventHandler!.onCameraCaptureStateChanged(
               oldState,
               newState,
             );
+          }
         }
         break;
       case "onMicrophoneCaptureStateChanged":
@@ -1555,17 +1578,18 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
           );
 
           if (webviewParams != null &&
-              webviewParams!.onMicrophoneCaptureStateChanged != null)
+              webviewParams!.onMicrophoneCaptureStateChanged != null) {
             webviewParams!.onMicrophoneCaptureStateChanged!(
               _controllerFromPlatform,
               oldState,
               newState,
             );
-          else
+          } else {
             _inAppBrowserEventHandler!.onMicrophoneCaptureStateChanged(
               oldState,
               newState,
             );
+          }
         }
         break;
       case "onContentSizeChanged":
@@ -1580,17 +1604,18 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
           )!;
 
           if (webviewParams != null &&
-              webviewParams!.onContentSizeChanged != null)
+              webviewParams!.onContentSizeChanged != null) {
             webviewParams!.onContentSizeChanged!(
               _controllerFromPlatform,
               oldContentSize,
               newContentSize,
             );
-          else
+          } else {
             _inAppBrowserEventHandler!.onContentSizeChanged(
               oldContentSize,
               newContentSize,
             );
+          }
         }
         break;
       case "onCallJsHandler":
@@ -1622,13 +1647,14 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
               var response = LoadedResource.fromMap(arguments)!;
 
               if (webviewParams != null &&
-                  webviewParams!.onLoadResource != null)
+                  webviewParams!.onLoadResource != null) {
                 webviewParams!.onLoadResource!(
                   _controllerFromPlatform,
                   response,
                 );
-              else
+              } else {
                 _inAppBrowserEventHandler!.onLoadResource(response);
+              }
             }
             return null;
           case "shouldInterceptAjaxRequest":
@@ -1640,19 +1666,20 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
               AjaxRequest request = AjaxRequest.fromMap(arguments)!;
 
               if (webviewParams != null &&
-                  webviewParams!.shouldInterceptAjaxRequest != null)
+                  webviewParams!.shouldInterceptAjaxRequest != null) {
                 return jsonEncode(
                   await params.webviewParams!.shouldInterceptAjaxRequest!(
                     _controllerFromPlatform,
                     request,
                   ),
                 );
-              else
+              } else {
                 return jsonEncode(
                   await _inAppBrowserEventHandler!.shouldInterceptAjaxRequest(
                     request,
                   ),
                 );
+              }
             }
             return null;
           case "onAjaxReadyStateChange":
@@ -1664,19 +1691,20 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
               AjaxRequest request = AjaxRequest.fromMap(arguments)!;
 
               if (webviewParams != null &&
-                  webviewParams!.onAjaxReadyStateChange != null)
+                  webviewParams!.onAjaxReadyStateChange != null) {
                 return jsonEncode(
                   (await webviewParams!.onAjaxReadyStateChange!(
                     _controllerFromPlatform,
                     request,
                   ))?.toNativeValue(),
                 );
-              else
+              } else {
                 return jsonEncode(
                   (await _inAppBrowserEventHandler!.onAjaxReadyStateChange(
                     request,
                   ))?.toNativeValue(),
                 );
+              }
             }
             return null;
           case "onAjaxProgress":
@@ -1688,19 +1716,20 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
               AjaxRequest request = AjaxRequest.fromMap(arguments)!;
 
               if (webviewParams != null &&
-                  webviewParams!.onAjaxProgress != null)
+                  webviewParams!.onAjaxProgress != null) {
                 return jsonEncode(
                   (await webviewParams!.onAjaxProgress!(
                     _controllerFromPlatform,
                     request,
                   ))?.toNativeValue(),
                 );
-              else
+              } else {
                 return jsonEncode(
                   (await _inAppBrowserEventHandler!.onAjaxProgress(
                     request,
                   ))?.toNativeValue(),
                 );
+              }
             }
             return null;
           case "shouldInterceptFetchRequest":
@@ -1712,31 +1741,32 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
               FetchRequest request = FetchRequest.fromMap(arguments)!;
 
               if (webviewParams != null &&
-                  webviewParams!.shouldInterceptFetchRequest != null)
+                  webviewParams!.shouldInterceptFetchRequest != null) {
                 return jsonEncode(
                   await webviewParams!.shouldInterceptFetchRequest!(
                     _controllerFromPlatform,
                     request,
                   ),
                 );
-              else
+              } else {
                 return jsonEncode(
                   await _inAppBrowserEventHandler!.shouldInterceptFetchRequest(
                     request,
                   ),
                 );
+              }
             }
             return null;
           case "onWindowFocus":
-            if (webviewParams != null && webviewParams!.onWindowFocus != null)
+            if (webviewParams != null && webviewParams!.onWindowFocus != null) {
               webviewParams!.onWindowFocus!(_controllerFromPlatform);
-            else if (_inAppBrowserEventHandler != null)
+            } else if (_inAppBrowserEventHandler != null)
               _inAppBrowserEventHandler!.onWindowFocus();
             return null;
           case "onWindowBlur":
-            if (webviewParams != null && webviewParams!.onWindowBlur != null)
+            if (webviewParams != null && webviewParams!.onWindowBlur != null) {
               webviewParams!.onWindowBlur!(_controllerFromPlatform);
-            else if (_inAppBrowserEventHandler != null)
+            } else if (_inAppBrowserEventHandler != null)
               _inAppBrowserEventHandler!.onWindowBlur();
             return null;
           case "onInjectedScriptLoaded":
@@ -1760,7 +1790,7 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
         if (_javaScriptHandlersMap.containsKey(handlerName)) {
           // convert result to json
           try {
-            var jsHandlerResult = null;
+            var jsHandlerResult;
             if (_javaScriptHandlersMap[handlerName]
                 is JavaScriptHandlerCallback) {
               jsHandlerResult =
@@ -1777,7 +1807,7 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
             return jsonEncode(jsHandlerResult);
           } catch (error, stacktrace) {
             developer.log(
-              error.toString() + '\n' + stacktrace.toString(),
+              '$error\n$stacktrace',
               name: 'JavaScript Handler "$handlerName"',
             );
             throw Exception(error.toString().replaceFirst('Exception: ', ''));
@@ -1841,7 +1871,7 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
             .transform(Utf8Decoder())
             .join();
       } catch (e) {
-        developer.log(e.toString(), name: this.runtimeType.toString());
+        developer.log(e.toString(), name: runtimeType.toString());
       }
     }
 
@@ -1864,11 +1894,11 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
     if (html == null || html.isEmpty) {
       return favicons;
     }
-    var assetPathBase;
+    String assetPathBase;
 
     if (webviewUrl.isScheme("file")) {
       var assetPathSplit = webviewUrl.toString().split("/flutter_assets/");
-      assetPathBase = assetPathSplit[0] + "/flutter_assets/";
+      assetPathBase = "${assetPathSplit[0]}/flutter_assets/";
     }
 
     InAppWebViewSettings? settings = await getSettings();
@@ -1913,7 +1943,7 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
             }
             manifestUrl =
                 ((assetPathBase == null)
-                    ? webviewUrl.scheme + "://" + webviewUrl.host + "/"
+                    ? "${webviewUrl.scheme}://${webviewUrl.host}/"
                     : assetPathBase) +
                 manifestUrl;
           }
@@ -1936,7 +1966,7 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
     try {
       HttpClient client = HttpClient();
       var faviconUrl =
-          webviewUrl.scheme + "://" + webviewUrl.host + "/favicon.ico";
+          "${webviewUrl.scheme}://${webviewUrl.host}/favicon.ico";
       var faviconUri = WebUri(faviconUrl);
       var headRequest = await client.headUrl(faviconUri);
       var headResponse = await headRequest.close();
@@ -1945,7 +1975,7 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
       }
     } catch (e) {
       developer.log(
-        "/favicon.ico file not found: " + e.toString(),
+        "/favicon.ico file not found: $e",
         name: runtimeType.toString(),
       );
     }
@@ -1954,10 +1984,7 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
     HttpClientRequest? manifestRequest;
     HttpClientResponse? manifestResponse;
     bool manifestFound = false;
-    if (manifestUrl == null) {
-      manifestUrl =
-          webviewUrl.scheme + "://" + webviewUrl.host + "/manifest.json";
-    }
+    manifestUrl ??= "${webviewUrl.scheme}://${webviewUrl.host}/manifest.json";
     try {
       HttpClient client = HttpClient();
       manifestRequest = await client.getUrl(Uri.parse(manifestUrl));
@@ -1967,8 +1994,8 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
           manifestResponse.headers.contentType?.mimeType == "application/json";
     } catch (e) {
       developer.log(
-        "Manifest file not found: " + e.toString(),
-        name: this.runtimeType.toString(),
+        "Manifest file not found: $e",
+        name: runtimeType.toString(),
       );
     }
 
@@ -1993,8 +2020,7 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
         }
       } catch (e) {
         developer.log(
-          "Cannot get favicons from Manifest file. It might not have a valid format: " +
-              e.toString(),
+          "Cannot get favicons from Manifest file. It might not have a valid format: $e",
           error: e,
           name: runtimeType.toString(),
         );
@@ -2025,14 +2051,14 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
       }
       urlIcon =
           ((assetPathBase == null)
-              ? url.scheme + "://" + url.host + "/"
+              ? "${url.scheme}://${url.host}/"
               : assetPathBase) +
           urlIcon;
     }
     if (isManifest) {
       rel = (sizes != null)
           ? urlSplit[urlSplit.length - 1]
-                .replaceFirst("-" + sizes, "")
+                .replaceFirst("-$sizes", "")
                 .split(" ")[0]
                 .split(".")[0]
           : null;
@@ -2284,17 +2310,17 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
       !kJavaScriptHandlerForbiddenNames.contains(handlerName),
       '"$handlerName" is a forbidden name!',
     );
-    this._javaScriptHandlersMap[handlerName] = (callback);
+    _javaScriptHandlersMap[handlerName] = (callback);
   }
 
   @override
   Function? removeJavaScriptHandler({required String handlerName}) {
-    return this._javaScriptHandlersMap.remove(handlerName);
+    return _javaScriptHandlersMap.remove(handlerName);
   }
 
   @override
   bool hasJavaScriptHandler({required String handlerName}) {
-    return this._javaScriptHandlersMap.containsKey(handlerName);
+    return _javaScriptHandlersMap.containsKey(handlerName);
   }
 
   @override
@@ -2800,7 +2826,7 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
       assert(
         WebArchiveFormat.WEBARCHIVE.isSupported() &&
             filePath.endsWith(
-              "." + WebArchiveFormat.WEBARCHIVE.toNativeValue()!,
+              ".${WebArchiveFormat.WEBARCHIVE.toNativeValue()!}",
             ),
       );
     }
@@ -2836,9 +2862,7 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
     required WebMessage message,
     WebUri? targetOrigin,
   }) async {
-    if (targetOrigin == null) {
-      targetOrigin = WebUri('');
-    }
+    targetOrigin ??= WebUri('');
     Map<String, dynamic> args = <String, dynamic>{};
     args.putIfAbsent('message', () => message.toMap());
     args.putIfAbsent('targetOrigin', () => targetOrigin.toString());
@@ -2851,7 +2875,7 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
   ) async {
     assert(
       !_webMessageListeners.contains(webMessageListener),
-      "${webMessageListener} was already added.",
+      "$webMessageListener was already added.",
     );
     assert(
       !_webMessageListenerObjNames.contains(
@@ -3093,5 +3117,5 @@ class MacOSInAppWebViewController extends PlatformInAppWebViewController
 }
 
 extension InternalInAppWebViewController on MacOSInAppWebViewController {
-  get handleMethod => _handleMethod;
+  Future<dynamic> Function(MethodCall call) get handleMethod => _handleMethod;
 }

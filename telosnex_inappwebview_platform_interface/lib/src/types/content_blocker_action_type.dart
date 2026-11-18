@@ -22,7 +22,7 @@ class ContentBlockerActionType_ {
       EnumLinuxPlatform(value: 'block'),
     ],
   )
-  static const BLOCK = const ContentBlockerActionType_._internal('block');
+  static const BLOCK = ContentBlockerActionType_._internal('block');
 
   ///Hides elements of the page based on a CSS selector.
   ///A selector field contains the selector list.
@@ -37,7 +37,7 @@ class ContentBlockerActionType_ {
       EnumLinuxPlatform(value: 'css-display-none'),
     ],
   )
-  static const CSS_DISPLAY_NONE = const ContentBlockerActionType_._internal(
+  static const CSS_DISPLAY_NONE = ContentBlockerActionType_._internal(
     'css-display-none',
   );
 
@@ -51,7 +51,7 @@ class ContentBlockerActionType_ {
       EnumLinuxPlatform(value: 'make-https'),
     ],
   )
-  static const MAKE_HTTPS = const ContentBlockerActionType_._internal(
+  static const MAKE_HTTPS = ContentBlockerActionType_._internal(
     'make-https',
   );
 
@@ -65,7 +65,7 @@ class ContentBlockerActionType_ {
       EnumLinuxPlatform(value: 'block-cookies'),
     ],
   )
-  static const BLOCK_COOKIES = const ContentBlockerActionType_._internal(
+  static const BLOCK_COOKIES = ContentBlockerActionType_._internal(
     'block-cookies',
   );
 
@@ -78,5 +78,5 @@ class ContentBlockerActionType_ {
     ],
   )
   static const IGNORE_PREVIOUS_RULES =
-      const ContentBlockerActionType_._internal('ignore-previous-rules');
+      ContentBlockerActionType_._internal('ignore-previous-rules');
 }

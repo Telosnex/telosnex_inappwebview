@@ -30,9 +30,7 @@ class ServiceWorkerController {
 
   ///Gets the [ServiceWorkerController] shared instance.
   static ServiceWorkerController instance() {
-    if (_instance == null) {
-      _instance = ServiceWorkerController();
-    }
+    _instance ??= ServiceWorkerController();
     return _instance!;
   }
 
@@ -44,7 +42,7 @@ class ServiceWorkerController {
   ///{@macro telosnex_inappwebview_platform_interface.PlatformServiceWorkerController.setServiceWorkerClient}
   ///
   ///{@macro telosnex_inappwebview_platform_interface.PlatformServiceWorkerController.setServiceWorkerClient.supported_platforms}
-  setServiceWorkerClient(ServiceWorkerClient? value) =>
+  Future<void> setServiceWorkerClient(ServiceWorkerClient? value) =>
       platform.setServiceWorkerClient(value);
 
   ///{@macro telosnex_inappwebview_platform_interface.PlatformServiceWorkerController.getAllowContentAccess}
@@ -142,7 +140,7 @@ class AndroidServiceWorkerController {
   }
 
   ///Sets the service worker client
-  setServiceWorkerClient(AndroidServiceWorkerClient? value) async {
+  Future<void> setServiceWorkerClient(AndroidServiceWorkerClient? value) async {
     await ServiceWorkerController.instance().setServiceWorkerClient(
       value != null
           ? ServiceWorkerClient(

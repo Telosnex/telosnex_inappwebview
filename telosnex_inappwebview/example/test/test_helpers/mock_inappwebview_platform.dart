@@ -805,10 +805,6 @@ class MockPlatformInAppBrowser extends PlatformInAppBrowser
   @override
   bool isOpened() => true;
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
 }
 
 class MockPlatformChromeSafariBrowser extends PlatformChromeSafariBrowser

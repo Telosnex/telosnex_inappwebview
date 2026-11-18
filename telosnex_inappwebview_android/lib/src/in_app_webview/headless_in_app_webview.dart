@@ -15,7 +15,7 @@ import 'in_app_webview_controller.dart';
 class AndroidHeadlessInAppWebViewCreationParams
     extends PlatformHeadlessInAppWebViewCreationParams {
   /// Creates a new [AndroidHeadlessInAppWebViewCreationParams] instance.
-  AndroidHeadlessInAppWebViewCreationParams({
+  const AndroidHeadlessInAppWebViewCreationParams({
     super.controllerFromPlatform,
     super.initialSize,
     super.windowId,
@@ -259,7 +259,7 @@ class AndroidHeadlessInAppWebView extends PlatformHeadlessInAppWebView
   bool _started = false;
   bool _running = false;
 
-  static const MethodChannel _sharedChannel = const MethodChannel(
+  static const MethodChannel _sharedChannel = MethodChannel(
     'com.telosnex/flutter_headless_inappwebview',
   );
 
@@ -292,7 +292,7 @@ class AndroidHeadlessInAppWebView extends PlatformHeadlessInAppWebView
   AndroidHeadlessInAppWebViewCreationParams get _androidParams =>
       params as AndroidHeadlessInAppWebViewCreationParams;
 
-  _init() {
+  void _init() {
     _webViewController = AndroidInAppWebViewController(
       AndroidInAppWebViewControllerCreationParams(
         id: id,
@@ -322,6 +322,7 @@ class AndroidHeadlessInAppWebView extends PlatformHeadlessInAppWebView
     return null;
   }
 
+  @override
   Future<void> run() async {
     if (_started) {
       return;
@@ -379,9 +380,7 @@ class AndroidHeadlessInAppWebView extends PlatformHeadlessInAppWebView
     if ((params.shouldInterceptAjaxRequest != null ||
         params.onAjaxProgress != null ||
         params.onAjaxReadyStateChange != null)) {
-      if (settings.useShouldInterceptAjaxRequest == null) {
-        settings.useShouldInterceptAjaxRequest = true;
-      }
+      settings.useShouldInterceptAjaxRequest ??= true;
       if (params.onAjaxReadyStateChange != null &&
           settings.useOnAjaxReadyStateChange == null) {
         settings.useOnAjaxReadyStateChange = true;

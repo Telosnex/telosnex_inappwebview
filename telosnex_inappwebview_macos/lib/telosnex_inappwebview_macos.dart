@@ -1,3 +1,3 @@
-library telosnex_inappwebview_macos;
+library;
 
 export 'src/main.dart';

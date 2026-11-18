@@ -27,22 +27,27 @@ class WebMessagePort implements IWebMessagePort {
   ///{@macro telosnex_inappwebview_platform_interface.PlatformWebMessagePort.setWebMessageCallback}
   ///
   ///{@macro telosnex_inappwebview_platform_interface.PlatformWebMessagePort.setWebMessageCallback.supported_platforms}
+  @override
   Future<void> setWebMessageCallback(WebMessageCallback? onMessage) =>
       platform.setWebMessageCallback(onMessage);
 
   ///{@macro telosnex_inappwebview_platform_interface.PlatformWebMessagePort.postMessage}
   ///
   ///{@macro telosnex_inappwebview_platform_interface.PlatformWebMessagePort.postMessage.supported_platforms}
+  @override
   Future<void> postMessage(WebMessage message) => platform.postMessage(message);
 
   ///{@macro telosnex_inappwebview_platform_interface.PlatformWebMessagePort.close}
   ///
   ///{@macro telosnex_inappwebview_platform_interface.PlatformWebMessagePort.close.supported_platforms}
+  @override
   Future<void> close() => platform.close();
 
+  @override
   Map<String, dynamic> toMap({EnumMethod? enumMethod}) =>
       platform.toMap(enumMethod: enumMethod);
 
+  @override
   Map<String, dynamic> toJson() => platform.toJson();
 
   @override

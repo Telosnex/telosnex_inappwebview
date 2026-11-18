@@ -29,7 +29,7 @@ class _WebViewEnvironmentSettingsEditorScreenState
   String _searchQuery = '';
   Set<String> _expandedCategories = {};
   Map<String, dynamic> _localSettings = {};
-  Set<String> _modifiedKeys = {};
+  final Set<String> _modifiedKeys = {};
 
   @override
   void initState() {

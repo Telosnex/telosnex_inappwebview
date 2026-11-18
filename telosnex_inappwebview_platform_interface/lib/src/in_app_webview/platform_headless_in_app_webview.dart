@@ -404,6 +404,7 @@ abstract class PlatformHeadlessInAppWebView extends PlatformInterface
   ///{@endtemplate}
   ///
   ///{@macro telosnex_inappwebview_platform_interface.PlatformHeadlessInAppWebView.dispose.supported_platforms}
+  @override
   @SupportedPlatforms(
     platforms: [
       AndroidPlatform(),
