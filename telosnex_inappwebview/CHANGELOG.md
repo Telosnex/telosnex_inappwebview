@@ -1,3 +1,7 @@
+## 1.1.1
+
+- Flutter 3.50 compatability
+
 ## 1.1.0
 
 - The plugin can be used in WebAssembly builds without importing the native

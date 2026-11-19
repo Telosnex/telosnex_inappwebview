@@ -1,6 +1,6 @@
 name: telosnex_inappwebview
 description: A Flutter plugin for an inline webview, a headless webview, and an in-app browser. A maintained fork of flutter_inappwebview, with a WPE WebKit Linux backend.
-version: 1.1.0
+version: 1.1.1
 homepage: https://github.com/Telosnex/telosnex_inappwebview
 repository: https://github.com/Telosnex/telosnex_inappwebview/tree/master/telosnex_inappwebview
 issue_tracker: https://github.com/Telosnex/telosnex_inappwebview/issues

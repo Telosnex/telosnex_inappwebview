@@ -1,3 +1,7 @@
+## 1.0.2
+
+- Flutter 3.50 compatability
+
 ## 1.0.1
 
 - Keep the native localhost server out of WebAssembly builds.

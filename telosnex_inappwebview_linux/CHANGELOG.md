@@ -1,3 +1,7 @@
+## 1.0.2
+
+- Flutter 3.50 compatability
+
 ## 1.0.1
 
 - Requires `telosnex_inappwebview_platform_interface` 1.1.0.
