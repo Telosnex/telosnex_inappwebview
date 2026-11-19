@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:js_interop';
 import 'dart:typed_data' as typed_data;
+import 'dart:ui_web' as ui_web;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -413,7 +414,7 @@ class InAppWebViewWebElement implements Disposable {
 
   Future<void> loadFile({required String assetFilePath}) async {
     isLoading = true;
-    iframe.src = assetFilePath;
+    iframe.src = ui_web.assetManager.getAssetUrl(assetFilePath);
   }
 
   Future<void> reload() async {
