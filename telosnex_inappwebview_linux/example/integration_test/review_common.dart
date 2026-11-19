@@ -44,11 +44,15 @@ Future<void> waitFor(
   bool Function() condition, {
   Duration timeout = const Duration(seconds: 15),
   String reason = 'condition',
+  String Function()? diagnostics,
 }) async {
   final end = DateTime.now().add(timeout);
   while (!condition()) {
     if (DateTime.now().isAfter(end)) {
-      fail('timed out waiting for $reason');
+      final context = diagnostics?.call();
+      fail(
+        'timed out waiting for $reason${context == null ? '' : ' ($context)'}',
+      );
     }
     await tester.pump(const Duration(milliseconds: 16));
     await Future<void>.delayed(const Duration(milliseconds: 16));
@@ -106,6 +110,10 @@ class TestView {
     ContextMenu? contextMenu,
   }) async {
     late TestView t;
+    final startedAt = Stopwatch()..start();
+    final startup = <String>[];
+    void record(String event) =>
+        startup.add('$event at ${startedAt.elapsedMilliseconds}ms');
     final view = LinuxHeadlessInAppWebView(
       LinuxHeadlessInAppWebViewCreationParams(
         initialData: url == null
@@ -121,13 +129,18 @@ class TestView {
         contextMenu: contextMenu,
         onWebViewCreated: (c) {
           t._controller = c as LinuxInAppWebViewController;
+          record('view created');
           onCreated?.call(t._controller!);
         },
-        onLoadStart: onLoadStart,
+        onLoadStart: (c, u) {
+          if (t.loadStops.isEmpty) record('load started: $u');
+          onLoadStart?.call(c, u);
+        },
         onLoadStop: (_, u) => t.loadStops.add(u?.toString()),
         onConsoleMessage: (_, m) => t.console.add(m.message),
         onReceivedError: (c, r, e) {
           t.errors.add(e);
+          if (t.loadStops.isEmpty) record('load error: ${e.description}');
           onReceivedError?.call(c, r, e);
         },
         shouldOverrideUrlLoading: shouldOverrideUrlLoading,
@@ -145,11 +158,29 @@ class TestView {
       ),
     );
     t = TestView._(view);
-    await view.run();
-    if (waitForLoad) {
-      await waitFor(tester, () => t.loadStops.isNotEmpty, reason: 'first load');
+    try {
+      await view.run();
+      record('run completed');
+      if (waitForLoad) {
+        await waitFor(
+          tester,
+          () => t.loadStops.isNotEmpty,
+          reason: 'first load',
+          diagnostics: () => startup.join(', '),
+        );
+      }
+      return t;
+    } catch (_) {
+      // A failed setup must not leave a live view behind for the next case.
+      try {
+        await t.dispose();
+      } catch (error) {
+        // Preserve the original error and its timeline.
+        // ignore: avoid_print
+        print('Failed to dispose view after startup error: $error');
+      }
+      rethrow;
     }
-    return t;
   }
 
   Future<dynamic> js(String source) =>
