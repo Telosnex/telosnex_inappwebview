@@ -34,7 +34,7 @@ Future<T> _windowStep<T>(
   return result;
 }
 
-/// Pumps [widget], then pumps again until [key] is in the tree.
+/// Pumps until [key] is in the tree, first attaching [widget] if supplied.
 ///
 /// In each of 6 logged "popup onWebViewCreated" failures (Linux, macOS),
 /// pumpWidget returned in 0-2 ms and the popup never asked the platform to
@@ -44,10 +44,14 @@ Future<T> _windowStep<T>(
 /// popup missed by that pump stayed unbuilt while the test waited.
 Future<void> _pumpUntilBuilt(
   WidgetTester tester,
-  Widget widget,
-  GlobalKey key,
-) async {
-  await tester.pumpWidget(widget);
+  GlobalKey key, {
+  Widget? widget,
+}) async {
+  if (widget != null) {
+    await tester.pumpWidget(widget);
+  } else {
+    await tester.pump();
+  }
   for (var pumps = 1; key.currentContext == null; pumps++) {
     if (pumps == 20) {
       throw TestFailure('$key not built after $pumps pumps');
@@ -156,65 +160,71 @@ void webViewWindows() {
           return true;
         },
       );
+      final Completer<void> popupCreated = Completer<void>();
+      final Completer<String> windowPageLoaded = Completer<String>();
+      final Completer<void> onCloseWindowCompleter = Completer<void>();
+      final popupKey = GlobalKey();
+      final popupWindowId = ValueNotifier<int?>(null);
+      addTearDown(popupWindowId.dispose);
+
+      // Reserve both slots from the start. In the real popup handoff the
+      // native opener stays alive. Don't reparent and resize it while its
+      // native view is delivering the onCreateWindow event; on Linux that
+      // sometimes stranded the Flutter frame which mounts the child view.
       await _windowStep(
         'pump the opener',
         _pumpUntilBuilt(
           tester,
-          Directionality(textDirection: TextDirection.ltr, child: opener),
           openerKey,
-        ),
-        failed,
-      );
-
-      final windowId = await _windowStep(
-        'onCreateWindow',
-        onCreateWindowCompleter.future,
-        failed,
-      );
-
-      final Completer<void> popupCreated = Completer<void>();
-      final Completer<String> windowPageLoaded = Completer<String>();
-      final Completer<void> onCloseWindowCompleter = Completer<void>();
-
-      final popupKey = GlobalKey();
-      await _windowStep(
-        'pump the popup',
-        _pumpUntilBuilt(
-          tester,
-          Directionality(
+          widget: Directionality(
             textDirection: TextDirection.ltr,
             child: Column(
               children: [
                 Expanded(child: opener),
                 Expanded(
-                  child: InAppWebView(
-                    key: popupKey,
-                    windowId: windowId,
-                    initialSettings: InAppWebViewSettings(clearCache: true),
-                    onWebViewCreated: (controller) {
-                      popupCreated.complete();
-                    },
-                    onRenderProcessGone: popupEnded.gone,
-                    onWebContentProcessDidTerminate: popupEnded.terminated,
-                    onLoadStop: (controller, url) async {
-                      if (url!.scheme != "about" &&
-                          !windowPageLoaded.isCompleted) {
-                        windowPageLoaded.complete(url.toString());
-                        await controller.evaluateJavascript(
-                          source: "window.close();",
-                        );
-                      }
-                    },
-                    onCloseWindow: (controller) {
-                      onCloseWindowCompleter.complete();
+                  child: ValueListenableBuilder<int?>(
+                    valueListenable: popupWindowId,
+                    builder: (context, windowId, _) {
+                      if (windowId == null) return const SizedBox.shrink();
+                      return InAppWebView(
+                        key: popupKey,
+                        windowId: windowId,
+                        initialSettings: InAppWebViewSettings(clearCache: true),
+                        onWebViewCreated: (controller) {
+                          popupCreated.complete();
+                        },
+                        onRenderProcessGone: popupEnded.gone,
+                        onWebContentProcessDidTerminate: popupEnded.terminated,
+                        onLoadStop: (controller, url) async {
+                          if (url!.scheme != "about" &&
+                              !windowPageLoaded.isCompleted) {
+                            windowPageLoaded.complete(url.toString());
+                            await controller.evaluateJavascript(
+                              source: "window.close();",
+                            );
+                          }
+                        },
+                        onCloseWindow: (controller) {
+                          onCloseWindowCompleter.complete();
+                        },
+                      );
                     },
                   ),
                 ),
               ],
             ),
           ),
-          popupKey,
         ),
+        failed,
+      );
+      popupWindowId.value = await _windowStep(
+        'onCreateWindow',
+        onCreateWindowCompleter.future,
+        failed,
+      );
+      await _windowStep(
+        'pump the popup',
+        _pumpUntilBuilt(tester, popupKey),
         failed,
       );
 

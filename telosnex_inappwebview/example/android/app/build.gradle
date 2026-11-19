@@ -23,6 +23,9 @@ if (flutterVersionName == null) {
 }
 
 android {
+    buildFeatures {
+        buildConfig = true
+    }
     namespace 'com.telosnex.telosnex_inappwebviewexample'
 
     compileOptions {

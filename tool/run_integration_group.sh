@@ -176,11 +176,15 @@ launch() {
   fi
   result=$(grep -oE '\+[0-9]+( ~[0-9]+)?( -[0-9]+)?: (All tests passed|Some tests failed)' "$log" | tail -1)
   if [[ "${IAW_DRIVER:-}" == web && -z "$result" ]]; then
-    # integrationDriver: "All tests passed." or "Failure in method: <test>".
-    if grep -q 'All tests passed' "$log"; then
-      result="all tests passed"
-    elif grep -q 'Failure in method:' "$log"; then
-      result="failed: $(grep -c 'Failure in method:' "$log")"
+    # Only a complete report can identify all failing units. Keep the
+    # conservative relaunch path when the driver exited without one.
+    local web_summary
+    web_summary=$(grep '^TELOSNEX_WEB_TEST_SUMMARY: ' "$log" | tail -1)
+    if grep -Eq '"version": *1 *[,}]' <<< "$web_summary" &&
+       grep -Eq '"notRun": *0 *[,}]' <<< "$web_summary"; then
+      if grep -Eq '^(All tests passed|Some tests failed)\.$' "$log"; then
+        result="$web_summary"
+      fi
     fi
   fi
   if [[ $code == 142 ]]; then
@@ -194,7 +198,7 @@ launch() {
 report() {
   echo "::group::$1: exit $code, ${seconds}s, ${result:-no summary}${3:+ ($3)}"
   grep -E '\[E\]$' "$2" | sed -E 's/^[0-9:]+ \+[0-9]+ ~?[0-9]* ?-[0-9]+: //' | head -40
-  grep -E '^Failure in method:' "$2" | head -40
+  grep -E '^(FAILED|Failure in method):' "$2" | head -40
   [[ -z "$result" ]] && tail -40 "$2"
   echo "::endgroup::"
   summary+="| $1 | ${result:-exit $code, no summary}${3:+ ($3)} | $seconds |"$'\n'
@@ -208,7 +212,7 @@ one_launch_warning() {
   local tests first count
   tests=$( { grep -E '\[E\]$' "$1" |
       sed -E 's/^[0-9:]+ \+[0-9]+( ~[0-9]+)?( -[0-9]+)?: //; s/( - did not complete)? \[E\]$//'
-    grep -E '^Failure in method:' "$1" | sed -E 's/^Failure in method: *//'; } |
+    grep -E '^(FAILED|Failure in method):' "$1" | sed -E 's/^(FAILED|Failure in method): *//'; } |
     awk '!seen[$0]++')
   first=$(head -1 <<< "$tests")
   count=$(grep -c . <<< "$tests")
@@ -244,9 +248,9 @@ if [[ $all == 1 && "${IAW_ONE_LAUNCH:-1}" == 1 ]]; then
   one_result=$result one_code=$code
   if [[ $code != 0 ]]; then
     rerun=()
-    # Units with a failed test: "[E]" lines (flutter test) or "Failure in
-    # method:" (flutter drive), whose names start with [unit].
-    failing=$( { grep -E '\[E\]$' "$log"; grep -E '^Failure in method:' "$log"; } |
+    # Units with a failed test: "[E]" (flutter test), "FAILED:" (the web
+    # driver), or "Failure in method:" (legacy), with test names [unit] ... .
+    failing=$( { grep -E '\[E\]$' "$log"; grep -E '^(FAILED|Failure in method):' "$log"; } |
       grep -oE '\[[a-z_]+(:[0-9]/[0-9])?\]' | tr -d '[]' | sort -u)
     # The unit of the last test that started.
     last=$(grep -oE '^[0-9:]+ \+[0-9]+( ~[0-9]+)?( -[0-9]+)?: \[[a-z_]+(:[0-9]/[0-9])?\]' "$log" |
@@ -257,7 +261,8 @@ if [[ $all == 1 && "${IAW_ONE_LAUNCH:-1}" == 1 ]]; then
     ended=1
     [[ $code == 142 || -z "$result" ]] && ended=0
     # A failure outside any unit (tearDownAll, loading): every unit.
-    if grep -E '\[E\]$' "$log" | grep -vqE ': \[[a-z_]+(:[0-9]/[0-9])?\]'; then
+    if { grep -E '\[E\]$' "$log"; grep -E '^(FAILED|Failure in method):' "$log"; } |
+        grep -vqE ': \[[a-z_]+(:[0-9]/[0-9])?\] '; then
       ended=0; last=
     fi
     reached=0
