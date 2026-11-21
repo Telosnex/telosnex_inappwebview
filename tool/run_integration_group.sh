@@ -26,6 +26,10 @@
 #   IAW_DRIVER      web: run with flutter drive on the web-server device
 #                   (start chromedriver or another WebDriver first).
 #
+# Linux: the app's native stderr (GLib warnings, the WebKit processes' own
+# output) goes to <unit>.native.log, which flutter test would drop. A failed
+# launch's WebKit process ends are also shown in the job log.
+#
 # An adb device (the Android emulator) that goes away stops the run: the
 # job log names the unit it went away in, and the units not run fail.
 #
@@ -145,7 +149,9 @@ launch() {
   fi
   local start pid notests=0 timedout=0
   start=$(date +%s)
-  perl -e 'alarm shift; exec @ARGV' "$lim" ${wrap[@]+"${wrap[@]}"} "${run[@]}" > "$log" 2>&1 < /dev/null &
+  # Read by the example's Linux runner (linux/runner/main.cc).
+  IAW_NATIVE_LOG="${log%.log}.native.log" \
+    perl -e 'alarm shift; exec @ARGV' "$lim" ${wrap[@]+"${wrap[@]}"} "${run[@]}" > "$log" 2>&1 < /dev/null &
   pid=$!
   while kill -0 $pid 2>/dev/null; do
     # No tests for this platform: flutter test exits 79, but with a desktop
@@ -200,6 +206,11 @@ report() {
   grep -E '\[E\]$' "$2" | sed -E 's/^[0-9:]+ \+[0-9]+ ~?[0-9]* ?-[0-9]+: //' | head -40
   grep -E '^(FAILED|Failure in method):' "$2" | head -40
   [[ -z "$result" ]] && tail -40 "$2"
+  # A web process that ended (Linux): the plugin logs why, in native stderr.
+  local native="${2%.log}.native.log"
+  if [[ $code != 0 && -s "$native" ]]; then
+    grep -E 'WebProcess terminated|CRITICAL|ERROR' "$native" | head -20
+  fi
   echo "::endgroup::"
   summary+="| $1 | ${result:-exit $code, no summary}${3:+ ($3)} | $seconds |"$'\n'
 }
