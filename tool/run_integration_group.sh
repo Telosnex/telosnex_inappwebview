@@ -209,7 +209,7 @@ report() {
   # A web process that ended (Linux): the plugin logs why, in native stderr.
   local native="${2%.log}.native.log"
   if [[ $code != 0 && -s "$native" ]]; then
-    grep -E 'WebProcess terminated|CRITICAL|ERROR' "$native" | head -20
+    grep -F 'WebProcess terminated' "$native" | head -20
   fi
   echo "::endgroup::"
   summary+="| $1 | ${result:-exit $code, no summary}${3:+ ($3)} | $seconds |"$'\n'
