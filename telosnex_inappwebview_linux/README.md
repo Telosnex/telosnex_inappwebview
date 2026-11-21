@@ -18,7 +18,7 @@ By default, the build downloads a pinned, prebuilt WPE WebKit SDK. It checks
 the SHA-256 of the SDK and bundles the SDK with the app. The app then runs
 without a WPE WebKit installation.
 
-The pinned SDK has WPE WebKit 2.54.2. There are SDKs for these systems:
+The pinned SDK has WPE WebKit 2.54.3. There are SDKs for these systems:
 
 - Ubuntu 26.04, x64 and arm64.
 - Debian 13, arm64.

@@ -1,3 +1,8 @@
+## 1.1.2
+
+- Requires `telosnex_inappwebview_linux` 1.0.3. Its WPE WebKit SDK is 2.54.3,
+  with security fixes and a fix for a web process crash.
+
 ## 1.1.1
 
 - Flutter 3.50 compatability

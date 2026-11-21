@@ -1,3 +1,10 @@
+## 1.0.3
+
+- The prebuilt WPE WebKit SDK is now WPE WebKit 2.54.3. It has the security
+  fixes of [WSA-2026-0007](https://wpewebkit.org/security/WSA-2026-0007.html).
+- Fixes a web process crash that could occur when a web view was closed
+  ([WebKit bug 327729](https://bugs.webkit.org/show_bug.cgi?id=327729)).
+
 ## 1.0.2
 
 - Flutter 3.50 compatability
