@@ -14,6 +14,9 @@ public class HeadlessInAppWebView: Disposable {
     var channelDelegate: HeadlessWebViewChannelDelegate?
     var flutterWebView: FlutterWebViewController?
     var plugin: TelosnexInAppWebViewPlugin?
+    /// Holds the webview in the main window's content view. dispose() must
+    /// remove it, or every headless webview leaves one empty NSView there.
+    private var wrapperView: NSView?
     
     public init(plugin: TelosnexInAppWebViewPlugin, id: String, flutterWebView: FlutterWebViewController) {
         self.id = id
@@ -43,9 +46,11 @@ public class HeadlessInAppWebView: Disposable {
             /// won't be executed sometimes.
             /// So, add the headless WKWebView to the view hierarchy.
             /// This way is also possible to take screenshots.
+            wrapperView?.removeFromSuperview()
             let wrapperView = NSView() // wrapper view with frame zero
             wrapperView.addSubview(view, positioned: .below, relativeTo: nil)
             NSApplication.shared.mainWindow?.contentView?.addSubview(wrapperView, positioned: .below, relativeTo: nil)
+            self.wrapperView = wrapperView
         }
     }
     
@@ -85,6 +90,8 @@ public class HeadlessInAppWebView: Disposable {
         if disposeWebView {
             flutterWebView?.dispose(removeFromSuperview: true)
         }
+        wrapperView?.removeFromSuperview()
+        wrapperView = nil
         flutterWebView = nil
         plugin = nil
     }
