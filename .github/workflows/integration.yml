@@ -180,6 +180,20 @@ jobs:
           Set-ItemProperty -Path $key -Name DumpCount -Value 5 -Type DWord
       - name: Example integration suite
         run: tool/run_integration_group.sh "$DEVICE"
+      # Native XCTests of the macOS plugin (headless webview wrapper, release
+      # and dealloc log). They run in the macOS plugin's example app, which the
+      # integration suite does not build.
+      - name: macOS native tests (RunnerTests)
+        if: ${{ !cancelled() && env.DEVICE == 'macos' }}
+        working-directory: telosnex_inappwebview_macos/example
+        run: |
+          flutter build macos --debug
+          cd macos
+          xcodebuild test -workspace Runner.xcworkspace -scheme Runner \
+            -configuration Debug -destination 'platform=macOS' \
+            -only-testing:RunnerTests \
+            -resultBundlePath "$IAW_LOGS/RunnerTests.xcresult" \
+            CODE_SIGN_IDENTITY=- CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM=
       # The app's crash and exit events, with their exception codes.
       - name: Collect Windows crash events
         if: ${{ !cancelled() && env.DEVICE == 'windows' }}
@@ -196,7 +210,8 @@ jobs:
         run: |
           mkdir -p "$IAW_LOGS/crash"
           find ~/Library/Logs/DiagnosticReports /Library/Logs/DiagnosticReports \
-            -name 'telosnex_inappwebview_example*' -exec cp {} "$IAW_LOGS/crash/" \; 2>/dev/null || true
+            \( -name 'telosnex_inappwebview_example*' -o -name 'telosnex_inappwebview_macos_example*' \) \
+            -exec cp {} "$IAW_LOGS/crash/" \; 2>/dev/null || true
       - if: ${{ !cancelled() }}
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
