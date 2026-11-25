@@ -1,6 +1,6 @@
 name: telosnex_inappwebview_ios
 description: iOS implementation of the telosnex_inappwebview plugin.
-version: 1.0.1
+version: 1.0.2
 homepage: https://github.com/Telosnex/telosnex_inappwebview
 repository: https://github.com/Telosnex/telosnex_inappwebview/tree/master/telosnex_inappwebview_ios
 issue_tracker: https://github.com/Telosnex/telosnex_inappwebview/issues

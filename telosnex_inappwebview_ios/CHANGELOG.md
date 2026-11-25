@@ -1,3 +1,8 @@
+## 1.0.2
+
+- Log one `HeadlessInAppWebView - dealloc` message with `NSLog`, which is
+  written at once. The other dealloc messages are removed.
+
 ## 1.0.1
 
 - Requires `telosnex_inappwebview_platform_interface` 1.1.0.

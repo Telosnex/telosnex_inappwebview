@@ -1,3 +1,10 @@
+## 1.0.2
+
+- Fix a leak: each headless webview left an empty `NSView` in the main
+  window after `dispose()`. The wrapper view is now removed.
+- Log one `HeadlessInAppWebView - dealloc` message with `NSLog`, which is
+  written at once. The other dealloc messages are removed.
+
 ## 1.0.1
 
 - Requires `telosnex_inappwebview_platform_interface` 1.1.0.
