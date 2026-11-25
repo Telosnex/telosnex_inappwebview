@@ -1,3 +1,7 @@
+## 1.1.1
+
+- Add an example that shows how to register a platform implementation.
+
 ## 1.1.0
 
 - Load the localhost server implementation only on native platforms. On Web,
