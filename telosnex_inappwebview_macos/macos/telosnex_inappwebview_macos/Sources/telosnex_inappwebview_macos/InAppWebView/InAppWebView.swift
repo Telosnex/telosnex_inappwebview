@@ -2864,8 +2864,4 @@ if(window.\(JavaScriptBridgeJS.get_JAVASCRIPT_BRIDGE_NAME())[\(_callHandlerID)] 
         callAsyncJavaScriptBelowMacOS11Results.removeAll()
         plugin = nil
     }
-    
-    deinit {
-        debugPrint("InAppWebView - dealloc")
-    }
 }

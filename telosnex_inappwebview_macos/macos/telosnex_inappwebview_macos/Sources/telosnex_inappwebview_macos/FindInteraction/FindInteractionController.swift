@@ -93,7 +93,6 @@ public class FindInteractionController: NSObject, Disposable {
     }
     
     deinit {
-        debugPrint("FindInteractionControl - dealloc")
         dispose()
     }
 }

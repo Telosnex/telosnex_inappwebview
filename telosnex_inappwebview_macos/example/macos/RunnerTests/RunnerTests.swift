@@ -87,7 +87,7 @@ class HeadlessInAppWebViewWrapperTests: XCTestCase {
 
     flutterWebView.dispose(removeFromSuperview: true)
   }
-  // MARK: - Memory release
+  // MARK: - Memory release and dealloc logging
 
   /// Weak references to the objects behind one headless webview.
   private struct WeakGraph {
@@ -144,6 +144,95 @@ class HeadlessInAppWebViewWrapperTests: XCTestCase {
     XCTAssertEqual(
       graph.alive, [],
       "These objects are still alive after HeadlessInAppWebView.dispose().")
+  }
+
+  /// Under `flutter run`, the app's stdout and stderr are pipes, and stdio
+  /// fully buffers stdout in 16 KiB blocks. Dealloc messages written there
+  /// appear about 99 webviews late, all at once, and look like a bulk release.
+  /// The dealloc message must be readable as soon as the object is released.
+  func testDeallocLogIsWrittenWhenTheObjectIsReleased() throws {
+    let stdoutCapture = try OutputCapture(fd: STDOUT_FILENO, stream: stdout)
+    defer { stdoutCapture.stop() }
+    let stderrCapture = try OutputCapture(fd: STDERR_FILENO, stream: stderr)
+    defer { stderrCapture.stop() }
+
+    let graph = try runAndDisposeHeadless(id: "dealloc-log")
+    XCTAssertEqual(graph.alive, [], "Precondition: the objects were released.")
+
+    let written = stdoutCapture.readAvailable() + stderrCapture.readAvailable()
+    XCTAssertTrue(
+      written.contains("HeadlessInAppWebView - dealloc"),
+      "The dealloc message was not written when the object was released. "
+        + "Bytes readable from stdout and stderr: \(written.utf8.count).")
+  }
+}
+
+/// Sends a file descriptor to a pipe and reads what has reached it, without
+/// flushing stdio.
+///
+/// Under `flutter run`, the app's stdout and stderr are pipes: stdio fully
+/// buffers stdout in 16 KiB blocks and does not buffer stderr. Under
+/// `xcodebuild`, they are terminals and Xcode makes stdout unbuffered. stdio
+/// picks the mode when a stream is first used, so changing the descriptor
+/// alone does not change it. This class sets the `flutter run` mode
+/// explicitly and restores the original mode when it stops.
+private final class OutputCapture {
+  private static let lineBuffered: Int16 = 0x0001  // __SLBF
+  private static let unbuffered: Int16 = 0x0002  // __SNBF
+  private static let pipeBufferSize = 16 * 1024
+
+  private let fd: Int32
+  private let stream: UnsafeMutablePointer<FILE>
+  private let savedFd: Int32
+  private let readEnd: Int32
+  private let savedMode: Int32
+  private var stopped = false
+
+  init(fd: Int32, stream: UnsafeMutablePointer<FILE>) throws {
+    self.fd = fd
+    self.stream = stream
+    // Write out anything from earlier tests so that it is not captured.
+    fflush(stream)
+    var fds: [Int32] = [0, 0]
+    guard pipe(&fds) == 0 else { throw TestSetupError("pipe() failed: \(errno)") }
+    readEnd = fds[0]
+    _ = fcntl(readEnd, F_SETFL, fcntl(readEnd, F_GETFL) | O_NONBLOCK)
+    savedFd = dup(fd)
+    dup2(fds[1], fd)
+    close(fds[1])
+
+    let flags = stream.pointee._flags
+    savedMode =
+      flags & Self.unbuffered != 0
+      ? _IONBF : flags & Self.lineBuffered != 0 ? _IOLBF : _IOFBF
+    if fd == STDERR_FILENO {
+      setvbuf(stream, nil, _IONBF, 0)
+    } else {
+      setvbuf(stream, nil, _IOFBF, Self.pipeBufferSize)
+    }
+  }
+
+  func readAvailable() -> String {
+    var data = Data()
+    var buffer = [UInt8](repeating: 0, count: 4096)
+    while true {
+      let count = read(readEnd, &buffer, buffer.count)
+      if count <= 0 { break }
+      data.append(contentsOf: buffer[0..<count])
+    }
+    return String(decoding: data, as: UTF8.self)
+  }
+
+  func stop() {
+    guard !stopped else { return }
+    stopped = true
+    // Restore the descriptor first. Then the flush sends text that was still
+    // buffered to the real output, not to the pipe.
+    dup2(savedFd, fd)
+    close(savedFd)
+    fflush(stream)
+    setvbuf(stream, nil, savedMode, savedMode == _IONBF ? 0 : Self.pipeBufferSize)
+    close(readEnd)
   }
 }
 

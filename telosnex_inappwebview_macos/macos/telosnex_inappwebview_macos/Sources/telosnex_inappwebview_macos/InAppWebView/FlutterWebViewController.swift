@@ -194,7 +194,6 @@ public class FlutterWebViewController: NSView, Disposable {
     }
     
     deinit {
-        debugPrint("FlutterWebViewController - dealloc")
         dispose()
     }
 }
