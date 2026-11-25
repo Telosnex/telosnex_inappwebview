@@ -1,6 +1,6 @@
 name: telosnex_inappwebview_platform_interface
 description: A common platform interface for the telosnex_inappwebview plugin.
-version: 1.1.0
+version: 1.1.1
 homepage: https://github.com/Telosnex/telosnex_inappwebview
 repository: https://github.com/Telosnex/telosnex_inappwebview/tree/master/telosnex_inappwebview_platform_interface
 issue_tracker: https://github.com/Telosnex/telosnex_inappwebview/issues
