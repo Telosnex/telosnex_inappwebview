@@ -79,7 +79,7 @@ jobs:
             "${runtime[@]}" > /dev/null
           mkdir -p "$XDG_RUNTIME_DIR"
           chmod 700 "$XDG_RUNTIME_DIR"
-      - uses: Telosnex/telosnex_ci_tools/actions/setup-flutter@0ab334b66d7bb8ff0f436b8e9739eb014ab35b79 # v0.5.24
+      - uses: Telosnex/telosnex_ci_tools/actions/setup-flutter@2b3e8c2aeffd68d7aeb371c35e58699357aefffc # v0.5.25
       - run: npm ci
         if: ${{ env.SUITE == 'example' }}
         working-directory: test_node_server
@@ -160,7 +160,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - uses: Telosnex/telosnex_ci_tools/actions/setup-flutter@0ab334b66d7bb8ff0f436b8e9739eb014ab35b79 # v0.5.24
+      - uses: Telosnex/telosnex_ci_tools/actions/setup-flutter@2b3e8c2aeffd68d7aeb371c35e58699357aefffc # v0.5.25
       - run: npm ci
         working-directory: test_node_server
       - run: flutter pub get
@@ -246,12 +246,12 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - uses: Telosnex/telosnex_ci_tools/actions/setup-flutter@0ab334b66d7bb8ff0f436b8e9739eb014ab35b79 # v0.5.24
+      - uses: Telosnex/telosnex_ci_tools/actions/setup-flutter@2b3e8c2aeffd68d7aeb371c35e58699357aefffc # v0.5.25
       - run: npm ci
         working-directory: test_node_server
       - run: flutter pub get
         working-directory: telosnex_inappwebview/example
-      - uses: Telosnex/telosnex_ci_tools/actions/ios-simulator-boot@0ab334b66d7bb8ff0f436b8e9739eb014ab35b79 # v0.5.24
+      - uses: Telosnex/telosnex_ci_tools/actions/ios-simulator-boot@2b3e8c2aeffd68d7aeb371c35e58699357aefffc # v0.5.25
         id: simulator
       - name: Example integration suite
         env:
@@ -285,12 +285,12 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - uses: Telosnex/telosnex_ci_tools/actions/setup-flutter@0ab334b66d7bb8ff0f436b8e9739eb014ab35b79 # v0.5.24
+      - uses: Telosnex/telosnex_ci_tools/actions/setup-flutter@2b3e8c2aeffd68d7aeb371c35e58699357aefffc # v0.5.25
       - run: npm ci
         working-directory: test_node_server
       - run: flutter pub get
         working-directory: telosnex_inappwebview/example
-      - uses: Telosnex/telosnex_ci_tools/actions/android-emulator@0ab334b66d7bb8ff0f436b8e9739eb014ab35b79 # v0.5.24
+      - uses: Telosnex/telosnex_ci_tools/actions/android-emulator@2b3e8c2aeffd68d7aeb371c35e58699357aefffc # v0.5.25
         id: emulator
         with:
           api-level: '36'
@@ -363,11 +363,11 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - uses: Telosnex/telosnex_ci_tools/actions/setup-flutter@0ab334b66d7bb8ff0f436b8e9739eb014ab35b79 # v0.5.24
+      - uses: Telosnex/telosnex_ci_tools/actions/setup-flutter@2b3e8c2aeffd68d7aeb371c35e58699357aefffc # v0.5.25
       # 172.17.0.1 is the runner, from Docker's default bridge.
       - name: The test server address
         run: NODE_SERVER_IP=172.17.0.1 dart tool/env.dart
-      - uses: Telosnex/telosnex_ci_tools/actions/android-test-apks@0ab334b66d7bb8ff0f436b8e9739eb014ab35b79 # v0.5.24
+      - uses: Telosnex/telosnex_ci_tools/actions/android-test-apks@2b3e8c2aeffd68d7aeb371c35e58699357aefffc # v0.5.25
         with:
           working-directory: telosnex_inappwebview/example
           targets: integration_test/webview_flutter_test.dart
@@ -384,8 +384,8 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - uses: Telosnex/telosnex_ci_tools/actions/setup-flutter@0ab334b66d7bb8ff0f436b8e9739eb014ab35b79 # v0.5.24
-      - uses: Telosnex/telosnex_ci_tools/actions/download-artifact@0ab334b66d7bb8ff0f436b8e9739eb014ab35b79 # v0.5.24
+      - uses: Telosnex/telosnex_ci_tools/actions/setup-flutter@2b3e8c2aeffd68d7aeb371c35e58699357aefffc # v0.5.25
+      - uses: Telosnex/telosnex_ci_tools/actions/download-artifact@2b3e8c2aeffd68d7aeb371c35e58699357aefffc # v0.5.25
         with:
           name: android-test-apks
           path: ${{ runner.temp }}/apks
@@ -394,7 +394,7 @@ jobs:
       - name: Start the test server
         working-directory: test_node_server
         run: node index.js > "$RUNNER_TEMP/node.log" 2>&1 &
-      - uses: Telosnex/telosnex_ci_tools/actions/android-arm64-container@0ab334b66d7bb8ff0f436b8e9739eb014ab35b79 # v0.5.24
+      - uses: Telosnex/telosnex_ci_tools/actions/android-arm64-container@2b3e8c2aeffd68d7aeb371c35e58699357aefffc # v0.5.25
         with:
           apks: ${{ runner.temp }}/apks
           idle-minutes: '15'
@@ -412,12 +412,12 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - uses: Telosnex/telosnex_ci_tools/actions/setup-flutter@0ab334b66d7bb8ff0f436b8e9739eb014ab35b79 # v0.5.24
+      - uses: Telosnex/telosnex_ci_tools/actions/setup-flutter@2b3e8c2aeffd68d7aeb371c35e58699357aefffc # v0.5.25
       - run: npm ci
         working-directory: test_node_server
       - run: flutter pub get
         working-directory: telosnex_inappwebview/example
-      - uses: Telosnex/telosnex_ci_tools/actions/web-driver@0ab334b66d7bb8ff0f436b8e9739eb014ab35b79 # v0.5.24
+      - uses: Telosnex/telosnex_ci_tools/actions/web-driver@2b3e8c2aeffd68d7aeb371c35e58699357aefffc # v0.5.25
         with:
           browser: chrome
           artifact-name: logs-web
